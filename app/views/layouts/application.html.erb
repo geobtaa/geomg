@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GEOMG</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag "application", defer: true %>
+    <%= javascript_pack_tag 'application', defer: true  %>
+    <%= javascript_pack_tag 'admin', defer: true %>
+  </head>
+
+  <body>
+    <div class="container-fluid">
+      <%= yield %>
+    </div>
+  </body>
+</html>

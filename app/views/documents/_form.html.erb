@@ -1,0 +1,36 @@
+<%= kithe_form_for(document, :html=> { novalidate: true, class: 'edit-document mx-auto edit' }) do |f| %>
+  <div class="admin-header sticky-top d-flex justify-content-between p-2 mb-4 mt-1 bg-light border">
+
+    <div class="mr-2">
+      <h1 class="h5">
+        <% if @document.persisted? %>
+          <i>Editing</i> <%= truncate(@document.title, length: 80) %> <i>(<%= @document.friendlier_id %>)</i>
+        <% else %>
+          New document
+        <% end %>
+      </h1>
+    </div>
+
+    <div class="form-actions">
+      <%= link_to 'Cancel', documents_url, class: "btn btn-outline-primary" %>
+      <%= f.button :submit, class: "btn btn-primary" %>
+    </div>
+  </div>
+
+  <% if @document.errors.any? %>
+    <div class="kithe-form-errors-top alert alert-danger mb-4" role="alert"">
+      <h2 class="h4" class="alert-heading"><%= pluralize(document.errors.count, "error") %> prohibited this document from being saved</h2>
+      <ol class="mb-0">
+      <% @document.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+    </div>
+  <% end %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+
+    <%= render "document_fields", f: f %>
+  </div>
+<% end %>
