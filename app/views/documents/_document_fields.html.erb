@@ -1,0 +1,33 @@
+<%= f.input :layer_slug_s, required: true %>
+
+<%= f.input :dc_rights_s, required: true, collection: Document::ControlledLists::RIGHTS %>
+<%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES  %>
+<%= f.input :dc_format_s, required: true, collection: Document::ControlledLists::FORMATS %>
+<%= f.input :dc_description_s, as: :text, input_html: { rows: 5 } %>
+<%= f.input :dc_identifier_s %>
+<%= f.repeatable_attr_input :dc_language_sm, build: :at_least_one,
+  html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "languages")} %>
+<%= f.repeatable_attr_input :dct_isPartOf_sm, build: :at_least_one %>
+<%= f.input :dct_provenance_s %>
+
+<%= f.repeatable_attr_input(:dct_references_s, build: :at_least_one) do |sub_form| %>
+  <%= category_and_value(sub_form, category_list: Document::Reference::URI_VALUES) %>
+<% end %>
+
+<%= f.repeatable_attr_input :dc_type_sm, build: :at_least_one %>
+<%= f.repeatable_attr_input :dct_spatial_sm, build: :at_least_one %>
+<%= f.repeatable_attr_input :dct_temporal_sm, build: :at_least_one %>
+
+<%= f.input :solr_geom %>
+<%= f.input :solr_year_i %>
+
+<hr/>
+
+<%= f.input :b1g_centroid_ss %>
+<%= f.input :b1g_code_s %>
+<%= f.input :b1g_dateAccessioned_s %>
+<%= f.repeatable_attr_input :b1g_date_range_drsim, build: :at_least_one %>
+<%= f.repeatable_attr_input :b1g_genre_sm, build: :at_least_one %>
+<%= f.input :b1g_image_ss %>
+<%= f.repeatable_attr_input :b1g_keyword_sm, build: :at_least_one %>
+<%= f.input :b1g_status_s, required: true, collection: Document::ControlledLists::B1G_STATUS %>
