@@ -55,9 +55,9 @@ module FormInputHelper
       elsif model_class.respond_to?(:model_name) && key.present?
         I18n.t(key,
           scope: "activemodel.enum_values.#{model_class.model_name.i18n_key}.#{category_key}",
-          default: key.humanize)
+          default: key)
       else
-        key.humanize
+        key
       end
 
       [value, key]
