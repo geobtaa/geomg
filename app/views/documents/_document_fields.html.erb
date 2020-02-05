@@ -11,7 +11,7 @@
 <%= f.input :dct_provenance_s %>
 
 <%= f.repeatable_attr_input(:dct_references_s, build: :at_least_one) do |sub_form| %>
-  <%= category_and_value(sub_form, category_list: Document::Reference::URI_VALUES) %>
+  <%= category_and_value(sub_form, category_list: Document::Reference::REFERENCE_LABELS) %>
 <% end %>
 
 <%= f.repeatable_attr_input :dc_type_sm, build: :at_least_one %>
