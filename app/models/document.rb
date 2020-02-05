@@ -36,7 +36,7 @@ class Document < Kithe::Work
   # Transformations
   def references_json
     references = Hash.new
-    self.dct_references_s.each{|ref| references[ref.category] = ref.value }
+    self.dct_references_s.each{ |ref| references[Document::Reference.lookup(ref.category)] = ref.value }
     references.to_json
   end
 end
