@@ -1,0 +1,19 @@
+en:
+# Customizing model and attribute names that show up in forms:
+
+  activerecord:
+    attributes:
+      document:
+        # Rails defaults wants to drop the 'ID'
+        dct_references_s:
+          one: "Reference"
+          other: "Reference"
+
+  activemodel:
+    models:
+      document/dct_references_s: "References"
+
+  simple_form:
+    hints:
+      document:
+        dct_references_s: "URIs and Values"
