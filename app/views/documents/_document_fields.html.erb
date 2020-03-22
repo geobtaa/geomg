@@ -1,13 +1,18 @@
-<%= f.input :layer_slug_s, required: true %>
+<%= f.input :layer_slug_s, required: true, label: "Identifier" %>
 
-<%= f.input :dc_rights_s, required: true, collection: Document::ControlledLists::RIGHTS %>
-<%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES  %>
-<%= f.input :dc_format_s, required: true, collection: Document::ControlledLists::FORMATS %>
-<%= f.input :dc_description_s, as: :text, input_html: { rows: 5 } %>
-<%= f.input :dc_identifier_s %>
+<%= f.input :dc_rights_s, required: true, collection: Document::ControlledLists::RIGHTS, label: "Rights" %>
+
+<%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Layer Geometry Type"  %>
+
+<%= f.input :dc_format_s, required: true, collection: Document::ControlledLists::FORMATS, label: "Format", hint: "Dublin Core format value" %>
+
+<%= f.input :dc_description_s, as: :text, input_html: { rows: 5 }, label: "Description" %>
+
 <%= f.repeatable_attr_input :dc_language_sm, build: :at_least_one,
   html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "languages")} %>
+
 <%= f.repeatable_attr_input :dct_isPartOf_sm, build: :at_least_one %>
+
 <%= f.input :dct_provenance_s %>
 
 <%= f.repeatable_attr_input(:dct_references_s, build: :at_least_one) do |sub_form| %>

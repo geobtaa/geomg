@@ -9,7 +9,11 @@ class DocumentIndexer < Kithe::Indexer
 
     to_field "dc_description_s", obj_extract("dc_description_s")
     to_field "dc_format_s", obj_extract("dc_format_s")
-    to_field "dc_identifier_s", obj_extract("dc_identifier_s")
+
+    # B1G identifier(s) use same value
+    to_field "dc_identifier_s", obj_extract("layer_slug_s")
+    to_field "layer_slug_s", obj_extract("layer_slug_s")
+
     to_field "dc_language_sm", obj_extract("dc_language_sm")
     to_field "dc_rights_s", obj_extract("dc_rights_s")
     to_field "dc_title_s", obj_extract("title")
@@ -25,7 +29,6 @@ class DocumentIndexer < Kithe::Indexer
         acc << rec.updated_at.utc.iso8601
       end
     end
-    to_field "layer_slug_s", obj_extract("layer_slug_s")
     to_field "solr_geom", obj_extract("solr_geom")
     to_field "solr_year_i", obj_extract("solr_year_i")
 
