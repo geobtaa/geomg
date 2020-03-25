@@ -1,38 +1,83 @@
-<%= f.input :layer_slug_s, required: true, label: "Identifier" %>
+<h2 id="identification">Identification</h2>
 
-<%= f.input :dc_rights_s, required: true, collection: Document::ControlledLists::RIGHTS, label: "Rights" %>
-
-<%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Layer Geometry Type"  %>
-
-<%= f.input :dc_format_s, required: true, collection: Document::ControlledLists::FORMATS, label: "Format", hint: "Dublin Core format value" %>
-
-<%= f.input :dc_description_s, as: :text, input_html: { rows: 5 }, label: "Description" %>
-
-<%= f.repeatable_attr_input :dc_language_sm, build: :at_least_one,
+<div class="grouping">
+  <h3 id="descriptive">Descriptive</h3>
+  <%= f.input :title, hint: "Theme: city, state, temporal coverage" %>
+  <%= f.repeatable_attr_input :dct_alternativeTitle_sm, build: :at_least_one %>
+  <%= f.input :dc_description_s, as: :text, input_html: { rows: 5 }, label: "Description" %>
+  <%= f.repeatable_attr_input :dc_language_sm, build: :at_least_one,
   html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "languages")} %>
+</div>
 
-<%= f.repeatable_attr_input :dct_isPartOf_sm, build: :at_least_one %>
+<div class="grouping">
+  <h3 id="credits">Credits</h3>
+  <%= f.repeatable_attr_input :dc_creator_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input :dc_publisher_sm, build: :at_least_one %>
+</div>
 
-<%= f.input :dct_provenance_s %>
+<div class="grouping">
+  <h3 id="categories">Categories</h3>
+  <%= f.repeatable_attr_input :b1g_genre_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input :dc_subject_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input :b1g_keyword_sm, build: :at_least_one %>
+</div>
 
-<%= f.repeatable_attr_input(:dct_references_s, build: :at_least_one) do |sub_form| %>
-  <%= category_and_value(sub_form, category_list: Document::Reference::REFERENCE_LABELS) %>
-<% end %>
+<div class="grouping">
+  <h3 id="temporal">Temporal</h3>
+  <%= f.input :dct_issued_s, label: "Date Issued", hint: "YYYY-MM-DD" %>
+  <%= f.repeatable_attr_input :dct_temporal_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input :b1g_date_range_drsim, build: :at_least_one %>
+  <%= f.input :solr_year_i, label: "Solr Year", hint: "YYYY" %>
+</div>
 
-<%= f.repeatable_attr_input :dc_type_sm, build: :at_least_one %>
-<%= f.repeatable_attr_input :dct_spatial_sm, build: :at_least_one %>
-<%= f.repeatable_attr_input :dct_temporal_sm, build: :at_least_one %>
+<div class="grouping">
+  <h3 id="spatial">Spatial</h3>
+  <%= f.repeatable_attr_input :dct_spatial_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input :b1g_geonames_sm, build: :at_least_one %>
+  <%= f.input :solr_geom, label: "Bounding Box", hint: "W.S.E.N" %>
+  <%= f.input :b1g_centroid_ss, label: "Centroid" %>
+</div>
 
-<%= f.input :solr_geom %>
-<%= f.input :solr_year_i %>
+<h2 id="distribution">Distribution</h2>
 
+<div class="grouping">
+  <h3 id="object">Object</h3>
+  <%= f.repeatable_attr_input :dc_type_sm, build: :at_least_one %>
+  <%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Layer Geometry Type"  %>
+  <%= f.input :dc_format_s, required: true, collection: Document::ControlledLists::FORMATS, label: "Format", hint: "Dublin Core format value" %>
+</div>
+
+<div class="grouping">
+  <h3 id="references">References</h3>
+  <%= f.repeatable_attr_input(:dct_references_s, build: :at_least_one) do |sub_form| %>
+    <%= category_and_value(sub_form, category_list: Document::Reference::REFERENCE_LABELS) %>
+  <% end %>
+  <%= f.input :b1g_image_ss %>
+</div>
+
+<h2 id="administrative">Administrative</h2>
+<div class="grouping">
+  <h3 id="codes">Codes</h3>
+  <%= f.input :dc_identifier_s, required: true, label: "Identifier" %>
+  <%= f.input :layer_slug_s, required: true, label: "Slug" %>
+  <%= f.input :dct_provenance_s, label: "Provenance", hint: "Minnesota" %>
+  <%= f.input :b1g_code_s, label: "Code" %>
+  <%= f.repeatable_attr_input :dct_isPartOf_sm, build: :at_least_one %>
+</div>
+
+<div class="grouping">
+  <h3 id="life-cycle">Life Cycle</h3>
+  <%= f.input :b1g_status_s, required: true, collection: Document::ControlledLists::B1G_STATUS %>
+  <%= f.input :dct_accrualMethod_s, label: "Accrual Method" %>
+  <%= f.input :dct_accrualPeriodicity_s, label: "Accrual Periodicity" %>
+  <%= f.input :b1g_dateAccessioned_s, label: "Date Accessioned", hint: 'YYYY-MM-DD' %>
+  <%= f.input :b1g_dateRetired_s, label: "Date Retired", hint: 'YYYY-MM-DD' %>
+</div>
+
+<div class="grouping">
+  <h3 id="accessibility">Accessibility</h3>
+  <%= f.input :dc_rights_s, required: true, collection: Document::ControlledLists::RIGHTS, label: "Rights" %>
+  <%= f.input :suppressed_b, as: :boolean, checked_value: true, unchecked_value: false, inline_label: 'Suppressed' %>
+  <%= f.input :b1g_child_record_b, as: :boolean, checked_value: true, unchecked_value: false, inline_label: 'Child' %>
+</div>
 <hr/>
-
-<%= f.input :b1g_centroid_ss %>
-<%= f.input :b1g_code_s %>
-<%= f.input :b1g_dateAccessioned_s %>
-<%= f.repeatable_attr_input :b1g_date_range_drsim, build: :at_least_one %>
-<%= f.repeatable_attr_input :b1g_genre_sm, build: :at_least_one %>
-<%= f.input :b1g_image_ss %>
-<%= f.repeatable_attr_input :b1g_keyword_sm, build: :at_least_one %>
-<%= f.input :b1g_status_s, required: true, collection: Document::ControlledLists::B1G_STATUS %>
