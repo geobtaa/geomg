@@ -8,14 +8,16 @@ class ActiveSupport::TestCase
   include Devise::Test::IntegrationHelpers
   include Warden::Test::Helpers
 
-  def log_in(user)
-    if integration_test?
-      # use warden helper
-      login_as(user, scope: user)
-    else # controller_test, model_test
-      # user devise helper
-      sign_in(user)
-    end
+  def sign_in_as(user_or_key)
+    u = user_or_key
+    u = users(user_or_key) if u.is_a? Symbol
+    sign_in(u)
+  end
+
+  def sign_out_as(user_or_key)
+    u = user_or_key
+    u = users(user_or_key) if u.is_a? Symbol
+    sign_out u
   end
 
   # Add more helper methods to be used by all tests here...
