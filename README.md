@@ -19,8 +19,8 @@ bundle exec rake geomg:server
 
 ## TODOS
 
-* Auth
 * Basic BTAA/GBL Form
+* Auth (Devise)
+* Document Versioning (Paper Trail)
 * Search
 * CSV Import Workflow
-* Document Versioning
