@@ -197,7 +197,7 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 CREATE TABLE public.versions (
     id bigint NOT NULL,
     item_type character varying NOT NULL,
-    item_id bigint NOT NULL,
+    item_id uuid NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
     object text,
