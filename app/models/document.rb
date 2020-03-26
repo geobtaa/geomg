@@ -1,4 +1,6 @@
 class Document < Kithe::Work
+  audited
+
   # Indexer
   self.kithe_indexable_mapper = DocumentIndexer.new
 
