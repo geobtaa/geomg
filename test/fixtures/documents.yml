@@ -2,11 +2,25 @@ first:
   title: Test One
   type: Document
   position: null
-  json_attributes:
-  created_at: 2005-06-26 11:05:00
-  updated_at: 2005-06-26 11:05:00
+  json_attributes: {}
+  created_at: 2020-03-26 08:00:00
+  updated_at: 2020-03-26 08:00:00
   parent_id: null
   friendlier_id: testhashid
+  file_data: null
+  representative_id: null
+  leaf_representative_id: null
+  kithe_model_type: 1
+africa:
+  id: d90ea641-94bd-4bfd-bf30-9058f6ccc64b
+  title: Физическая Карта Африки [Physical Map of Africa]
+  type: Document
+  position: null
+  json_attributes: <%= File.read("#{Rails.root}/test/fixtures/files/africa.json") %>
+  created_at: 2020-03-26 08:00:00
+  updated_at: 2020-03-26 08:00:00
+  parent_id: null
+  friendlier_id: mx2lohpid
   file_data: null
   representative_id: null
   leaf_representative_id: null
