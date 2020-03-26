@@ -201,7 +201,8 @@ CREATE TABLE public.versions (
     event character varying NOT NULL,
     whodunnit character varying,
     object text,
-    created_at timestamp without time zone
+    created_at timestamp without time zone,
+    object_changes text
 );
 
 
@@ -434,6 +435,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200127213637'),
 ('20200127213638'),
 ('20200322214159'),
-('20200326193145');
+('20200326193145'),
+('20200326212815');
 
 
