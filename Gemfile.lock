@@ -189,6 +189,9 @@ GEM
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
+    paper_trail (10.3.1)
+      activerecord (>= 4.2)
+      request_store (~> 1.1)
     parslet (1.8.2)
     pastel (0.7.3)
       equatable (~> 0.6)
@@ -252,6 +255,8 @@ GEM
       hamster (~> 3.0)
       link_header (~> 0.0, >= 0.0.8)
     regexp_parser (1.6.0)
+    request_store (1.5.0)
+      rack (>= 1.4)
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -368,6 +373,7 @@ DEPENDENCIES
   jquery-rails (~> 4.3)
   kithe (~> 1.0.0)
   listen (>= 3.0.5, < 3.2)
+  paper_trail
   pg
   puma (~> 4.1)
   qa (~> 5.0)
