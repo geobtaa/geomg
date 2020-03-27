@@ -30,16 +30,18 @@ bundle exec rake geomg:server
 Run test suite:
 
 ```bash
-RAILS_ENV=test bundle exec rails test
+bundle exec rake ci
 ```
 
 ## TODOS
 
 * Basic BTAA/GBL Form
-** Form validation
-** Input datepickers
-** Controlled vocabulary lists
+  - Better labels
+  - Form validation
+  - -Input datepickers-
+  - Controlled vocabulary lists
 
+* Test Suite
 * Auth (Devise)
 * Document Versioning (Paper Trail)
 * Search
