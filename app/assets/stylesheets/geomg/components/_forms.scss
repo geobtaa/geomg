@@ -10,3 +10,14 @@ h1.h5 {
 label, legend {
   font-weight:bold;
 }
+
+// Sidebar Nav
+.make-me-sticky {
+  position: sticky;
+  top: 4rem;
+}
+
+//
+html {
+  scroll-padding-top: 4rem; /* height of your sticky header */
+}
