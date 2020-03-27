@@ -5,6 +5,11 @@ class Document < Kithe::Work
   self.kithe_indexable_mapper = DocumentIndexer.new
 
   # Validations
+  validates :b1g_status_s, presence: true
+  validates :dc_identifier_s, presence: true
+  validates :dc_format_s, presence: true
+  validates :dc_rights_s, presence: true
+  validates :layer_geom_type_s, presence: true
   validates :layer_slug_s, presence: true
 
   # Form
