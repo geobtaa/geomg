@@ -66,6 +66,8 @@ class Document < Kithe::Work
 
   # - Accessibility
   attr_json :dc_rights_s, :string
+
+  # @TODO: Why are booleans not passed in form params?
   attr_json :suppressed_b, :boolean
   attr_json :b1g_child_record_b, :boolean
 

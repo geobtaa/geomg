@@ -4,10 +4,54 @@ en:
   activerecord:
     attributes:
       document:
-        # Rails defaults wants to drop the 'ID'
+        dct_alternativeTitle_sm:
+          one: "Alternative Title"
+          other: "Alternative Title"
+        dc_language_sm:
+          one: "Language"
+          other: "Languages"
+        dc_creator_sm:
+          one: "Creator"
+          other: "Creator"
+        dc_publisher_sm:
+          one: "Publisher"
+          other: "Publisher"
+        b1g_genre_sm:
+          one: "Genre"
+          other: "Genre"
+        dc_subject_sm:
+          one: "Subject"
+          other: "Subject"
+        b1g_keyword_sm:
+          one: "Keyword"
+          other: "Keyword"
+        dct_temporal_sm:
+          one: "Temporal Coverage"
+          other: "Temporal Coverage"
+        b1g_date_range_drsim:
+          one: "Date Range"
+          other: "Date Range"
+        dct_spatial_sm:
+          one: "Spatial Coverage"
+          other: "Spatial Coverage"
+        b1g_geonames_sm:
+          one: "GeoNames"
+          other: "GeoNames"
+        dc_type_sm:
+          one: "Type"
+          other: "Type"
         dct_references_s:
           one: "Reference"
           other: "Reference"
+        dct_isPartOf_sm:
+          one: "Is Part Of"
+          other: "Is Part Of"
+        suppressed_b:
+          one: "Suppressed"
+          other: "Suppressed"
+        b1g_child_record_b:
+          one: "Child Record"
+          other: "Child Record"
 
   activemodel:
     models:
