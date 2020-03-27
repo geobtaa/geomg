@@ -14,4 +14,10 @@
 //= require jquery3
 //= require cocoon
 
+// VENDOR
+//= require bootstrap-datepicker/js/bootstrap-datepicker.js
+
+// GEOMG
+//= require geomg/datepicker
+
 //= require_tree .

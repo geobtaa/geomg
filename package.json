@@ -7,7 +7,8 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
     "devbridge-autocomplete": "^1.4.10",
-    "turbolinks": "^5.2.0"
+    "turbolinks": "^5.2.0",
+    "bootstrap-datepicker": "^1.9.0"
   },
   "version": "0.1.0",
   "devDependencies": {
