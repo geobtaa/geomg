@@ -26,7 +26,7 @@ class Document
 
     LAYER_GEOM_TYPES = %w{Point Line Polygon Image Raster Mixed Table}.freeze
 
-    B1G_STATUS = %w{Active Inactive}.freeze
+    B1G_STATUS = %w{Active Inactive Unknown}.freeze
 
     FORMATS = [
       "ArcGRID",
