@@ -1,4 +1,6 @@
 class Document < Kithe::Work
+  has_paper_trail
+
   # Indexer
   self.kithe_indexable_mapper = DocumentIndexer.new
 
@@ -8,7 +10,7 @@ class Document < Kithe::Work
   # Form
   # Identification
   # - Descriptive
-  # attr_json :dc_title_s, :string - Kithe "title"
+  # attr_json :dc_title_s, :string - Comes from Kithe "title"
   attr_json :dct_alternativeTitle_sm, :string, array: true, default: -> { [] }
   attr_json :dc_description_s, :text
   attr_json :dc_language_sm, :string, array: true, default: -> { [] }
