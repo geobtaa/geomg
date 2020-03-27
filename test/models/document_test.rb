@@ -26,4 +26,8 @@ class DocumentTest < ActiveSupport::TestCase
   test 'responds to friendlier_id' do
     assert @document.respond_to? :friendlier_id
   end
+
+  test 'responds to versions' do
+    assert @document.respond_to? :versions
+  end
 end
