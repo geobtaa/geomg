@@ -43,7 +43,7 @@
 <div class="grouping">
   <h3 id="object">Object</h3>
   <%= f.repeatable_attr_input :dc_type_sm, build: :at_least_one %>
-  <%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Layer Geometry Type"  %>
+  <%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Geometry Type"  %>
   <%= f.input :dc_format_s, required: true, collection: Document::ControlledLists::FORMATS, label: "Format", hint: "Dublin Core format value" %>
 </div>
 
@@ -52,7 +52,7 @@
   <%= f.repeatable_attr_input(:dct_references_s, build: :at_least_one) do |sub_form| %>
     <%= category_and_value(sub_form, category_list: Document::Reference::REFERENCE_LABELS) %>
   <% end %>
-  <%= f.input :b1g_image_ss %>
+  <%= f.input :b1g_image_ss, label: "B1G Image URL" %>
 </div>
 
 <h2 id="administrative">Administrative</h2>
@@ -67,7 +67,7 @@
 
 <div class="grouping">
   <h3 id="life-cycle">Life Cycle</h3>
-  <%= f.input :b1g_status_s, required: true, collection: Document::ControlledLists::B1G_STATUS %>
+  <%= f.input :b1g_status_s, label: 'Status', required: true, collection: Document::ControlledLists::B1G_STATUS %>
   <%= f.input :dct_accrualMethod_s, label: "Accrual Method" %>
   <%= f.input :dct_accrualPeriodicity_s, label: "Accrual Periodicity" %>
   <%= f.input :b1g_dateAccessioned_s, label: "Date Accessioned", hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
