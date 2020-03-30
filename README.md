@@ -49,8 +49,36 @@ bundle exec rake ci
 
 ## PostgreSQL Notes
 
+### Via Homebrew
 * brew install postgresql
 * brew services start postgresql
-* bundle exec rails db:create
-* bundle exec rails db:migrate
-* RAILS_ENV=test bundle exec rails db:migrate
+
+### Via Docker
+This basic setup does not preserve postgresql data! When the container is stopped, data will be purged.
+
+```
+# Start a postgres image named "geomg-postgres" on the local interface
+# and a password "mysecretpassword"
+$ docker run --name geomg-postgres -p127.0.0.1:5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+```
+Sample `config/database.yml` for docker connectivity:
+```yaml
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: geomg_development
+  pool: 5
+  username: postgres
+  password: mysecretpassword
+  hostname: 127.0.0.1
+  host: 127.0.0.1
+  port: 5432
+```
+
+### Common database initialization
+
+```
+$ bundle exec rails db:create
+$ bundle exec rails db:migrate
+$ RAILS_ENV=test bundle exec rails db:migrate
+```
