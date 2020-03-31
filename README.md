@@ -56,10 +56,19 @@ bundle exec rake ci
 ### Via Docker
 This basic setup does not preserve postgresql data! When the container is stopped, data will be purged.
 
+#### One-off Postgresql docker container
 ```
 # Start a postgres image named "geomg-postgres" on the local interface
 # and a password "mysecretpassword"
 $ docker run --name geomg-postgres -p127.0.0.1:5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+```
+
+#### Persistent development database with docker-compose
+Requires installation of`docker-compose`
+
+```
+# Start postgresql with a persistent data volume via docker-compose
+$ docker-compose up
 ```
 Sample `config/database.yml` for docker connectivity:
 ```yaml
@@ -68,7 +77,7 @@ development:
   encoding: unicode
   database: geomg_development
   pool: 5
-  username: postgres
+  username: geomg
   password: mysecretpassword
   hostname: 127.0.0.1
   host: 127.0.0.1
