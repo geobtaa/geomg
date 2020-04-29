@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @import.name %>
+</p>
+
+<p>
+  <strong>Filename:</strong>
+  <%= @import.filename %>
+</p>
+
+<p>
+  <strong>Source:</strong>
+  <%= @import.source %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @import.description %>
+</p>
+
+<p>
+  <strong>Row count:</strong>
+  <%= @import.row_count %>
+</p>
+
+<p>
+  <strong>Headers:</strong>
+  <%= @import.headers %>
+</p>
+
+<p>
+  <strong>Encoding:</strong>
+  <%= @import.encoding %>
+</p>
+
+<p>
+  <strong>Content type:</strong>
+  <%= @import.content_type %>
+</p>
+
+<p>
+  <strong>Extension:</strong>
+  <%= @import.extension %>
+</p>
+
+<p>
+  <strong>Valid:</strong>
+  <%= @import.validity %>
+</p>
+
+<p>
+  <strong>Validation result:</strong>
+  <%= @import.validation_result %>
+</p>
+
+<%= link_to 'Edit', edit_import_path(@import) %> |
+<%= link_to 'Back', imports_path %>
