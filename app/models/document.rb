@@ -15,7 +15,7 @@ class Document < Kithe::Work
   # Form
   # Identification
   # - Descriptive
-  # attr_json :dc_title_s, :string - Comes from Kithe "title"
+  attr_json :dc_title_s, :string
   attr_json :dct_alternativeTitle_sm, :string, array: true, default: -> { [] }
   attr_json :dc_description_s, :text
   attr_json :dc_language_sm, :string, array: true, default: -> { [] }
@@ -71,6 +71,7 @@ class Document < Kithe::Work
 
   # - Accessibility
   attr_json :dc_rights_s, :string
+  attr_json :dct_accessRights_sm, :string, array: true, default: -> { [] }
 
   # @TODO: Why are booleans not passed in form params?
   attr_json :suppressed_b, :boolean
@@ -79,7 +80,7 @@ class Document < Kithe::Work
   # Transformations
   def references_json
     references = Hash.new
-    self.dct_references_s.each{ |ref| references[Document::Reference.lookup(ref.category)] = ref.value }
+    self.dct_references_s.each{ |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
     references.to_json
   end
 end
