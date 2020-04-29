@@ -24,10 +24,10 @@
         <div class="kithe-form-errors-top alert alert-danger mb-4" role="alert"">
           <h2 class="h4" class="alert-heading"><%= pluralize(document.errors.count, "error") %> prohibited this document from being saved</h2>
           <ol class="mb-0">
-          <% @document.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
+            <% @document.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ol>
         </div>
       <% end %>
 

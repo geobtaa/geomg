@@ -19,5 +19,6 @@
 
 // GEOMG
 //= require geomg/datepicker
+//= require activestorage
 
 //= require_tree .
