@@ -46,6 +46,9 @@ en:
         dct_isPartOf_sm:
           one: "Is Part Of"
           other: "Is Part Of"
+        dct_accessRights_sm:
+          one: "Access Rights"
+          other: "Access Rights"
         suppressed_b:
           one: "Suppressed"
           other: "Suppressed"
@@ -56,6 +59,26 @@ en:
   activemodel:
     models:
       document/dct_references_s: "References"
+    enum_values:
+      document/reference:
+        category:
+          wms: Web Mapping Service (WMS)
+          wfs: Web Feature Service (WFS)
+          iiif_image: IIIF Image API
+          iiif_manifest: IIIF Manifest
+          download: Direct download file
+          documentation_download: Data dictionary / documentation download
+          documentation_external: Full layer description
+          metadata_iso: Metadata in ISO 19139
+          metadata_fgdc: Metadata in FGDC
+          metadata_mods: Metadata in MODS
+          metadata_html: Metadata in HTML
+          arcgis_feature_layer: ArcGIS FeatureLayer
+          arcgis_tiled_map_layer: ArcGIS TiledMapLayer
+          arcgis_dynamic_map_layer: ArcGIS DynamicMapLayer
+          arcgis_image_map_layer: ArcGIS ImageMapLayer
+          harvard: Harvard Geospatial Library Email Download
+          open_index_map: OpenIndexMap
 
   simple_form:
     hints:
