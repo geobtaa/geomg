@@ -256,6 +256,41 @@ CREATE TABLE public.kithe_models (
 
 
 --
+-- Name: mappings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mappings (
+    id bigint NOT NULL,
+    source_header character varying,
+    destination_field character varying,
+    delimited boolean,
+    transformation_method character varying,
+    import_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: mappings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mappings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mappings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mappings_id_seq OWNED BY public.mappings.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -363,6 +398,13 @@ ALTER TABLE ONLY public.kithe_derivatives ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
+-- Name: mappings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mappings ALTER COLUMN id SET DEFAULT nextval('public.mappings_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -422,6 +464,14 @@ ALTER TABLE ONLY public.kithe_derivatives
 
 ALTER TABLE ONLY public.kithe_models
     ADD CONSTRAINT kithe_models_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: mappings mappings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mappings
+    ADD CONSTRAINT mappings_pkey PRIMARY KEY (id);
 
 
 --
@@ -526,6 +576,13 @@ CREATE INDEX index_kithe_models_on_representative_id ON public.kithe_models USIN
 
 
 --
+-- Name: index_mappings_on_import_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_mappings_on_import_id ON public.mappings USING btree (import_id);
+
+
+--
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -603,6 +660,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 
 --
+-- Name: mappings fk_rails_eff9d46a25; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mappings
+    ADD CONSTRAINT fk_rails_eff9d46a25 FOREIGN KEY (import_id) REFERENCES public.imports(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -621,6 +686,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200326193145'),
 ('20200326212815'),
 ('20200428184517'),
-('20200428194419');
+('20200428194419'),
+('20200429182712');
 
 

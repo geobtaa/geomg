@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  resources :imports
+  resources :imports do
+    resources :mappings
+  end
+
   devise_for :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  root :to => 'documents#index'
+  root :to => 'imports#index'
 
   # public-facing routes
   resources :documents

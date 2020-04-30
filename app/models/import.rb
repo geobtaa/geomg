@@ -5,6 +5,8 @@ class Import < ApplicationRecord
 
   has_one_attached :csv_file
   has_many :import_transitions, autosave: false
+  has_many :mappings, -> { order(:id) }, dependent: :destroy
+  accepts_nested_attributes_for :mappings
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: ImportTransition,
