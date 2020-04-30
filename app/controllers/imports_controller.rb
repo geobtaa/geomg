@@ -28,7 +28,7 @@ class ImportsController < ApplicationController
 
     respond_to do |format|
       if @import.save
-        format.html { redirect_to @import, notice: 'Import was successfully created.' }
+        format.html { redirect_to import_mappings_path(@import), notice: 'Import was successfully created. Please set your import mapping rules.' }
         format.json { render :show, status: :created, location: @import }
       else
         format.html { render :new }
@@ -69,6 +69,27 @@ class ImportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def import_params
-      params.require(:import).permit(:name, :filename, :source, :description, :row_count, :headers, :encoding, :content_type, :extension, :validity, :validation_result, :csv_file)
+      params.require(:import).permit(
+        :name,
+        :filename,
+        :source,
+        :description,
+        :row_count,
+        :headers,
+        :encoding,
+        :content_type,
+        :extension,
+        :validity,
+        :validation_result,
+        :csv_file,
+        mappings_attributes: [
+          :id,
+          :source_header,
+          :destination_field,
+          :delimited,
+          :transformation_method,
+          :import_id
+        ]
+      )
     end
 end
