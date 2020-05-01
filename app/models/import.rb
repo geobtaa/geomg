@@ -72,10 +72,12 @@ class Import < ApplicationRecord
         json_attributes: converted_data
       }
 
-      # @TODO:
-      # - Make the actual documents
-      # - Loop the job into the background
-      # - Import job reporting
+      # @TODO!!!!!!
+      # - Make the actual Kithe Documents
+      # - Do it in a loop, passing jobs to the background
+      # - Add import_id to Document
+      # - Add import report to view
+      # - Kick off URI and SidecarImage jobs?
 
       kithe_document
     rescue StandardError => error
