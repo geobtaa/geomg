@@ -24,7 +24,7 @@ class Document
 
     RIGHTS = %w{Public Restricted}.freeze
 
-    LAYER_GEOM_TYPES = %w{Point Line Polygon Image Raster Mixed Table}.freeze
+    LAYER_GEOM_TYPES = %w{Point Line Polygon Image Raster Mixed Table Vector}.freeze
 
     B1G_STATUS = %w{Active Inactive Unknown}.freeze
 
