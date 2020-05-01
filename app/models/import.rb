@@ -42,7 +42,7 @@ class Import < ApplicationRecord
     end
   end
 
-  def all_mappings
+  def all_mapping_keys
     database = self.mappings.collect{ |c| c.destination_field }
     default = self.default_mappings.collect{ |c| c.keys }
     assumed = self.assumed_mappings.collect{ |c| c.values }
@@ -52,6 +52,69 @@ class Import < ApplicationRecord
   end
 
   def mappings_valid?
-    (GEOMG_SCHEMA[:required] - all_mappings.uniq).empty?
+    (GEOMG_SCHEMA[:required] - all_mapping_keys.uniq).empty?
+  end
+
+  def import!
+    # @TODO: guard this call, unless mappings_valid?
+    begin
+      data = CSV.parse(csv_file.download, headers: true)
+      extract_hash = data.first.to_h
+      logger.debug("Extract Hash: #{extract_hash}")
+
+      converted_data = transform_extract(extract_hash)
+      converted_data = append_default_mappings(converted_data)
+      converted_data = append_assumed_mappings(converted_data)
+    rescue StandardError => error
+      logger.console("Error: #{error}")
+    end
+  end
+
+  private
+
+  def transform_extract(extract_hash)
+    transformed_data = {}
+    self.mappings.each do |mapping|
+      logger.debug("Mapping: #{mapping.source_header} to #{mapping.destination_field}")
+
+      # Handle repeatable dct_references_s mapping
+      if mapping.destination_field == 'dct_references_s'
+        transformed_data[mapping.destination_field] ||= []
+        transformed_data[mapping.destination_field] << {
+           self.dct_references_mappings[mapping.source_header.to_sym] => extract_hash[mapping.source_header]
+          } unless extract_hash[mapping.source_header].nil?
+      # Otherwise just set the value
+      else
+        transformed_data[mapping.destination_field] = extract_hash[mapping.source_header]
+      end
+
+      if mapping.delimited?
+        transformed_data[mapping.destination_field] = transformed_data[mapping.destination_field].split('|')
+      end
+    end
+
+    transformed_data
+  end
+
+  # Merges an array of hashes into the data hash
+  def append_default_mappings(data_hash)
+    self.default_mappings.each do |mapping|
+      data_hash.merge!(mapping.stringify_keys)
+    end
+
+    data_hash
+  end
+
+  # Merges copied value hashes into the data hash
+  def append_assumed_mappings(data_hash)
+    self.assumed_mappings.each do |mapping|
+      mapping.each do |key, value|
+        assumed_mapping = {}
+        assumed_mapping[value] = data_hash[key.to_s]
+        data_hash.merge!(assumed_mapping)
+      end
+    end
+
+    data_hash
   end
 end

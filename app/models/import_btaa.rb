@@ -5,17 +5,24 @@ class ImportBtaa < Import
   # Solr Field => Hard Value
   def default_mappings
     [
-      {'geoblacklight_version': '1.0'}
+      { 'geoblacklight_version': '1.0' }
     ]
   end
 
-  # CSV Source Header => Destination Solr Field
+  # Copy Value from Field to Field
   def assumed_mappings
-    mappings = []
-    if self.mappings.find_by(destination_field: 'dc_identifier_s')
-      mappings << {self.mappings.find_by(destination_field: 'dc_identifier_s').source_header => 'layer_slug_s'}
-    end
+    [
+      { 'dc_identifier_s': 'layer_slug_s' }
+    ]
+  end
 
-    mappings
+  def dct_references_mappings
+    {
+      "Download": "http://schema.org/downloadUrl",
+      "FeatureServer": "urn:x-esri:serviceType:ArcGIS#FeatureLayer",
+      "ImageServer": "urn:x-esri:serviceType:ArcGIS#ImageMapLayer",
+      "Information": "http://schema.org/url",
+      "MapServer": "urn:x-esri:serviceType:ArcGIS#DynamicMapLayer"
+    }
   end
 end
