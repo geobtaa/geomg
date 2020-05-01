@@ -42,7 +42,7 @@ class ImportsController < ApplicationController
   def update
     respond_to do |format|
       if @import.update(import_params)
-        format.html { redirect_to @import, notice: 'Import was successfully updated.' }
+        format.html { redirect_to import_path(@import), notice: 'Import was successfully updated.' }
         format.json { render :show, status: :ok, location: @import }
       else
         format.html { render :edit }
@@ -69,7 +69,8 @@ class ImportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def import_params
-      params.require(:import).permit(
+      params.require(@import.model_name.param_key).permit(
+        :type,
         :name,
         :filename,
         :source,
