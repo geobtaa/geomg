@@ -151,6 +151,41 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: import_transitions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.import_transitions (
+    id bigint NOT NULL,
+    to_state character varying NOT NULL,
+    metadata text DEFAULT '{}'::text,
+    sort_key integer NOT NULL,
+    import_id integer NOT NULL,
+    most_recent boolean NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: import_transitions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.import_transitions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: import_transitions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.import_transitions_id_seq OWNED BY public.import_transitions.id;
+
+
+--
 -- Name: imports; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -168,7 +203,8 @@ CREATE TABLE public.imports (
     validity boolean DEFAULT false NOT NULL,
     validation_result text,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    type character varying
 );
 
 
@@ -384,6 +420,13 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: import_transitions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.import_transitions ALTER COLUMN id SET DEFAULT nextval('public.import_transitions_id_seq'::regclass);
+
+
+--
 -- Name: imports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -440,6 +483,14 @@ ALTER TABLE ONLY public.active_storage_blobs
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: import_transitions import_transitions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.import_transitions
+    ADD CONSTRAINT import_transitions_pkey PRIMARY KEY (id);
 
 
 --
@@ -517,6 +568,20 @@ CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active
 --
 
 CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
+-- Name: index_import_transitions_parent_most_recent; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_import_transitions_parent_most_recent ON public.import_transitions USING btree (import_id, most_recent) WHERE most_recent;
+
+
+--
+-- Name: index_import_transitions_parent_sort; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_import_transitions_parent_sort ON public.import_transitions USING btree (import_id, sort_key);
 
 
 --
@@ -660,6 +725,14 @@ ALTER TABLE ONLY public.active_storage_attachments
 
 
 --
+-- Name: import_transitions fk_rails_e10d6cb765; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.import_transitions
+    ADD CONSTRAINT fk_rails_e10d6cb765 FOREIGN KEY (import_id) REFERENCES public.imports(id);
+
+
+--
 -- Name: mappings fk_rails_eff9d46a25; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -687,6 +760,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200326212815'),
 ('20200428184517'),
 ('20200428194419'),
-('20200429182712');
+('20200429182712'),
+('20200501143805'),
+('20200501153955');
 
 

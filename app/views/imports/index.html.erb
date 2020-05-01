@@ -34,9 +34,9 @@
         <td><%= import.extension %></td>
         <td><%= import.validity %></td>
         <td><%= import.validation_result %></td>
-        <td><%= link_to 'Show', import %></td>
+        <td><%= link_to 'Show', import_path(import) %></td>
         <td><%= link_to 'Edit', edit_import_path(import) %></td>
-        <td><%= link_to 'Destroy', import, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Destroy', import_path(import), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
