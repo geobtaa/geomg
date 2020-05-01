@@ -65,8 +65,21 @@ class Import < ApplicationRecord
       converted_data = transform_extract(extract_hash)
       converted_data = append_default_mappings(converted_data)
       converted_data = append_assumed_mappings(converted_data)
+      converted_data = append_derived_mappings(converted_data)
+
+      kithe_document = {
+        title: converted_data['dc_title_s'],
+        json_attributes: converted_data
+      }
+
+      # @TODO:
+      # - Make the actual documents
+      # - Loop the job into the background
+      # - Import job reporting
+
+      kithe_document
     rescue StandardError => error
-      logger.console("Error: #{error}")
+      logger.debug("Error: #{error}")
     end
   end
 
@@ -75,15 +88,21 @@ class Import < ApplicationRecord
   def transform_extract(extract_hash)
     transformed_data = {}
     self.mappings.each do |mapping|
-      logger.debug("Mapping: #{mapping.source_header} to #{mapping.destination_field}")
+      # logger.debug("Mapping: #{mapping.source_header} to #{mapping.destination_field}")
 
-      # Handle repeatable dct_references_s mapping
+      # Handle repeatable dct_references_s entries
       if mapping.destination_field == 'dct_references_s'
         transformed_data[mapping.destination_field] ||= []
         transformed_data[mapping.destination_field] << {
-           self.dct_references_mappings[mapping.source_header.to_sym] => extract_hash[mapping.source_header]
+           category: self.dct_references_mappings[mapping.source_header.to_sym],
+           value: extract_hash[mapping.source_header]
           } unless extract_hash[mapping.source_header].nil?
-      # Otherwise just set the value
+
+      # Handle solr_geom transformation
+      elsif mapping.destination_field == 'solr_geom'
+        transformed_data[mapping.destination_field] = self.solr_geom_mapping(extract_hash[mapping.source_header])
+
+      # Lastly, set existing values
       else
         transformed_data[mapping.destination_field] = extract_hash[mapping.source_header]
       end
@@ -112,6 +131,25 @@ class Import < ApplicationRecord
         assumed_mapping = {}
         assumed_mapping[value] = data_hash[key.to_s]
         data_hash.merge!(assumed_mapping)
+      end
+    end
+
+    data_hash
+  end
+
+  # Merges derived value hashes into the data hash
+  # Takes value from data hash, manipulates it, stores in new hash entry
+  #
+  # Ex. solr_geom is used to calc centroid value
+  def append_derived_mappings(data_hash)
+    self.derived_mappings.each do |mapping|
+      mapping.each do |key, value|
+        derived_mapping = {}
+
+        args = {data_hash: data_hash.dup, field: value[:field]}
+        derived_mapping[key] = self.send(value[:method], args)
+
+        data_hash.merge!(derived_mapping.stringify_keys)
       end
     end
 
