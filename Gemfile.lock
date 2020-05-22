@@ -221,7 +221,7 @@ GEM
     pg (1.2.2)
     popper_js (1.16.0)
     public_suffix (4.0.3)
-    puma (4.3.3)
+    puma (4.3.5)
       nio4r (~> 2.0)
     qa (5.3.1)
       activerecord-import
@@ -396,7 +396,7 @@ DEPENDENCIES
   minitest-reporters
   paper_trail
   pg
-  puma (~> 4.1)
+  puma (~> 4.3)
   qa (~> 5.0)
   rails (~> 6.0.2, >= 6.0.2.1)
   sass-rails (>= 6)
