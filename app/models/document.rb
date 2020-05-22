@@ -1,4 +1,6 @@
 class Document < Kithe::Work
+  include AttrJson::Record::QueryScopes
+
   has_paper_trail
   belongs_to :import, optional: true
 
