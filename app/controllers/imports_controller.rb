@@ -69,7 +69,9 @@ class ImportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def import_params
-      params.require(@import.model_name.param_key).permit(
+      # Handle STI key
+      key = (params.keys & %w(import import_btaa))[0]
+      params.require(key).permit(
         :type,
         :name,
         :filename,
