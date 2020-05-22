@@ -1,18 +1,24 @@
 require 'csv'
 
 class Import < ApplicationRecord
+  # Callbacks (keep at top)
   after_commit :set_csv_file_attributes, if: :persisted?
   after_commit :check_if_mapped, if: :persisted?
 
+  # Associations
   has_one_attached :csv_file
   has_many :import_transitions, autosave: false
   has_many :mappings, -> { order(:id) }, dependent: :destroy
   accepts_nested_attributes_for :mappings
+  has_many :documents
 
+  # States
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: ImportTransition,
     initial_state: :created
   ]
+
+  # Validations
   validates :type, presence: true
   validates :csv_file, attached: true, content_type: { in: 'text/csv', message: 'is not a CSV file' }
 
@@ -37,7 +43,7 @@ class Import < ApplicationRecord
   end
 
   def check_if_mapped
-    if mappings_valid?
+    if mappings_valid? && self.state_machine.can_transition_to?(:mapped)
       self.state_machine.transition_to!(:mapped)
     end
   end
@@ -57,32 +63,56 @@ class Import < ApplicationRecord
 
   def import!
     # @TODO: guard this call, unless mappings_valid?
-    begin
-      data = CSV.parse(csv_file.download, headers: true)
-      extract_hash = data.first.to_h
-      logger.debug("Extract Hash: #{extract_hash}")
+    data = CSV.parse(csv_file.download, headers: true)
 
-      converted_data = transform_extract(extract_hash)
-      converted_data = append_default_mappings(converted_data)
-      converted_data = append_assumed_mappings(converted_data)
-      converted_data = append_derived_mappings(converted_data)
+    data.each do |doc|
+      begin
+        extract_hash = doc.to_h
+        logger.debug("CSV Hash: #{extract_hash}")
 
-      kithe_document = {
-        title: converted_data['dc_title_s'],
-        json_attributes: converted_data
-      }
+        converted_data = transform_extract(extract_hash)
+        converted_data = append_default_mappings(converted_data)
+        converted_data = append_assumed_mappings(converted_data)
+        converted_data = append_derived_mappings(converted_data)
 
-      # @TODO!!!!!!
-      # - Make the actual Kithe Documents
-      # - Do it in a loop, passing jobs to the background
-      # - Add import_id to Document
-      # - Add import report to view
-      # - Kick off URI and SidecarImage jobs?
+        kithe_document = {
+          title: converted_data['dc_title_s'],
+          json_attributes: converted_data,
+          import_id: self.id
+        }
 
-      kithe_document
-    rescue StandardError => error
-      logger.debug("Error: #{error}")
+        # @TODO!!!!!!
+        # - Make the actual Kithe Documents
+        # - Do it in a loop, passing jobs to the background
+        # - Add import report to view
+        # - Kick off URI and SidecarImage jobs?
+
+        document = Document.new(kithe_document)
+        logger.debug("Document: #{document}")
+        if document.save
+          puts "Saved #{document.id}"
+          self.import_log.merge!(
+            { extract_hash['Identifier'] => 'Saved' }
+          )
+          next
+        else
+          puts "Failed - #{document.errors.inspect}"
+          self.import_log.merge!(
+            { extract_hash['Identifier'] => "Failed - #{document.errors.inspect.to_s}" }
+          )
+          next
+        end
+      rescue StandardError => error
+        logger.debug("Error: #{error}")
+        self.import_log.merge!(
+          { extract_hash['Identifier'] => "Error - #{error.inspect.to_s}" }
+        )
+        next
+      end
     end
+
+    self.state_machine.transition_to!(:imported)
+    self.save
   end
 
   private
@@ -109,8 +139,9 @@ class Import < ApplicationRecord
         transformed_data[mapping.destination_field] = extract_hash[mapping.source_header]
       end
 
+      # Split delimited field values, if field has a value present
       if mapping.delimited?
-        transformed_data[mapping.destination_field] = transformed_data[mapping.destination_field].split('|')
+        transformed_data[mapping.destination_field] = transformed_data[mapping.destination_field].present? ? transformed_data[mapping.destination_field].split('|') : ""
       end
     end
 
@@ -142,7 +173,7 @@ class Import < ApplicationRecord
   # Merges derived value hashes into the data hash
   # Takes value from data hash, manipulates it, stores in new hash entry
   #
-  # Ex. solr_geom is used to calc centroid value
+  # Ex. solr_geom is used to calc the b1g_centroid_ss value
   def append_derived_mappings(data_hash)
     self.derived_mappings.each do |mapping|
       mapping.each do |key, value|

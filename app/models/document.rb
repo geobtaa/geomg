@@ -1,5 +1,6 @@
 class Document < Kithe::Work
   has_paper_trail
+  belongs_to :import, optional: true
 
   # Indexer
   self.kithe_indexable_mapper = DocumentIndexer.new

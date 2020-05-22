@@ -1,5 +1,8 @@
 <p id="notice"><%= notice %></p>
 
+<%= link_to 'Edit', edit_import_path(@import) %> |
+<%= link_to 'Back', imports_path %>
+
 <h1>Import</h1>
 
 <p>
@@ -23,44 +26,66 @@
   <%= @import.description %>
 </p>
 
-<hr>
+<nav>
+  <div class="nav nav-tabs" id="import-tabs" role="tablist">
+    <a class="nav-item nav-link" id="file-details-tab" data-toggle="tab" href="#file-details" role="tab" aria-controls="file-details" aria-selected="false">File Details</a>
+    <a class="nav-item nav-link active" id="data-mapping-tab" data-toggle="tab" href="#data-mapping" role="tab" aria-controls="data-mapping" aria-selected="true">Data Mapping</a>
+    <a class="nav-item nav-link" id="import-results-tab" data-toggle="tab" href="#import-results" role="tab" aria-controls="import-results"
+      aria-selected="false">Import Results</a>
+  </div>
+</nav>
 
-<p>
-  <strong>Filename:</strong>
-  <%= @import.filename %> (<%= @import.content_type %>)
-</p>
+<div class="tab-content" id="import-content">
+  <div class="tab-pane fade" id="file-details" role="tabpanel" aria-labelledby="file-details-tab">
+    <h3>File Details</h3>
+    <p>
+      <strong>Filename:</strong>
+      <%= @import.filename %> (<%= @import.content_type %>)
+    </p>
 
-<p>
-  <strong>Row count:</strong>
-  <%= @import.row_count %>
-</p>
+    <p>
+      <strong>CSV Headers:</strong>
+      <%= @import.headers.join(", ") %>
+    </p>
 
-<p>
-  <strong>Headers:</strong>
-  <%= @import.headers %>
-</p>
+    <p>
+      <strong>Row count:</strong>
+      <%= @import.row_count %>
+    </p>
+  </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Source</th>
-      <th>Destination</th>
-      <th>Delimited?</th>
-      <th>Transformation Method</th>
-    </tr>
-  </thead>
-  <tbody>
-    <%- @import.mappings.each do |mapping| %>
-      <tr>
-        <td><%= mapping.source_header %></td>
-        <td><%= mapping.destination_field %></td>
-        <td><%= mapping.delimited %></td>
-        <td><%= mapping.transformation_method %></td>
-      </tr>
+  <div class="tab-pane fade show active" id="data-mapping" role="tabpanel" aria-labelledby="data-mapping-tab">
+    <h3>Data Mapping</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>CSV Source</th>
+          <th>Solr Destination</th>
+          <th>Delimited?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- @import.mappings.each do |mapping| %>
+          <tr>
+            <td><%= mapping.source_header %></td>
+            <td><%= mapping.destination_field %></td>
+            <td><%= mapping.delimited %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tab-pane fade" id="import-results" role="tabpanel" aria-labelledby="import-results-tab">
+    <h3>Import Results</h3>
+    <ul>
+    <% @import.import_log.each do |key,value| %>
+      <li>
+        <%= link_to "http://localhost:3001/catalog/#{key}", target: "_blank" do %>
+          <%= key %> <%= value %>
+        <% end %>
+      </li>
     <% end %>
-  </tbody>
-</table>
-
-
-<%= link_to 'Edit', edit_import_path(@import) %> |
-<%= link_to 'Back', imports_path %>
+    </ul>
+  </div>
+</div>
