@@ -204,7 +204,8 @@ CREATE TABLE public.imports (
     validation_result text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    type character varying
+    type character varying,
+    import_log json DEFAULT '{}'::json
 );
 
 
@@ -287,7 +288,8 @@ CREATE TABLE public.kithe_models (
     file_data jsonb,
     representative_id uuid,
     leaf_representative_id uuid,
-    kithe_model_type integer NOT NULL
+    kithe_model_type integer NOT NULL,
+    import_id bigint
 );
 
 
@@ -620,6 +622,13 @@ CREATE UNIQUE INDEX index_kithe_models_on_friendlier_id ON public.kithe_models U
 
 
 --
+-- Name: index_kithe_models_on_import_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_kithe_models_on_import_id ON public.kithe_models USING btree (import_id);
+
+
+--
 -- Name: index_kithe_models_on_leaf_representative_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -762,6 +771,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200428194419'),
 ('20200429182712'),
 ('20200501143805'),
-('20200501153955');
+('20200501153955'),
+('20200522141137'),
+('20200522154119');
 
 
