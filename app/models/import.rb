@@ -78,7 +78,8 @@ class Import < ApplicationRecord
         kithe_document = {
           title: converted_data['dc_title_s'],
           json_attributes: converted_data,
-          import_id: self.id
+          friendlier_id: converted_data['layer_slug_s'],
+          import_id: self.id,
         }
 
         # @TODO!!!!!!
@@ -87,7 +88,10 @@ class Import < ApplicationRecord
         # - Add import report to view
         # - Kick off URI and SidecarImage jobs?
 
-        document = Document.new(kithe_document)
+        document = Document.where(
+          friendlier_id: converted_data['layer_slug_s']
+        ).first_or_create.update(kithe_document)
+
         logger.debug("Document: #{document}")
         if document.save
           puts "Saved #{document.id}"
