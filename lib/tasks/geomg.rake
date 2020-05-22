@@ -16,6 +16,13 @@ task :ci do
 end
 
 namespace :geomg do
+  task :production_guard do
+    if Rails.env.production? && ENV['PRODUCTION_OKAY'] != 'true'
+      $stderr.puts "\nNot safe for production. If you are sure, run with `PRODUCTION_OKAY=true #{ARGV.join}`\n\n"
+      exit 1
+    end
+  end
+
   desc 'Run Solr and GeOMG for development'
   task :server, [:rails_server_args] do
     require 'solr_wrapper'
@@ -59,12 +66,32 @@ namespace :geomg do
     end
   end
 
-  desc "Sync all Works and Collections to Solr index"
-  task :reindex do
-    Kithe::Indexable.index_with(batching: true) do
-      Kithe::Model.where("kithe_model_type": ["document"]).find_each do |model|
-        model.update_index
+  namespace :solr do
+    desc "sync all Works and Collections to solr index"
+    task :reindex => :environment do
+      scope = Kithe::Model.where(kithe_model_type: 1)
+
+      Kithe::Indexable.index_with(batching: true) do
+        scope.find_each do |model|
+          model.update_index
+        end
       end
+    end
+
+    desc "delete any model objects in solr that no longer exist in the db"
+    task :delete_orphans => :environment do
+      deleted_ids = Kithe::SolrUtil.delete_solr_orphans
+      puts "Deleted #{deleted_ids.count} Solr objects"
+    end
+
+    desc "delete ALL items from Solr"
+    task :delete_all => [:environment, :production_guard] do
+      Kithe::SolrUtil.delete_all
+    end
+
+    desc "print out mapped index hash for specified ID, eg rake scihist:solr:debug_indexing[adf232adf]"
+    task :debug_indexing, [:friendlier_id] => [:environment] do |t, args|
+      Kithe::Model.find_by_friendlier_id(args[:friendlier_id]).update_index(writer: Traject::DebugWriter.new({}))
     end
   end
 end
