@@ -103,6 +103,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-bootstrap-views (1.1.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     dot-properties (0.1.3)
@@ -389,6 +390,7 @@ DEPENDENCIES
   capybara-screenshot
   cocoon (~> 1.2)
   devise
+  devise-bootstrap-views (~> 1.0)
   dotenv-rails
   jbuilder (~> 2.7)
   jquery-rails (~> 4.3)
