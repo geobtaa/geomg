@@ -6,7 +6,7 @@
   <tbody>
     <%- if @import.mappings.size > 1 %>
       <%- @import.mappings.each do |mapping| %>
-        <%= simple_form_for [@import, mapping] do |f| %>
+        <%= simple_form_for [@import, mapping], :url => import_mapping_path(@import, mapping) do |f| %>
           <tr>
             <td><%= f.input :source_header, :input_html => {:readonly => true} %></td>
             <td><%= f.input :destination_field, collection: attribute_collection %></td>

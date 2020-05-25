@@ -4,8 +4,6 @@ module MappingsHelper
   end
 
   def mapping_suggestion(header)
-    logger.debug("#{header} - #{default_field_mappings_btaa[header.to_sym][:destination]} ")
-
     default_field_mappings_btaa[header.to_sym][:destination]
   end
 

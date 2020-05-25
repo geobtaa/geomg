@@ -7,13 +7,14 @@ one:
   description: MyText
   row_count: 1
   headers:
-    - MyText
-    - MyText
+    - Title
+    - Alternative Title
   encoding: MyString
-  content_type: MyString
+  content_type: text/csv
   extension: MyString
   validity: false
   validation_result: MyText
+  type: ImportBtaa
 
 two:
   name: MyString
@@ -22,10 +23,11 @@ two:
   description: MyText
   row_count: 1
   headers:
-    - MyText
-    - MyText
+    - Title
+    - Alternative Title
   encoding: MyString
-  content_type: MyString
+  content_type: text/csv
   extension: MyString
   validity: false
   validation_result: MyText
+  type: ImportBtaa

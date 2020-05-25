@@ -1,10 +1,10 @@
 class MappingsController < ApplicationController
+  before_action :set_import
   before_action :set_mapping, only: [:show, :edit, :update, :destroy]
 
   # GET /import/:id/mappings
   # GET /import/:id/mappings.json
   def index
-    @import = Import.find(params[:import_id])
     @mappings = Mapping.where(import_id: @import)
 
     # Build mappings unless we already have
@@ -14,6 +14,7 @@ class MappingsController < ApplicationController
   # GET /mappings/1
   # GET /mappings/1.json
   def show
+    @import = Import.find(params[:import_id])
   end
 
   # GET /mappings/new
@@ -32,7 +33,7 @@ class MappingsController < ApplicationController
 
     respond_to do |format|
       if @mapping.save
-        format.html { redirect_to @mapping, notice: 'Mapping was successfully created.' }
+        format.html { redirect_to import_mapping_path(@import, @mapping), notice: 'Mapping was successfully created.' }
         format.json { render :show, status: :created, location: @mapping }
       else
         format.html { render :new }
@@ -46,7 +47,7 @@ class MappingsController < ApplicationController
   def update
     respond_to do |format|
       if @mapping.update(mapping_params)
-        format.html { redirect_to @mapping, notice: 'Mapping was successfully updated.' }
+        format.html { redirect_to import_mappings_path(@mapping.import), notice: 'Mapping was successfully updated.' }
         format.json { render :show, status: :ok, location: @mapping }
       else
         format.html { render :edit }
@@ -60,13 +61,17 @@ class MappingsController < ApplicationController
   def destroy
     @mapping.destroy
     respond_to do |format|
-      format.html { redirect_to mappings_url, notice: 'Mapping was successfully destroyed.' }
+      format.html { redirect_to import_mappings_url(@import), notice: 'Mapping was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_import
+      @import = Import.find(params[:import_id])
+    end
+
     def set_mapping
       @mapping = Mapping.find(params[:id])
     end
