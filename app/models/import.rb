@@ -96,20 +96,38 @@ class Import < ApplicationRecord
         if document.update!(kithe_document)
           puts "Saved #{document.id}"
           self.import_log.merge!(
-            { extract_hash['Identifier'] => 'Saved' }
+            {
+              extract_hash['Identifier'] => {
+                id: document.friendlier_id,
+                title: document.title,
+                state: 'Saved'
+              }
+            }
           )
           next
         else
           puts "Failed - #{document.errors.inspect}"
           self.import_log.merge!(
-            { extract_hash['Identifier'] => "Failed - #{document.errors.inspect.to_s}" }
+            {
+              extract_hash['Identifier'] => {
+                id: document.friendlier_id,
+                title: document.title,
+                state: "Failed - #{document.errors.inspect.to_s}"
+              }
+            }
           )
           next
         end
       rescue StandardError => error
         logger.debug("Error: #{error}")
         self.import_log.merge!(
-          { extract_hash['Identifier'] => "Error - #{error.inspect.to_s}" }
+          {
+            extract_hash['Identifier'] => {
+              id: document.friendlier_id,
+              title: document.title,
+              state: "Error - #{error.inspect.to_s}"
+            }
+          }
         )
         next
       end

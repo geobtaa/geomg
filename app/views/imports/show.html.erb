@@ -73,7 +73,7 @@
 
   <div class="tab-pane fade show active" id="data-mapping" role="tabpanel" aria-labelledby="data-mapping-tab">
     <h3>Data Mapping</h3>
-    <table class="table">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th>CSV Source</th>
@@ -95,14 +95,27 @@
 
   <div class="tab-pane fade" id="import-results" role="tabpanel" aria-labelledby="import-results-tab">
     <h3>Import Results</h3>
-    <ul>
-    <% @import.import_log.each do |key,value| %>
-      <li>
-        <%= link_to "http://localhost:3001/catalog/#{key}", target: "_blank" do %>
-          <%= key %> <%= value %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Identifier</th>
+          <th>Title</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @import.import_log.each do |key,value| %>
+          <tr>
+            <td>
+            <%= link_to "http://localhost:3001/catalog/#{key}", target: "_blank" do %>
+              <%= key %>
+            <% end %>
+            </td>
+            <td><%= value["title"] %></td>
+            <td><%= value["state"] %></td>
+          </tr>
         <% end %>
-      </li>
-    <% end %>
-    </ul>
+      </tbody>
+    </table>
   </div>
 </div>
