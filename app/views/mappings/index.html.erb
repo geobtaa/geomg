@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p id="notice"><%= render "shared/flash_messages" %></p>
 
 <h1><%= @import.name %> &middot; Field Mappings</h1>
 
@@ -11,7 +11,6 @@
             <td><%= f.input :source_header, :input_html => {:readonly => true} %></td>
             <td><%= f.input :destination_field, collection: attribute_collection %></td>
             <td><%= f.input :delimited %></td>
-            <td><%= f.input :transformation_method %></td>
             <td><%= f.association :import, as: :hidden %></td>
             <td><%= f.button :submit, "Update", {class: 'btn btn-primary'} %></td>
           </tr>
@@ -25,7 +24,6 @@
               <td><%= f.input :source_header, :input_html => {:value => header, :readonly => true} %></td>
               <td><%= f.input :destination_field, collection: attribute_collection, selected: mapping_suggestion(header) %></td>
               <td><%= f.input :delimited, :input_html => { checked: delimiter_suggestion(header) } %></td>
-              <td><%= f.input :transformation_method %></td>
               <td><%= f.association :import, as: :hidden %></td>
           <% end %>
           </tr>
