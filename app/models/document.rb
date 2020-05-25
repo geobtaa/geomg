@@ -10,10 +10,14 @@ class Document < Kithe::Work
   # Validations
   validates :b1g_status_s, presence: true
   validates :dc_identifier_s, presence: true
-  validates :dc_format_s, presence: true
+  validates :dc_format_s, presence: true, unless: :a_collection_object?
   validates :dc_rights_s, presence: true
   validates :layer_geom_type_s, presence: true
   validates :layer_slug_s, presence: true
+
+  def a_collection_object?
+    self.dc_type_sm.include?('Collection')
+  end
 
   # Form
   # Identification
