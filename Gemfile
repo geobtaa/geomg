@@ -76,6 +76,7 @@ group :test do
   gem 'minitest'
   gem 'minitest-ci', '~> 3.4.0'
   gem 'minitest-reporters'
+  gem 'shoulda-context'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

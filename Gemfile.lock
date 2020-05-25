@@ -301,6 +301,7 @@ GEM
     selenium-webdriver (3.142.7)
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
+    shoulda-context (1.2.2)
     shrine (2.19.4)
       content_disposition (~> 1.0)
       down (>= 4.1, < 6)
@@ -406,6 +407,7 @@ DEPENDENCIES
   qa (~> 5.0)
   rails (~> 6.0.2, >= 6.0.2.1)
   sass-rails (>= 6)
+  shoulda-context
   simple_form (~> 5.0)
   solr_wrapper (~> 2.1)
   spring

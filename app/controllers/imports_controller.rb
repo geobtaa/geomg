@@ -78,7 +78,6 @@ class ImportsController < ApplicationController
         :source,
         :description,
         :row_count,
-        :headers,
         :encoding,
         :content_type,
         :extension,
@@ -92,7 +91,8 @@ class ImportsController < ApplicationController
           :delimited,
           :transformation_method,
           :import_id
-        ]
+        ],
+        headers: []
       )
     end
 end

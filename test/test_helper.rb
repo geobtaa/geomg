@@ -1,11 +1,13 @@
 ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
-require "minitest/reporters"
+require 'minitest/reporters'
+require 'active_storage_validations/matchers'
 
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(:color => true)]
 
 class ActiveSupport::TestCase
+  extend ActiveStorageValidations::Matchers
   fixtures :all
 
   include Devise::Test::IntegrationHelpers

@@ -6,11 +6,11 @@
   "dct_references_s": [
     {
       "value": "https://lib.msu.edu/branches/map/AfJPEGs/494a-b_ae55e6v2_l/",
-      "category": "Full layer description"
+      "category": "documentation_external"
     },
     {
       "value": "https://archive.lib.msu.edu/maps/MSU-Scanned/Africa/494a-b_ae55e6v2_l.jpg",
-      "category": "Direct download file"
+      "category": "download"
     }
   ],
   "dc_rights_s": "Public",

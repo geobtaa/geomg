@@ -1,6 +1,6 @@
 class ImportBtaa < Import
-  # validations, constants and methods
 
+  # validations, constants and methods
 
   # Solr Field => Hard Value
   def default_mappings
