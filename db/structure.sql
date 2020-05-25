@@ -192,9 +192,9 @@ ALTER SEQUENCE public.import_transitions_id_seq OWNED BY public.import_transitio
 CREATE TABLE public.imports (
     id bigint NOT NULL,
     name character varying NOT NULL,
-    filename character varying,
     source character varying,
     description text,
+    filename character varying,
     row_count integer,
     headers text[] DEFAULT '{}'::text[],
     encoding character varying,

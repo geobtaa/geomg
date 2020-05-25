@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :imports do
     resources :mappings
+    patch :run, on: :member
   end
 
   devise_for :users

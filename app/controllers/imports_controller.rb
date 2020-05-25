@@ -1,5 +1,5 @@
 class ImportsController < ApplicationController
-  before_action :set_import, only: [:show, :edit, :update, :destroy]
+  before_action :set_import, only: [:show, :edit, :update, :destroy, :run]
 
   # GET /imports
   # GET /imports.json
@@ -61,6 +61,11 @@ class ImportsController < ApplicationController
     end
   end
 
+  def run
+    @import.import!
+    redirect_to import_url(@import), notice: 'Import was run.'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_import
@@ -84,6 +89,7 @@ class ImportsController < ApplicationController
         :validity,
         :validation_result,
         :csv_file,
+        :run,
         mappings_attributes: [
           :id,
           :source_header,
