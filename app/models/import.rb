@@ -90,10 +90,9 @@ class Import < ApplicationRecord
 
         document = Document.where(
           friendlier_id: converted_data['layer_slug_s']
-        ).first_or_create.update(kithe_document)
+        ).first_or_create
 
-        # @TODO - update returns boolean, need to clean up this logging data
-        if document
+        if document.update!(kithe_document)
           puts "Saved #{document.id}"
           self.import_log.merge!(
             { extract_hash['Identifier'] => 'Saved' }

@@ -10,9 +10,26 @@
   <%= @import.name %>
 </p>
 
+
+<p>
+  <strong>CSV Row count:</strong>
+  <%= @import.row_count %>
+</p>
+
+<p>
+  <strong>Imported count:</strong>
+  <%= @import.documents.size %>
+</p>
+
 <p>
   <strong>State:</strong>
   <%= @import.state_machine.current_state %>
+  <% if @import.state_machine.current_state == 'mapped' %>
+    <%= form_tag run_import_path(@import), method: :patch do -%>
+      <%= hidden_field_tag :run, true -%>
+      <%= submit_tag 'Run Import' -%>
+    <%- end -%>
+  <% end %>
 </p>
 
 <p>
