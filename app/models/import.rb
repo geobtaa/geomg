@@ -7,7 +7,7 @@ class Import < ApplicationRecord
 
   # Associations
   has_one_attached :csv_file
-  has_many :import_transitions, autosave: false
+  has_many :import_transitions, autosave: false, dependent: :destroy
   has_many :mappings, -> { order(:id) }, dependent: :destroy
   accepts_nested_attributes_for :mappings
   has_many :documents
@@ -19,6 +19,7 @@ class Import < ApplicationRecord
   ]
 
   # Validations
+  validates :name, presence: true
   validates :type, presence: true
   validates :csv_file, attached: true, content_type: { in: 'text/csv', message: 'is not a CSV file' }
 
