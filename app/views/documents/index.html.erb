@@ -1,30 +1,46 @@
-<%= @page_title= "Resources" %>
+<%- @page_title= "Documents" %>
 
-<p id="notice"><%= notice %></p>
+<h1 style="width:100%;">
+  Documents
+  <%= link_to 'New Document', new_document_path, {class: 'btn btn-primary float-right'} %>
+</h1>
 
-<h1>Documents</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @documents.each do |document| %>
-      <tr>
-        <td><%= document.title %></td>
-        <td><%= document.inspect %></td>
-        <td><%= link_to 'Show', document %></td>
-        <td><%= link_to 'Edit', edit_document_path(document) %></td>
-        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<div class="row">
+  <div class="col-4">
+    <% @documents.facets.each do |facet| %>
+      <% if facet['type'] == 'facet' %>
+        <h3 class="h5"><%= facet['attributes']['label'] %></h3>
+        <ul class="list-unstyled">
+          <%- facet['attributes']['items'].each do |item| %>
+            <li>
+              <%= link_to link_from_api(item) do %>
+                <%= item['attributes']['label'] %> (<%= item['attributes']['hits'] %>)
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
-
-<%= link_to 'New Document', new_document_path %>
+  <div class="col-8">
+    <p>Results: <%= @documents.meta['pages']['total_count'] %> </p>
+    <ol>
+    <% @documents.results.each_with_index do |document, index| %>
+      <li>
+        <%= link_to document['attributes']['dc_title_s']['attributes']['value'] , edit_document_path(document["id"]) %>
+        <% if document['attributes']['dct_provenance_s'] %>
+          &middot; <%= document['attributes']['dct_provenance_s']['attributes']['value'] %>
+        <% end %>
+        <% if document['attributes']['dct_temporal_sm'] %>
+          &middot; <%= document['attributes']['dct_temporal_sm']['attributes']['value'] %>
+        <% end %>
+        <% if document['attributes']['dc_description_s'] %>
+          <p><%= document['attributes']['dc_description_s']['attributes']['value'] %>
+        <% end %>
+        </p>
+      </li>
+    <% end %>
+    </ol>
+  </div>
+</div>

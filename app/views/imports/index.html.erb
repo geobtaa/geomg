@@ -1,8 +1,9 @@
-<p id="notice"><%= render "shared/flash_messages" %></p>
+<h1 style="width:100%;">
+  Imports
+  <%= link_to 'New Import', new_import_path, { class: 'btn btn-primary float-right' } %>
+</h1>
 
-<h1>Imports</h1>
-
-<table class="table">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -10,9 +11,7 @@
       <th>Source</th>
       <th>Description</th>
       <th>Row count</th>
-      <th>Encoding</th>
-      <th>Content type</th>
-      <th>Extension</th>
+      <th>Date</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -25,9 +24,7 @@
         <td><%= import.source %></td>
         <td><%= import.description %></td>
         <td><%= import.row_count %></td>
-        <td><%= import.encoding %></td>
-        <td><%= import.content_type %></td>
-        <td><%= import.extension %></td>
+        <td><%= import.created_at %></td>
         <td><%= link_to 'Show', import_path(import) %></td>
         <td><%= link_to 'Edit', edit_import_path(import) %></td>
         <td><%= link_to 'Destroy', import_path(import), method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -35,7 +32,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Import', new_import_path %>
