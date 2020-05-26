@@ -8,4 +8,5 @@ GEOMG_SCHEMA = HashWithIndifferentAccess.new(
   )
 )
 
+BLACKLIGHT_URL = 'http://localhost:3001'
 BLACKLIGHT_JSON_API = 'http://localhost:3001/catalog.json'

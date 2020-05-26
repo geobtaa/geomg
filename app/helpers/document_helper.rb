@@ -10,4 +10,8 @@ module DocumentHelper
       "/documents?#{uri.split('/catalog.json?').last}"
     end
   end
+
+  def blacklight_link(document)
+    "#{BLACKLIGHT_URL}/catalog/#{document.friendlier_id}"
+  end
 end

@@ -14,6 +14,7 @@ class Document < Kithe::Work
   validates :dc_rights_s, presence: true
   validates :layer_geom_type_s, presence: true
   validates :layer_slug_s, presence: true
+  validates :b1g_date_range_drsim, presence: true
 
   def a_collection_object?
     self.dc_type_sm.include?('Collection')

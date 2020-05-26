@@ -6,7 +6,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <%= form_tag(documents_path, { method: :get, class: "form-inline my-2 my-lg-0" }) do %>
-    <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search items" aria-label="Search" value="<%= params[:q] ? params[:q] : ''%>">
+    <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search documents" aria-label="Search" value="<%= params[:q] ? params[:q] : ''%>">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
   <% end %>
 
