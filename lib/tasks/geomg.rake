@@ -35,7 +35,7 @@ namespace :geomg do
         puts "Solr running at http://localhost:8983/solr/geoportal-core-development/, ^C to exit"
         puts ' '
         begin
-          # Rake::Task['geoblacklight:solr:seed'].invoke
+          Rake::Task['geomg:solr:reindex'].invoke
           system "bundle exec rails s -b 0.0.0.0"
           sleep
         rescue Interrupt
