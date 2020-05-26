@@ -114,7 +114,7 @@ class DocumentsController < ApplicationController
   end
 
   def show
-    render :edit
+    redirect_to edit_document_url(@document)
   end
 
   private
