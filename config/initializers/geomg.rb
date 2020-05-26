@@ -7,3 +7,5 @@ GEOMG_SCHEMA = HashWithIndifferentAccess.new(
     )
   )
 )
+
+BLACKLIGHT_JSON_API = 'http://localhost:3001/catalog.json'
