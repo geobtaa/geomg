@@ -16,6 +16,13 @@ task :ci do
 end
 
 namespace :geomg do
+  task :production_guard do
+    if Rails.env.production? && ENV['PRODUCTION_OKAY'] != 'true'
+      $stderr.puts "\nNot safe for production. If you are sure, run with `PRODUCTION_OKAY=true #{ARGV.join}`\n\n"
+      exit 1
+    end
+  end
+
   desc 'Run Solr and GeOMG for development'
   task :server, [:rails_server_args] do
     require 'solr_wrapper'
@@ -35,6 +42,56 @@ namespace :geomg do
           puts "\nShutting down..."
         end
       end
+    end
+  end
+
+  desc "Start solr server for testing."
+  task :test do
+    if Rails.env.test?
+      shared_solr_opts = { managed: true, verbose: true, persist: false, download_dir: 'tmp' }
+      shared_solr_opts[:version] = ENV['SOLR_VERSION'] if ENV['SOLR_VERSION']
+
+      SolrWrapper.wrap(shared_solr_opts.merge(port: 8985, instance_dir: 'tmp/geoportal-core-test')) do |solr|
+        solr.with_collection(name: "geoportal-core-test", dir: Rails.root.join("solr", "conf").to_s) do
+          puts "Solr running at http://localhost:8985/solr/#/geoportal-core-test/, ^C to exit"
+          begin
+            Rake::Task['geomg:reindex'].invoke
+          rescue Interrupt
+            puts "\nShutting down..."
+          end
+        end
+      end
+    else
+      system('rake geomg:test RAILS_ENV=test')
+    end
+  end
+
+  namespace :solr do
+    desc "sync all Works and Collections to solr index"
+    task :reindex => :environment do
+      scope = Kithe::Model.where(kithe_model_type: 1)
+
+      Kithe::Indexable.index_with(batching: true) do
+        scope.find_each do |model|
+          model.update_index
+        end
+      end
+    end
+
+    desc "delete any model objects in solr that no longer exist in the db"
+    task :delete_orphans => :environment do
+      deleted_ids = Kithe::SolrUtil.delete_solr_orphans
+      puts "Deleted #{deleted_ids.count} Solr objects"
+    end
+
+    desc "delete ALL items from Solr"
+    task :delete_all => [:environment, :production_guard] do
+      Kithe::SolrUtil.delete_all
+    end
+
+    desc "print out mapped index hash for specified ID, eg rake scihist:solr:debug_indexing[adf232adf]"
+    task :debug_indexing, [:friendlier_id] => [:environment] do |t, args|
+      Kithe::Model.find_by_friendlier_id(args[:friendlier_id]).update_index(writer: Traject::DebugWriter.new({}))
     end
   end
 end

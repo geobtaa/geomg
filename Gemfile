@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.6.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
@@ -42,9 +42,19 @@ gem 'dotenv-rails'
 
 # Auth
 gem 'devise'
+gem 'devise-bootstrap-views', '~> 1.0'
 
 # Versioning
 gem 'paper_trail'
+
+# ActiveStorage
+gem 'active_storage_validations'
+
+# State
+gem 'statesman', '~> 7.1.0'
+
+# API
+gem 'httparty'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -69,6 +79,7 @@ group :test do
   gem 'minitest'
   gem 'minitest-ci', '~> 3.4.0'
   gem 'minitest-reporters'
+  gem 'shoulda-context'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

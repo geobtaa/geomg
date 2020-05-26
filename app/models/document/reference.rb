@@ -73,24 +73,15 @@ class Document
       }
     }
 
-    REFERENCE_URIS = REFERENCE_VALUES.collect{|key,value| value[:uri]}
-    REFERENCE_LABELS = REFERENCE_VALUES.collect{|key,value| value[:label]}
-    REFERENCE_LOOKUP = Hash[*(REFERENCE_VALUES.map{|key,value| [ value[:label], value[:uri]]}).flatten]
-
     include AttrJson::Model
 
     validates_presence_of :category, :value
     validates :category, inclusion:
-      { in: REFERENCE_LABELS,
+      { in: REFERENCE_VALUES.stringify_keys.keys,
         allow_blank: true,
         message: "%{value} is not a valid category" }
 
     attr_json :category, :string
     attr_json :value, :string
-
-
-    def self.lookup(arg)
-      REFERENCE_LOOKUP[arg]
-    end
   end
 end

@@ -1,5 +1,8 @@
 class Document < Kithe::Work
+  include AttrJson::Record::QueryScopes
+
   has_paper_trail
+  belongs_to :import, optional: true
 
   # Indexer
   self.kithe_indexable_mapper = DocumentIndexer.new
@@ -7,15 +10,20 @@ class Document < Kithe::Work
   # Validations
   validates :b1g_status_s, presence: true
   validates :dc_identifier_s, presence: true
-  validates :dc_format_s, presence: true
+  validates :dc_format_s, presence: true, unless: :a_collection_object?
   validates :dc_rights_s, presence: true
   validates :layer_geom_type_s, presence: true
   validates :layer_slug_s, presence: true
+  validates :b1g_date_range_drsim, presence: true
+
+  def a_collection_object?
+    self.dc_type_sm.include?('Collection')
+  end
 
   # Form
   # Identification
   # - Descriptive
-  # attr_json :dc_title_s, :string - Comes from Kithe "title"
+  attr_json :dc_title_s, :string
   attr_json :dct_alternativeTitle_sm, :string, array: true, default: -> { [] }
   attr_json :dc_description_s, :text
   attr_json :dc_language_sm, :string, array: true, default: -> { [] }
@@ -71,6 +79,7 @@ class Document < Kithe::Work
 
   # - Accessibility
   attr_json :dc_rights_s, :string
+  attr_json :dct_accessRights_sm, :string, array: true, default: -> { [] }
 
   # @TODO: Why are booleans not passed in form params?
   attr_json :suppressed_b, :boolean
@@ -79,7 +88,7 @@ class Document < Kithe::Work
   # Transformations
   def references_json
     references = Hash.new
-    self.dct_references_s.each{ |ref| references[Document::Reference.lookup(ref.category)] = ref.value }
+    self.dct_references_s.each{ |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
     references.to_json
   end
 end

@@ -66,6 +66,7 @@ class DocumentIndexer < Kithe::Indexer
 
     # - Accessibility
     to_field "dc_rights_s", obj_extract("dc_rights_s")
+    to_field "dct_accessRights_sm", obj_extract("dct_accessRights_sm")
     to_field "suppressed_b", obj_extract("suppressed_b")
     to_field "b1g_child_record_b", obj_extract("b1g_child_record_b")
 

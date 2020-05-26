@@ -1,0 +1,121 @@
+<p id="notice"><%= render "shared/flash_messages" %></p>
+
+<%= link_to 'Edit', edit_import_path(@import) %> |
+<%= link_to 'Back', imports_path %>
+
+<h1>Import</h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @import.name %>
+</p>
+
+
+<p>
+  <strong>CSV Row count:</strong>
+  <%= @import.row_count %>
+</p>
+
+<p>
+  <strong>Imported count:</strong>
+  <%= @import.documents.size %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @import.state_machine.current_state %>
+  <% if @import.state_machine.current_state == 'mapped' %>
+    <%= form_tag run_import_path(@import), method: :patch do -%>
+      <%= hidden_field_tag :run, true -%>
+      <%= submit_tag 'Run Import' -%>
+    <%- end -%>
+  <% end %>
+</p>
+
+<p>
+  <strong>Source:</strong>
+  <%= @import.source %>
+</p>
+
+
+<p>
+  <strong>Description:</strong>
+  <%= @import.description %>
+</p>
+
+<nav>
+  <div class="nav nav-tabs" id="import-tabs" role="tablist">
+    <a class="nav-item nav-link" id="file-details-tab" data-toggle="tab" href="#file-details" role="tab" aria-controls="file-details" aria-selected="false">File Details</a>
+    <a class="nav-item nav-link active" id="data-mapping-tab" data-toggle="tab" href="#data-mapping" role="tab" aria-controls="data-mapping" aria-selected="true">Data Mapping</a>
+    <a class="nav-item nav-link" id="import-results-tab" data-toggle="tab" href="#import-results" role="tab" aria-controls="import-results"
+      aria-selected="false">Import Results</a>
+  </div>
+</nav>
+
+<div class="tab-content" id="import-content">
+  <div class="tab-pane fade" id="file-details" role="tabpanel" aria-labelledby="file-details-tab">
+    <h3>File Details</h3>
+    <p>
+      <strong>Filename:</strong>
+      <%= @import.filename %> (<%= @import.content_type %>)
+    </p>
+
+    <p>
+      <strong>CSV Headers:</strong>
+      <%= @import.headers.join(", ") %>
+    </p>
+
+    <p>
+      <strong>Row count:</strong>
+      <%= @import.row_count %>
+    </p>
+  </div>
+
+  <div class="tab-pane fade show active" id="data-mapping" role="tabpanel" aria-labelledby="data-mapping-tab">
+    <h3>Data Mapping</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>CSV Source</th>
+          <th>Solr Destination</th>
+          <th>Delimited?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%- @import.mappings.each do |mapping| %>
+          <tr>
+            <td><%= mapping.source_header %></td>
+            <td><%= mapping.destination_field %></td>
+            <td><%= mapping.delimited %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tab-pane fade" id="import-results" role="tabpanel" aria-labelledby="import-results-tab">
+    <h3>Import Results</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Identifier</th>
+          <th>Title</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @import.import_log.each do |key,value| %>
+          <tr>
+            <td>
+            <%= link_to "http://localhost:3001/catalog/#{key}", target: "_blank" do %>
+              <%= key %>
+            <% end %>
+            </td>
+            <td><%= value["title"] %></td>
+            <td><%= value["state"] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

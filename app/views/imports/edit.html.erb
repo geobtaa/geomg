@@ -1,0 +1,8 @@
+<h1>Editing Import</h1>
+
+<%= simple_form_for(@import, :url => import_path) do |f| %>
+  <%= render 'form', import: @import, f: f %>
+<% end %>
+
+<%= link_to 'Show', import_path(@import) %> |
+<%= link_to 'Back', imports_path %>
