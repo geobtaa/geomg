@@ -4,7 +4,7 @@ class ImportsController < ApplicationController
   # GET /imports
   # GET /imports.json
   def index
-    @imports = Import.all
+    @imports = Import.all.order("created_at DESC")
   end
 
   # GET /imports/1
