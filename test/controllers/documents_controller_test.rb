@@ -23,9 +23,9 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should render document show view' do
+  test 'should redirect document show view' do
     get '/documents/testhashid'
-    assert_response :success
+    assert_redirected_to edit_document_path
   end
 
   test "should render document edit view" do
