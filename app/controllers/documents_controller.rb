@@ -10,7 +10,8 @@ class DocumentsController < ApplicationController
     @documents = BlacklightApi.new(
       unsafe_params['q'],
       unsafe_params['f'],
-      unsafe_params['page']
+      unsafe_params['page'],
+      unsafe_params['sort']
     )
   end
 
@@ -133,12 +134,7 @@ class DocumentsController < ApplicationController
         :title,
         :layer_slug_s,
         :layer_geom_type_s,
-        :dct_references_s,
-        :q,
-        f: {
-          :dct_spatial_sm => [],
-          :solr_year_i => []
-        }
+        :dct_references_s
       )
     end
 end
