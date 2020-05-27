@@ -4,7 +4,7 @@ An experimental UI for administering BTAA Geoblacklight JSON documents.
 
 ## Requirements
 
-* Ruby 2.5+
+* Ruby 2.7+
 * Ruby on Rails 6+
 * Yarn
 * Bundler
