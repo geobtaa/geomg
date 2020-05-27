@@ -4,8 +4,8 @@ class BlacklightApi
 
   attr_accessor :fetch
 
-  def initialize(query='*', facets=[], page=1)
-    @options = { q: query, page: page }
+  def initialize(query='*', facets=[], page=1, sort='score+desc%2C+dc_title_sort+asc')
+    @options = { q: query, page: page, sort: sort }
     append_facets(facets, @options)
 
     @options
@@ -20,11 +20,19 @@ class BlacklightApi
   end
 
   def facets
-    fetch['included']
+    fetch['included'].filter_map{|s| s if s['type'] == 'facet'}
+  end
+
+  def sorts
+    fetch['included'].filter_map{|s| s if s['type'] == 'sort'}
   end
 
   def meta
     fetch['meta']
+  end
+
+  def links
+    fetch['links']
   end
 
   private
