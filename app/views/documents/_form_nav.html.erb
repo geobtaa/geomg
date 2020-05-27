@@ -1,6 +1,9 @@
 <div class="make-me-sticky">
   <ul class="nav flex-column">
     <li class="nav-item">
+      <%= link_to "View in Geoportal", blacklight_link(@document), { class: 'btn btn-outline-primary', target: :_blank } %>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="#identification">Identification</a>
       <ul>
         <li><a href="#descriptive">Descriptive</a></li>

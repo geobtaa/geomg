@@ -4,10 +4,16 @@ class DocumentsController < ApplicationController
 
   # GET /documents
   # GET /documents.json
-  def index
-    @documents = Document.all
-  end
 
+  def index
+    unsafe_params = params.to_unsafe_h
+    @documents = BlacklightApi.new(
+      unsafe_params['q'],
+      unsafe_params['f'],
+      unsafe_params['page'],
+      unsafe_params['sort']
+    )
+  end
 
   # GET /documents/new
   def new
@@ -109,6 +115,7 @@ class DocumentsController < ApplicationController
   end
 
   def show
+    redirect_to edit_document_url(@document)
   end
 
   private
@@ -124,7 +131,10 @@ class DocumentsController < ApplicationController
     # enough for now.
     def document_params
       Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(
-        :title, :layer_slug_s, :layer_geom_type_s, :dct_references_s
+        :title,
+        :layer_slug_s,
+        :layer_geom_type_s,
+        :dct_references_s
       )
     end
 end
