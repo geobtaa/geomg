@@ -69,3 +69,5 @@ yarn-debug.log*
 
 # Ignore test reports
 /test/reports/*
+.env.development
+.env.test
