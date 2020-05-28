@@ -6,9 +6,11 @@ An experimental UI for administering BTAA Geoblacklight JSON documents.
 
 * Ruby 2.7+
 * Ruby on Rails 6+
-* Yarn
 * Bundler
-* PostgreSQL 12+
+* Yarn (JS)
+* PostgreSQL 12+ (Kithe datastore)
+* Apache Solr  (GeoBlacklight index)
+* Redis / Sidekiq (Background queue)
 
 ## Installation
 
@@ -18,14 +20,28 @@ An experimental UI for administering BTAA Geoblacklight JSON documents.
 * bundle exec rails db:create
 * bundle exec rails db:migrate
 * RAILS_ENV=test bundle exec rails db:migrate
+* Update dotenv files
 
 ## Development
 
-Run Solr and Rails server:
+#### Run the app
+
+1. Run Solr and Rails server:
 
 ```bash
 bundle exec rake geomg:server
 ```
+
+2. Run the BTAA/B1G Geoportal on port 3001
+```bash
+cd ~/Rails/geoportal
+bundle exec rails server --port=3001
+```
+
+3. Open [localhost:3000](http://localhost:3000)
+
+
+#### Test suite
 
 Run test suite:
 
@@ -36,16 +52,33 @@ bundle exec rake ci
 ## TODOS
 
 * Basic BTAA/GBL Form
-  - Better labels
-  - Form validation
+  - -Better labels (via I18n)-
+  - -Form validation-
   - -Input datepickers-
   - Controlled vocabulary lists
 
-* Test Suite
-* Auth (Devise)
-* Document Versioning (Paper Trail)
-* Search
+* Document Versioning
+  - -Paper Trail-
+
 * CSV Import Workflow
+  - -BTAA CSV-
+  - SOLR CSV
+  - DCAT CSV
+
+* Auth (Devise)
+  - Remove registerable
+  - Add invitable
+  - Seed initial users
+
+* Search
+  - -Via Blacklight JSON-API-
+
+* Test Suite
+
+* Publish/Unpublish Toggle
+  - -Add Admin::API controller to Geoportal (plugin candidate)-
+  - Add published boolean attribute
+  - Add default filter for Geoportal's CatalogController
 
 ## PostgreSQL Notes
 
