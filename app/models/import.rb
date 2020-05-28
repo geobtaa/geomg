@@ -84,9 +84,6 @@ class Import < ApplicationRecord
         }
 
         # @TODO!!!!!!
-        # - Make the actual Kithe Documents
-        # - Do it in a loop, passing jobs to the background
-        # - Add import report to view
         # - Kick off URI and SidecarImage jobs?
 
         document = Document.where(
