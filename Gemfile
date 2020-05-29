@@ -34,7 +34,7 @@ gem 'kithe', '~> 1.0.0'
 gem 'bootstrap', '~> 4.0'
 gem 'simple_form', '~> 5.0'
 gem 'cocoon', '~> 1.2'
-gem 'jquery-rails', "~> 4.3"
+gem 'jquery-rails', "~> 4.4"
 gem "qa", "~> 5.0"
 
 # Dotenv
