@@ -43,6 +43,7 @@ gem 'dotenv-rails'
 # Auth
 gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
+gem 'devise_invitable', '~> 2.0.0'
 
 # Versioning
 gem 'paper_trail'
