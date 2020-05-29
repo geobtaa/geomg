@@ -1,83 +1,85 @@
-<p id="notice"><%= render "shared/flash_messages" %></p>
-
-<%= link_to 'Edit', edit_import_path(@import) %> |
+<%= link_to 'Edit Import', edit_import_path(@import) %> |
 <%= link_to 'Back', imports_path %>
 
-<h1>Import</h1>
+<div class="row">
+  <div class="col-md-6">
+    <h1>Import</h1>
+    <p>
+      <strong>Name:</strong>
+      <%= @import.name %>
+    </p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @import.name %>
-</p>
-
-
-<p>
-  <strong>CSV Row count:</strong>
-  <%= @import.row_count %>
-</p>
-
-<p>
-  <strong>Imported count:</strong>
-  <%= @import.documents.size %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @import.state_machine.current_state %>
-  <% if @import.state_machine.current_state == 'mapped' %>
-    <%= form_tag run_import_path(@import), method: :patch do -%>
-      <%= hidden_field_tag :run, true -%>
-      <%= submit_tag 'Run Import' -%>
-    <%- end -%>
-  <% end %>
-</p>
-
-<p>
-  <strong>Source:</strong>
-  <%= @import.source %>
-</p>
-
-
-<p>
-  <strong>Description:</strong>
-  <%= @import.description %>
-</p>
-
-<nav>
-  <div class="nav nav-tabs" id="import-tabs" role="tablist">
-    <a class="nav-item nav-link" id="file-details-tab" data-toggle="tab" href="#file-details" role="tab" aria-controls="file-details" aria-selected="false">File Details</a>
-    <a class="nav-item nav-link active" id="data-mapping-tab" data-toggle="tab" href="#data-mapping" role="tab" aria-controls="data-mapping" aria-selected="true">Data Mapping</a>
-    <a class="nav-item nav-link" id="import-results-tab" data-toggle="tab" href="#import-results" role="tab" aria-controls="import-results"
-      aria-selected="false">Import Results</a>
-  </div>
-</nav>
-
-<div class="tab-content" id="import-content">
-  <div class="tab-pane fade" id="file-details" role="tabpanel" aria-labelledby="file-details-tab">
-    <h3>File Details</h3>
     <p>
       <strong>Filename:</strong>
       <%= @import.filename %> (<%= @import.content_type %>)
     </p>
 
     <p>
-      <strong>CSV Headers:</strong>
-      <%= @import.headers.join(", ") %>
+      <strong>State:</strong>
+      <%= @import.state_machine.current_state %>
     </p>
 
     <p>
-      <strong>Row count:</strong>
-      <%= @import.row_count %>
+      <strong>Source:</strong>
+      <%= @import.source %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @import.description %>
     </p>
   </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header text-center">
+        <h3 class="h5">CSV Row Count</h3>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item text-center">
+          <%= @import.row_count %>
+        </li>
+      </ul>
+    </div>
+  </div>
 
-  <div class="tab-pane fade show active" id="data-mapping" role="tabpanel" aria-labelledby="data-mapping-tab">
-    <h3>Data Mapping</h3>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header text-center">
+        <h3 class="h5">Imported Documents</h3>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item text-center">
+          <% if @import.state_machine.current_state == 'mapped' %>
+            <%= form_tag run_import_path(@import), method: :patch do -%>
+              <%= hidden_field_tag :run, true -%>
+              <%= submit_tag 'Run Import' -%>
+            <%- end -%>
+          <% end %>
+          <% if @import.state_machine.current_state == 'imported' %>
+            <%= @import.documents.size %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<nav>
+  <div class="nav nav-tabs" id="import-tabs" role="tablist">
+    <a class="nav-item nav-link <%=@import.state_machine.current_state == 'mapped' ? 'active' : '' %>" id="data-mapping-tab" data-toggle="tab" href="#data-mapping" role="tab" aria-controls="data-mapping" aria-selected="true">Data Mapping</a>
+    <a class="nav-item nav-link <%= @import.state_machine.current_state == 'imported' ? 'active' : '' %>" id="import-results-tab" data-toggle="tab" href="#import-results" role="tab" aria-controls="import-results"
+      aria-selected="false">Import Results</a>
+  </div>
+</nav>
+
+<div class="tab-content" id="import-content">
+  <div class="tab-pane fade <%=@import.state_machine.current_state == 'mapped' ? 'show active' : '' %>" id="data-mapping" role="tabpanel" aria-labelledby="data-mapping-tab">
+    <h3 class="sr-only">Data Mapping</h3>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>CSV Source</th>
-          <th>Solr Destination</th>
+          <th>CSV Header</th>
+          <th>Solr Field Destination</th>
           <th>Delimited?</th>
         </tr>
       </thead>
@@ -93,25 +95,26 @@
     </table>
   </div>
 
-  <div class="tab-pane fade" id="import-results" role="tabpanel" aria-labelledby="import-results-tab">
-    <h3>Import Results</h3>
+  <div class="tab-pane fade <%= @import.state_machine.current_state == 'imported' ? 'show active' : '' %>" id="import-results" role="tabpanel" aria-labelledby="import-results-tab">
+    <h3 class="sr-only">Import Results</h3>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Identifier</th>
           <th>Title</th>
+          <th>Identifier</th>
           <th>State</th>
         </tr>
       </thead>
       <tbody>
-        <% @import.import_log.each do |key,value| %>
+        <% @import.import_log.each_with_index do |(key,value), index| %>
           <tr>
             <td>
+            <%= index+1 %>.
             <%= link_to "http://localhost:3001/catalog/#{key}", target: "_blank" do %>
-              <%= key %>
+              <%= value["title"] %>
             <% end %>
             </td>
-            <td><%= value["title"] %></td>
+            <td><%= key %></td>
             <td><%= value["state"] %></td>
           </tr>
         <% end %>
