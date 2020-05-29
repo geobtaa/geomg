@@ -8,7 +8,7 @@ class DocumentFormTest < ApplicationSystemTestCase
   def test_basic_dom
     visit "/documents/new"
 
-    assert page.has_selector?("p.navbar-text")      # User Nav
+    assert page.has_selector?("nav.navbar")         # User Nav
     assert page.has_selector?("form#new_document")  # Form
     assert page.has_selector?("div.admin-header")   # Form Header
     assert page.has_selector?("div.form-actions")   # Form Actions
