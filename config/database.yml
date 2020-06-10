@@ -1,0 +1,15 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host:     <%= ENV['GEOMG_DB_HOST'] || '127.0.0.1' %>
+  port:     <%= ENV['GEOMG_DB_PORT'] || '5432' %>
+  database: <%= ENV['GEOMG_DB_DATABASE'] %>
+  username: <%= ENV['GEOMG_DB_USER'] %>
+  password: <%= ENV['GEOMG_DB_PASSWORD'] %>
+  pool: 5
+
+development:
+  <<: *default
+
+production:
+  <<: *default
