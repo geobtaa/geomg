@@ -27,6 +27,7 @@ config/master.key
 
 # We are only pointing to environment variables in database config
 !config/database.yml
+!config/sidekiq.yml
 !config/webpacker.yml
 
 # dotenv
