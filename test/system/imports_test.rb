@@ -19,12 +19,13 @@ class ImportsTest < ApplicationSystemTestCase
     fill_in "Source", with: @import.source
     fill_in "Description", with: @import.description
 
-    attach_file('import_csv_file', "#{Rails.root}/test/fixtures/files/sample_records_template.csv")
+    attach_file('import_csv_file', "#{Rails.root}/test/fixtures/files/btaa_formatted_records.csv")
+
+    select "BTAA CSV Template", :from => "import_type"
 
     click_on "Create Import"
 
     assert_text "Import was successfully created"
-    click_on "Back"
   end
 
   test "updating a Import" do
@@ -35,9 +36,9 @@ class ImportsTest < ApplicationSystemTestCase
     fill_in "Source", with: @import.source
     fill_in "Description", with: @import.description
 
-    attach_file('import_csv_file', "#{Rails.root}/test/fixtures/files/sample_records_template.csv")
+    attach_file('import_btaa_csv_file', "#{Rails.root}/test/fixtures/files/btaa_formatted_records.csv")
 
-    click_on "Update Import"
+    click_on "Update Import btaa"
 
     assert_text "Import was successfully updated"
     click_on "Back"

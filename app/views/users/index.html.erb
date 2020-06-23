@@ -1,0 +1,9 @@
+<%- @page_title= "Users" %>
+
+<h1 style="width:100%; margin-bottom:2rem;">
+  Users
+  <%= link_to '+ New User', new_user_invitation_path, {class: 'btn btn-primary float-right'} %>
+</h1>
+<% @users.each do |user| %>
+  <%= user.email %><br/>
+<% end %>
