@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# DocumentsController
 class DocumentsController < ApplicationController
   before_action :set_document,
-    only: [:show, :edit, :update, :destroy, :publish, :unpublish]
+                only: %i[show edit update destroy publish unpublish]
 
   # GET /documents
   # GET /documents.json
@@ -22,8 +25,7 @@ class DocumentsController < ApplicationController
   end
 
   # GET /documents/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /documents
   # POST /documents.json
@@ -119,22 +121,23 @@ class DocumentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_document
-      @document = Document.includes(:leaf_representative).find_by_friendlier_id!(params[:id])
-    end
 
-    # only allow whitelisted params through (TODO, we're allowing all document params!)
-    # Plus sanitization or any other mutation.
-    #
-    # This could be done in a form object or otherwise abstracted, but this is good
-    # enough for now.
-    def document_params
-      Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(
-        :title,
-        :layer_slug_s,
-        :layer_geom_type_s,
-        :dct_references_s
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_document
+    @document = Document.includes(:leaf_representative).find_by!(friendlier_id: params[:id])
+  end
+
+  # only allow whitelisted params through (TODO, we're allowing all document params!)
+  # Plus sanitization or any other mutation.
+  #
+  # This could be done in a form object or otherwise abstracted, but this is good
+  # enough for now.
+  def document_params
+    Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(
+      :title,
+      :layer_slug_s,
+      :layer_geom_type_s,
+      :dct_references_s
+    )
+  end
 end

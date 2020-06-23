@@ -1,16 +1,18 @@
+# frozen_string_literal: true
+
+# ImportsController
 class ImportsController < ApplicationController
-  before_action :set_import, only: [:show, :edit, :update, :destroy, :run]
+  before_action :set_import, only: %i[show edit update destroy run]
 
   # GET /imports
   # GET /imports.json
   def index
-    @imports = Import.all.order("created_at DESC")
+    @imports = Import.all.order('created_at DESC')
   end
 
   # GET /imports/1
   # GET /imports/1.json
-  def show
-  end
+  def show; end
 
   # GET /imports/new
   def new
@@ -18,8 +20,7 @@ class ImportsController < ApplicationController
   end
 
   # GET /imports/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /imports
   # POST /imports.json
@@ -67,38 +68,39 @@ class ImportsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_import
-      @import = Import.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def import_params
-      # Handle STI key
-      key = (params.keys & %w(import import_btaa))[0]
-      params.require(key).permit(
-        :type,
-        :name,
-        :filename,
-        :source,
-        :description,
-        :row_count,
-        :encoding,
-        :content_type,
-        :extension,
-        :validity,
-        :validation_result,
-        :csv_file,
-        :run,
-        mappings_attributes: [
-          :id,
-          :source_header,
-          :destination_field,
-          :delimited,
-          :transformation_method,
-          :import_id
-        ],
-        headers: []
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_import
+    @import = Import.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def import_params
+    # Handle STI key
+    key = (params.keys & %w[import import_btaa])[0]
+    params.require(key).permit(
+      :type,
+      :name,
+      :filename,
+      :source,
+      :description,
+      :row_count,
+      :encoding,
+      :content_type,
+      :extension,
+      :validity,
+      :validation_result,
+      :csv_file,
+      :run,
+      mappings_attributes: %i[
+        id
+        source_header
+        destination_field
+        delimited
+        transformation_method
+        import_id
+      ],
+      headers: []
+    )
+  end
 end

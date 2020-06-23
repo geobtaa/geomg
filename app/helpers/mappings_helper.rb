@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MappingsHelper
   def attribute_collection
     Document.attr_json_registry.attribute_names

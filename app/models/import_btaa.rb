@@ -1,5 +1,7 @@
-class ImportBtaa < Import
+# frozen_string_literal: true
 
+# Import BTAA
+class ImportBtaa < Import
   # validations, constants and methods
 
   # Solr Field => Hard Value
@@ -23,24 +25,23 @@ class ImportBtaa < Import
         {
           field: 'solr_geom',
           method: 'derive_b1g_centroid_ss'
-        }
-      }
+        } }
     ]
   end
 
   def dct_references_mappings
     {
-      "Download": "download",
-      "FeatureServer": "arcgis_feature_layer",
-      "ImageServer": "arcgis_image_map_layer",
-      "Information": "documentation_external",
-      "MapServer": "arcgis_dynamic_map_layer"
+      "Download": 'download',
+      "FeatureServer": 'arcgis_feature_layer',
+      "ImageServer": 'arcgis_image_map_layer',
+      "Information": 'documentation_external',
+      "MapServer": 'arcgis_dynamic_map_layer'
     }
   end
 
   def solr_geom_mapping(geom)
     # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
-    w,s,e,n = geom.split(',')
+    w, s, e, n = geom.split(',')
     "ENVELOPE(#{w},#{e},#{n},#{s})"
   end
 
@@ -50,7 +51,7 @@ class ImportBtaa < Import
 
     matches = data_hash[field].match(/\(([^)]+)\)/)
 
-    w,e,n,s = matches.captures[0].split(',')
+    w, e, n, s = matches.captures[0].split(',')
     centerlat = (n.to_f + s.to_f) / 2
     centerlong = (e.to_f + w.to_f) / 2
 

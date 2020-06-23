@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class DocumentIndexerTest < ActiveSupport::TestCase
@@ -9,6 +11,6 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     output_hash = DocumentIndexer.new.map_record(@document)
 
     assert(output_hash).present?
-    assert_equal output_hash["model_pk_ssi"], [@document.id]
+    assert_equal output_hash['model_pk_ssi'], [@document.id]
   end
 end

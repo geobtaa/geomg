@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'csv'
 
+# Import class
 class Import < ApplicationRecord
   # Callbacks (keep at top)
   after_commit :set_csv_file_attributes, if: :persisted?
@@ -34,7 +37,7 @@ class Import < ApplicationRecord
 
     parsed = CSV.parse(csv_file.download)
 
-    self.update_columns(
+    update_columns(
       headers: parsed[0],
       row_count: parsed.size - 1,
       content_type: content_type,
@@ -44,15 +47,13 @@ class Import < ApplicationRecord
   end
 
   def check_if_mapped
-    if mappings_valid? && self.state_machine.can_transition_to?(:mapped)
-      self.state_machine.transition_to!(:mapped)
-    end
+    state_machine.transition_to!(:mapped) if mappings_valid? && state_machine.can_transition_to?(:mapped)
   end
 
   def all_mapping_keys
-    database = self.mappings.collect{ |c| c.destination_field }
-    default = self.default_mappings.collect{ |c| c.keys }
-    assumed = self.assumed_mappings.collect{ |c| c.values }
+    database = mappings.collect(&:destination_field)
+    default = default_mappings.collect(&:keys)
+    assumed = assumed_mappings.collect(&:values)
 
     mappings = (database + default + assumed).flatten
     mappings.map(&:to_s)
@@ -67,91 +68,89 @@ class Import < ApplicationRecord
     data = CSV.parse(csv_file.download, headers: true)
 
     data.each do |doc|
-      begin
-        extract_hash = doc.to_h
-        logger.debug("CSV Hash: #{extract_hash}")
+      extract_hash = doc.to_h
+      logger.debug("CSV Hash: #{extract_hash}")
 
-        converted_data = transform_extract(extract_hash)
-        converted_data = append_default_mappings(converted_data)
-        converted_data = append_assumed_mappings(converted_data)
-        converted_data = append_derived_mappings(converted_data)
+      converted_data = transform_extract(extract_hash)
+      converted_data = append_default_mappings(converted_data)
+      converted_data = append_assumed_mappings(converted_data)
+      converted_data = append_derived_mappings(converted_data)
 
-        kithe_document = {
-          title: converted_data['dc_title_s'],
-          json_attributes: converted_data,
-          friendlier_id: converted_data['layer_slug_s'],
-          import_id: self.id,
-        }
+      kithe_document = {
+        title: converted_data['dc_title_s'],
+        json_attributes: converted_data,
+        friendlier_id: converted_data['layer_slug_s'],
+        import_id: id
+      }
 
-        # @TODO!!!!!!
-        # - Kick off URI and SidecarImage jobs?
+      # @TODO!!!!!!
+      # - Kick off URI and SidecarImage jobs?
 
-        document = Document.where(
-          friendlier_id: converted_data['layer_slug_s']
-        ).first_or_create
+      document = Document.where(
+        friendlier_id: converted_data['layer_slug_s']
+      ).first_or_create
 
-        if document.update!(kithe_document)
-          puts "Saved #{document.id}"
-          self.import_log.merge!(
-            {
-              extract_hash['Identifier'] => {
-                id: document.friendlier_id,
-                title: document.title,
-                state: 'Saved'
-              }
-            }
-          )
-          next
-        else
-          puts "Failed - #{document.errors.inspect}"
-          self.import_log.merge!(
-            {
-              extract_hash['Identifier'] => {
-                id: document.friendlier_id,
-                title: document.title,
-                state: "Failed - #{document.errors.inspect.to_s}"
-              }
-            }
-          )
-          next
-        end
-      rescue StandardError => error
-        logger.debug("Error: #{error}")
-        self.import_log.merge!(
+      if document.update!(kithe_document)
+        import_log.merge!(
           {
             extract_hash['Identifier'] => {
               id: document.friendlier_id,
               title: document.title,
-              state: "Error - #{error.inspect.to_s}"
+              state: 'Saved'
+            }
+          }
+        )
+        next
+      else
+        import_log.merge!(
+          {
+            extract_hash['Identifier'] => {
+              id: document.friendlier_id,
+              title: document.title,
+              state: "Failed - #{document.errors.inspect}"
             }
           }
         )
         next
       end
+    rescue StandardError => e
+      logger.debug("Error: #{e}")
+      import_log.merge!(
+        {
+          extract_hash['Identifier'] => {
+            id: document.friendlier_id,
+            title: document.title,
+            state: "Error - #{e.inspect}"
+          }
+        }
+      )
+      next
     end
 
-    self.state_machine.transition_to!(:imported)
-    self.save
+    state_machine.transition_to!(:imported)
+    save
   end
 
   private
 
   def transform_extract(extract_hash)
     transformed_data = {}
-    self.mappings.each do |mapping|
+    mappings.each do |mapping|
       # logger.debug("Mapping: #{mapping.source_header} to #{mapping.destination_field}")
 
       # Handle repeatable dct_references_s entries
       if mapping.destination_field == 'dct_references_s'
         transformed_data[mapping.destination_field] ||= []
-        transformed_data[mapping.destination_field] << {
-           category: self.dct_references_mappings[mapping.source_header.to_sym],
-           value: extract_hash[mapping.source_header]
-          } unless extract_hash[mapping.source_header].nil?
+        unless extract_hash[mapping.source_header].nil?
+          transformed_data[mapping.destination_field] << {
+            category: dct_references_mappings[mapping.source_header.to_sym],
+            value: extract_hash[mapping.source_header]
+          }
+        end
 
       # Handle solr_geom transformation
       elsif mapping.destination_field == 'solr_geom'
-        transformed_data[mapping.destination_field] = self.solr_geom_mapping(extract_hash[mapping.source_header])
+        transformed_data[mapping.destination_field] = solr_geom_mapping(extract_hash[mapping.source_header])
 
       # Lastly, set existing values
       else
@@ -160,7 +159,7 @@ class Import < ApplicationRecord
 
       # Split delimited field values, if field has a value present
       if mapping.delimited?
-        transformed_data[mapping.destination_field] = transformed_data[mapping.destination_field].present? ? transformed_data[mapping.destination_field].split('|') : ""
+        transformed_data[mapping.destination_field] = transformed_data[mapping.destination_field].present? ? transformed_data[mapping.destination_field].split('|') : ''
       end
     end
 
@@ -169,7 +168,7 @@ class Import < ApplicationRecord
 
   # Merges an array of hashes into the data hash
   def append_default_mappings(data_hash)
-    self.default_mappings.each do |mapping|
+    default_mappings.each do |mapping|
       data_hash.merge!(mapping.stringify_keys)
     end
 
@@ -178,7 +177,7 @@ class Import < ApplicationRecord
 
   # Merges copied value hashes into the data hash
   def append_assumed_mappings(data_hash)
-    self.assumed_mappings.each do |mapping|
+    assumed_mappings.each do |mapping|
       mapping.each do |key, value|
         assumed_mapping = {}
         assumed_mapping[value] = data_hash[key.to_s]
@@ -194,12 +193,12 @@ class Import < ApplicationRecord
   #
   # Ex. solr_geom is used to calc the b1g_centroid_ss value
   def append_derived_mappings(data_hash)
-    self.derived_mappings.each do |mapping|
+    derived_mappings.each do |mapping|
       mapping.each do |key, value|
         derived_mapping = {}
 
-        args = {data_hash: data_hash.dup, field: value[:field]}
-        derived_mapping[key] = self.send(value[:method], args)
+        args = { data_hash: data_hash.dup, field: value[:field] }
+        derived_mapping[key] = send(value[:method], args)
 
         data_hash.merge!(derived_mapping.stringify_keys)
       end

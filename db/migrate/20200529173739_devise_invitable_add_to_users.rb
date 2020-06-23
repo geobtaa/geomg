@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Add Devise Invitable
 class DeviseInvitableAddToUsers < ActiveRecord::Migration[6.0]
   def up
     change_table :users do |t|

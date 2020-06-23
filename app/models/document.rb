@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Document
 class Document < Kithe::Work
   include AttrJson::Record::QueryScopes
 
@@ -17,7 +20,7 @@ class Document < Kithe::Work
   validates :b1g_date_range_drsim, presence: true
 
   def a_collection_object?
-    self.dc_type_sm.include?('Collection')
+    dc_type_sm.include?('Collection')
   end
 
   # Form
@@ -87,8 +90,8 @@ class Document < Kithe::Work
 
   # Transformations
   def references_json
-    references = Hash.new
-    self.dct_references_s.each{ |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
+    references = {}
+    dct_references_s.each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
     references.to_json
   end
 end

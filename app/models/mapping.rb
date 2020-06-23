@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Mapping
 class Mapping < ApplicationRecord
   belongs_to :import
 

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# MappingsController
 class MappingsController < ApplicationController
   before_action :set_import
-  before_action :set_mapping, only: [:show, :edit, :update, :destroy]
+  before_action :set_mapping, only: %i[show edit update destroy]
 
   # GET /import/:id/mappings
   # GET /import/:id/mappings.json
@@ -8,7 +11,7 @@ class MappingsController < ApplicationController
     @mappings = Mapping.where(import_id: @import)
 
     # Build mappings unless we already have
-    @import.mappings.build unless @import.mappings.present?
+    @import.mappings.build if @import.mappings.blank?
   end
 
   # GET /mappings/1
@@ -23,8 +26,7 @@ class MappingsController < ApplicationController
   end
 
   # GET /mappings/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /mappings
   # POST /mappings.json
@@ -67,23 +69,24 @@ class MappingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_import
-      @import = Import.find(params[:import_id])
-    end
 
-    def set_mapping
-      @mapping = Mapping.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_import
+    @import = Import.find(params[:import_id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def mapping_params
-      params.require(:mapping).permit(
-        :source_header,
-        :destination_field,
-        :delimited,
-        :transformation_method,
-        :import_id
-      )
-    end
+  def set_mapping
+    @mapping = Mapping.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def mapping_params
+    params.require(:mapping).permit(
+      :source_header,
+      :destination_field,
+      :delimited,
+      :transformation_method,
+      :import_id
+    )
+  end
 end
