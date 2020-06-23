@@ -25,6 +25,12 @@ config/master.key
 # config/secrets.yml
 /config/*.yml
 
+# We are only pointing to environment variables in database config
+!config/database.yml
+!config/sidekiq.yml
+!config/storage.yml
+!config/webpacker.yml
+
 # dotenv
 # TODO Comment out this rule if environment variables can be committed
 .env
