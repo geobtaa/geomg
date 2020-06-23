@@ -57,7 +57,7 @@ module FormInputHelper
                        default: key)
               else
                 key
-      end
+              end
 
       [value, key]
     end.to_h

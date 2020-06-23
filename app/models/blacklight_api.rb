@@ -5,8 +5,6 @@ class BlacklightApi
   include HTTParty
   base_uri BLACKLIGHT_JSON_API
 
-  attr_accessor :fetch
-
   def initialize(query = '*', facets = [], page = 1, sort = 'score+desc%2C+dc_title_sort+asc')
     @options = { q: query, page: page, sort: sort }
     append_facets(facets, @options)

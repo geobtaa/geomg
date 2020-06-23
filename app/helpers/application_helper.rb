@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# ApplicationHelper
 module ApplicationHelper
   # qa (questioning_authoriry) gem oddly gives us no route helpers, so
   # let's make one ourselves, for it's current mount point, we can change

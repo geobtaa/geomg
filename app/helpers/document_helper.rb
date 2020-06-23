@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# DocumentHelper
 module DocumentHelper
   def localize_link(link)
     uri = URI.parse(link)

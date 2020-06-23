@@ -100,7 +100,6 @@ class Import < ApplicationRecord
             }
           }
         )
-        next
       else
         import_log.merge!(
           {
@@ -111,7 +110,6 @@ class Import < ApplicationRecord
             }
           }
         )
-        next
       end
     rescue StandardError => e
       logger.debug("Error: #{e}")

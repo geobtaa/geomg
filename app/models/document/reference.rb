@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+# Document
 class Document
+  # Reference
   class Reference
     # Via GBL Wiki
     # https://github.com/geoblacklight/geoblacklight/wiki/External-references

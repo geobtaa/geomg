@@ -8,8 +8,19 @@ AllCops:
 
 Layout/LineLength:
   Max: 200
+  Exclude:
+    - 'config/initializers/simple_form_bootstrap.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'db/migrate/**/*'
 
 Metrics/BlockLength:
   Exclude:
     - 'lib/tasks/geomg.rake'
     - 'lib/tasks/geomg/geomg_sidekiq.rake'
+    - 'db/migrate/**/*'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'db/migrate/**/*'

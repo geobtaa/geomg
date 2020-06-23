@@ -5,7 +5,7 @@ require 'json'
 GEOMG_SCHEMA = HashWithIndifferentAccess.new(
   JSON.parse(
     File.read(
-      "#{Rails.root}/config/schema.json"
+      Rails.root.join('config/schema.json')
     )
   )
 )
