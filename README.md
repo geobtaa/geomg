@@ -2,6 +2,8 @@
 
 An experimental UI for administering BTAA Geoblacklight JSON documents.
 
+![geomg](https://user-images.githubusercontent.com/69827/84302126-7940a300-ab1a-11ea-9cfc-9dd3c48a0cee.gif)
+
 ## Requirements
 
 * Ruby 2.7+
