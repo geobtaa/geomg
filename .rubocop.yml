@@ -8,3 +8,8 @@ AllCops:
 
 Layout/LineLength:
   Max: 200
+
+Metrics/BlockLength:
+  Exclude:
+    - 'lib/tasks/geomg.rake'
+    - 'lib/tasks/geomg/geomg_sidekiq.rake'
