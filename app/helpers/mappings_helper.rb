@@ -7,18 +7,10 @@ module MappingsHelper
   end
 
   def mapping_suggestion(header)
-    default_field_mappings_btaa[header.to_sym][:destination]
+    Geomg.field_mappings_btaa[header.to_sym][:destination]
   end
 
   def delimiter_suggestion(header)
-    default_field_mappings_btaa[header.to_sym][:delimited]
-  end
-
-  def default_field_mappings_btaa
-    eval(
-      File.read(
-        Rails.root.join('config/geomg/field_mappings_btaa.rb')
-      )
-    )
+    Geomg.field_mappings_btaa[header.to_sym][:delimited]
   end
 end

@@ -3,7 +3,7 @@
 # DocumentsController
 class DocumentsController < ApplicationController
   before_action :set_document,
-                only: %i[show edit update destroy publish unpublish]
+                only: %i[show edit update destroy]
 
   # GET /documents
   # GET /documents.json
@@ -55,55 +55,6 @@ class DocumentsController < ApplicationController
         format.json { render json: @document.errors, status: :unprocessable_entity }
       end
     end
-  end
-
-  # PATCH/PUT /documents/1/publish
-  #
-  # publishes document AND all of it's children (multi-level).
-  #
-  # fetches all children so rails callbacks will be called, but uses postgres
-  # recursive CTE so it'll be efficient-ish.
-  def publish
-    authorize! :publish, @document
-
-    @document.class.transaction do
-      @document.update!(published: true)
-      @document.all_descendent_members.find_each do |member|
-        member.update!(published: true)
-      end
-    end
-
-    redirect_to admin_document_url(@document)
-  rescue ActiveRecord::RecordInvalid => e
-    # probably because missing a field required for a document to be published, but
-    # could apply to a CHILD document, not just the parent you actually may have clicked 'publish'
-    # on.
-    #
-    # The document we're going to report and redirect to is just the FIRST one we encountered
-    # with an error, there could be more.
-    @document = e.record
-    @document.published = true
-    flash.now[:error] = "Can't publish document: #{@document.title}: #{e.message}"
-    render :edit
-  end
-
-  # PUT /documents/1/unpublish
-  #
-  # unpublishes document AND all of it's children (multi-level) using a pg recursive CTE
-  #
-  # fetches all children so rails callbacks will be called, but uses postgres
-  # recursive CTE so it'll be efficient-ish.
-  def unpublish
-    authorize! :publish, @document
-
-    @document.class.transaction do
-      @document.update!(published: false)
-      @document.all_descendent_members.find_each do |member|
-        member.update!(published: false)
-      end
-    end
-
-    redirect_to admin_document_url(@document)
   end
 
   # DELETE /documents/1

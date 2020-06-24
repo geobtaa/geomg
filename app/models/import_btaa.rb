@@ -49,14 +49,12 @@ class ImportBtaa < Import
     data_hash = args[:data_hash]
     field = args[:field]
 
-    matches = data_hash[field].match(/\(([^)]+)\)/)
+    w, e, n, s = wens_matches(data_hash[field])
+    "#{((n.to_f + s.to_f) / 2)},#{((e.to_f + w.to_f) / 2)}"
+  end
 
-    w, e, n, s = matches.captures[0].split(',')
-    centerlat = (n.to_f + s.to_f) / 2
-    centerlong = (e.to_f + w.to_f) / 2
-
-    centroid = "#{centerlat},#{centerlong}"
-
-    centroid
+  def wens_matches(data_hash_field)
+    matches = data_hash_field.match(/\(([^)]+)\)/)
+    matches.captures[0].split(',')
   end
 end

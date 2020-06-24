@@ -31,13 +31,15 @@ class Import < ApplicationRecord
   end
 
   def set_csv_file_attributes
-    content_type = csv_file.content_type.to_s
-    filename = csv_file.filename.to_s
-    extension = csv_file.filename.extension.to_s
-
     parsed = CSV.parse(csv_file.download)
 
-    update_columns(headers: parsed[0], row_count: parsed.size - 1, content_type: content_type, filename: filename, extension: extension)
+    update_columns(
+      headers: parsed[0],
+      row_count: parsed.size - 1,
+      content_type: csv_file.content_type.to_s,
+      filename: csv_file.filename.to_s,
+      extension: csv_file.filename.extension.to_s
+    )
   end
 
   def check_if_mapped
@@ -84,38 +86,9 @@ class Import < ApplicationRecord
         friendlier_id: converted_data['layer_slug_s']
       ).first_or_create
 
-      if document.update!(kithe_document)
-        import_log.merge!(
-          {
-            extract_hash['Identifier'] => {
-              id: document.friendlier_id,
-              title: document.title,
-              state: 'Saved'
-            }
-          }
-        )
-      else
-        import_log.merge!(
-          {
-            extract_hash['Identifier'] => {
-              id: document.friendlier_id,
-              title: document.title,
-              state: "Failed - #{document.errors.inspect}"
-            }
-          }
-        )
-      end
+      log_document_state(document, extract_hash, kithe_document)
     rescue StandardError => e
-      logger.debug("Error: #{e}")
-      import_log.merge!(
-        {
-          extract_hash['Identifier'] => {
-            id: document.friendlier_id,
-            title: document.title,
-            state: "Error - #{e.inspect}"
-          }
-        }
-      )
+      log_document_error(document, extract_hash, e)
       next
     end
 
@@ -124,6 +97,43 @@ class Import < ApplicationRecord
   end
 
   private
+
+  def log_document_state(document, extract_hash, kithe_document)
+    if document.update!(kithe_document)
+      import_log.merge!(
+        {
+          extract_hash['Identifier'] => {
+            id: document.friendlier_id,
+            title: document.title,
+            state: 'Saved'
+          }
+        }
+      )
+    else
+      import_log.merge!(
+        {
+          extract_hash['Identifier'] => {
+            id: document.friendlier_id,
+            title: document.title,
+            state: "Failed - #{document.errors.inspect}"
+          }
+        }
+      )
+    end
+  end
+
+  def log_document_error(document, extract_hash, error)
+    logger.debug("Error: #{error}")
+    import_log.merge!(
+      {
+        extract_hash['Identifier'] => {
+          id: document.friendlier_id,
+          title: document.title,
+          state: "Error - #{error.inspect}"
+        }
+      }
+    )
+  end
 
   def transform_extract(extract_hash)
     transformed_data = {}
