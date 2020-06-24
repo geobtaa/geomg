@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 # lib/tasks/migrate/users.rake
 require 'sidekiq/api'
 
 namespace :geomg do
   desc 'Stop sidekiq'
   task sidekiq_stop: :environment do
-    sh "sudo systemctl stop sidekiq.service || true"
+    sh 'sudo systemctl stop sidekiq.service || true'
     sleep(5)
-    sh "sudo systemctl status sidekiq.service || true"
+    sh 'sudo systemctl status sidekiq.service || true'
   end
 
   task sidekiq_start: :environment do
-    sh "sudo systemctl start sidekiq.service || true"
+    sh 'sudo systemctl start sidekiq.service || true'
     sleep(5)
-    sh "sudo systemctl status sidekiq.service || true"
+    sh 'sudo systemctl status sidekiq.service || true'
   end
 
   desc 'Check sidekiq stats'
@@ -34,10 +36,8 @@ namespace :geomg do
     stats.queues.count
     stats.queues.clear
 
-    queue = Sidekiq::Queue.new("default")
-    queue.each do |job|
-      job.delete
-    end
+    queue = Sidekiq::Queue.new('default')
+    queue.each(&:delete)
 
     puts stats.inspect
   end

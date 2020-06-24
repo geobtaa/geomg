@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class DocumentsControllerTest < ActionDispatch::IntegrationTest
@@ -12,7 +14,7 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "redirects when not logged in" do
+  test 'redirects when not logged in' do
     sign_out_as :user_001
     get documents_url
     assert_redirected_to new_user_session_path
@@ -28,7 +30,7 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_document_path
   end
 
-  test "should render document edit view" do
+  test 'should render document edit view' do
     get '/documents/testhashid/edit'
     assert_response :success
   end
