@@ -11,7 +11,7 @@ class Import < ApplicationRecord
   # Associations
   has_one_attached :csv_file
   has_many :import_transitions, autosave: false, dependent: :destroy
-  has_many :mappings, -> { order(:id) }, dependent: :destroy
+  has_many :mappings, -> { order(:id) }, dependent: :destroy, inverse_of: :import
   accepts_nested_attributes_for :mappings
   has_many :documents
 
@@ -37,13 +37,7 @@ class Import < ApplicationRecord
 
     parsed = CSV.parse(csv_file.download)
 
-    update_columns(
-      headers: parsed[0],
-      row_count: parsed.size - 1,
-      content_type: content_type,
-      filename: filename,
-      extension: extension
-    )
+    update_columns(headers: parsed[0], row_count: parsed.size - 1, content_type: content_type, filename: filename, extension: extension)
   end
 
   def check_if_mapped

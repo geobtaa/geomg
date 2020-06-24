@@ -8,8 +8,6 @@ class BlacklightApi
   def initialize(query = '*', facets = [], page = 1, sort = 'score+desc%2C+dc_title_sort+asc')
     @options = { q: query, page: page, sort: sort }
     append_facets(facets, @options)
-
-    @options
   end
 
   def fetch

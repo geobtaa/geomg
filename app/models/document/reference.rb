@@ -83,7 +83,7 @@ class Document
     validates :category, inclusion:
       { in: REFERENCE_VALUES.stringify_keys.keys,
         allow_blank: true,
-        message: '%{value} is not a valid category' }
+        message: '%<value>s is not a valid category' }
 
     attr_json :category, :string
     attr_json :value, :string
