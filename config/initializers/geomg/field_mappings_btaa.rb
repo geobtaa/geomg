@@ -163,7 +163,7 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
-      'RIghts': {
+      'Rights': {
         destination: 'dc_rights_s',
         delimited: false,
         transformation_method: nil
