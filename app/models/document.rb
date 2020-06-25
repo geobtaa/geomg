@@ -94,4 +94,29 @@ class Document < Kithe::Work
     dct_references_s.each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
     references.to_json
   end
+
+  def to_csv
+    attributes = Geomg.field_mappings_btaa
+
+    attributes.map do |_key, value|
+      if value[:delimited]
+        send(value[:destination]).join('|')
+      elsif value[:destination] == 'solr_geom'
+        wsen_coordinates(send(value[:destination]))
+      elsif value[:destination] == 'dct_references_s'
+        send(value[:destination]).first.value
+      else
+        send(value[:destination])
+      end
+    end
+  end
+
+  private
+
+  # "ENVELOPE(W,E,N,S)" convert to "W,S,E,N"
+  def wsen_coordinates(coords)
+    # ex. ENVELOPE(-95.0379,-91.198,43.1373,40.6333)
+    w, e, n, s = coords[/\((.*?)\)/, 1].split(',')
+    "#{w},#{s},#{e},#{n}"
+  end
 end

@@ -29,7 +29,7 @@ class DocumentIndexer < Kithe::Indexer
     # - Temporal
     to_field 'dct_issued_s', obj_extract('dct_issued_s')
     to_field 'dct_temporal_sm', obj_extract('dct_temporal_sm')
-    to_field 'b1g_date_range_drsim', obj_extract('b1g_date_range_drsim')
+    to_field 'b1g_date_range_drsim', obj_extract('b1g_date_range_drsim'), transform(->(v) { v.presence ? v : nil })
     to_field 'solr_year_i', obj_extract('solr_year_i')
 
     # - Spatial
