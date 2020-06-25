@@ -5,8 +5,8 @@ class BlacklightApi
   include HTTParty
   base_uri BLACKLIGHT_JSON_API
 
-  def initialize(query = '*', facets = [], page = 1, sort = 'score+desc%2C+dc_title_sort+asc')
-    @options = { q: query, page: page, sort: sort }
+  def initialize(query = '*', facets = [], page = 1, sort = 'score+desc%2C+dc_title_sort+asc', rows = 20)
+    @options = { q: query, page: page, sort: sort, rows: rows }
     append_facets(facets, @options)
   end
 
@@ -32,6 +32,10 @@ class BlacklightApi
 
   def links
     fetch['links']
+  end
+
+  def load_all
+    results.map { |result| Document.find_by(friendlier_id: result['id']) }
   end
 
   private
