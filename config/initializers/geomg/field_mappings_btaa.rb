@@ -168,6 +168,11 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
+      'Access Rights': {
+        destination: 'dct_accessRights_sm',
+        delimited: true,
+        transformation_method: nil
+      },
       'Suppressed': {
         destination: 'suppressed_b',
         delimited: false,
