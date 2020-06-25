@@ -18,7 +18,7 @@ class DocumentIndexer < Kithe::Indexer
     to_field 'dc_language_sm', obj_extract('dc_language_sm')
 
     # - Credits
-    to_field 'dc_creator_sm', obj_extract('dc_creator_sm')
+    to_field 'dc_creator_sm', obj_extract('dc_creator_sm'), transform(->(v) { v.presence ? v : nil })
     to_field 'dc_publisher_sm', obj_extract('dc_publisher_sm')
 
     # - Categories
