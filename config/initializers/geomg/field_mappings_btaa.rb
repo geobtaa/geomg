@@ -63,7 +63,7 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
-      'DateRange': {
+      'Date Range': {
         destination: 'b1g_date_range_drsim',
         delimited: true,
         transformation_method: nil
