@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Import Statesman
 class ImportStateMachine
   include Statesman::Machine
 
@@ -9,6 +12,5 @@ class ImportStateMachine
 
   transition from: :created,  to: [:mapped]
   transition from: :mapped,   to: [:imported]
-  transition from: :imported, to: [:success, :failed]
-
+  transition from: :imported, to: %i[success failed]
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Constants for various controlled lists for Document attributes.
 #
 # _Removing_ values from here may require data migration in your existing db.
@@ -21,46 +23,44 @@
 # we move sub-model lists here too?)
 class Document
   class ControlledLists
+    RIGHTS = %w[Public Restricted].freeze
 
-    RIGHTS = %w{Public Restricted}.freeze
+    LAYER_GEOM_TYPES = %w[Point Line Polygon Image Raster Mixed Table Vector].freeze
 
-    LAYER_GEOM_TYPES = %w{Point Line Polygon Image Raster Mixed Table Vector}.freeze
-
-    B1G_STATUS = %w{Active Inactive Unknown}.freeze
+    B1G_STATUS = %w[Active Inactive Unknown].freeze
 
     FORMATS = [
-      "ArcGRID",
-      "CD-ROM",
-      "DEM",
-      "DVD-ROM",
-      "Feature Class",
-      "Geodatabase",
-      "GeoJPEG",
-      "GeoJSON",
-      "GeoPackage",
-      "GeoPDF",
-      "GeoTIFF",
-      "KML",
-      "KMZ",
-      "LAS",
-      "LAZ",
-      "Mixed",
-      "Pulsewaves",
-      "Raster Dataset",
-      "Shapefile",
-      "SQLite Database",
-      "Tabular Data",
-      "JPEG",
-      "JPEG2000",
-      "Mixed",
-      "MrSID",
-      "PDF",
-      "PNG",
-      "TIFF",
-      "Web Application",
-      "Cartographic Material",
-      "Paper Map"
-    ]
-
+      'ArcGRID',
+      'CD-ROM',
+      'DEM',
+      'DVD-ROM',
+      'Feature Class',
+      'Geodatabase',
+      'GeoJPEG',
+      'GeoJSON',
+      'GeoPackage',
+      'GeoPDF',
+      'GeoTIFF',
+      'KML',
+      'KMZ',
+      'LAS',
+      'LAZ',
+      'Mixed',
+      'Pulsewaves',
+      'Raster Dataset',
+      'Shapefile',
+      'SQLite Database',
+      'Tabular Data',
+      'JPEG',
+      'JPEG2000',
+      'Mixed',
+      'MrSID',
+      'PDF',
+      'PNG',
+      'TIFF',
+      'Web Application',
+      'Cartographic Material',
+      'Paper Map'
+    ].freeze
   end
 end

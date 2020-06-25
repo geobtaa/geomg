@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class DocumentTest < ActiveSupport::TestCase
@@ -6,28 +8,28 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   test 'responds to title' do
-    assert @document.respond_to? :title
+    assert_respond_to @document, :title
   end
 
   test 'responds to type' do
-    assert @document.respond_to? :type
+    assert_respond_to @document, :type
     assert_equal @document.type, 'Document'
   end
 
   test 'responds to json_attributes' do
-    assert @document.respond_to? :json_attributes
+    assert_respond_to @document, :json_attributes
   end
 
   test 'responds to timestamps' do
-    assert @document.respond_to? :created_at
-    assert @document.respond_to? :updated_at
+    assert_respond_to @document, :created_at
+    assert_respond_to @document, :updated_at
   end
 
   test 'responds to friendlier_id' do
-    assert @document.respond_to? :friendlier_id
+    assert_respond_to @document, :friendlier_id
   end
 
   test 'responds to versions' do
-    assert @document.respond_to? :versions
+    assert_respond_to @document, :versions
   end
 end

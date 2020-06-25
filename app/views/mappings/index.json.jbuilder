@@ -1,1 +1,3 @@
-json.array! @mappings, partial: "mappings/mapping", as: :mapping
+# frozen_string_literal: true
+
+json.array! @mappings, partial: 'mappings/mapping', as: :mapping

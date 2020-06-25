@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from kithe_engine (originally 20181015143259)
 class EnablePgcryptoExtension < ActiveRecord::Migration[5.2]
   def change
