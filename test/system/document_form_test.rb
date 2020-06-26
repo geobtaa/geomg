@@ -36,6 +36,9 @@ class DocumentFormTest < ApplicationSystemTestCase
       # dc_type_sm
       assert page.has_selector?('input#document_dc_type_sm_attributes_', visible: false)
 
+      # document_dc_format_s
+      assert page.has_selector?('input#document_dc_format_s[data-scihist-qa-autocomplete]')
+
       # dct_accrualPeriodicity_s
       assert page.has_selector?('select#document_dct_accrualPeriodicity_s')
     end

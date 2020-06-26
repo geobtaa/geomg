@@ -51,39 +51,5 @@ class Document
       'Physical Object',
       'Collection'
     ].freeze
-
-    FORMATS = [
-      'ArcGRID',
-      'CD-ROM',
-      'DEM',
-      'DVD-ROM',
-      'Feature Class',
-      'Geodatabase',
-      'GeoJPEG',
-      'GeoJSON',
-      'GeoPackage',
-      'GeoPDF',
-      'GeoTIFF',
-      'KML',
-      'KMZ',
-      'LAS',
-      'LAZ',
-      'Mixed',
-      'Pulsewaves',
-      'Raster Dataset',
-      'Shapefile',
-      'SQLite Database',
-      'Tabular Data',
-      'JPEG',
-      'JPEG2000',
-      'Mixed',
-      'MrSID',
-      'PDF',
-      'PNG',
-      'TIFF',
-      'Web Application',
-      'Cartographic Material',
-      'Paper Map'
-    ].freeze
   end
 end

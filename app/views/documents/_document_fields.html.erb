@@ -54,7 +54,7 @@
         class: "form-control input-primitive" %>
   <% end %>
   <%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Geometry Type"  %>
-  <%= f.input :dc_format_s, required: true, collection: Document::ControlledLists::FORMATS, label: "Format" %>
+  <%= f.input :dc_format_s, required: true, :input_html => { :data => { "scihist-qa-autocomplete" => qa_search_vocab_path("local", "formats")}} %>
 </div>
 
 <div class="grouping">
