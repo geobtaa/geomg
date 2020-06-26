@@ -29,6 +29,8 @@ class DocumentFormTest < ApplicationSystemTestCase
       assert page.has_selector?('textarea#document_dc_description_s')
       # dc_language_sm
       assert page.has_selector?('input#document_dc_language_sm_attributes_', visible: false)
+      # dct_accrualPeriodicity_s
+      assert page.has_selector?('select#document_dct_accrualPeriodicity_s', visible: false)
     end
   end
 end

@@ -29,6 +29,14 @@ class Document
 
     B1G_STATUS = %w[Active Inactive Unknown].freeze
 
+    ACCRUAL_PERIODICITY = [
+      'Annually',
+      'Semiannually',
+      'Quarterly',
+      'Monthly',
+      'As Needed'
+    ].freeze
+
     FORMATS = [
       'ArcGRID',
       'CD-ROM',
