@@ -7,6 +7,7 @@ class Document::ControlledListsTest < ActiveSupport::TestCase
     assert_not_empty(Document::ControlledLists::ACCRUAL_PERIODICITY)
     assert_not_empty(Document::ControlledLists::B1G_STATUS)
     assert_not_empty(Document::ControlledLists::FORMATS)
+    assert_not_empty(Document::ControlledLists::GENRE)
     assert_not_empty(Document::ControlledLists::LAYER_GEOM_TYPES)
     assert_not_empty(Document::ControlledLists::RIGHTS)
   end

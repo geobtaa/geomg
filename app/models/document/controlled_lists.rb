@@ -37,6 +37,12 @@ class Document
       'As Needed'
     ].freeze
 
+    GENRE = [
+      'Geospatial data',
+      'Maps',
+      'Aerial Imagery'
+    ].freeze
+
     FORMATS = [
       'ArcGRID',
       'CD-ROM',
