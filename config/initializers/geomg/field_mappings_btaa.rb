@@ -158,6 +158,11 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
+      'Accrual Periodicity': {
+        destination: 'dct_accrualPeriodicity_s',
+        delimited: false,
+        transformation_method: nil
+      },
       'Date Accessioned': {
         destination: 'b1g_dateAccessioned_s',
         delimited: false,
