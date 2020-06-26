@@ -12,7 +12,7 @@ Layout/LineLength:
   Max: 200
   Exclude:
     - 'config/initializers/simple_form_bootstrap.rb'
-    - 'test/controllers/**/*'
+    - 'test/**/*'
 
 Metrics/AbcSize:
   Max: 49
