@@ -36,7 +36,7 @@ namespace :geomg do
         puts ' '
         begin
           Rake::Task['geomg:solr:reindex'].invoke
-          system 'bundle exec rails s -b 0.0.0.0'
+          system "bundle exec rails s --binding=#{ENV.fetch('GEOMG_SERVER_BIND_INTERFACE', '0.0.0.0')} --port=#{ENV.fetch('GEOMG_SERVER_PORT', '3000')}"
           sleep
         rescue Interrupt
           puts "\nShutting down..."

@@ -10,12 +10,22 @@ class DocumentsController < ApplicationController
 
   def index
     unsafe_params = params.to_unsafe_h
+
     @documents = BlacklightApi.new(
       unsafe_params['q'],
       unsafe_params['f'],
       unsafe_params['page'],
-      unsafe_params['sort']
+      unsafe_params['sort'],
+      unsafe_params['rows'] || 20
     )
+
+    respond_to do |format|
+      format.html { render :index }
+      # @TODO: Should be GBL JSON
+      format.json { render json: @documents.results.to_json }
+      # B1G CSV
+      format.csv  { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
+    end
   end
 
   # GET /documents/new
@@ -90,5 +100,14 @@ class DocumentsController < ApplicationController
       :layer_geom_type_s,
       :dct_references_s
     )
+  end
+
+  def collect_csv(documents)
+    CSV.generate(headers: true) do |csv|
+      csv << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
+      documents.load_all.map do |doc|
+        csv << doc.to_csv
+      end
+    end
   end
 end

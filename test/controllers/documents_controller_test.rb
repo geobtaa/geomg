@@ -34,4 +34,15 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
     get '/documents/testhashid/edit'
     assert_response :success
   end
+
+  test 'should render documents#index as json' do
+    get documents_url, params: { format: 'json' }
+    assert_response :success
+  end
+
+  test 'should render documents#index as csv' do
+    skip('@TODO: divorce from geoportal')
+    get documents_url, params: { format: 'csv' }
+    assert_response :success
+  end
 end

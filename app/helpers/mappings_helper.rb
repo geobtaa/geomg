@@ -3,14 +3,24 @@
 # MappingsHelper
 module MappingsHelper
   def attribute_collection
-    Document.attr_json_registry.attribute_names
+    attrs = Document.attr_json_registry.attribute_names
+    attrs.prepend('')
+    attrs
   end
 
   def mapping_suggestion(header)
-    Geomg.field_mappings_btaa[header.to_sym][:destination]
+    if Geomg.field_mappings_btaa.include?(header.to_sym)
+      Geomg.field_mappings_btaa[header.to_sym][:destination]
+    else
+      false
+    end
   end
 
   def delimiter_suggestion(header)
-    Geomg.field_mappings_btaa[header.to_sym][:delimited]
+    if Geomg.field_mappings_btaa.include?(header.to_sym)
+      Geomg.field_mappings_btaa[header.to_sym][:delimited]
+    else
+      false
+    end
   end
 end

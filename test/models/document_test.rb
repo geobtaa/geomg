@@ -32,4 +32,8 @@ class DocumentTest < ActiveSupport::TestCase
   test 'responds to versions' do
     assert_respond_to @document, :versions
   end
+
+  test 'responds to to_csv' do
+    assert_respond_to @document, :to_csv
+  end
 end

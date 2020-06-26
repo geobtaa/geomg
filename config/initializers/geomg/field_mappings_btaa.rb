@@ -63,7 +63,7 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
-      'DateRange': {
+      'Date Range': {
         destination: 'b1g_date_range_drsim',
         delimited: true,
         transformation_method: nil
@@ -163,9 +163,14 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
-      'RIghts': {
+      'Rights': {
         destination: 'dc_rights_s',
         delimited: false,
+        transformation_method: nil
+      },
+      'Access Rights': {
+        destination: 'dct_accessRights_sm',
+        delimited: true,
         transformation_method: nil
       },
       'Suppressed': {
