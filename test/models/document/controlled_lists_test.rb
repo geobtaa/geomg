@@ -10,5 +10,6 @@ class Document::ControlledListsTest < ActiveSupport::TestCase
     assert_not_empty(Document::ControlledLists::GENRE)
     assert_not_empty(Document::ControlledLists::LAYER_GEOM_TYPES)
     assert_not_empty(Document::ControlledLists::RIGHTS)
+    assert_not_empty(Document::ControlledLists::TYPE)
   end
 end

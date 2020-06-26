@@ -43,6 +43,15 @@ class Document
       'Aerial Imagery'
     ].freeze
 
+    TYPE = [
+      'Image',
+      'Dataset',
+      'Service',
+      'Interactive Resource',
+      'Physical Object',
+      'Collection'
+    ].freeze
+
     FORMATS = [
       'ArcGRID',
       'CD-ROM',

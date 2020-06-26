@@ -47,7 +47,12 @@
 
 <div class="grouping">
   <h3 id="object">Object</h3>
-  <%= f.repeatable_attr_input :dc_type_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input :dc_type_sm, build: :at_least_one do |input_name, value| %>
+    <%= f.input_field :dc_type_sm, selected: value, include_blank: true, id: nil,
+        collection: Document::ControlledLists::TYPE,
+        name: input_name,
+        class: "form-control input-primitive" %>
+  <% end %>
   <%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Geometry Type"  %>
   <%= f.input :dc_format_s, required: true, collection: Document::ControlledLists::FORMATS, label: "Format", hint: "Dublin Core format value" %>
 </div>

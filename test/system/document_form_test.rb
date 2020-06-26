@@ -33,6 +33,9 @@ class DocumentFormTest < ApplicationSystemTestCase
       # b1g_genre_sm
       assert page.has_selector?('input#document_b1g_genre_sm_attributes_', visible: false)
 
+      # dc_type_sm
+      assert page.has_selector?('input#document_dc_type_sm_attributes_', visible: false)
+
       # dct_accrualPeriodicity_s
       assert page.has_selector?('select#document_dct_accrualPeriodicity_s')
     end
