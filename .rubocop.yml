@@ -7,6 +7,8 @@ require:
 AllCops:
   NewCops: enable
   TargetRubyVersion: 2.7
+  Exclude:
+    - 'db/migrate/**/*'
 
 Layout/LineLength:
   Max: 200
@@ -18,7 +20,6 @@ Metrics/AbcSize:
   Max: 49
   Exclude:
     - 'app/helpers/form_input_helper.rb'
-    - 'db/migrate/**/*'
     - 'test/system/**/*'
 
 Metrics/BlockLength:
@@ -26,7 +27,6 @@ Metrics/BlockLength:
   Exclude:
     - 'app/indexers/document_indexer.rb'
     - 'config/initializers/simple_form_bootstrap.rb'
-    - 'db/migrate/**/*'
     - 'lib/tasks/geomg.rake'
     - 'lib/tasks/geomg/geomg_sidekiq.rake'
 
@@ -45,15 +45,6 @@ Metrics/MethodLength:
   Exclude:
     - 'app/helpers/form_input_helper.rb'
     - 'config/initializers/geomg/field_mappings_btaa.rb'
-    - 'db/migrate/**/*'
-
-Rails/BulkChangeTable:
-  Exclude:
-    - 'db/migrate/20200529173739_devise_invitable_add_to_users.rb'
-
-Rails/CreateTableWithTimestamps:
-  Exclude:
-    - 'db/migrate/20200127213637_contains_association.kithe_engine.rb'
 
 Rails/HasManyOrHasOneDependent:
   Exclude:
@@ -63,7 +54,6 @@ Rails/SkipsModelValidations:
   Exclude:
     - 'app/models/import.rb'
     - 'app/models/import_transition.rb'
-    - 'db/migrate/**/*'
 
 Style/ClassAndModuleChildren:
   Enabled: false
