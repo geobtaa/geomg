@@ -29,6 +29,18 @@ class DocumentFormTest < ApplicationSystemTestCase
       assert page.has_selector?('textarea#document_dc_description_s')
       # dc_language_sm
       assert page.has_selector?('input#document_dc_language_sm_attributes_', visible: false)
+
+      # b1g_genre_sm
+      assert page.has_selector?('input#document_b1g_genre_sm_attributes_', visible: false)
+
+      # dc_type_sm
+      assert page.has_selector?('input#document_dc_type_sm_attributes_', visible: false)
+
+      # document_dc_format_s
+      assert page.has_selector?('input#document_dc_format_s[data-scihist-qa-autocomplete]')
+
+      # dct_accrualPeriodicity_s
+      assert page.has_selector?('select#document_dct_accrualPeriodicity_s')
     end
   end
 end

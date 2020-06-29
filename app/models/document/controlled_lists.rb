@@ -29,38 +29,27 @@ class Document
 
     B1G_STATUS = %w[Active Inactive Unknown].freeze
 
-    FORMATS = [
-      'ArcGRID',
-      'CD-ROM',
-      'DEM',
-      'DVD-ROM',
-      'Feature Class',
-      'Geodatabase',
-      'GeoJPEG',
-      'GeoJSON',
-      'GeoPackage',
-      'GeoPDF',
-      'GeoTIFF',
-      'KML',
-      'KMZ',
-      'LAS',
-      'LAZ',
-      'Mixed',
-      'Pulsewaves',
-      'Raster Dataset',
-      'Shapefile',
-      'SQLite Database',
-      'Tabular Data',
-      'JPEG',
-      'JPEG2000',
-      'Mixed',
-      'MrSID',
-      'PDF',
-      'PNG',
-      'TIFF',
-      'Web Application',
-      'Cartographic Material',
-      'Paper Map'
+    ACCRUAL_PERIODICITY = [
+      'Annually',
+      'Semiannually',
+      'Quarterly',
+      'Monthly',
+      'As Needed'
+    ].freeze
+
+    GENRE = [
+      'Geospatial data',
+      'Maps',
+      'Aerial Imagery'
+    ].freeze
+
+    TYPE = [
+      'Image',
+      'Dataset',
+      'Service',
+      'Interactive Resource',
+      'Physical Object',
+      'Collection'
     ].freeze
   end
 end

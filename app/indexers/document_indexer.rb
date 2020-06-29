@@ -19,23 +19,23 @@ class DocumentIndexer < Kithe::Indexer
 
     # - Credits
     to_field 'dc_creator_sm', obj_extract('dc_creator_sm'), transform(->(v) { v.presence ? v : nil })
-    to_field 'dc_publisher_sm', obj_extract('dc_publisher_sm')
+    to_field 'dc_publisher_sm', obj_extract('dc_publisher_sm'), transform(->(v) { v.presence ? v : nil })
 
     # - Categories
     to_field 'b1g_genre_sm', obj_extract('b1g_genre_sm')
-    to_field 'dc_subject_sm', obj_extract('dc_subject_sm')
+    to_field 'dc_subject_sm', obj_extract('dc_subject_sm'), transform(->(v) { v.presence ? v : nil })
     to_field 'b1g_keyword_sm', obj_extract('b1g_keyword_sm')
 
     # - Temporal
     to_field 'dct_issued_s', obj_extract('dct_issued_s')
-    to_field 'dct_temporal_sm', obj_extract('dct_temporal_sm')
-    to_field 'b1g_date_range_drsim', obj_extract('b1g_date_range_drsim'), transform(->(v) { v.presence ? v : nil })
-    to_field 'solr_year_i', obj_extract('solr_year_i')
+    to_field 'dct_temporal_sm', obj_extract('dct_temporal_sm'), transform(->(v) { v.presence ? v : nil })
+    to_field 'b1g_date_range_drsim', obj_extract('date_range_json'), transform(->(v) { v.presence ? v : nil })
+    to_field 'solr_year_i', obj_extract('solr_year_json'), transform(->(v) { v.presence ? v : nil })
 
     # - Spatial
-    to_field 'dct_spatial_sm', obj_extract('dct_spatial_sm')
+    to_field 'dct_spatial_sm', obj_extract('dct_spatial_sm'), transform(->(v) { v.presence ? v : nil })
     to_field 'b1g_geonames_sm', obj_extract('b1g_geonames_sm')
-    to_field 'solr_geom', obj_extract('solr_geom')
+    to_field 'solr_geom', obj_extract('solr_geom'), transform(->(v) { v.presence ? v : nil })
     to_field 'b1g_centroid_ss', obj_extract('b1g_centroid_ss')
 
     # Distribution
@@ -68,7 +68,7 @@ class DocumentIndexer < Kithe::Indexer
 
     # - Accessibility
     to_field 'dc_rights_s', obj_extract('dc_rights_s')
-    to_field 'dct_accessRights_sm', obj_extract('dct_accessRights_sm')
+    to_field 'dct_accessRights_sm', obj_extract('dct_accessRights_sm'), transform(->(v) { v.presence ? v : nil })
     to_field 'suppressed_b', obj_extract('suppressed_b')
     to_field 'b1g_child_record_b', obj_extract('b1g_child_record_b')
 

@@ -16,8 +16,10 @@
 
 // VENDOR
 //= require bootstrap-datepicker/js/bootstrap-datepicker.js
+//= require inputmask/dist/jquery.inputmask
 
 // GEOMG
 //= require geomg/datepicker
+//= require geomg/inputmask
 
 //= require_tree .

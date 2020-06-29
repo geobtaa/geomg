@@ -17,7 +17,7 @@ class Document < Kithe::Work
   validates :dc_rights_s, presence: true
   validates :layer_geom_type_s, presence: true
   validates :layer_slug_s, presence: true
-  validates :b1g_date_range_drsim, presence: true
+  # validates :b1g_date_range_drsim, presence: true
 
   def a_collection_object?
     dc_type_sm.include?('Collection')
@@ -88,13 +88,30 @@ class Document < Kithe::Work
   attr_json :suppressed_b, :boolean
   attr_json :b1g_child_record_b, :boolean
 
-  # Transformations
+  # Index Transformations - *_json functions
   def references_json
     references = {}
     dct_references_s.each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
     references.to_json
   end
 
+  def date_range_json
+    date_ranges = []
+    b1g_date_range_drsim.each do |date_range|
+      start_d, end_d = date_range.split('-')
+      date_ranges << "[#{start_d} TO #{end_d}]" if start_d.present?
+    end
+    date_ranges
+  end
+
+  def solr_year_json
+    solr_year = nil
+    return unless b1g_date_range_drsim.present?
+    start_d, _end_d = b1g_date_range_drsim.first.split('-')
+    solr_year = start_d if start_d.present?
+  end
+
+  # Export Transformations - to_*
   def to_csv
     attributes = Geomg.field_mappings_btaa
 

@@ -17,7 +17,12 @@
 
 <div class="grouping">
   <h3 id="categories">Categories</h3>
-  <%= f.repeatable_attr_input :b1g_genre_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input :b1g_genre_sm, build: :at_least_one do |input_name, value| %>
+    <%= f.input_field :b1g_genre_sm, selected: value, include_blank: true, id: nil,
+        collection: Document::ControlledLists::GENRE,
+        name: input_name,
+        class: "form-control input-primitive" %>
+  <% end %>
   <%= f.repeatable_attr_input :dc_subject_sm, build: :at_least_one %>
   <%= f.repeatable_attr_input :b1g_keyword_sm, build: :at_least_one %>
 </div>
@@ -26,8 +31,8 @@
   <h3 id="temporal">Temporal</h3>
   <%= f.input :dct_issued_s, label: "Date Issued", hint: "YYYY-MM-DD", input_html: { data: {js: :datepicker} } %>
   <%= f.repeatable_attr_input :dct_temporal_sm, build: :at_least_one %>
-  <%= f.repeatable_attr_input :b1g_date_range_drsim, build: :at_least_one %>
-  <%= f.input :solr_year_i, label: "Solr Year", hint: "YYYY", input_html: { data: {js: 'datepicker-years'} } %>
+  <%= f.repeatable_attr_input :b1g_date_range_drsim, build: :at_least_one,
+  html_attributes: { "data-inputmask" => "'mask': '9999-9999', 'placeholder': 'YYYY-YYYY' "} %>
 </div>
 
 <div class="grouping">
@@ -42,9 +47,14 @@
 
 <div class="grouping">
   <h3 id="object">Object</h3>
-  <%= f.repeatable_attr_input :dc_type_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input :dc_type_sm, build: :at_least_one do |input_name, value| %>
+    <%= f.input_field :dc_type_sm, selected: value, include_blank: true, id: nil,
+        collection: Document::ControlledLists::TYPE,
+        name: input_name,
+        class: "form-control input-primitive" %>
+  <% end %>
   <%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Geometry Type"  %>
-  <%= f.input :dc_format_s, required: true, collection: Document::ControlledLists::FORMATS, label: "Format", hint: "Dublin Core format value" %>
+  <%= f.input :dc_format_s, required: true, :input_html => { :data => { "scihist-qa-autocomplete" => qa_search_vocab_path("local", "formats")}}, label: "Format" %>
 </div>
 
 <div class="grouping">
@@ -69,7 +79,7 @@
   <h3 id="life-cycle">Life Cycle</h3>
   <%= f.input :b1g_status_s, label: 'Status', required: true, collection: Document::ControlledLists::B1G_STATUS %>
   <%= f.input :dct_accrualMethod_s, label: "Accrual Method" %>
-  <%= f.input :dct_accrualPeriodicity_s, label: "Accrual Periodicity" %>
+  <%= f.input :dct_accrualPeriodicity_s, collection: Document::ControlledLists::ACCRUAL_PERIODICITY, label: "Accrual Periodicity" %>
   <%= f.input :b1g_dateAccessioned_s, label: "Date Accessioned", hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
   <%= f.input :b1g_dateRetired_s, label: "Date Retired", hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
 </div>
