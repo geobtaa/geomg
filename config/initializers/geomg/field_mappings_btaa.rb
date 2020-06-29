@@ -68,11 +68,6 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
-      'Solr Year': {
-        destination: 'solr_year_i',
-        delimited: false,
-        transformation_method: nil
-      },
       'Spatial Coverage': {
         destination: 'dct_spatial_sm',
         delimited: true,

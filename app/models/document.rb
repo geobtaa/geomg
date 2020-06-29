@@ -88,7 +88,7 @@ class Document < Kithe::Work
   attr_json :suppressed_b, :boolean
   attr_json :b1g_child_record_b, :boolean
 
-  # Transformations
+  # Index Transformations - *_json functions
   def references_json
     references = {}
     dct_references_s.each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
@@ -104,6 +104,13 @@ class Document < Kithe::Work
     date_ranges
   end
 
+  def solr_year_json
+    solr_year = nil
+    start_d, _end_d = b1g_date_range_drsim.first.split('-')
+    solr_year = start_d if start_d.present?
+  end
+
+  # Export Transformations - to_*
   def to_csv
     attributes = Geomg.field_mappings_btaa
 

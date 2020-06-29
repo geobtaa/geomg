@@ -33,7 +33,6 @@
   <%= f.repeatable_attr_input :dct_temporal_sm, build: :at_least_one %>
   <%= f.repeatable_attr_input :b1g_date_range_drsim, build: :at_least_one,
   html_attributes: { "data-inputmask" => "'mask': '9999-9999', 'placeholder': 'YYYY-YYYY' "} %>
-  <%= f.input :solr_year_i, label: "Solr Year", hint: "YYYY", input_html: { data: {js: 'datepicker-years'} } %>
 </div>
 
 <div class="grouping">
