@@ -95,6 +95,15 @@ class Document < Kithe::Work
     references.to_json
   end
 
+  def date_range_json
+    date_ranges = []
+    b1g_date_range_drsim.each do |date_range|
+      start_d, end_d = date_range.split('-')
+      date_ranges << "[#{start_d} TO #{end_d}]" if start_d.present?
+    end
+    date_ranges
+  end
+
   def to_csv
     attributes = Geomg.field_mappings_btaa
 
