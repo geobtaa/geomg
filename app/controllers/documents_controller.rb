@@ -41,6 +41,7 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new(document_params)
+    @document.friendlier_id = @document.dc_identifier_s
 
     respond_to do |format|
       if @document.save
