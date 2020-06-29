@@ -8,7 +8,9 @@ AllCops:
   NewCops: enable
   TargetRubyVersion: 2.7
   Exclude:
+    - 'bin/bundle'
     - 'db/migrate/**/*'
+    - 'node_modules/**/*'
 
 Layout/LineLength:
   Max: 200
