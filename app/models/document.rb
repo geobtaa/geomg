@@ -107,9 +107,8 @@ class Document < Kithe::Work
   def solr_year_json
     solr_year = nil
     return unless b1g_date_range_drsim.present?
-      start_d, _end_d = b1g_date_range_drsim.first.split('-')
-      solr_year = start_d if start_d.present?
-    end
+    start_d, _end_d = b1g_date_range_drsim.first.split('-')
+    solr_year = start_d if start_d.present?
   end
 
   # Export Transformations - to_*
