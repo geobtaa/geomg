@@ -35,7 +35,7 @@ class DocumentIndexer < Kithe::Indexer
     # - Spatial
     to_field 'dct_spatial_sm', obj_extract('dct_spatial_sm'), transform(->(v) { v.presence ? v : nil })
     to_field 'b1g_geonames_sm', obj_extract('b1g_geonames_sm')
-    to_field 'solr_geom', obj_extract('solr_geom')
+    to_field 'solr_geom', obj_extract('solr_geom'), transform(->(v) { v.presence ? v : nil })
     to_field 'b1g_centroid_ss', obj_extract('b1g_centroid_ss')
 
     # Distribution
