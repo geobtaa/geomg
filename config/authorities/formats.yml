@@ -4,33 +4,22 @@
 # WARNING: Do not edit this data without changing existing metadata; additions are fine.
 terms:
   - ArcGRID
-  - CD-ROM
   - DEM
-  - DVD-ROM
   - Feature Class
-  - Geodatabase
-  - GeoJPEG
+  - Files
+  - GeoDatabase
   - GeoJSON
   - GeoPackage
-  - GeoPDF
   - GeoTIFF
-  - KML
-  - KMZ
-  - LAS
-  - LAZ
-  - Mixed
-  - Pulsewaves
-  - Raster Dataset
-  - Shapefile
-  - SQLite Database
-  - Tabular Data
+  - Imagery
   - JPEG
   - JPEG2000
   - Mixed
   - MrSID
   - PDF
   - PNG
+  - Raster Dataset
+  - Shapefile
+  - Tabular Data
   - TIFF
   - Web Application
-  - Cartographic Material
-  - Paper Map
