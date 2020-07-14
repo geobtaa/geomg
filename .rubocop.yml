@@ -9,7 +9,7 @@ AllCops:
   TargetRubyVersion: 2.7
   Exclude:
     - 'bin/bundle'
-    - 'tmp'
+    - 'tmp/geoportal/**/*'
     - 'db/migrate/**/*'
     - 'node_modules/**/*'
 
