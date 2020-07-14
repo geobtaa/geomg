@@ -9,6 +9,7 @@ AllCops:
   TargetRubyVersion: 2.7
   Exclude:
     - 'bin/bundle'
+    - 'tmp'
     - 'db/migrate/**/*'
     - 'node_modules/**/*'
 
