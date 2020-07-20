@@ -8,9 +8,8 @@ services:
     environment:
       POSTGRES_PASSWORD: ${GEOMG_DB_PASSWORD}
       POSTGRES_USER: ${GEOMG_DB_USER}
-      POSTGRES_MULTIPLE_DATABASES: geomg_development,geomg_test
     #env_file:
-    #  - ./.env.development
+    #  - ./.env.test
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./docker/postgresql:/docker-entrypoint-initdb.d
