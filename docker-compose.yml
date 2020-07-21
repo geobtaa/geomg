@@ -4,7 +4,8 @@ services:
   postgres:
     image: postgres:12
     ports:
-      - '127.0.0.1:5432:5432'
+      # Allow us to choose an external port
+      - '127.0.0.1:${GEOMG_POSTGRES_PORT:-5432}:5432'
     environment:
       POSTGRES_PASSWORD: ${GEOMG_DB_PASSWORD:-mysecretpassword}
       POSTGRES_USER: ${GEOMG_DB_USER:-geomg}
