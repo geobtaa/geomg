@@ -35,7 +35,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'bootstrap', '~> 4.0'
 gem 'cocoon', '~> 1.2'
 gem 'jquery-rails', '~> 4.4'
-gem 'kithe', '~> 1.0.0'
+gem 'kithe', '~> 2.0.0'
 gem 'qa', '~> 5.0'
 gem 'simple_form', '~> 5.0'
 
