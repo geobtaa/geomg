@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-task stats: "geomg:stats"
+task stats: :environment do
+  Rake::Task['geomg:stats'].invoke
+end
 
 desc 'Run test suite'
 task ci: :environment do
@@ -25,10 +27,10 @@ namespace :geomg do
     end
   end
 
-  task :stats do
+  task stats: :environment do
     require 'rails/code_statistics'
-    ::STATS_DIRECTORIES << ["Indexers", "app/indexers"]
-    ::STATS_DIRECTORIES << ["Indexers Tests", "test/indexers"]
+    ::STATS_DIRECTORIES << ['Indexers', 'app/indexers']
+    ::STATS_DIRECTORIES << ['Indexers Tests', 'test/indexers']
     CodeStatistics::TEST_TYPES << 'Indexers Tests'
   end
 

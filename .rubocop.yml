@@ -28,6 +28,7 @@ Metrics/AbcSize:
 Metrics/BlockLength:
   Max: 30
   Exclude:
+    - 'test/models/document_test.rb'
     - 'app/indexers/document_indexer.rb'
     - 'test/indexers/document_indexer_test.rb'
     - 'config/initializers/simple_form_bootstrap.rb'
