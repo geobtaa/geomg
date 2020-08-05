@@ -87,6 +87,7 @@ group :test do
   gem 'minitest'
   gem 'minitest-ci', '~> 3.4.0'
   gem 'minitest-reporters'
+  gem 'simplecov', require: false
   gem 'shoulda-context'
   gem 'webdrivers'
 end
