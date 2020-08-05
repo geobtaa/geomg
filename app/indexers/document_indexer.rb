@@ -65,6 +65,7 @@ class DocumentIndexer < Kithe::Indexer
     to_field 'dct_accrualPeriodicity_s', obj_extract('dct_accrualPeriodicity_s')
     to_field 'b1g_dateAccessioned_s', obj_extract('b1g_dateAccessioned_s')
     to_field 'b1g_dateRetired_s', obj_extract('b1g_dateRetired_s')
+    to_field 'b1g_publication_state_s', obj_extract('current_state')
 
     # - Accessibility
     to_field 'dc_rights_s', obj_extract('dc_rights_s')

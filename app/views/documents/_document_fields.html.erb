@@ -81,7 +81,8 @@
   <%= f.input :dct_accrualMethod_s, label: "Accrual Method" %>
   <%= f.input :dct_accrualPeriodicity_s, collection: Document::ControlledLists::ACCRUAL_PERIODICITY, label: "Accrual Periodicity" %>
   <%= f.input :b1g_dateAccessioned_s, label: "Date Accessioned", hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
-  <%= f.input :b1g_dateRetired_s, label: "Date Retired", hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
+  <%= f.input :b1g_dateRetired_s, label: 'Date Retired', hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
+  <%= f.input :publication_state, label: 'Publication State', required: true, collection: Document::ControlledLists::PUBLICATION_STATE %>
 </div>
 
 <div class="grouping">

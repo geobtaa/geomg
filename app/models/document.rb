@@ -7,6 +7,22 @@ class Document < Kithe::Work
   has_paper_trail
   belongs_to :import, optional: true
 
+  # Statesman
+  has_many :document_transitions, foreign_key: 'kithe_model_id', autosave: false, dependent: :destroy, inverse_of: :document
+
+  include Statesman::Adapters::ActiveRecordQueries[
+    transition_class: DocumentTransition,
+    initial_state: :Draft
+  ]
+
+  def state_machine
+    @state_machine ||= DocumentStateMachine.new(self, transition_class: DocumentTransition)
+  end
+
+  delegate :current_state, to: :state_machine
+
+  before_save :transition_publication_state
+
   # Indexer
   self.kithe_indexable_mapper = DocumentIndexer.new
 
@@ -135,5 +151,9 @@ class Document < Kithe::Work
     # ex. ENVELOPE(-95.0379,-91.198,43.1373,40.6333)
     w, e, n, s = coords[/\((.*?)\)/, 1].split(',')
     "#{w},#{s},#{e},#{n}"
+  end
+
+  def transition_publication_state
+    state_machine.transition_to!(publication_state) if publication_state_changed?
   end
 end
