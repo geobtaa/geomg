@@ -9,14 +9,12 @@ class DocumentsController < ApplicationController
   # GET /documents.json
 
   def index
-    unsafe_params = params.to_unsafe_h
-
     @documents = BlacklightApi.new(
-      unsafe_params['q'],
-      unsafe_params['f'],
-      unsafe_params['page'],
-      unsafe_params['sort'],
-      unsafe_params['rows'] || 20
+      params['q'],
+      params['f'],
+      params['page'],
+      params['sort'],
+      params['rows'] || 20
     )
 
     respond_to do |format|
@@ -99,7 +97,12 @@ class DocumentsController < ApplicationController
       :title,
       :layer_slug_s,
       :layer_geom_type_s,
-      :dct_references_s
+      :dct_references_s,
+      :q,
+      :f,
+      :page,
+      :sort,
+      :rows
     )
   end
 

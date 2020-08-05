@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+task stats: :environment do
+  Rake::Task['geomg:stats'].invoke
+end
+
 desc 'Run test suite'
 task ci: :environment do
   shared_solr_opts = { managed: true, verbose: true, persist: false, download_dir: 'tmp' }
@@ -21,6 +25,13 @@ namespace :geomg do
       warn "\nNot safe for production. If you are sure, run with `PRODUCTION_OKAY=true #{ARGV.join}`\n\n"
       exit 1
     end
+  end
+
+  task stats: :environment do
+    require 'rails/code_statistics'
+    ::STATS_DIRECTORIES << ['Indexers', 'app/indexers']
+    ::STATS_DIRECTORIES << ['Indexers Tests', 'test/indexers']
+    CodeStatistics::TEST_TYPES << 'Indexers Tests'
   end
 
   desc 'Run Solr and GeOMG for development'

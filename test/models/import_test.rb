@@ -3,7 +3,11 @@
 require 'test_helper'
 
 class ImportTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+    @import = Import.new
+  end
+
+  test 'responds to import' do
+    assert_respond_to @import, :import!
+  end
 end
