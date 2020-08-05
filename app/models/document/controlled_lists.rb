@@ -23,6 +23,8 @@
 # we move sub-model lists here too?)
 class Document
   class ControlledLists
+    PUBLICATION_STATE = %w[Draft Published Unpublished].freeze
+
     RIGHTS = %w[Public Restricted].freeze
 
     LAYER_GEOM_TYPES = %w[Point Line Polygon Image Raster Mixed Table Vector].freeze

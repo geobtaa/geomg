@@ -7,10 +7,11 @@
         <div class="mr-2">
           <h1 class="h5">
             <% if @document.persisted? %>
-              <i>Editing</i> <%= truncate(@document.title, length: 80) %> 
+              <i>Editing</i> <%= truncate(@document.title, length: 80) %>
             <% else %>
               New document
             <% end %>
+            <%= publication_state_badge(@document) %>
           </h1>
         </div>
 

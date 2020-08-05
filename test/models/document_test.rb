@@ -7,17 +7,22 @@ class DocumentTest < ActiveSupport::TestCase
     @document = Document.new
   end
 
+  # Attrs
+  test 'responds to title' do
+    assert_respond_to @document, :title
+  end
+
+  test 'responds to publication_state' do
+    assert_respond_to @document, :publication_state
+    assert_respond_to @document, :current_state
+  end
+
   test 'responds to import' do
     assert_respond_to @document, :import
   end
 
   test 'kithe_indexable_mapper' do
     assert_respond_to @document, :kithe_indexable_mapper
-  end
-
-  # Attrs
-  test 'responds to title' do
-    assert_respond_to @document, :title
   end
 
   test 'responds to B1G attributes' do
