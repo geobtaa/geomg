@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 ENV['RAILS_ENV'] ||= 'test'
+require 'simplecov'
+SimpleCov.start do
+  add_filter '/bin/'
+  add_filter '/db/'
+  add_filter '/test/' # for minitest
+end
+
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'minitest/reporters'

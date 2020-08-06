@@ -77,3 +77,4 @@ yarn-debug.log*
 /test/reports/*
 .env.development
 .env.test
+coverage

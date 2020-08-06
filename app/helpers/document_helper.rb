@@ -2,6 +2,29 @@
 
 # DocumentHelper
 module DocumentHelper
+  def publication_state_badge(document)
+    case document.publication_state
+    when 'Draft'
+      link_to('#document_publication_state') do
+        tag(:span, class: 'badge badge-secondary') do
+          'Draft'
+        end
+      end
+    when 'Published'
+      link_to('#document_publication_state') do
+        tag(:span, class: 'badge badge-success') do
+          'Published'
+        end
+      end
+    when 'Unpublished'
+      link_to('#document_publication_state') do
+        tag(:span, class: 'badge badge-danger') do
+          'Unpublished'
+        end
+      end
+    end
+  end
+
   def localize_link(link)
     uri = URI.parse(link)
     "/documents?#{uri.query}"

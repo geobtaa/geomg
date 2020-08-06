@@ -76,6 +76,7 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     assert_nil output_hash['dct_accrualPeriodicity_s']
     assert_equal output_hash['b1g_dateAccessioned_s'], ['2019-01-16']
     assert_nil output_hash['b1g_dateRetired_s']
+    assert_equal output_hash['b1g_publication_state_s'], ['Draft']
 
     # - Accessibility
     assert_equal output_hash['dc_rights_s'], ['Public']

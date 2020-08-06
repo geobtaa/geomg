@@ -2,6 +2,7 @@
 
 # DocumentsController
 class DocumentsController < ApplicationController
+  ActionController::Parameters.permit_all_parameters = true
   before_action :set_document,
                 only: %i[show edit update destroy]
 
@@ -95,6 +96,7 @@ class DocumentsController < ApplicationController
   def document_params
     Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(
       :title,
+      :publication_state,
       :layer_slug_s,
       :layer_geom_type_s,
       :dct_references_s,

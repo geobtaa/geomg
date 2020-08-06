@@ -10,6 +10,7 @@ AllCops:
   Exclude:
     - 'bin/bundle'
     - 'tmp/geoportal/**/*'
+    - 'db/schema.rb'
     - 'db/migrate/**/*'
     - 'node_modules/**/*'
 
@@ -59,6 +60,7 @@ Rails/SkipsModelValidations:
   Exclude:
     - 'app/models/import.rb'
     - 'app/models/import_transition.rb'
+    - 'app/models/document_transition.rb'
 
 Style/ClassAndModuleChildren:
   Enabled: false
