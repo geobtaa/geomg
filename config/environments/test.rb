@@ -47,4 +47,9 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+
+  # Do not allow a pg_dump action after migrations, because in automated testing
+  # or on clients that cannot run the same pg client as the server, pg_dump
+  # might not work at all, resulting in error returns from otherwise successful tasks
+  config.active_record.dump_schema_after_migration = false
 end
