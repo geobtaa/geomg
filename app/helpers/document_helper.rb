@@ -6,21 +6,15 @@ module DocumentHelper
     case document.publication_state
     when 'Draft'
       link_to('#document_publication_state') do
-        tag(:span, class: 'badge badge-secondary') do
-          'Draft'
-        end
+        tag.span('Draft', class: 'badge badge-secondary')
       end
     when 'Published'
       link_to('#document_publication_state') do
-        tag(:span, class: 'badge badge-success') do
-          'Published'
-        end
+        tag.span('Published', class: 'badge badge-success')
       end
     when 'Unpublished'
       link_to('#document_publication_state') do
-        tag(:span, class: 'badge badge-danger') do
-          'Unpublished'
-        end
+        tag.span('Unpublished', class: 'badge badge-danger')
       end
     end
   end
