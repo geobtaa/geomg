@@ -1,48 +1,21 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class BookmarksControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
-    @bookmark = bookmarks(:one)
+    get '/users/sign_in'
+    sign_in_as users(:user_001)
+    post user_session_url
+
+    follow_redirect!
+    assert_response :success
   end
 
-  test "should get index" do
+  test 'should render bookmarks index view' do
     get bookmarks_url
     assert_response :success
-  end
-
-  test "should get new" do
-    get new_bookmark_url
-    assert_response :success
-  end
-
-  test "should create bookmark" do
-    assert_difference('Bookmark.count') do
-      post bookmarks_url, params: { bookmark: {  } }
-    end
-
-    assert_redirected_to bookmark_url(Bookmark.last)
-  end
-
-  test "should show bookmark" do
-    get bookmark_url(@bookmark)
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get edit_bookmark_url(@bookmark)
-    assert_response :success
-  end
-
-  test "should update bookmark" do
-    patch bookmark_url(@bookmark), params: { bookmark: {  } }
-    assert_redirected_to bookmark_url(@bookmark)
-  end
-
-  test "should destroy bookmark" do
-    assert_difference('Bookmark.count', -1) do
-      delete bookmark_url(@bookmark)
-    end
-
-    assert_redirected_to bookmarks_url
   end
 end

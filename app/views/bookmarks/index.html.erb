@@ -12,7 +12,7 @@
   <tbody>
     <% @bookmarks.each_with_index do |bookmark, index| %>
       <tr>
-        <td><%= render "documents/document", document: bookmark.document, index: index %></td>
+        <td><%= render 'documents/document', document: bookmark.document, index: index %></td>
       </tr>
     <% end %>
   </tbody>

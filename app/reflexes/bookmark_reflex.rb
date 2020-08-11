@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# BookmarkReflex
 class BookmarkReflex < ApplicationReflex
   delegate :current_user, to: :connection
 
@@ -26,11 +27,11 @@ class BookmarkReflex < ApplicationReflex
 
   def create
     document = Document.find_by(id: element.dataset[:id])
-    Bookmark.find_or_create_by(user:current_user, document: document)
+    Bookmark.find_or_create_by(user: current_user, document: document)
   end
 
   def destroy
     document = Document.find_by(id: element.dataset[:id])
-    Bookmark.find_by(user:current_user, document: document)&.destroy
+    Bookmark.find_by(user: current_user, document: document)&.destroy
   end
 end

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Bookmark
 class Bookmark < ApplicationRecord
   belongs_to :user, polymorphic: true
   belongs_to :document, polymorphic: true

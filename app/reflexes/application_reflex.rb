@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# ApplicationReflex
 class ApplicationReflex < StimulusReflex::Reflex
   # Put application wide Reflex behavior in this file.
   #

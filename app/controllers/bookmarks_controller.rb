@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# BookmarksController
 class BookmarksController < ApplicationController
-  before_action :set_bookmark, only: [:show, :edit, :update, :destroy]
+  before_action :set_bookmark, only: %i[show edit update destroy]
 
   # GET /bookmarks
   # GET /bookmarks.json
@@ -9,8 +12,7 @@ class BookmarksController < ApplicationController
 
   # GET /bookmarks/1
   # GET /bookmarks/1.json
-  def show
-  end
+  def show; end
 
   # GET /bookmarks/new
   def new
@@ -18,8 +20,7 @@ class BookmarksController < ApplicationController
   end
 
   # GET /bookmarks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /bookmarks
   # POST /bookmarks.json
@@ -62,13 +63,14 @@ class BookmarksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bookmark
-      @bookmark = Bookmark.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def bookmark_params
-      params.fetch(:bookmark, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_bookmark
+    @bookmark = Bookmark.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def bookmark_params
+    params.fetch(:bookmark, {})
+  end
 end
