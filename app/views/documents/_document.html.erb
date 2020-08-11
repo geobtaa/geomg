@@ -1,0 +1,19 @@
+<%= content_tag :li, id: dom_id(document), class: dom_class(document) do %>
+  <% if current_user.document_is_bookmarked?(document) %>
+    <%= check_box_tag nil, nil, true, data: { reflex: "click->BookmarkReflex#destroy", id: document.id } %>
+  <% else %>
+    <%= check_box_tag nil, nil, false, data: { reflex: "click->BookmarkReflex#create", id: document.id } %>
+  <% end %>
+  <%= "#{@documents.meta['pages']['offset_value'] + index + 1}." if @documents %>
+  <%= link_to document.dc_title_s, edit_document_path(document.id) %>
+  <% if document.dct_provenance_s %>
+    &middot; <%= document.dct_provenance_s %>
+  <% end %>
+  <% if document.dct_temporal_sm %>
+    &middot; <%= document.dct_temporal_sm %>
+  <% end %>
+  <% if document.dc_description_s %>
+    <p><%= document.dc_description_s %>
+  <% end %>
+  </p>
+<% end %>

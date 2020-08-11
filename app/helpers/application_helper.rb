@@ -2,6 +2,8 @@
 
 # ApplicationHelper
 module ApplicationHelper
+  include Pagy::Frontend
+
   # qa (questioning_authoriry) gem oddly gives us no route helpers, so
   # let's make one ourselves, for it's current mount point, we can change
   # it if needed but at least it's DRY.

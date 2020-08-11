@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Bookmarks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <%== pagy_bootstrap_nav(@pagy) %>
+  <tbody>
+    <% @bookmarks.each_with_index do |bookmark, index| %>
+      <tr>
+        <td><%= render "documents/document", document: bookmark.document, index: index %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

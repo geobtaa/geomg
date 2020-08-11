@@ -63,20 +63,8 @@
 
     <ol class="list-unstyled">
     <% @documents.results.each_with_index do |document, index| %>
-      <li>
-        <%= "#{@documents.meta['pages']['offset_value'] + index + 1}." %>
-        <%= link_to document['attributes']['dc_title_s']['attributes']['value'] , edit_document_path(document["id"]) %>
-        <% if document['attributes']['dct_provenance_s'] %>
-          &middot; <%= document['attributes']['dct_provenance_s']['attributes']['value'] %>
-        <% end %>
-        <% if document['attributes']['dct_temporal_sm'] %>
-          &middot; <%= document['attributes']['dct_temporal_sm']['attributes']['value'] %>
-        <% end %>
-        <% if document['attributes']['dc_description_s'] %>
-          <p><%= document['attributes']['dc_description_s']['attributes']['value'] %>
-        <% end %>
-        </p>
-      </li>
+      <% document = Document.find_by(friendlier_id: document['id']) %>
+      <%= render "document", document: document, index: index %>
     <% end %>
     </ol>
 
