@@ -6,8 +6,4 @@
 #
 bookmark_1:
   user: user_001
-  document: first
-#
-bookmark_2:
-  user: user_001
   document: africa

@@ -63,8 +63,10 @@
 
     <ol class="list-unstyled">
     <% @documents.results.each_with_index do |document, index| %>
-      <% document = Document.find_by(friendlier_id: document['id']) %>
-      <%= render "document", document: document, index: index %>
+      <% document = Document.find_by(id: document['id']) %>
+      <% if document.present? %>
+        <%= render "document", document: document, index: index %>
+      <% end %>
     <% end %>
     </ol>
 
