@@ -157,6 +157,9 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.3)
       concurrent-ruby (~> 1.0)
+    inline_svg (1.7.1)
+      activesupport (>= 3.0)
+      nokogiri (>= 1.6)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
     jquery-rails (4.4.0)
@@ -454,6 +457,7 @@ DEPENDENCIES
   devise_invitable (~> 2.0.0)
   dotenv-rails
   httparty
+  inline_svg
   jbuilder (~> 2.7)
   jquery-rails (~> 4.4)
   kithe (~> 2.0.0)

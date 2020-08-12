@@ -21,5 +21,6 @@
 // GEOMG
 //= require geomg/datepicker
 //= require geomg/inputmask
+//= require geomg/tooltips
 
 //= require_tree .

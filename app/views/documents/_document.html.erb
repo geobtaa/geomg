@@ -1,8 +1,13 @@
 <%= content_tag :li, id: dom_id(document), class: dom_class(document) do %>
+  <%= check_box_tag nil, nil, false, data: { reflex: "click->BookmarkReflex#select", id: document.id } %>
   <% if current_user.document_is_bookmarked?(document) %>
-    <%= check_box_tag nil, nil, true, data: { reflex: "click->BookmarkReflex#destroy", id: document.id } %>
+    <%= content_tag :span, { data: { toggle: 'tooltip', reflex: "click->BookmarkReflex#destroy", id: document.id }, title: 'Bookmarked' } do %>
+      <%= inline_svg_tag "bookmark-solid.svg", class: 'icon baseline bookmark-icon' %>
+    <% end %>
   <% else %>
-    <%= check_box_tag nil, nil, false, data: { reflex: "click->BookmarkReflex#create", id: document.id } %>
+  <%= content_tag :span, { data: { toggle: 'tooltip', reflex: "click->BookmarkReflex#create", id: document.id }, title: 'Not bookmarked' } do %>
+    <%= inline_svg_tag "bookmark-regular.svg", class: 'icon baseline bookmark-icon' %>
+  <% end %>
   <% end %>
   <%= "#{@documents.meta['pages']['offset_value'] + index + 1}." if @documents %>
   <%= link_to document.dc_title_s, edit_document_path(document.id) %>
@@ -10,7 +15,7 @@
     &middot; <%= document.dct_provenance_s %>
   <% end %>
   <% if document.dct_temporal_sm %>
-    &middot; <%= document.dct_temporal_sm %>
+    &middot; <%= document.dct_temporal_sm.join("-") %>
   <% end %>
   <% if document.dc_description_s %>
     <p><%= document.dc_description_s %>
