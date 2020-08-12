@@ -14,8 +14,8 @@ export default class extends Controller {
   connect() {
   }
 
-  checkedState(checked) {
-    var aa = document.querySelectorAll("input[type=checkbox]");
+  checkedState(checked, selector='input[type=checkbox]') {
+    var aa = document.querySelectorAll(selector);
     for (var i = 0; i < aa.length; i++){
         aa[i].checked = checked;
     }
@@ -71,6 +71,15 @@ export default class extends Controller {
   selectNone() {
     console.log('Select None');
     this.checkedState(false);
+
+    // Hide result selection options
+    this.setResultSelectionVisibility('hide');
+    this.removeResultSet();
+  }
+
+  selectBookmarked() {
+    console.log('Select Bookmarked');
+    this.checkedState(true, 'input.bookmarked[type=checkbox]');
 
     // Hide result selection options
     this.setResultSelectionVisibility('hide');
