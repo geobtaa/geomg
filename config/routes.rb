@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :bookmarks
   resources :imports do
     resources :mappings
     patch :run, on: :member
   end
 
+  get 'bookmarks/index'
   get 'users/index'
 
   devise_for :users, controllers: { invitations: 'devise/invitations' }, skip: [:registrations]

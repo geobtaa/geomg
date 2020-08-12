@@ -15,7 +15,7 @@ class BookmarksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should render bookmarks index view' do
-    get bookmarks_url
+    get bookmarks_index_url
     assert_response :success
   end
 end
