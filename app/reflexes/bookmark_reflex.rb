@@ -26,12 +26,12 @@ class BookmarkReflex < ApplicationReflex
   # Learn more at: https://docs.stimulusreflex.com
 
   def create
-    document = Document.find_by(id: element.dataset[:id])
+    document = Document.find_by(friendlier_id: element.dataset[:friendlier_id])
     Bookmark.find_or_create_by(user: current_user, document: document)
   end
 
   def destroy
-    document = Document.find_by(id: element.dataset[:id])
+    document = Document.find_by(friendlier_id: element.dataset[:friendlier_id])
     Bookmark.find_by(user: current_user, document: document)&.destroy
   end
 end
