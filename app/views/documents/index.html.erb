@@ -44,13 +44,16 @@
             <a class="dropdown-item" data-action="click->results#selectBookmarked" href="javascript:void(0);">Bookmarked</a>
           </div>
         </div>
+      </span>
 
-
+      <span id="result-selected-options" class="hidden" data-scope="pageset">
+        <!-- @TODO: sniff scope and set url via stimulus -->
         <%= link_to(url_for(params.to_unsafe_h.merge({format: 'csv', rows: '1000000'})), {class: 'btn btn-sm btn-outline-primary'}) do %>
           <%= inline_svg_tag "cloud-download-alt-solid.svg", class: 'icon baseline' %>
           CSV
         <% end %>
       </span>
+
       <span class='float-right'>
         Results: <%= result_start %> - <%= result_end %> of <%= @documents.meta['pages']['total_count'] %>
         <span class="dropdown">

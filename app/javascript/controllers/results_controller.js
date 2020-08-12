@@ -27,15 +27,25 @@ export default class extends Controller {
     switch(state) {
       case 'hide':
         document.getElementById('result-selection-options').classList.add('hidden');
+        document.getElementById('result-selected-options').classList.add('hidden');
         break;
       case 'show':
         document.getElementById('result-selection-options').classList.remove('hidden');
+        document.getElementById('result-selected-options').classList.remove('hidden');
+        break;
+      case 'bookmarks':
+        document.getElementById('result-selection-options').classList.add('hidden');
+        document.getElementById('result-selected-options').classList.remove('hidden');
         break;
       case true:
         document.getElementById('result-selection-options').classList.remove('hidden');
+        document.getElementById('result-selected-options').classList.remove('hidden');
         break;
       case false:
         document.getElementById('result-selection-options').classList.add('hidden');
+        document.getElementById('resultset').classList.add('hidden');
+        document.getElementById('pageset').classList.remove('hidden');
+        document.getElementById('result-selected-options').classList.add('hidden');
         break;
       default:
         document.getElementById('result-selection-options').classList.add('hidden');
@@ -45,11 +55,19 @@ export default class extends Controller {
   selectResultSet() {
     document.getElementById('pageset').classList.add('hidden');
     document.getElementById('resultset').classList.remove('hidden');
+
+    // Set scope
+    var el = document.querySelector('#result-selected-options');
+    el.setAttribute('data-scope', 'resultset');
   }
 
   removeResultSet() {
     document.getElementById('pageset').classList.remove('hidden');
     document.getElementById('resultset').classList.add('hidden');
+
+    // Set scope
+    var el = document.querySelector('#result-selected-options');
+    el.setAttribute('data-scope', 'pageset');
   }
 
   toggleAll() {
@@ -75,14 +93,19 @@ export default class extends Controller {
     // Hide result selection options
     this.setResultSelectionVisibility('hide');
     this.removeResultSet();
+
+    // Set selection scope
+    var el = document.querySelector('div#result-selection-options');
+    el.setAttribute('data-scope', 'pageset');
   }
 
   selectBookmarked() {
     console.log('Select Bookmarked');
+    this.checkedState(false);
     this.checkedState(true, 'input.bookmarked[type=checkbox]');
 
     // Hide result selection options
-    this.setResultSelectionVisibility('hide');
+    this.setResultSelectionVisibility('bookmarks');
     this.removeResultSet();
   }
 }
