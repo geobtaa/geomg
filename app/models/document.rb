@@ -139,7 +139,7 @@ class Document < Kithe::Work
       elsif value[:destination] == 'dct_references_s'
         begin
           send(value[:destination]).first.value
-        rescue
+        rescue NoMethodError
           # No dct_references value, return nil
           nil
         end
