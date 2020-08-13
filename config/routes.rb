@@ -21,7 +21,11 @@ Rails.application.routes.draw do
   root to: 'documents#index'
 
   # public-facing routes
-  resources :documents
+  resources :documents do
+    collection do
+      get 'fetch'
+    end
+  end
 
   mount Qa::Engine => '/authorities'
 end

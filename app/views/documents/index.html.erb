@@ -46,12 +46,12 @@
         </div>
       </span>
 
-      <span id="result-selected-options" class="hidden" data-scope="pageset">
+      <span id="result-selected-options" class="hidden" data-scope="pageset" data-controller="results" data-resultset=" <%= url_for(params.to_unsafe_h.merge({format: 'csv', rows: '1000000'})) %>" data-pageset="/fetch?">
         <!-- @TODO: sniff scope and set url via stimulus -->
-        <%= link_to(url_for(params.to_unsafe_h.merge({format: 'csv', rows: '1000000'})), {class: 'btn btn-sm btn-outline-primary'}) do %>
+        <a class="btn btn-sm btn-outline-primary" data-action="click->results#exportCSV" href="javascript:void(0);">
           <%= inline_svg_tag "cloud-download-alt-solid.svg", class: 'icon baseline' %>
           CSV
-        <% end %>
+        </a>
       </span>
 
       <span class='float-right'>
@@ -84,13 +84,13 @@
       </span>
     </div>
 
-    <ol id='results' class='list-unstyled'>
-    <% @documents.results.each_with_index do |document, index| %>
-      <% doc = Document.find_by(friendlier_id: document['id']) %>
-      <% if doc.present? %>
-        <%= render "document", document: doc, index: index %>
+    <ol id='results' class='list-unstyled' data-controller='results'>
+      <% @documents.results.each_with_index do |document, index| %>
+        <% doc = Document.find_by(friendlier_id: document['id']) %>
+        <% if doc.present? %>
+          <%= render "document", document: doc, index: index %>
+        <% end %>
       <% end %>
-    <% end %>
     </ol>
 
     <hr/>
