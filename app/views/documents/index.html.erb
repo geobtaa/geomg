@@ -7,82 +7,19 @@
 
 <div class="row">
   <div class="col-4">
-    <% @documents.facets.each do |facet| %>
-      <% if facet['type'] == 'facet' %>
-        <h3 class="h5"><%= facet['attributes']['label'] %></h3>
-        <ul class="list-unstyled">
-          <%- facet['attributes']['items'].each do |item| %>
-            <% agg = link_from_api(item) %>
-            <li class="#{agg[:action']}">
-              <%= link_to agg[:link] do %>
-                <%= agg[:action] == 'add' ? "+" : "-" %>
-                <%= item['attributes']['label'] %> (<%= item['attributes']['hits'] %>)
-                <%= agg[:action] == 'add' ? "" : "&#10060;".html_safe %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    <% end %>
+    <%= render "result_facets" %>
   </div>
 
   <div class="col-8">
-    <!-- @TODO: result helpers -->
-    <% result_start = @documents.meta['pages']['offset_value'] + 1 %>
-    <% result_end = @documents.results.size + result_start - 1 %>
-
     <p>
-      <span>
-        <div class="btn-group dropright" data-controller="results">
-          <button type="button" class="btn btn-sm btn-outline-primary"><input type="checkbox" data-action="click->results#toggleAll"></input></button>
-          <button type="button" class="btn btn-sm btn-outline-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" data-action="click->results#selectAll" href="javascript:void(0);">All</a>
-            <a class="dropdown-item" data-action="click->results#selectNone" href="javascript:void(0);">None</a>
-            <a class="dropdown-item" data-action="click->results#selectBookmarked" href="javascript:void(0);">Bookmarked</a>
-          </div>
-        </div>
-      </span>
-
-      <span id="result-selected-options" class="hidden" data-scope="pageset" data-controller="results" data-resultset=" <%= url_for(params.to_unsafe_h.merge({format: 'csv', rows: '1000000'})) %>" data-pageset="/fetch?">
-        <!-- @TODO: sniff scope and set url via stimulus -->
-        <a class="btn btn-sm btn-outline-primary" data-action="click->results#exportCSV" href="javascript:void(0);">
-          <%= inline_svg_tag "cloud-download-alt-solid.svg", class: 'icon baseline' %>
-          CSV
-        </a>
-      </span>
-
-      <span class='float-right'>
-        Results: <%= result_start %> - <%= result_end %> of <%= @documents.meta['pages']['total_count'] %>
-        <span class="dropdown">
-          <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sort by
-          </button>
-          <span class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <% @documents.sorts.each do |sort| %>
-              <%= sort_link(sort) %>
-            <% end %>
-          </span>
-        </span>
-        <%= previous_link(@documents.links) %>
-        <%= next_link(@documents.links) %>
-      </span>
+      <%= render "result_toggle" %>
+      <%= render "result_selected_options" %>
+      <%= render "result_pagination" %>
     </p>
 
     <hr/>
 
-    <div id="result-selection-options" class="shadow-none p-3 mb-3 bg-light rounded hidden" data-controller="results">
-      <span id="pageset">
-        All results on this page are selected.
-        <a data-action="click->results#selectResultSet" href="javascript:void(0);">Select all results that match this search</a>
-      </span>
-      <span id="resultset" class="hidden">
-        All results in this search are selected.
-        <a href="javascript:void(0);" data-action="click->results#selectNone">Clear selection</a>
-      </span>
-    </div>
+    <%= render "result_selection_options" %>
 
     <ol id='results' class='list-unstyled' data-controller='results'>
       <% @documents.results.each_with_index do |document, index| %>
