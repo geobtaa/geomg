@@ -26,7 +26,7 @@ An experimental UI for administering BTAA Geoblacklight JSON documents.
 
 ## Development
 
-#### Run the app
+### Run the app
 
 1. Run Solr and Rails server:
 
@@ -43,7 +43,7 @@ bundle exec rails server --port=3001
 3. Open [localhost:3000](http://localhost:3000)
 
 
-#### Test suite
+### Test suite
 
 Run test suite:
 
