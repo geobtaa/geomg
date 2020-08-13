@@ -87,12 +87,14 @@ export default class extends Controller {
     var checked = document.querySelectorAll("input[type=checkbox]")[0].checked
     this.checkedState(checked);
     this.setResultOptionsVisibility(checked);
+    this.setPagesetURL();
   }
 
   selectAll() {
     this.checkedState(true);
     this.setResultSelectionVisibility('show');
     this.setResultActionsVisibility('show')
+    this.setPagesetURL();
   }
 
   selectNone() {
@@ -107,12 +109,12 @@ export default class extends Controller {
   }
 
   selectBookmarked() {
-    console.log('Select Bookmarked');
     this.checkedState(false);
     this.checkedState(true, 'input.bookmarked[type=checkbox]');
     this.setResultSelectionVisibility('hide');
     this.setResultActionsVisibility('show');
     this.removeResultSet();
+    this.setPagesetURL();
   }
 
   checkChecked() {
