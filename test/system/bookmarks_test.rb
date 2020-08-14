@@ -8,7 +8,7 @@ class BookmarksTest < ApplicationSystemTestCase
   end
 
   test 'visiting the index' do
-    visit bookmarks_index_url
+    visit bookmarks_url
     assert_selector 'h1', text: 'Bookmarks'
   end
 end

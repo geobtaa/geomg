@@ -18,7 +18,7 @@ class BookmarksController < ApplicationController
   # POST /bookmarks.json
   def create
     @document = Document.find_by(friendlier_id: params['document'])
-    @bookmark = Bookmark.find_or_create_by(user:current_user, document: @document)
+    @bookmark = Bookmark.find_or_create_by(user: current_user, document: @document)
 
     respond_to do |format|
       if @bookmark.save

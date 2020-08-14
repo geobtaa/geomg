@@ -15,12 +15,12 @@ class BookmarksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should render bookmarks index view' do
-    get bookmarks_index_url
+    get bookmarks_url
     assert_response :success
   end
 
   test 'should render bookmarks#index as csv' do
-    get bookmarks_index_url, params: { format: 'csv' }
+    get bookmarks_url, params: { format: 'csv' }
     assert_response :success
   end
 end
