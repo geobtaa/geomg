@@ -21,6 +21,7 @@
 
   <%= "#{@documents.meta['pages']['offset_value'] + index + 1}." if @documents %>
   <%= link_to document.dc_title_s, edit_document_path(document.friendlier_id) %>
+  &middot; <%= publication_state_badge(document) %>
   <% if document.dct_provenance_s %>
     &middot; <%= document.dct_provenance_s %>
   <% end %>
