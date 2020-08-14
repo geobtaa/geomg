@@ -20,6 +20,16 @@ task ci: :environment do
 end
 
 namespace :geomg do
+  desc 'Set everything to published state'
+  task publish_all: :environment do
+    Document.all.each do |doc|
+      doc.publication_state = 'Published'
+      doc.save
+    end
+
+    puts "\nAll documents published."
+  end
+
   task production_guard: :environment do
     if Rails.env.production? && ENV['PRODUCTION_OKAY'] != 'true'
       warn "\nNot safe for production. If you are sure, run with `PRODUCTION_OKAY=true #{ARGV.join}`\n\n"
