@@ -1,15 +1,23 @@
 <%= content_tag :li, id: dom_id(document), class: dom_class(document) do %>
-  <% if current_user.document_is_bookmarked?(document) %>
-    <%= check_box_tag nil, nil, false, data: { id: document.friendlier_id, action: 'click->results#checkChecked' }, class: 'bookmarked' %>
-    <%= content_tag :span, { data: { toggle: 'tooltip', reflex: "click->BookmarkReflex#destroy", friendlier_id: document.friendlier_id }, title: 'Bookmarked' } do %>
-      <%= inline_svg_tag "bookmark-solid.svg", class: 'icon baseline bookmark-icon' %>
+  <% bookmarked = current_user.document_is_bookmarked?(document) ? 'bookmarked' : '' %>
+
+  <%= check_box_tag nil, nil, false, data: { id: document.friendlier_id, action: 'click->results#checkChecked'}, class: bookmarked %>
+
+  <span class="destroy_bookmark <%= 'hidden' unless current_user.document_is_bookmarked?(document) %>">
+    <%= link_to bookmarks_destroy_by_fkeys_path(document: document, user: current_user.id), method: :delete, remote:true do %>
+      <%= content_tag :span, { data: { toggle: 'tooltip', friendlier_id: document.friendlier_id }, title: 'Bookmarked' } do %>
+        <%= inline_svg_tag "bookmark-solid.svg", class: 'icon baseline bookmark-icon' %>
+      <% end %>
     <% end %>
-  <% else %>
-    <%= check_box_tag nil, nil, false, data: { id: document.friendlier_id, action: 'click->results#checkChecked' } %>
-    <%= content_tag :span, { data: { toggle: 'tooltip', reflex: "click->BookmarkReflex#create", friendlier_id: document.friendlier_id }, title: 'Not bookmarked' } do %>
-      <%= inline_svg_tag "bookmark-regular.svg", class: 'icon baseline bookmark-icon' %>
+  </span>
+
+  <span class="create_bookmark <%= 'hidden' if current_user.document_is_bookmarked?(document) %>">
+    <%= link_to bookmarks_path(document: document, user: current_user.id), method: :post, id: 'random_id', remote: true do %>
+      <%= content_tag :span, { data: { toggle: 'tooltip', friendlier_id: document.friendlier_id }, title: 'Not bookmarked' } do %>
+        <%= inline_svg_tag "bookmark-regular.svg", class: 'icon baseline bookmark-icon' %>
+      <% end %>
     <% end %>
-  <% end %>
+  </span>
 
   <%= "#{@documents.meta['pages']['offset_value'] + index + 1}." if @documents %>
   <%= link_to document.dc_title_s, edit_document_path(document.friendlier_id) %>

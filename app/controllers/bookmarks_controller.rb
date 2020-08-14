@@ -14,6 +14,42 @@ class BookmarksController < ApplicationController
     end
   end
 
+  # POST /bookmarks
+  # POST /bookmarks.json
+  def create
+    @document = Document.find_by(friendlier_id: params['document'])
+    @bookmark = Bookmark.find_or_create_by(user:current_user, document: @document)
+
+    respond_to do |format|
+      if @bookmark.save
+        format.html { redirect_to @bookmark, notice: 'Bookmark was successfully created.' }
+        format.js
+      else
+        format.html { render :new }
+        format.json { render json: @bookmark.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /bookmarks/1
+  # DELETE /bookmarks/1.json
+  def destroy
+    @document = Document.find_by(friendlier_id: params['document'])
+    Bookmark.destroy_by(user: current_user, document: @document)
+
+    respond_to do |format|
+      format.html { redirect_to bookmarks_url, notice: 'Bookmark was successfully destroyed.' }
+      format.js
+    end
+  end
+
+  private
+
+  # Only allow a list of trusted parameters through.
+  def bookmark_params
+    params.fetch(:bookmark, {})
+  end
+
   def collect_csv(bookmarks)
     CSV.generate(headers: true) do |csv|
       csv << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }

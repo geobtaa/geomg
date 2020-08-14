@@ -1,0 +1,6 @@
+<%# 1. Toggle bookmark icon %>
+<%# 2. Swap link class %>
+
+var result = $("li#<%= dom_id(@document) %>");
+result.find('span.create_bookmark').addClass('hidden');
+result.find('span.destroy_bookmark').removeClass('hidden');

@@ -6,7 +6,9 @@ Rails.application.routes.draw do
     patch :run, on: :member
   end
 
-  get 'bookmarks/index'
+  resources :bookmarks
+  delete '/bookmarks', to: 'bookmarks#destroy', as: :bookmarks_destroy_by_fkeys
+
   get 'users/index'
 
   devise_for :users, controllers: { invitations: 'devise/invitations' }, skip: [:registrations]
