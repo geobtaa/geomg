@@ -97,14 +97,14 @@ class DocumentHelperTest < ActionView::TestCase
   end
 
   test 'blacklight_link' do
-    @document = Document.find_by!(friendlier_id: 'testhashid')
+    @document = Document.find_by!(friendlier_id: '35c8a641589c4e13b7aa11e37f3f00a1_0')
     bl_link = blacklight_link(@document)
 
-    assert_includes(bl_link, '/catalog/testhashid')
+    assert_includes(bl_link, '/catalog/35c8a641589c4e13b7aa11e37f3f00a1_0')
   end
 
   test 'publication_state_badge' do
-    @document = Document.find_by!(friendlier_id: 'testhashid')
+    @document = Document.find_by!(friendlier_id: '35c8a641589c4e13b7aa11e37f3f00a1_0')
     output = publication_state_badge(@document).to_s
     assert_match(/badge-secondary/, output)
     assert_match(/Draft/, output)

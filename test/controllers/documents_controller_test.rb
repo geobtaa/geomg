@@ -26,12 +26,12 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should redirect document show view' do
-    get '/documents/testhashid'
+    get '/documents/35c8a641589c4e13b7aa11e37f3f00a1_0'
     assert_redirected_to edit_document_path
   end
 
   test 'should render document edit view' do
-    get '/documents/testhashid/edit'
+    get '/documents/35c8a641589c4e13b7aa11e37f3f00a1_0/edit'
     assert_response :success
   end
 

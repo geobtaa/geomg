@@ -137,7 +137,12 @@ class Document < Kithe::Work
       elsif value[:destination] == 'solr_geom'
         wsen_coordinates(send(value[:destination]))
       elsif value[:destination] == 'dct_references_s'
-        send(value[:destination]).first.value
+        begin
+          send(value[:destination]).first.value
+        rescue NoMethodError
+          # No dct_references value, return nil
+          nil
+        end
       else
         send(value[:destination])
       end

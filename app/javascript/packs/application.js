@@ -16,3 +16,9 @@ import "bootstrap"
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+import "controllers"
+
+$(document).on('ready turbolinks:load', () => {
+  $('[data-toggle="tooltip"]').tooltip();
+});

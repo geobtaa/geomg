@@ -27,6 +27,21 @@ class DocumentsController < ApplicationController
     end
   end
 
+  # Fetch documents from array of ids
+  def fetch
+    @documents = Document.where(friendlier_id: params['ids'])
+
+    respond_to do |format|
+      format.html { render :index }
+
+      # @TODO: Should be GBL JSON
+      format.json { render json: @documents.to_json }
+
+      # B1G CSV
+      format.csv  { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
+    end
+  end
+
   # GET /documents/new
   def new
     @document = Document.new
@@ -111,8 +126,14 @@ class DocumentsController < ApplicationController
   def collect_csv(documents)
     CSV.generate(headers: true) do |csv|
       csv << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
-      documents.load_all.map do |doc|
-        csv << doc.to_csv
+      if documents.instance_of?(BlacklightApi)
+        documents.load_all.map do |doc|
+          csv << doc.to_csv
+        end
+      else
+        documents.each do |doc|
+          csv << doc.to_csv
+        end
       end
     end
   end

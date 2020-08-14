@@ -1,0 +1,7 @@
+<span id="result-selected-options" class="hidden" data-scope="pageset" data-controller="results" data-resultset=" <%= url_for(params.to_unsafe_h.merge({format: 'csv', rows: '1000000'})) %>" data-pageset="/fetch?">
+  <!-- @TODO: sniff scope and set url via stimulus -->
+  <a class="btn btn-sm btn-outline-primary" data-action="click->results#exportCSV" href="javascript:void(0);">
+    <%= inline_svg_tag "cloud-download-alt-solid.svg", class: 'icon baseline' %>
+    CSV
+  </a>
+</span>

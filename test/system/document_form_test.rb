@@ -18,6 +18,11 @@ class DocumentFormTest < ApplicationSystemTestCase
     assert page.has_selector?('#form-navigation')   # Form Navigation
   end
 
+  def test_edit_action
+    visit '/documents/35c8a641589c4e13b7aa11e37f3f00a1_0/edit'
+    assert page.has_selector?('input#document_title')
+  end
+
   def test_form_elements
     visit '/documents/new'
     within('form#new_document') do

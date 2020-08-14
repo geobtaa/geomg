@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="<%=root_url%>">
     <strong>G&middot;E&middot;O&middot;M&middot;G</strong>
   </a>
@@ -20,6 +20,9 @@
       </li>
       <li class="nav-item">
         <%= link_to "Users", users_index_path, {class: 'nav-link'} %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Bookmarks", bookmarks_path, {class: 'nav-link'} if current_user %>
       </li>
       <% if user_signed_in? %>
         <li class="nav-item">

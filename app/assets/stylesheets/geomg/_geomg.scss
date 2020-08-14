@@ -7,6 +7,8 @@
 // Components
 @import "components/autocomplete";
 @import "components/forms";
+@import "components/icons";
+@import "components/visibility";
 
 nav.navbar.bg-light {
   border-bottom: 1px solid #CCC;
@@ -19,4 +21,8 @@ footer {
   margin-top: 4rem;
   background:rgba(0, 0, 0, 0.8) image-url('aerial_photo.jpg') repeat;
   box-shadow: inset 0 0 0 50vw rgba(0, 0, 0, 0.8);
+}
+
+div.container-fluid {
+  margin-top: 5rem;
 }

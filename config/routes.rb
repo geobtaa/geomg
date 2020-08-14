@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     patch :run, on: :member
   end
 
+  resources :bookmarks
+  delete '/bookmarks', to: 'bookmarks#destroy', as: :bookmarks_destroy_by_fkeys
+
   get 'users/index'
 
   devise_for :users, controllers: { invitations: 'devise/invitations' }, skip: [:registrations]
@@ -20,7 +23,11 @@ Rails.application.routes.draw do
   root to: 'documents#index'
 
   # public-facing routes
-  resources :documents
+  resources :documents do
+    collection do
+      get 'fetch'
+    end
+  end
 
   mount Qa::Engine => '/authorities'
 end

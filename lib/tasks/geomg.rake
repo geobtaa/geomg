@@ -20,6 +20,16 @@ task ci: :environment do
 end
 
 namespace :geomg do
+  desc 'Set everything to published state'
+  task publish_all: :environment do
+    Document.all.each do |doc|
+      doc.publication_state = 'Published'
+      doc.save
+    end
+
+    puts "\nAll documents published."
+  end
+
   task production_guard: :environment do
     if Rails.env.production? && ENV['PRODUCTION_OKAY'] != 'true'
       warn "\nNot safe for production. If you are sure, run with `PRODUCTION_OKAY=true #{ARGV.join}`\n\n"
@@ -66,7 +76,8 @@ namespace :geomg do
         solr.with_collection(name: 'geoportal-core-test', dir: Rails.root.join('solr/conf').to_s) do
           puts 'Solr running at http://localhost:8985/solr/#/geoportal-core-test/, ^C to exit'
           begin
-            Rake::Task['geomg:reindex'].invoke
+            Rake::Task['geomg:solr:reindex'].invoke
+            sleep
           rescue Interrupt
             puts "\nShutting down..."
           end

@@ -6,4 +6,18 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable,
          :recoverable, :rememberable, :validatable
+
+  has_many :bookmarks, dependent: :destroy, as: :user
+
+  def bookmarks_for_documents(documents = [])
+    if documents.any?
+      bookmarks.where(document_type: documents.first.class.base_class.to_s, document_id: documents.map(&:id))
+    else
+      []
+    end
+  end
+
+  def document_is_bookmarked?(document)
+    bookmarks_for_documents([document]).any?
+  end
 end
