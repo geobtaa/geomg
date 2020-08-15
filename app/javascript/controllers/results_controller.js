@@ -110,7 +110,7 @@ export default class extends Controller {
 
   selectBookmarked() {
     this.checkedState(false);
-    this.checkedState(true, 'input.bookmarked[type=checkbox]');
+    this.checkedState(true, 'li.bookmarked > input[type=checkbox]');
     this.setResultSelectionVisibility('hide');
     this.setResultActionsVisibility('show');
     this.removeResultSet();

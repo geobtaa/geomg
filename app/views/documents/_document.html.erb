@@ -1,7 +1,6 @@
-<%= content_tag :li, id: dom_id(document), class: dom_class(document) do %>
-  <% bookmarked = current_user.document_is_bookmarked?(document) ? 'bookmarked' : '' %>
-
-  <%= check_box_tag nil, nil, false, data: { id: document.friendlier_id, action: 'click->results#checkChecked'}, class: bookmarked %>
+<% bookmarked = current_user.document_is_bookmarked?(document) ? 'bookmarked' : '' %>
+<%= content_tag :li, id: dom_id(document), class: bookmarked do %>
+  <%= check_box_tag nil, nil, false, data: { id: document.friendlier_id, action: 'click->results#checkChecked'}%>
 
   <span class="destroy_bookmark <%= 'hidden' unless current_user.document_is_bookmarked?(document) %>">
     <%= link_to bookmarks_destroy_by_fkeys_path(document: document, user: current_user.id), method: :delete, remote:true do %>
