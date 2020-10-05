@@ -1,67 +1,35 @@
-# Max values taken from Blacklight
-
-require:
-  - rubocop-minitest
-  - rubocop-rails
-
 AllCops:
-  NewCops: enable
-  TargetRubyVersion: 2.7
   Exclude:
-    - 'bin/bundle'
-    - 'tmp/geoportal/**/*'
-    - 'db/schema.rb'
-    - 'db/migrate/**/*'
-    - 'node_modules/**/*'
-    - 'config/initializers/pagy.rb'
-
-Layout/LineLength:
-  Max: 200
-  Exclude:
-    - 'config/initializers/simple_form_bootstrap.rb'
-    - 'test/**/*'
-
-Metrics/AbcSize:
-  Max: 49
-  Exclude:
-    - 'app/helpers/form_input_helper.rb'
-    - 'test/system/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+  TargetRubyVersion: 2.4
 
 Metrics/BlockLength:
-  Max: 30
   Exclude:
-    - 'test/models/document_test.rb'
-    - 'app/indexers/document_indexer.rb'
-    - 'test/indexers/document_indexer_test.rb'
-    - 'config/initializers/simple_form_bootstrap.rb'
-    - 'lib/tasks/geomg.rake'
-    - 'lib/tasks/geomg/geomg_sidekiq.rake'
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
 
-Metrics/ClassLength:
-  Max: 169
+Rails:
+  Enabled: true
 
-Metrics/CyclomaticComplexity:
-  Max: 11
+Rails/HttpPositionalArguments:
+  Enabled: false
 
-Metrics/ModuleLength:
-  Exclude:
-    - 'config/initializers/geomg/field_mappings_btaa.rb'
+HttpPositionalArguments:
+  Enabled: false
 
-Metrics/MethodLength:
-  Max: 30
-  Exclude:
-    - 'app/helpers/form_input_helper.rb'
-    - 'config/initializers/geomg/field_mappings_btaa.rb'
+HasAndBelongsToMany:
+  Enabled: false
 
-Rails/HasManyOrHasOneDependent:
-  Exclude:
-    - 'app/models/import.rb'
+Metrics/LineLength:
+  Max: 120
 
-Rails/SkipsModelValidations:
-  Exclude:
-    - 'app/models/import.rb'
-    - 'app/models/import_transition.rb'
-    - 'app/models/document_transition.rb'
+Documentation:
+  Enabled: false
 
-Style/ClassAndModuleChildren:
+FrozenStringLiteralComment:
   Enabled: false
