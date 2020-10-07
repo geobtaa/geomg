@@ -26,6 +26,8 @@
         <% doc = Document.find_by(friendlier_id: document['id']) %>
         <% if doc.present? %>
           <%= render "document", document: doc, index: index %>
+        <% else %>
+          <p><%= "#{index + 1}." %> Database is missing document <%= document['id'] %></p>
         <% end %>
       <% end %>
     </ol>

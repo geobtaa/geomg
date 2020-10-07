@@ -10,13 +10,7 @@ class DocumentsController < ApplicationController
   # GET /documents.json
 
   def index
-    @documents = BlacklightApi.new(
-      params['q'],
-      params['f'],
-      params['page'],
-      params['sort'],
-      params['rows'] || 20
-    )
+    @documents = BlacklightApi.new(params['q'], params['f'], params['page'], params['sort'], params['rows'] || 20)
 
     respond_to do |format|
       format.html { render :index }
@@ -56,7 +50,6 @@ class DocumentsController < ApplicationController
   def create
     @document = Document.new(document_params)
     @document.friendlier_id = @document.dc_identifier_s
-
     respond_to do |format|
       if @document.save
         format.html { redirect_to documents_path, notice: 'Document was successfully created.' }
@@ -109,18 +102,7 @@ class DocumentsController < ApplicationController
   # This could be done in a form object or otherwise abstracted, but this is good
   # enough for now.
   def document_params
-    Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(
-      :title,
-      :publication_state,
-      :layer_slug_s,
-      :layer_geom_type_s,
-      :dct_references_s,
-      :q,
-      :f,
-      :page,
-      :sort,
-      :rows
-    )
+    Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(:title, :publication_state, :layer_slug_s, :layer_geom_type_s, :dct_references_s, :q, :f, :page, :sort, :rows)
   end
 
   def collect_csv(documents)
