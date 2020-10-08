@@ -128,21 +128,32 @@ class Document < Kithe::Work
   def to_csv
     attributes = Geomg.field_mappings_btaa
 
-    attributes.map do |_key, value|
+    attributes.map do |key, value|
       if value[:delimited]
         send(value[:destination]).join('|')
       elsif value[:destination] == 'solr_geom'
         solr_geom_to_csv(value[:destination])
       elsif value[:destination] == 'dct_references_s'
-        dct_references_s_to_csv(value[:destination])
+        dct_references_s_to_csv(key, value[:destination])
       else
         send(value[:destination])
       end
     end
   end
 
-  def dct_references_s_to_csv(destination)
-    send(destination).first.value
+  def dct_references_s_to_csv(key, destination)
+    case key
+    when :Information
+      send(destination).detect { |ref| ref.category == 'documentation_external' }.value
+    when :Download
+      send(destination).detect { |ref| ref.category == 'download' }.value
+    when :FeatureServer
+      send(destination).detect { |ref| ref.category == 'arcgis_feature_layer' }.value
+    when :MapServer
+      send(destination).detect { |ref| ref.category == 'arcgis_dynamic_map_layer' }.value
+    when :ImageServer
+      send(destination).detect { |ref| ref.category == 'arcgis_image_map_layer' }.value
+    end
   rescue NoMethodError
     nil
   end
