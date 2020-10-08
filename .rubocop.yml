@@ -9,6 +9,8 @@
 #
 # See https://docs.rubocop.org/rubocop/configuration
 
+# @TODO: import.rb 
+
 require: rubocop-rails
 
 AllCops:
@@ -23,6 +25,7 @@ AllCops:
     - 'config/initializers/**/*'
     - '**/*.rake'
     - 'app/helpers/form_input_helper.rb'
+    - 'app/models/import.rb'
 
 Layout/LineLength:
   Enabled: true
