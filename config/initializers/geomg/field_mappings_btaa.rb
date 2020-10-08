@@ -93,30 +93,85 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
-      'Information': {
-        destination: 'dct_references_s',
-        delimited: false,
-        transformation_method: 'build_dct_references'
-      },
+      'Documentation': {
+           'destination': 'dct_references_s',
+           'delimited': false,
+           'transformation_method': 'build_dct_references'
+        },
       'Download': {
-        destination: 'dct_references_s',
-        delimited: false,
-        transformation_method: 'build_dct_references'
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
       },
       'FeatureServer': {
-        destination: 'dct_references_s',
-        delimited: false,
-        transformation_method: 'build_dct_references'
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
       },
-      'MapServer': {
-        destination: 'dct_references_s',
-        delimited: false,
-        transformation_method: 'build_dct_references'
+      'FGDC': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'HTML': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'IIIF': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
       },
       'ImageServer': {
-        destination: 'dct_references_s',
-        delimited: false,
-        transformation_method: 'build_dct_references'
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'Information': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'ISO19139': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'Manifest': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'MapServer': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'MODS': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'Index Map': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'TileServer': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'WFS': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'WMS': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
       },
       'Image': {
         destination: 'b1g_image_ss',

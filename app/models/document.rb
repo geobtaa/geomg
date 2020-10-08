@@ -143,16 +143,38 @@ class Document < Kithe::Work
 
   def dct_references_s_to_csv(key, destination)
     case key
-    when :Information
-      send(destination).detect { |ref| ref.category == 'documentation_external' }.value
+    when :Documentation
+      send(destination).detect { |ref| ref.category == 'documentation_download' }.value
     when :Download
       send(destination).detect { |ref| ref.category == 'download' }.value
     when :FeatureServer
       send(destination).detect { |ref| ref.category == 'arcgis_feature_layer' }.value
-    when :MapServer
-      send(destination).detect { |ref| ref.category == 'arcgis_dynamic_map_layer' }.value
+    when :FGDC
+      send(destination).detect { |ref| ref.category == 'metadata_fgdc' }.value
+    when :HTML
+      send(destination).detect { |ref| ref.category == 'metadata_html' }.value
+    when :IIIF
+      send(destination).detect { |ref| ref.category == 'iiif_image' }.value
     when :ImageServer
       send(destination).detect { |ref| ref.category == 'arcgis_image_map_layer' }.value
+    when :Information
+      send(destination).detect { |ref| ref.category == 'documentation_external' }.value
+    when :ISO19139
+      send(destination).detect { |ref| ref.category == 'metadata_iso' }.value
+    when :Manifest
+      send(destination).detect { |ref| ref.category == 'iiif_manifest' }.value
+    when :MapServer
+      send(destination).detect { |ref| ref.category == 'arcgis_dynamic_map_layer' }.value
+    when :MODS
+      send(destination).detect { |ref| ref.category == 'metadata_mods' }.value
+    when :IndexMap
+      send(destination).detect { |ref| ref.category == 'open_index_map' }.value
+    when :TileServer
+      send(destination).detect { |ref| ref.category == 'arcgis_tiled_map_layer' }.value
+    when :WFS
+      send(destination).detect { |ref| ref.category == 'wfs' }.value
+    when :WMS
+      send(destination).detect { |ref| ref.category == 'wms' }.value
     end
   rescue NoMethodError
     nil
