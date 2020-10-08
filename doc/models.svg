@@ -50,8 +50,8 @@
 <!-- Mapping&#45;&gt;Import -->
 <g id="edge1" class="edge">
 <title>Mapping&#45;&gt;Import</title>
-<path fill="none" stroke="#07b608" d="M172.27,-616.19C177.29,-607.32 182.52,-598.04 187.86,-588.6"/>
-<polygon fill="#07b608" stroke="#07b608" points="190.91,-590.32 192.78,-579.9 184.81,-586.88 190.91,-590.32"/>
+<path fill="none" stroke="#c406dc" d="M172.27,-616.19C177.29,-607.32 182.52,-598.04 187.86,-588.6"/>
+<polygon fill="#c406dc" stroke="#c406dc" points="190.91,-590.32 192.78,-579.9 184.81,-586.88 190.91,-590.32"/>
 </g>
 <!-- Document -->
 <g id="node2" class="node">
@@ -93,8 +93,8 @@
 <!-- Bookmark&#45;&gt;Document -->
 <g id="edge4" class="edge">
 <title>Bookmark&#45;&gt;Document</title>
-<path fill="none" stroke="#dc5c9a" d="M1119.93,-616.45C1104.91,-604.61 1089.84,-592.22 1076,-580 1075.17,-579.27 1074.34,-578.53 1073.51,-577.79"/>
-<polygon fill="#dc5c9a" stroke="#dc5c9a" points="1075.78,-575.12 1066.01,-571.03 1071.09,-580.32 1075.78,-575.12"/>
+<path fill="none" stroke="#a5a918" d="M1119.93,-616.45C1104.91,-604.61 1089.84,-592.22 1076,-580 1075.17,-579.27 1074.34,-578.53 1073.51,-577.79"/>
+<polygon fill="#a5a918" stroke="#a5a918" points="1075.78,-575.12 1066.01,-571.03 1071.09,-580.32 1075.78,-575.12"/>
 </g>
 <!-- User -->
 <g id="node11" class="node">
@@ -122,8 +122,8 @@
 <!-- Bookmark&#45;&gt;User -->
 <g id="edge3" class="edge">
 <title>Bookmark&#45;&gt;User</title>
-<path fill="none" stroke="#04ef4d" d="M1221.51,-616.19C1221.98,-607.77 1222.53,-598.99 1223.14,-590.05"/>
-<polygon fill="#04ef4d" stroke="#04ef4d" points="1226.65,-590.12 1223.86,-579.9 1219.67,-589.63 1226.65,-590.12"/>
+<path fill="none" stroke="#53d2e8" d="M1221.51,-616.19C1221.98,-607.77 1222.53,-598.99 1223.14,-590.05"/>
+<polygon fill="#53d2e8" stroke="#53d2e8" points="1226.65,-590.12 1223.86,-579.9 1219.67,-589.63 1226.65,-590.12"/>
 </g>
 <!-- ActiveStorageAttachment -->
 <g id="node4" class="node">
@@ -156,8 +156,8 @@
 <!-- DocumentTransition&#45;&gt;Document -->
 <g id="edge7" class="edge">
 <title>DocumentTransition&#45;&gt;Document</title>
-<path fill="none" stroke="#0c28e8" d="M944,-616.19C944,-605.37 944,-593.95 944,-582.36"/>
-<polygon fill="#0c28e8" stroke="#0c28e8" points="947.5,-582.15 944,-572.15 940.5,-582.15 947.5,-582.15"/>
+<path fill="none" stroke="#205943" d="M944,-616.19C944,-605.37 944,-593.95 944,-582.36"/>
+<polygon fill="#205943" stroke="#205943" points="947.5,-582.15 944,-572.15 940.5,-582.15 947.5,-582.15"/>
 </g>
 <!-- ImportTransition -->
 <g id="node6" class="node">
@@ -177,8 +177,8 @@
 <!-- ImportTransition&#45;&gt;Import -->
 <g id="edge9" class="edge">
 <title>ImportTransition&#45;&gt;Import</title>
-<path fill="none" stroke="#9ae84c" d="M365.73,-616.19C360.71,-607.32 355.48,-598.04 350.14,-588.6"/>
-<polygon fill="#9ae84c" stroke="#9ae84c" points="353.19,-586.88 345.22,-579.9 347.09,-590.32 353.19,-586.88"/>
+<path fill="none" stroke="#65b8d0" d="M365.73,-616.19C360.71,-607.32 355.48,-598.04 350.14,-588.6"/>
+<polygon fill="#65b8d0" stroke="#65b8d0" points="353.19,-586.88 345.22,-579.9 347.09,-590.32 353.19,-586.88"/>
 </g>
 <!-- ActiveStorageBlob -->
 <g id="node7" class="node">
@@ -267,9 +267,9 @@
 <!-- User&#45;&gt;Bookmark -->
 <g id="edge14" class="edge">
 <title>User&#45;&gt;Bookmark</title>
-<path fill="none" stroke="#ec89cc" d="M1236.61,-588.15C1236.1,-594.18 1235.57,-600.14 1235.02,-605.98"/>
-<ellipse fill="none" stroke="#ec89cc" cx="1236.97" cy="-583.88" rx="4" ry="4"/>
-<polygon fill="#ec89cc" stroke="#ec89cc" points="1235,-606.24 1229.57,-615.76 1234.52,-611.21 1234.04,-616.19 1234.04,-616.19 1234.04,-616.19 1234.52,-611.21 1238.52,-616.62 1235,-606.24 1235,-606.24"/>
+<path fill="none" stroke="#27813b" d="M1236.61,-588.15C1236.1,-594.18 1235.57,-600.14 1235.02,-605.98"/>
+<ellipse fill="none" stroke="#27813b" cx="1236.97" cy="-583.88" rx="4" ry="4"/>
+<polygon fill="#27813b" stroke="#27813b" points="1235,-606.24 1229.57,-615.76 1234.52,-611.21 1234.04,-616.19 1234.04,-616.19 1234.04,-616.19 1234.52,-611.21 1238.52,-616.62 1235,-606.24 1235,-606.24"/>
 </g>
 <!-- InvitedBy -->
 <g id="node12" class="node">
@@ -280,8 +280,8 @@
 <!-- User&#45;&gt;InvitedBy -->
 <g id="edge13" class="edge">
 <title>User&#45;&gt;InvitedBy</title>
-<path fill="none" stroke="#4dc03a" d="M1241,-308.34C1241,-254.17 1241,-196.9 1241,-164.19"/>
-<polygon fill="#4dc03a" stroke="#4dc03a" points="1244.5,-164.08 1241,-154.08 1237.5,-164.08 1244.5,-164.08"/>
+<path fill="none" stroke="#e70f35" d="M1241,-308.34C1241,-254.17 1241,-196.9 1241,-164.19"/>
+<polygon fill="#e70f35" stroke="#e70f35" points="1244.5,-164.08 1241,-154.08 1237.5,-164.08 1244.5,-164.08"/>
 </g>
 </g>
 </svg>
