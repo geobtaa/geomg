@@ -1,0 +1,62 @@
+require: rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+    - 'node_modules/**/*'
+    - 'test/**/*'
+    - 'config/initializers/**/*'
+    - '**/*.rake'
+
+Layout/LineLength:
+  Enabled: true
+  Exclude:
+    - '**/*.rake'
+    - '**/*.jbuilder'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'app/indexers/document_indexer.rb'
+    - 'config/environments/*.rb'
+    - 'spec/**/*.rb'
+    - 'test/**/*.rb'
+
+Metrics/ClassLength:
+  Enabled: true
+  Exclude:
+    - 'app/models/document.rb'
+    - 'app/models/import.rb'
+
+Metrics/MethodLength:
+  Max: 16
+
+Rails:
+  Enabled: true
+
+Rails/HttpPositionalArguments:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'app/models/import_transition.rb'
+
+HttpPositionalArguments:
+  Enabled: false
+
+HasAndBelongsToMany:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Documentation:
+  Enabled: false
+
+FrozenStringLiteralComment:
+  Enabled: false
