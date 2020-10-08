@@ -43,7 +43,7 @@ gem 'simple_form', '~> 5.0'
 gem 'dotenv-rails'
 
 # Auth
-gem 'devise'
+gem 'devise', '~> 4.7.0'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'devise_invitable', '~> 2.0.0'
 
