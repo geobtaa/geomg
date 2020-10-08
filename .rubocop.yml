@@ -28,6 +28,10 @@ AllCops:
     - 'app/helpers/form_input_helper.rb'
     - 'app/models/import.rb'
 
+Layout/ExtraSpacing:
+  Exclude:
+    - '**/*.jbuilder'
+
 Layout/LineLength:
   Enabled: true
   Exclude:
