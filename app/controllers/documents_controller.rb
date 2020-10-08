@@ -114,7 +114,7 @@ class DocumentsController < ApplicationController
       csv << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
       if documents.instance_of?(BlacklightApi)
         documents.load_all.map do |doc|
-          csv << doc.to_csv
+          csv << doc.to_csv if doc.present?
         end
       else
         documents.each do |doc|
