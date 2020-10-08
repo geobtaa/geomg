@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDocumentTransitions < ActiveRecord::Migration[6.0]
   def change
     create_table :document_transitions do |t|
@@ -17,13 +19,13 @@ class CreateDocumentTransitions < ActiveRecord::Migration[6.0]
     # add_foreign_key :document_transitions, :kithe_models
 
     add_index(:document_transitions,
-              %i(kithe_model_id sort_key),
+              %i[kithe_model_id sort_key],
               unique: true,
-              name: "index_document_transitions_parent_sort")
+              name: 'index_document_transitions_parent_sort')
     add_index(:document_transitions,
-              %i(kithe_model_id most_recent),
+              %i[kithe_model_id most_recent],
               unique: true,
-              where: "most_recent",
-              name: "index_document_transitions_parent_most_recent")
+              where: 'most_recent',
+              name: 'index_document_transitions_parent_most_recent')
   end
 end

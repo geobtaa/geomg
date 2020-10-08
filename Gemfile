@@ -43,7 +43,7 @@ gem 'simple_form', '~> 5.0'
 gem 'dotenv-rails'
 
 # Auth
-gem 'devise'
+gem 'devise', '~> 4.7.0'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'devise_invitable', '~> 2.0.0'
 
@@ -76,7 +76,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  gem 'rubocop', '~> 0.86.0', require: false
+  gem 'rubocop', '~> 0.86', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-rails', require: false
 end

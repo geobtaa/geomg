@@ -15,24 +15,26 @@ require 'active_storage_validations/matchers'
 
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
 
-class ActiveSupport::TestCase
-  extend ActiveStorageValidations::Matchers
-  fixtures :all
+module ActiveSupport
+  class TestCase
+    extend ActiveStorageValidations::Matchers
+    fixtures :all
 
-  include Devise::Test::IntegrationHelpers
-  include Warden::Test::Helpers
+    include Devise::Test::IntegrationHelpers
+    include Warden::Test::Helpers
 
-  def sign_in_as(user_or_key)
-    u = user_or_key
-    u = users(user_or_key) if u.is_a? Symbol
-    sign_in(u)
+    def sign_in_as(user_or_key)
+      u = user_or_key
+      u = users(user_or_key) if u.is_a? Symbol
+      sign_in(u)
+    end
+
+    def sign_out_as(user_or_key)
+      u = user_or_key
+      u = users(user_or_key) if u.is_a? Symbol
+      sign_out u
+    end
+
+    # Add more helper methods to be used by all tests here...
   end
-
-  def sign_out_as(user_or_key)
-    u = user_or_key
-    u = users(user_or_key) if u.is_a? Symbol
-    sign_out u
-  end
-
-  # Add more helper methods to be used by all tests here...
 end

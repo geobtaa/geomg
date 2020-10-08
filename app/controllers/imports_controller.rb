@@ -29,7 +29,7 @@ class ImportsController < ApplicationController
 
     respond_to do |format|
       if @import.save
-        format.html { redirect_to import_mappings_path(@import), notice: 'Import was successfully created. Please set your import mapping rules.' }
+        format.html { redirect_to import_mappings_path(@import), notice: 'Import was successfully. Please set your import mapping rules.' }
         format.json { render :show, status: :created, location: @import }
       else
         format.html { render :new }
@@ -75,23 +75,16 @@ class ImportsController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
+
+  def permittable_params
+    %i[type name filename source description row_count encoding content_type extension validity validation_result csv_file run]
+  end
+
   def import_params
     # Handle STI key
     key = (params.keys & %w[import import_btaa])[0]
     params.require(key).permit(
-      :type,
-      :name,
-      :filename,
-      :source,
-      :description,
-      :row_count,
-      :encoding,
-      :content_type,
-      :extension,
-      :validity,
-      :validation_result,
-      :csv_file,
-      :run,
+      permittable_params,
       mappings_attributes: %i[
         id
         source_header

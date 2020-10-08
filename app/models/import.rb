@@ -22,8 +22,7 @@ class Import < ApplicationRecord
   ]
 
   # Validations
-  validates :name, presence: true
-  validates :type, presence: true
+  validates :name, :type, presence: true
   validates :csv_file, attached: true, content_type: { in: 'text/csv', message: 'is not a CSV file' }
 
   def state_machine
