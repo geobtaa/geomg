@@ -132,18 +132,25 @@ class Document < Kithe::Work
       if value[:delimited]
         send(value[:destination]).join('|')
       elsif value[:destination] == 'solr_geom'
-        wsen_coordinates(send(value[:destination]))
+        solr_geom_to_csv(value[:destination])
       elsif value[:destination] == 'dct_references_s'
-        begin
-          send(value[:destination]).first.value
-        rescue NoMethodError
-          # No dct_references value, return nil
-          nil
-        end
+        dct_references_s_to_csv(value[:destination])
       else
         send(value[:destination])
       end
     end
+  end
+
+  def dct_references_s_to_csv(destination)
+    send(destination).first.value
+  rescue NoMethodError
+    nil
+  end
+
+  def solr_geom_to_csv(destination)
+    wsen_coordinates(send(destination))
+  rescue NoMethodError
+    nil
   end
 
   private
