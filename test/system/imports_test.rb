@@ -27,7 +27,7 @@ class ImportsTest < ApplicationSystemTestCase
 
     click_on 'Create Import'
 
-    assert_text 'Import was successfully created'
+    assert_text 'Import was successfull'
   end
 
   test 'updating a Import' do

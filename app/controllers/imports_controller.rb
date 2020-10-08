@@ -29,7 +29,7 @@ class ImportsController < ApplicationController
 
     respond_to do |format|
       if @import.save
-        format.html { redirect_to import_mappings_path(@import), notice: 'Import was successfully. Please set your import mapping rules.' }
+        format.html { redirect_to import_mappings_path(@import), notice: 'Import was successfull. Please set your import mapping rules.' }
         format.json { render :show, status: :created, location: @import }
       else
         format.html { render :new }
