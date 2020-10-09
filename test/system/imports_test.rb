@@ -54,4 +54,34 @@ class ImportsTest < ApplicationSystemTestCase
 
     assert_text 'Import was successfully destroyed'
   end
+
+  test 'Import CSV and Export CSV match' do
+    visit imports_url
+    click_on 'New Import'
+    fill_in 'Name', with: @import.name
+    fill_in 'Source', with: @import.source
+    fill_in 'Description', with: @import.description
+    attach_file('import_csv_file', Rails.root.join('test/fixtures/files/schema_support.csv'))
+    select 'BTAA CSV Template', from: 'import_type'
+
+    # Create Import
+    click_on 'Create Import'
+    assert_text 'Import was successfull'
+
+    # Create Mapping
+    click_on 'Create Mapping'
+    assert_text 'Import was successfully updated.'
+
+    # Run Import!
+    click_on 'Run Import'
+    assert_text 'Import was run.'
+
+    # Download CSV
+    visit '/documents/identifier.csv'
+
+    # Assert Import CSV file and Export CSV file match
+    import_csv = File.open(Rails.root.join('test/fixtures/files/schema_support.csv')).read
+    export_csv = File.open(Rails.root.join("tmp/downloads/documents-#{Time.zone.today}.csv")).read
+    assert_equal(import_csv, export_csv)
+  end
 end
