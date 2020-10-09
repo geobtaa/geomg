@@ -84,9 +84,12 @@ class DocumentsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html   { redirect_to edit_document_url(@document) }
-      format.json   { render json: @document.to_json } # App-style JSON
+      format.html { redirect_to edit_document_url(@document) }
+      format.json { render json: @document.to_json } # App-style JSON
       format.json_gbl_v1
+      # B1G CSV
+      format.csv { send_data collect_csv([@document]), filename: "documents-#{Time.zone.today}.csv" }
+
       # @TODO:
       # geoblacklight_version: 1.0 (strict)
       # geoblacklight_version: 1.0 + B1G customizations

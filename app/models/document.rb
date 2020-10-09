@@ -108,6 +108,10 @@ class Document < Kithe::Work
     references.to_json
   end
 
+  def layer_modified_dt
+    updated_at&.utc&.iso8601
+  end
+
   def date_range_json
     date_ranges = []
     b1g_date_range_drsim.each do |date_range|
@@ -142,18 +146,7 @@ class Document < Kithe::Work
   end
 
   def dct_references_s_to_csv(key, destination)
-    case key
-    when :Information
-      send(destination).detect { |ref| ref.category == 'documentation_external' }.value
-    when :Download
-      send(destination).detect { |ref| ref.category == 'download' }.value
-    when :FeatureServer
-      send(destination).detect { |ref| ref.category == 'arcgis_feature_layer' }.value
-    when :MapServer
-      send(destination).detect { |ref| ref.category == 'arcgis_dynamic_map_layer' }.value
-    when :ImageServer
-      send(destination).detect { |ref| ref.category == 'arcgis_image_map_layer' }.value
-    end
+    send(destination).detect { |ref| ref.category == Geomg.dct_references_mappings[key] }.value
   rescue NoMethodError
     nil
   end

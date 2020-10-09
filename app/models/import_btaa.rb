@@ -29,16 +29,6 @@ class ImportBtaa < Import
     ]
   end
 
-  def dct_references_mappings
-    {
-      "Download": 'download',
-      "FeatureServer": 'arcgis_feature_layer',
-      "ImageServer": 'arcgis_image_map_layer',
-      "Information": 'documentation_external',
-      "MapServer": 'arcgis_dynamic_map_layer'
-    }
-  end
-
   def solr_geom_mapping(geom)
     # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
     w, s, e, n = geom.split(',')

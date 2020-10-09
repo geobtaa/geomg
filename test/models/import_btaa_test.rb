@@ -17,7 +17,6 @@ class ImportBtaaTest < ActiveSupport::TestCase
     assert_respond_to(@import, :default_mappings)
     assert_respond_to(@import, :assumed_mappings)
     assert_respond_to(@import, :derived_mappings)
-    assert_respond_to(@import, :dct_references_mappings)
     assert_respond_to(@import, :solr_geom_mapping)
     assert_respond_to(@import, :derive_b1g_centroid_ss)
     assert_respond_to(@import, :wens_matches)
@@ -31,13 +30,6 @@ class ImportBtaaTest < ActiveSupport::TestCase
   test 'derived_mappings' do
     assert_instance_of(Array, @import.derived_mappings)
     assert_includes @import.derived_mappings.map(&:keys).flatten, :b1g_centroid_ss
-  end
-
-  test 'dct_references_mappings' do
-    assert_instance_of(Hash, @import.dct_references_mappings)
-    %w[Download FeatureServer ImageServer Information MapServer].each do |mapping|
-      assert(@import.dct_references_mappings.key?(mapping.to_sym))
-    end
   end
 
   test 'solr_geom_mapping' do
