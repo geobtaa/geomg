@@ -30,6 +30,11 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to edit_document_path
   end
 
+  test 'should render document#show as csv' do
+    get '/documents/35c8a641589c4e13b7aa11e37f3f00a1_0.csv'
+    assert_response :success
+  end
+
   test 'should render document#show as json_gbl_v1' do
     get '/documents/35c8a641589c4e13b7aa11e37f3f00a1_0.json_gbl_v1'
     assert_response :success
