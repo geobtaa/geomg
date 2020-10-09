@@ -108,6 +108,10 @@ class Document < Kithe::Work
     references.to_json
   end
 
+  def layer_modified_dt
+    updated_at&.utc&.iso8601
+  end
+
   def date_range_json
     date_ranges = []
     b1g_date_range_drsim.each do |date_range|

@@ -73,9 +73,7 @@ class DocumentIndexer < Kithe::Indexer
     to_field 'suppressed_b', obj_extract('suppressed_b')
     to_field 'b1g_child_record_b', obj_extract('b1g_child_record_b')
 
-    to_field 'layer_modified_dt' do |rec, acc|
-      acc << rec.updated_at.utc.iso8601 if rec.updated_at
-    end
+    to_field 'layer_modified_dt', obj_extract('layer_modified_dt')
 
     # May want to switch to or add a 'date published' instead, right
     # now we only have date added to DB, which is what we had in sufia.
