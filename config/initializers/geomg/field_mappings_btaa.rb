@@ -73,6 +73,11 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
+      'Geonames': {
+        destination: 'b1g_geonames_sm',
+        delimited: true,
+        transformation_method: nil
+      },
       'Bounding Box': {
         destination: 'solr_geom',
         delimited: false,
@@ -94,10 +99,10 @@ module Geomg
         transformation_method: nil
       },
       'Documentation': {
-           'destination': 'dct_references_s',
-           'delimited': false,
-           'transformation_method': 'build_dct_references'
-        },
+        'destination': 'dct_references_s',
+        'delimited': false,
+        'transformation_method': 'build_dct_references'
+      },
       'Download': {
          'destination': 'dct_references_s',
          'delimited': false,
@@ -215,6 +220,11 @@ module Geomg
       },
       'Date Accessioned': {
         destination: 'b1g_dateAccessioned_s',
+        delimited: false,
+        transformation_method: nil
+      },
+      'Date Retired': {
+        destination: 'b1g_dateRetired_s',
         delimited: false,
         transformation_method: nil
       },
