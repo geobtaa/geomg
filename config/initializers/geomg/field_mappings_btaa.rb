@@ -240,4 +240,25 @@ module Geomg
       }
     }
   end
+
+  def dct_references_mappings
+    {
+      "Documentation": 'documentation_download',
+      "Download": 'download',
+      "FeatureServer": 'arcgis_feature_layer',
+      "FGDC": 'metadata_fgdc',
+      "HTML": 'metadata_html',
+      "IIIF": 'iiif_image',
+      "ImageServer": 'arcgis_image_map_layer',
+      "Information": 'documentation_external',
+      "ISO19139": 'metadata_iso',
+      "Manifest": 'iiif_manifest',
+      "MapServer": 'arcgis_dynamic_map_layer',
+      "MODS": 'metadata_mods',
+      "Index Map": 'open_index_map',
+      "TileServer": 'arcgis_tiled_map_layer',
+      "WFS": 'wfs',
+      "WMS": 'wms'
+    }
+  end
 end

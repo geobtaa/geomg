@@ -26,10 +26,10 @@ json.layer_geom_type_s  document.layer_geom_type_s
 # Optional
 json.dc_language_sm     document.dc_language_sm
 json.dc_publisher_s     document.dc_publisher_sm
-json.dc_source_sm       # @TODO: using?
+# json.dc_source_sm     document.dc_source_sm             @TODO: Add Support
 json.dc_type_s          document.dc_type_sm
 json.dct_isPartOf_sm    document.dct_isPartOf_sm
 json.dct_issued_s       document.dct_issued_s
 json.dct_temporal_sm    document.dct_temporal_sm
-# json.layer_id_s       document.layer_id_s               @TODO: using?
+# json.layer_id_s       document.layer_id_s               @TODO: Add Support
 json.suppressed_b       document.suppressed_b
