@@ -259,6 +259,8 @@ GEM
       nokogiri (~> 1.8)
       parslet
       rdf (~> 3.0)
+    letter_opener (1.7.0)
+      launchy (~> 2.2)
     link_header (0.0.8)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -598,6 +600,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   jquery-rails (~> 4.4)
   kithe (~> 2.0.0)
+  letter_opener
   listen (>= 3.0.5, < 3.2)
   m (~> 1.5.0)
   minitest
