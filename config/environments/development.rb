@@ -69,4 +69,17 @@ Rails.application.configure do
 
   # Ngrok
   config.hosts << 'geomg.ngrok.io'
+
+  config.after_initialize do
+    Bullet.tap do |bullet|
+      bullet.enable = true
+      bullet.alert = false
+      bullet.bullet_logger = true
+      bullet.console = false
+      bullet.growl = false
+      bullet.rails_logger = true
+      bullet.add_footer = false
+      bullet.airbrake = false
+    end
+  end
 end

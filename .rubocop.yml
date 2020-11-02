@@ -1,67 +1,63 @@
-# Max values taken from Blacklight
+# The behavior of RuboCop can be controlled via the .rubocop.yml
+# configuration file. It makes it possible to enable/disable
+# certain cops (checks) and to alter their behavior if they accept
+# any parameters. The file can be placed either in your home
+# directory or in some project directory.
+#
+# RuboCop will start looking for the configuration file in the directory
+# where the inspected file is and continue its way up to the root directory.
+#
+# See https://docs.rubocop.org/rubocop/configuration
 
-require:
-  - rubocop-minitest
-  - rubocop-rails
+# @TODO: import.rb
+
+require: rubocop-rails
 
 AllCops:
   NewCops: enable
-  TargetRubyVersion: 2.7
   Exclude:
-    - 'bin/bundle'
-    - 'tmp/geoportal/**/*'
-    - 'db/schema.rb'
-    - 'db/migrate/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
     - 'node_modules/**/*'
-    - 'config/initializers/pagy.rb'
+    - 'test/**/*'
+    - 'config/initializers/**/*'
+    - '**/*.rake'
+    - 'app/helpers/form_input_helper.rb'
+    - 'app/models/import.rb'
+
+Layout/ExtraSpacing:
+  Exclude:
+    - '**/*.jbuilder'
 
 Layout/LineLength:
-  Max: 200
+  Enabled: true
   Exclude:
-    - 'config/initializers/simple_form_bootstrap.rb'
-    - 'test/**/*'
+    - '**/*.rake'
+    - '**/*.jbuilder'
+  Max: 140
 
 Metrics/AbcSize:
-  Max: 49
-  Exclude:
-    - 'app/helpers/form_input_helper.rb'
-    - 'test/system/**/*'
+  Max: 40
 
 Metrics/BlockLength:
-  Max: 30
   Exclude:
-    - 'test/models/document_test.rb'
+    - 'Rakefile'
     - 'app/indexers/document_indexer.rb'
-    - 'test/indexers/document_indexer_test.rb'
-    - 'config/initializers/simple_form_bootstrap.rb'
-    - 'lib/tasks/geomg.rake'
-    - 'lib/tasks/geomg/geomg_sidekiq.rake'
+    - 'config/environments/*.rb'
+    - 'spec/**/*.rb'
+    - 'test/**/*.rb'
 
 Metrics/ClassLength:
-  Max: 169
-
-Metrics/CyclomaticComplexity:
-  Max: 11
-
-Metrics/ModuleLength:
-  Exclude:
-    - 'config/initializers/geomg/field_mappings_btaa.rb'
+  Max: 120
 
 Metrics/MethodLength:
-  Max: 30
-  Exclude:
-    - 'app/helpers/form_input_helper.rb'
-    - 'config/initializers/geomg/field_mappings_btaa.rb'
-
-Rails/HasManyOrHasOneDependent:
-  Exclude:
-    - 'app/models/import.rb'
+  Max: 16
 
 Rails/SkipsModelValidations:
   Exclude:
+    - 'app/models/document_transition.rb'
     - 'app/models/import.rb'
     - 'app/models/import_transition.rb'
-    - 'app/models/document_transition.rb'
-
-Style/ClassAndModuleChildren:
-  Enabled: false

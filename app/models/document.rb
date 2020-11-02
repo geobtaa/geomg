@@ -27,12 +27,9 @@ class Document < Kithe::Work
   self.kithe_indexable_mapper = DocumentIndexer.new
 
   # Validations
-  validates :b1g_status_s, presence: true
-  validates :dc_identifier_s, presence: true
+  validates :b1g_status_s, :dc_identifier_s, :dc_rights_s, :layer_geom_type_s, :layer_slug_s, presence: true
+
   validates :dc_format_s, presence: true, unless: :a_collection_object?
-  validates :dc_rights_s, presence: true
-  validates :layer_geom_type_s, presence: true
-  validates :layer_slug_s, presence: true
   # validates :b1g_date_range_drsim, presence: true
 
   def a_collection_object?
@@ -111,6 +108,10 @@ class Document < Kithe::Work
     references.to_json
   end
 
+  def layer_modified_dt
+    updated_at&.utc&.iso8601
+  end
+
   def date_range_json
     date_ranges = []
     b1g_date_range_drsim.each do |date_range|
@@ -131,22 +132,29 @@ class Document < Kithe::Work
   def to_csv
     attributes = Geomg.field_mappings_btaa
 
-    attributes.map do |_key, value|
+    attributes.map do |key, value|
       if value[:delimited]
         send(value[:destination]).join('|')
       elsif value[:destination] == 'solr_geom'
-        wsen_coordinates(send(value[:destination]))
+        solr_geom_to_csv(value[:destination])
       elsif value[:destination] == 'dct_references_s'
-        begin
-          send(value[:destination]).first.value
-        rescue NoMethodError
-          # No dct_references value, return nil
-          nil
-        end
+        dct_references_s_to_csv(key, value[:destination])
       else
         send(value[:destination])
       end
     end
+  end
+
+  def dct_references_s_to_csv(key, destination)
+    send(destination).detect { |ref| ref.category == Geomg.dct_references_mappings[key] }.value
+  rescue NoMethodError
+    nil
+  end
+
+  def solr_geom_to_csv(destination)
+    wsen_coordinates(send(destination))
+  rescue NoMethodError
+    nil
   end
 
   private

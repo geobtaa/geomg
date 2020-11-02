@@ -43,7 +43,7 @@ gem 'simple_form', '~> 5.0'
 gem 'dotenv-rails'
 
 # Auth
-gem 'devise'
+gem 'devise', '~> 4.7.0'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'devise_invitable', '~> 2.0.0'
 
@@ -64,6 +64,7 @@ gem 'httparty'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'inquisition', github: 'rubygarage/inquisition'
   gem 'solr_wrapper', '~> 2.1'
 end
 
@@ -75,7 +76,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  gem 'rubocop', '~> 0.86.0', require: false
+  gem 'rubocop', '~> 0.86', require: false
   gem 'rubocop-minitest', require: false
   gem 'rubocop-rails', require: false
 end

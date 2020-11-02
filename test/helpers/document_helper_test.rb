@@ -36,7 +36,7 @@ class DocumentHelperTest < ActionView::TestCase
       20                                        # per_page
     )
 
-    facet = @documents.facets.first
+    facet = @documents.facets.select{ |f| f['id'] == 'b1g_genre_sm' }.first
     facet_item = facet['attributes']['items'].first
     agg = link_from_api(facet_item)
 
@@ -48,7 +48,7 @@ class DocumentHelperTest < ActionView::TestCase
 
   test 'link_from_api - facet remove link' do
     @documents = BlacklightApi.new('water', b1g_genre_sm: ['Geospatial data'])
-    facet = @documents.facets.first
+    facet = @documents.facets.select{ |f| f['id'] == 'b1g_genre_sm' }.first
     facet_item = facet['attributes']['items'].first
     agg = link_from_api(facet_item)
     assert_equal 'remove', agg[:action]
