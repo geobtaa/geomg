@@ -60,7 +60,8 @@ class Import < ApplicationRecord
 
   def import!
     # @TODO: guard this call, unless mappings_valid?
-    data = CSV.parse(csv_file.download, headers: true)
+
+    data = CSV.parse(csv_file.download.force_encoding('UTF-8'), headers: true)
 
     data.each do |doc|
       extract_hash = doc.to_h
