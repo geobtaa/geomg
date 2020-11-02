@@ -1,35 +1,63 @@
+# The behavior of RuboCop can be controlled via the .rubocop.yml
+# configuration file. It makes it possible to enable/disable
+# certain cops (checks) and to alter their behavior if they accept
+# any parameters. The file can be placed either in your home
+# directory or in some project directory.
+#
+# RuboCop will start looking for the configuration file in the directory
+# where the inspected file is and continue its way up to the root directory.
+#
+# See https://docs.rubocop.org/rubocop/configuration
+
+# @TODO: import.rb
+
+require: rubocop-rails
+
 AllCops:
+  NewCops: enable
   Exclude:
     - 'bin/**/*'
     - 'db/**/*'
     - 'vendor/**/*'
     - 'spec/fixtures/**/*'
     - 'tmp/**/*'
-  TargetRubyVersion: 2.4
+    - 'node_modules/**/*'
+    - 'test/**/*'
+    - 'config/initializers/**/*'
+    - '**/*.rake'
+    - 'app/helpers/form_input_helper.rb'
+    - 'app/models/import.rb'
+
+Layout/ExtraSpacing:
+  Exclude:
+    - '**/*.jbuilder'
+
+Layout/LineLength:
+  Enabled: true
+  Exclude:
+    - '**/*.rake'
+    - '**/*.jbuilder'
+  Max: 140
+
+Metrics/AbcSize:
+  Max: 40
 
 Metrics/BlockLength:
   Exclude:
     - 'Rakefile'
-    - '**/*.rake'
+    - 'app/indexers/document_indexer.rb'
+    - 'config/environments/*.rb'
     - 'spec/**/*.rb'
+    - 'test/**/*.rb'
 
-Rails:
-  Enabled: true
-
-Rails/HttpPositionalArguments:
-  Enabled: false
-
-HttpPositionalArguments:
-  Enabled: false
-
-HasAndBelongsToMany:
-  Enabled: false
-
-Metrics/LineLength:
+Metrics/ClassLength:
   Max: 120
 
-Documentation:
-  Enabled: false
+Metrics/MethodLength:
+  Max: 16
 
-FrozenStringLiteralComment:
-  Enabled: false
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'app/models/document_transition.rb'
+    - 'app/models/import.rb'
+    - 'app/models/import_transition.rb'

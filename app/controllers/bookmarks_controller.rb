@@ -2,6 +2,9 @@
 
 # BookmarksController
 class BookmarksController < ApplicationController
+  before_action :set_document,
+                only: %i[create destroy]
+
   # GET /bookmarks
   # GET /bookmarks.json
   def index
@@ -17,7 +20,6 @@ class BookmarksController < ApplicationController
   # POST /bookmarks
   # POST /bookmarks.json
   def create
-    @document = Document.find_by(friendlier_id: params['document'])
     @bookmark = Bookmark.find_or_create_by(user: current_user, document: @document)
 
     respond_to do |format|
@@ -34,7 +36,6 @@ class BookmarksController < ApplicationController
   # DELETE /bookmarks/1
   # DELETE /bookmarks/1.json
   def destroy
-    @document = Document.find_by(friendlier_id: params['document'])
     Bookmark.destroy_by(user: current_user, document: @document)
 
     respond_to do |format|
@@ -44,6 +45,10 @@ class BookmarksController < ApplicationController
   end
 
   private
+
+  def set_document
+    @document = Document.find_by(friendlier_id: params['document'])
+  end
 
   # Only allow a list of trusted parameters through.
   def bookmark_params

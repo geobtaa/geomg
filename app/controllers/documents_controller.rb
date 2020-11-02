@@ -8,20 +8,13 @@ class DocumentsController < ApplicationController
 
   # GET /documents
   # GET /documents.json
-
   def index
-    @documents = BlacklightApi.new(
-      params['q'],
-      params['f'],
-      params['page'],
-      params['sort'],
-      params['rows'] || 20
-    )
+    @documents = BlacklightApi.new(params['q'], params['f'], params['page'], params['sort'], params['rows'] || 20)
 
     respond_to do |format|
       format.html { render :index }
-      # @TODO: Should be GBL JSON
       format.json { render json: @documents.results.to_json }
+      format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
       format.csv  { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
     end
@@ -33,8 +26,6 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       format.html { render :index }
-
-      # @TODO: Should be GBL JSON
       format.json { render json: @documents.to_json }
 
       # B1G CSV
@@ -56,7 +47,6 @@ class DocumentsController < ApplicationController
   def create
     @document = Document.new(document_params)
     @document.friendlier_id = @document.dc_identifier_s
-
     respond_to do |format|
       if @document.save
         format.html { redirect_to documents_path, notice: 'Document was successfully created.' }
@@ -93,7 +83,19 @@ class DocumentsController < ApplicationController
   end
 
   def show
-    redirect_to edit_document_url(@document)
+    respond_to do |format|
+      format.html { redirect_to edit_document_url(@document) }
+      format.json { render json: @document.to_json } # App-style JSON
+      format.json_gbl_v1
+      # B1G CSV
+      format.csv { send_data collect_csv([@document]), filename: "documents-#{Time.zone.today}.csv" }
+
+      # @TODO:
+      # geoblacklight_version: 1.0 (strict)
+      # geoblacklight_version: 1.0 + B1G customizations
+      # geoblacklight_version: 2.0 (strict)
+      # geoblacklight_version: 2.0 + B1G customizations
+    end
   end
 
   private
@@ -108,19 +110,12 @@ class DocumentsController < ApplicationController
   #
   # This could be done in a form object or otherwise abstracted, but this is good
   # enough for now.
+  def permittable_params
+    %i[title publication_state layer_slug_s layer_geom_type_s dct_references_s q f page sort rows]
+  end
+
   def document_params
-    Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(
-      :title,
-      :publication_state,
-      :layer_slug_s,
-      :layer_geom_type_s,
-      :dct_references_s,
-      :q,
-      :f,
-      :page,
-      :sort,
-      :rows
-    )
+    Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(permittable_params)
   end
 
   def collect_csv(documents)
@@ -128,7 +123,7 @@ class DocumentsController < ApplicationController
       csv << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
       if documents.instance_of?(BlacklightApi)
         documents.load_all.map do |doc|
-          csv << doc.to_csv
+          csv << doc.to_csv if doc.present?
         end
       else
         documents.each do |doc|

@@ -5,6 +5,8 @@ require 'capybara/dsl'
 
 Capybara.register_driver :selenium_chrome_headless do |app|
   options = Selenium::WebDriver::Chrome::Options.new
+  options.add_preference('download.default_directory', Rails.root.join('tmp/downloads'))
+  options.add_preference(:download, default_directory: Rails.root.join('tmp/downloads'))
 
   [
     'headless',
@@ -12,7 +14,9 @@ Capybara.register_driver :selenium_chrome_headless do |app|
     'disable-gpu' # https://developers.google.com/web/updates/2017/04/headless-chrome
   ].each { |arg| options.add_argument(arg) }
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options).tap do |driver|
+    driver.browser.download_path = Rails.root.join('tmp/downloads')
+  end
 end
 
 Capybara::Screenshot.register_driver(:selenium_chrome_headless) do |driver, path|

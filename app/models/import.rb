@@ -22,8 +22,7 @@ class Import < ApplicationRecord
   ]
 
   # Validations
-  validates :name, presence: true
-  validates :type, presence: true
+  validates :name, :type, presence: true
   validates :csv_file, attached: true, content_type: { in: 'text/csv', message: 'is not a CSV file' }
 
   def state_machine
@@ -145,7 +144,7 @@ class Import < ApplicationRecord
         transformed_data[mapping.destination_field] ||= []
         unless extract_hash[mapping.source_header].nil?
           transformed_data[mapping.destination_field] << {
-            category: dct_references_mappings[mapping.source_header.to_sym],
+            category: Geomg.dct_references_mappings[mapping.source_header.to_sym],
             value: extract_hash[mapping.source_header]
           }
         end

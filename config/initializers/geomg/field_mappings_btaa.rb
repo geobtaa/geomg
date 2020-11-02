@@ -73,6 +73,11 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
+      'Geonames': {
+        destination: 'b1g_geonames_sm',
+        delimited: true,
+        transformation_method: nil
+      },
       'Bounding Box': {
         destination: 'solr_geom',
         delimited: false,
@@ -93,30 +98,85 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
-      'Information': {
-        destination: 'dct_references_s',
-        delimited: false,
-        transformation_method: 'build_dct_references'
+      'Documentation': {
+        'destination': 'dct_references_s',
+        'delimited': false,
+        'transformation_method': 'build_dct_references'
       },
       'Download': {
-        destination: 'dct_references_s',
-        delimited: false,
-        transformation_method: 'build_dct_references'
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
       },
       'FeatureServer': {
-        destination: 'dct_references_s',
-        delimited: false,
-        transformation_method: 'build_dct_references'
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
       },
-      'MapServer': {
-        destination: 'dct_references_s',
-        delimited: false,
-        transformation_method: 'build_dct_references'
+      'FGDC': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'HTML': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'IIIF': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
       },
       'ImageServer': {
-        destination: 'dct_references_s',
-        delimited: false,
-        transformation_method: 'build_dct_references'
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'Information': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'ISO19139': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'Manifest': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'MapServer': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'MODS': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'Index Map': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'TileServer': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'WFS': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'WMS': {
+         'destination': 'dct_references_s',
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
       },
       'Image': {
         destination: 'b1g_image_ss',
@@ -163,6 +223,11 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
+      'Date Retired': {
+        destination: 'b1g_dateRetired_s',
+        delimited: false,
+        transformation_method: nil
+      },
       'Rights': {
         destination: 'dc_rights_s',
         delimited: false,
@@ -183,6 +248,27 @@ module Geomg
         delimited: false,
         transformation_method: nil
       }
+    }
+  end
+
+  def dct_references_mappings
+    {
+      "Documentation": 'documentation_download',
+      "Download": 'download',
+      "FeatureServer": 'arcgis_feature_layer',
+      "FGDC": 'metadata_fgdc',
+      "HTML": 'metadata_html',
+      "IIIF": 'iiif_image',
+      "ImageServer": 'arcgis_image_map_layer',
+      "Information": 'documentation_external',
+      "ISO19139": 'metadata_iso',
+      "Manifest": 'iiif_manifest',
+      "MapServer": 'arcgis_dynamic_map_layer',
+      "MODS": 'metadata_mods',
+      "Index Map": 'open_index_map',
+      "TileServer": 'arcgis_tiled_map_layer',
+      "WFS": 'wfs',
+      "WMS": 'wms'
     }
   end
 end
