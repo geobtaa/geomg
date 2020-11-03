@@ -1,7 +1,16 @@
-<span id="result-selected-options" class="hidden" data-scope="pageset" data-controller="results" data-resultset=" <%= url_for(params.to_unsafe_h.merge({format: 'csv', rows: '1000000'})) %>" data-pageset="/fetch?">
-  <!-- @TODO: sniff scope and set url via stimulus -->
-  <a class="btn btn-sm btn-outline-primary" data-action="click->results#exportCSV" href="javascript:void(0);">
-    <%= inline_svg_tag "cloud-download-alt-solid.svg", class: 'icon baseline' %>
-    CSV
-  </a>
+<span id="result-selected-options" class="hidden" data-scope="pageset" data-controller="results" data-resultset=" <%= url_for(params.to_unsafe_h.merge({rows: '1000000'})) %>" data-pageset="/fetch?">
+  <span class="dropdown">
+    <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Export Data
+      <%= inline_svg_tag "cloud-download-alt-solid.svg", class: 'icon baseline' %>
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" data-action="click->results#exportCSV" href="javascript:void(0);">
+        CSV
+      </a>
+      <a class="dropdown-item" data-action="click->results#exportJsonGBLv1" href="javascript:void(0);">JSON (GeoBlacklight v1.0)</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" data-action="click->results#exportJSON" href="javascript:void(0);">JSON (GEOMG App) </a>
+    </div>
+  </span>
 </span>

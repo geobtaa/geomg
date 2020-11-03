@@ -164,16 +164,36 @@ export default class extends Controller {
 
     // Set attribute value
     var el = document.querySelector('#result-selected-options');
-    el.setAttribute('data-pageset', '/documents/fetch.csv?' + params);
+    el.setAttribute('data-pageset', '/documents/fetch?' + params);
   }
 
   exportCSV() {
     var scope = this.checkSelectionScope();
     var el = document.querySelector('#result-selected-options');
     if(scope === 'pageset') {
-      window.location = el.dataset.pageset
+      window.location = el.dataset.pageset + "&format=csv"
     } else {
-      window.location = el.dataset.resultset
+      window.location = el.dataset.resultset + "&format=csv"
+    }
+  }
+
+  exportJSON() {
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      window.location = el.dataset.pageset + "&format=json"
+    } else {
+      window.location = el.dataset.resultset + "&format=json"
+    }
+  }
+
+  exportJsonGBLv1() {
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      window.location = el.dataset.pageset + "&format=json_gbl_v1"
+    } else {
+      window.location = el.dataset.resultset + "&format=json_gbl_v1"
     }
   }
 }

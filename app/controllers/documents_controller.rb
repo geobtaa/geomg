@@ -27,9 +27,9 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @documents.to_json }
-
+      format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
-      format.csv  { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
+      format.csv { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
     end
   end
 
