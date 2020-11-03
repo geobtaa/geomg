@@ -10,10 +10,11 @@ class Import < ApplicationRecord
 
   # Associations
   has_one_attached :csv_file
+  has_many :documents
+  has_many :import_documents, dependent: :destroy
   has_many :import_transitions, autosave: false, dependent: :destroy
   has_many :mappings, -> { order(:id) }, dependent: :destroy, inverse_of: :import
   accepts_nested_attributes_for :mappings
-  has_many :documents
 
   # States
   include Statesman::Adapters::ActiveRecordQueries[
@@ -79,17 +80,14 @@ class Import < ApplicationRecord
         import_id: id
       }
 
-      # @TODO!!!!!!
-      # - Kick off URI and SidecarImage jobs?
+      # Capture import attempt
+      import_document = ImportDocument.create(kithe_document)
 
-      document = Document.where(
-        friendlier_id: converted_data['layer_slug_s']
-      ).first_or_create
+      # Init background job
+      ImportDocumentJob.perform_later(import_document)
 
-      log_document_state(document, extract_hash, kithe_document)
-    rescue StandardError => e
-      log_document_error(document, extract_hash, e)
-      next
+      # @TODO
+      # - Possibly kick off URI and SidecarImage jobs
     end
 
     state_machine.transition_to!(:imported)
@@ -98,41 +96,8 @@ class Import < ApplicationRecord
 
   private
 
-  def log_document_state(document, extract_hash, kithe_document)
-    if document.update!(kithe_document)
-      import_log.merge!(
-        {
-          extract_hash['Identifier'] => {
-            id: document.friendlier_id,
-            title: document.title,
-            state: 'Saved'
-          }
-        }
-      )
-    else
-      import_log.merge!(
-        {
-          extract_hash['Identifier'] => {
-            id: document.friendlier_id,
-            title: document.title,
-            state: "Failed - #{document.errors.inspect}"
-          }
-        }
-      )
-    end
-  end
+  def create_import_document(kithe_document)
 
-  def log_document_error(document, extract_hash, error)
-    logger.debug("Error: #{error}")
-    import_log.merge!(
-      {
-        extract_hash['Identifier'] => {
-          id: document.friendlier_id,
-          title: document.title,
-          state: "Error - #{error.inspect}"
-        }
-      }
-    )
   end
 
   def transform_extract(extract_hash)

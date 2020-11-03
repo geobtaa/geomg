@@ -74,6 +74,9 @@ Rails.application.configure do
   # Ngrok
   config.hosts << 'geomg.ngrok.io'
 
+  # Background Queue
+  config.active_job.queue_adapter = :sidekiq
+
   config.after_initialize do
     Bullet.tap do |bullet|
       bullet.enable = true
