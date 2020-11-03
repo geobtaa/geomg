@@ -62,36 +62,19 @@ class Import < ApplicationRecord
   def import!
     # @TODO: guard this call, unless mappings_valid?
 
-    data = CSV.parse(csv_file.download.force_encoding('UTF-8'), headers: true)
+    # Queue Job
+    ImportImportJob.perform_later(self)
 
-    data.each do |doc|
-      extract_hash = doc.to_h
-      logger.debug("CSV Hash: #{extract_hash}")
-
-      converted_data = transform_extract(extract_hash)
-      converted_data = append_default_mappings(converted_data)
-      converted_data = append_assumed_mappings(converted_data)
-      converted_data = append_derived_mappings(converted_data)
-
-      kithe_document = {
-        title: converted_data['dc_title_s'],
-        json_attributes: converted_data,
-        friendlier_id: converted_data['layer_slug_s'],
-        import_id: id
-      }
-
-      # Capture import attempt
-      import_document = ImportDocument.create(kithe_document)
-
-      # Init background job
-      ImportDocumentJob.perform_later(import_document)
-
-      # @TODO
-      # - Possibly kick off URI and SidecarImage jobs
-    end
-
+    # Capture State
     state_machine.transition_to!(:imported)
     save
+  end
+
+  def convert_data(extract_hash)
+    converted_data = transform_extract(extract_hash)
+    converted_data = append_default_mappings(converted_data)
+    converted_data = append_assumed_mappings(converted_data)
+    converted_data = append_derived_mappings(converted_data)
   end
 
   private

@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 2020_11_03_150203) do
   create_table "import_documents", force: :cascade do |t|
     t.string "friendlier_id", null: false
     t.string "title", null: false
-    t.json "json_attributes", default: {}
+    t.json "json_attributes", default: "{}"
     t.bigint "import_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
