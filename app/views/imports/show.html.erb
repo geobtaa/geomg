@@ -106,10 +106,12 @@
         </tr>
       </thead>
       <tbody>
-        <% @import.import_documents.each_with_index do |doc, index| %>
+        <span class='float-right'>
+          <%== pagy_bootstrap_nav(@pagy) %>
+        </span>
+        <% @import_documents.each_with_index do |doc, index| %>
           <tr>
             <td>
-            <%= index+1 %>.
             <%= link_to "http://localhost:3001/catalog/#{doc.friendlier_id}", target: "_blank" do %>
               <%= doc.title %>
             <% end %>
