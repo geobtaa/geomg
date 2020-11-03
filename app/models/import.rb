@@ -10,10 +10,11 @@ class Import < ApplicationRecord
 
   # Associations
   has_one_attached :csv_file
+  has_many :documents
+  has_many :import_documents, dependent: :destroy
   has_many :import_transitions, autosave: false, dependent: :destroy
   has_many :mappings, -> { order(:id) }, dependent: :destroy, inverse_of: :import
   accepts_nested_attributes_for :mappings
-  has_many :documents
 
   # States
   include Statesman::Adapters::ActiveRecordQueries[
@@ -61,78 +62,25 @@ class Import < ApplicationRecord
   def import!
     # @TODO: guard this call, unless mappings_valid?
 
-    data = CSV.parse(csv_file.download.force_encoding('UTF-8'), headers: true)
+    # Queue Job
+    ImportImportJob.perform_later(self)
 
-    data.each do |doc|
-      extract_hash = doc.to_h
-      logger.debug("CSV Hash: #{extract_hash}")
-
-      converted_data = transform_extract(extract_hash)
-      converted_data = append_default_mappings(converted_data)
-      converted_data = append_assumed_mappings(converted_data)
-      converted_data = append_derived_mappings(converted_data)
-
-      kithe_document = {
-        title: converted_data['dc_title_s'],
-        json_attributes: converted_data,
-        friendlier_id: converted_data['layer_slug_s'],
-        import_id: id
-      }
-
-      # @TODO!!!!!!
-      # - Kick off URI and SidecarImage jobs?
-
-      document = Document.where(
-        friendlier_id: converted_data['layer_slug_s']
-      ).first_or_create
-
-      log_document_state(document, extract_hash, kithe_document)
-    rescue StandardError => e
-      log_document_error(document, extract_hash, e)
-      next
-    end
-
+    # Capture State
     state_machine.transition_to!(:imported)
     save
   end
 
-  private
-
-  def log_document_state(document, extract_hash, kithe_document)
-    if document.update!(kithe_document)
-      import_log.merge!(
-        {
-          extract_hash['Identifier'] => {
-            id: document.friendlier_id,
-            title: document.title,
-            state: 'Saved'
-          }
-        }
-      )
-    else
-      import_log.merge!(
-        {
-          extract_hash['Identifier'] => {
-            id: document.friendlier_id,
-            title: document.title,
-            state: "Failed - #{document.errors.inspect}"
-          }
-        }
-      )
-    end
+  def convert_data(extract_hash)
+    converted_data = transform_extract(extract_hash)
+    converted_data = append_default_mappings(converted_data)
+    converted_data = append_assumed_mappings(converted_data)
+    converted_data = append_derived_mappings(converted_data)
   end
 
-  def log_document_error(document, extract_hash, error)
-    logger.debug("Error: #{error}")
-    import_log.merge!(
-      {
-        extract_hash['Identifier'] => {
-          id: document.friendlier_id,
-          title: document.title,
-          state: "Error - #{error.inspect}"
-        }
-      }
-    )
+  private
+
+  def create_import_document(kithe_document)
+
   end
 
   def transform_extract(extract_hash)

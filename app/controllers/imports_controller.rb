@@ -12,7 +12,9 @@ class ImportsController < ApplicationController
 
   # GET /imports/1
   # GET /imports/1.json
-  def show; end
+  def show
+    @pagy, @import_documents = pagy(@import.import_documents)
+  end
 
   # GET /imports/new
   def new

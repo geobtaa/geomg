@@ -61,3 +61,4 @@ Rails/SkipsModelValidations:
     - 'app/models/document_transition.rb'
     - 'app/models/import.rb'
     - 'app/models/import_transition.rb'
+    - 'app/models/import_document_transition.rb'
