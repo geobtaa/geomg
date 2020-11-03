@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ImportImportJob class
 class ImportImportJob < ApplicationJob
   queue_as :default
 

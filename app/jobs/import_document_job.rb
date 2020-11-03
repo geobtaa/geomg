@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ImportDocumentJob class
 class ImportDocumentJob < ApplicationJob
   queue_as :default
 
@@ -11,8 +14,8 @@ class ImportDocumentJob < ApplicationJob
     else
       import_document.state_machine.transition_to!(:failed, "Failed - #{document.errors.inspect}")
     end
-  rescue StandardError => error
-    logger.debug("Error: #{error}")
-    import_document.state_machine.transition_to!(:failed, "Error - #{error.inspect}")
+  rescue StandardError => e
+    logger.debug("Error: #{e}")
+    import_document.state_machine.transition_to!(:failed, "Error - #{e.inspect}")
   end
 end

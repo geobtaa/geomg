@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# ImportDocument class
 class ImportDocument < ApplicationRecord
-  has_many :import_document_transitions, autosave: false
+  has_many :import_document_transitions, autosave: false, dependent: :destroy
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: ImportDocumentTransition,
