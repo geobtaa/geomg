@@ -13,9 +13,12 @@ class ImportBtaa < Import
 
   # Copy Value from Field to Field
   def assumed_mappings
-    [
-      { 'dc_identifier_s': 'layer_slug_s' }
-    ]
+    # No longer assuming identfier == slug
+    # [
+    #   { 'dc_identifier_s': 'layer_slug_s' }
+    # ]
+    # Return empty array
+    []
   end
 
   # Derived Values

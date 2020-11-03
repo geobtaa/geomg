@@ -52,4 +52,7 @@ Rails.application.configure do
   # or on clients that cannot run the same pg client as the server, pg_dump
   # might not work at all, resulting in error returns from otherwise successful tasks
   config.active_record.dump_schema_after_migration = false
+
+  # Background Queue
+  config.active_job.queue_adapter = :inline
 end

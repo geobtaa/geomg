@@ -76,8 +76,10 @@ class ImportsTest < ApplicationSystemTestCase
     click_on 'Run Import'
     assert_text 'Import was run.'
 
+    sleep(5)
+
     # Download CSV
-    visit '/documents/identifier.csv'
+    visit '/documents/slug.csv'
 
     # Assert Import CSV file and Export CSV file match
     import_csv = File.open(Rails.root.join('test/fixtures/files/schema_support.csv')).read

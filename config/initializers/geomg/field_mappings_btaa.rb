@@ -188,6 +188,11 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
+      'Slug': {
+        destination: 'layer_slug_s',
+        delimited: false,
+        transformation_method: nil
+      },
       'Provenance': {
         destination: 'dct_provenance_s',
         delimited: false,
