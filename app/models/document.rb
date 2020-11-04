@@ -159,6 +159,10 @@ class Document < Kithe::Work
     nil
   end
 
+  def current_version
+    versions.last.index
+  end
+
   private
 
   # "ENVELOPE(W,E,N,S)" convert to "W,S,E,N"

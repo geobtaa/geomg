@@ -1,4 +1,4 @@
-<span id="result-selected-options" class="hidden" data-scope="pageset" data-controller="results" data-resultset=" <%= url_for(params.to_unsafe_h.merge({rows: '1000000'})) %>" data-pageset="/fetch?">
+<span id="result-selected-options" class="hidden" data-scope="pageset" data-controller="results" data-resultset="<%= documents_path( params.to_unsafe_h.merge({rows: '1000000'})) %>" data-pageset="/fetch?">
   <span class="dropdown">
     <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Export Data
@@ -12,5 +12,9 @@
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" data-action="click->results#exportJSON" href="javascript:void(0);">JSON (GEOMG App) </a>
     </div>
+  </span>
+
+  <span>
+    <a class="btn btn-sm btn-outline-primary" data-action="click->results#bulkAction" href="javascript:void(0);">Bulk Action</a>
   </span>
 </span>

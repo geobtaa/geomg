@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_03_150203) do
+ActiveRecord::Schema.define(version: 2020_11_04_190111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -88,6 +88,17 @@ ActiveRecord::Schema.define(version: 2020_11_03_150203) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["document_id"], name: "index_bookmarks_on_document_id"
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "bulk_actions", force: :cascade do |t|
+    t.string "name"
+    t.string "scope", null: false
+    t.string "field_name", null: false
+    t.string "field_value", null: false
+    t.text "notes"
+    t.jsonb "documents"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "document_transitions", force: :cascade do |t|

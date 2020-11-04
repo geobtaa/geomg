@@ -59,11 +59,11 @@ class Import < ApplicationRecord
     (GEOMG_SCHEMA[:required] - all_mapping_keys.uniq).empty?
   end
 
-  def import!
+  def run!
     # @TODO: guard this call, unless mappings_valid?
 
     # Queue Job
-    ImportImportJob.perform_later(self)
+    ImportRunJob.perform_later(self)
 
     # Capture State
     state_machine.transition_to!(:imported)

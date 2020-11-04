@@ -196,4 +196,16 @@ export default class extends Controller {
       window.location = el.dataset.resultset + "&format=json_gbl_v1"
     }
   }
+
+  bulkAction() {
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      console.log('/bulk_actions/new?scope=' + el.dataset.pageset)
+      window.location = '/bulk_actions/new?scope=' + encodeURIComponent(el.dataset.pageset)
+    } else {
+      console.log('/bulk_actions/new?scope=' + el.dataset.resultset)
+      window.location = '/bulk_actions/new?scope=' + encodeURIComponent(el.dataset.resultset)
+    }
+  }
 }
