@@ -3,8 +3,9 @@
 # MappingsHelper
 module MappingsHelper
   def attribute_collection
-    attrs = Document.attr_json_registry.attribute_names
+    attrs = Document.attr_json_registry.attribute_names.sort
     attrs.prepend('')
+    attrs.prepend('Discard')
     attrs
   end
 

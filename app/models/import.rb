@@ -88,6 +88,11 @@ class Import < ApplicationRecord
     mappings.each do |mapping|
       # logger.debug("Mapping: #{mapping.source_header} to #{mapping.destination_field}")
 
+      # Handle discards
+      if mapping.destination_field == 'Discard'
+        next
+      end
+
       # Handle repeatable dct_references_s entries
       if mapping.destination_field == 'dct_references_s'
         transformed_data[mapping.destination_field] ||= []
