@@ -74,7 +74,7 @@ class ImportsTest < ApplicationSystemTestCase
 
     # Run Import!
     click_on 'Run Import'
-    assert_text 'Import was run.'
+    assert_text 'Import is running. Check back soon for results.'
 
     sleep(5)
 

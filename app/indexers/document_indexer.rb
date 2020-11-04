@@ -42,6 +42,7 @@ class DocumentIndexer < Kithe::Indexer
     # - Object
     to_field 'dc_type_sm', obj_extract('dc_type_sm')
     to_field 'layer_geom_type_s', obj_extract('layer_geom_type_s')
+    to_field 'layer_id_s', obj_extract('layer_id_s')
     to_field 'dc_format_s', obj_extract('dc_format_s')
 
     # - Access Links

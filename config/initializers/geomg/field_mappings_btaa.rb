@@ -98,6 +98,11 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
+      'Layer ID': {
+        destination: 'layer_id_s',
+        delimited: false,
+        transformation_method: nil
+      },
       'Documentation': {
         'destination': 'dct_references_s',
         'delimited': false,

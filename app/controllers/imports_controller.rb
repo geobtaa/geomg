@@ -66,7 +66,7 @@ class ImportsController < ApplicationController
 
   def run
     @import.import!
-    redirect_to import_url(@import), notice: 'Import was run.'
+    redirect_to import_url(@import), notice: 'Import is running. Check back soon for results.'
   end
 
   private

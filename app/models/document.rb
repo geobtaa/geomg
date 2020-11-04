@@ -69,6 +69,7 @@ class Document < Kithe::Work
   # - Object
   attr_json :dc_type_sm, :string, array: true, default: -> { [] }
   attr_json :layer_geom_type_s, :string
+  attr_json :layer_id_s, :string
   attr_json :dc_format_s, :string
 
   # - Access Links
