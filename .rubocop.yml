@@ -23,6 +23,7 @@ AllCops:
     - 'tmp/**/*'
     - 'node_modules/**/*'
     - 'test/**/*'
+    - 'config/environments/**/*'
     - 'config/initializers/**/*'
     - '**/*.rake'
     - 'app/helpers/form_input_helper.rb'

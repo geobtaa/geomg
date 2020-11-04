@@ -115,4 +115,15 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  # Exception email notification
+ Rails.application.config.middleware.use ExceptionNotification::Rack,
+   # Ignore exception notification from IPs defined in environment variable as comma-separated
+   :ignore_if => ->(env, exception) { ENV['EXCEPTION_NOTIFIER_EXCLUDE_IPS'].to_s.split(/[, ]+/).include?(env['REMOTE_ADDR']) },
+   :email => {
+     :email_prefix => "[GEOMG Error] ",
+     # Google Groups won't accept messages unless the sender host resolves!
+     :sender_address => %{"GEOMG" <swadm@#{`hostname`.strip}>},
+     :exception_recipients => %w{libwebdev+alert@umn.edu majew030@umn.edu}
+   }
 end
