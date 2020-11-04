@@ -86,5 +86,8 @@ class DocumentIndexer < Kithe::Indexer
     to_field 'date_modified_dtsi' do |rec, acc|
       acc << rec.updated_at.utc.iso8601 if rec.updated_at
     end
+
+    # - GEOMG
+    to_field 'b1g_geom_import_id_ssi', obj_extract('import_id')
   end
 end
