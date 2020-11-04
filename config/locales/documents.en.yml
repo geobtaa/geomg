@@ -46,6 +46,9 @@ en:
         dct_isPartOf_sm:
           one: "Is Part Of"
           other: "Is Part Of"
+        dc_source_sm:
+          one: "Source"
+          other: "Source"
         dct_accessRights_sm:
           one: "Access Rights"
           other: "Access Rights"

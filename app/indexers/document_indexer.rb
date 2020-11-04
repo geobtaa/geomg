@@ -59,6 +59,7 @@ class DocumentIndexer < Kithe::Indexer
     to_field 'dct_provenance_s', obj_extract('dct_provenance_s')
     to_field 'b1g_code_s', obj_extract('b1g_code_s')
     to_field 'dct_isPartOf_sm', obj_extract('dct_isPartOf_sm')
+    to_field 'dc_source_sm', obj_extract('dc_source_sm')
 
     # - Status
     to_field 'b1g_status_s', obj_extract('b1g_status_s')

@@ -86,6 +86,7 @@ class Document < Kithe::Work
   attr_json :dct_provenance_s, :string
   attr_json :b1g_code_s, :string
   attr_json :dct_isPartOf_sm, :string, array: true, default: -> { [] }
+  attr_json :dc_source_sm, :string, array: true, default: -> { [] }
 
   # - Status
   attr_json :b1g_status_s, :string

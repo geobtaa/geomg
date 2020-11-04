@@ -74,6 +74,7 @@
   <%= f.input :dct_provenance_s, label: "Provenance", hint: "Minnesota" %>
   <%= f.input :b1g_code_s, label: "Code" %>
   <%= f.repeatable_attr_input :dct_isPartOf_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input :dc_source_sm, build: :at_least_one %>
 </div>
 
 <div class="grouping">

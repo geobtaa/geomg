@@ -213,6 +213,11 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
+      'Source': {
+        destination: 'dc_source_sm',
+        delimited: true,
+        transformation_method: nil
+      },
       'Status': {
         destination: 'b1g_status_s',
         delimited: false,
