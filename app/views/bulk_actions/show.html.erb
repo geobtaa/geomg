@@ -47,9 +47,8 @@
               <%= submit_tag 'Run Bulk Action' -%>
             <%- end -%>
           <% end %>
-          <% if @bulk_action.state_machine.current_state == 'submitted' %>
-            <%= @bulk_action.documents.size %>
-          <% end %>
+          <p><%= @bulk_action.state_machine.current_state %></p>
+          <p><%= @bulk_action.documents.size %></p>
         </li>
       </ul>
     </div>

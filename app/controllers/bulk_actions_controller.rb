@@ -14,6 +14,7 @@ class BulkActionsController < ApplicationController
   # GET /bulk_actions/1.json
   def show
     @pagy, @documents = pagy(@bulk_action.documents, items: 30)
+    @bulk_action.check_run_state
   end
 
   # GET /bulk_actions/new

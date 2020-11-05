@@ -6,9 +6,9 @@ class BulkActionStateMachine
 
   state :created, initial: true
   state :queued
-  state :success
+  state :complete
   state :failed
 
   transition from: :created,  to: [:queued]
-  transition from: :queued, to: %i[created queued success failed]
+  transition from: :queued, to: %i[created queued complete failed]
 end

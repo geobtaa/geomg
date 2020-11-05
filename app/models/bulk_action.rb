@@ -36,6 +36,13 @@ class BulkAction < ApplicationRecord
     # save
   end
 
+  def check_run_state
+    return if state_machine.current_state == 'complete'
+    unless documents.in_state(:queued).present?
+      state_machine.transition_to!(:complete)
+    end
+  end
+
   private
 
   def collect_documents
