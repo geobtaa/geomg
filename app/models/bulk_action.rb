@@ -4,10 +4,26 @@ require 'uri'
 
 # BulkAction
 class BulkAction < ApplicationRecord
+  # Callbacks
+  after_create_commit :collect_documents
+
+  # Associations
+  has_many :documents, class_name: "BulkActionDocument", autosave: false, dependent: :destroy
+
+  has_many :bulk_action_transitions, autosave: false, dependent: :destroy
+
   # Validations
   validates :scope, :field_name, :field_value, presence: true
 
-  before_save :collect_documents
+  # States
+  include Statesman::Adapters::ActiveRecordQueries[
+    transition_class: BulkActionTransition,
+    initial_state: :created
+  ]
+
+  def state_machine
+    @state_machine ||= BulkActionStateMachine.new(self, transition_class: BulkActionTransition)
+  end
 
   def run!
     # @TODO: guard this call for validation?
@@ -24,28 +40,32 @@ class BulkAction < ApplicationRecord
 
   def collect_documents
     uri = URI.parse(scope)
-    self.documents = if uri.path.include?('fetch')
-                       fetch_documents(uri)
-                     else
-                       api_documents(uri)
-                     end
+    if uri.path.include?('fetch')
+      fetch_documents(uri)
+    else
+      api_documents(uri)
+    end
   end
 
   def fetch_documents(uri)
     qargs = Rack::Utils.parse_nested_query(uri.query)
     fetch_documents = Document.where(friendlier_id: qargs['ids'])
-    self.documents = documents_json(fetch_documents)
+    create_documents(fetch_documents)
   end
 
   def api_documents(uri)
     qargs = Rack::Utils.parse_nested_query(uri.query)
     api_documents = BlacklightApi.new(qargs['q'], qargs['f'], 1, '', 1_000_000)
-    self.documents = documents_json(api_documents.load_all)
+    create_documents(api_documents.load_all)
   end
 
-  def documents_json(documents)
+  def create_documents(documents)
     documents.collect do |doc|
-      { id: doc.friendlier_id, version: doc.current_version }
+      BulkActionDocument.create(
+        friendlier_id: doc.friendlier_id,
+        version: doc.current_version,
+        bulk_action_id: id
+      )
     end
   end
 end

@@ -6,7 +6,86 @@
     <h1>Bulk Action</h1>
     <p>
       <strong>Name:</strong>
-      <%= @bulk_action.name %>
+      <%= @bulk_action.name.present? ? @bulk_action.name : "Blank" %>
     </p>
+    <p>
+      <strong>Scope:</strong>
+      <%= @bulk_action.scope %></p>
+    <p>
+      <strong>Field Name:</strong>
+      <%= @bulk_action.field_name %></p>
+    <p>
+      <strong>Field Value:</strong>
+      <%= @bulk_action.field_value %></p>
+    <p>
+      <strong>Notes:</strong>
+      <%= @bulk_action.notes %></p>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header text-center">
+        <h3 class="h5">Documents</h3>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item text-center">
+          <%= @bulk_action.documents.size %>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-header text-center">
+        <h3 class="h5">Bulk Action</h3>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item text-center">
+          <% if @bulk_action.state_machine.current_state == 'created' %>
+            <%= form_tag run_bulk_action_path(@bulk_action), method: :patch do -%>
+              <%= hidden_field_tag :run, true -%>
+              <%= submit_tag 'Run Bulk Action' -%>
+            <%- end -%>
+          <% end %>
+          <% if @bulk_action.state_machine.current_state == 'submitted' %>
+            <%= @bulk_action.documents.size %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <h3 class="sr-only">Documents</h3>
+    <h6>
+      <span class='float-left mt-3'>
+        <%== pagy_info(@pagy, 'documents'.pluralize(@pagy.count)) %>
+      </span>
+      <span class='float-right'>
+        <%== pagy_bootstrap_nav(@pagy) %>
+      </span>
+    </h6>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Identifier</th>
+          <th>Version</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @documents.each_with_index do |doc, index| %>
+          <tr>
+            <td>
+            <%= link_to "http://localhost:3001/catalog/#{doc.friendlier_id}", target: "_blank" do %>
+              <%= doc.friendlier_id %>
+            <% end %>
+            </td>
+            <td><%= doc.version %></td>
+            <td><%= doc.state_machine.current_state %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>

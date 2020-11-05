@@ -23,7 +23,7 @@
 # we move sub-model lists here too?)
 class Document
   class ControlledLists
-    PUBLICATION_STATE = %w[Draft Published Unpublished].freeze
+    PUBLICATION_STATE = %w[draft published unpublished].freeze
 
     RIGHTS = %w[Public Restricted].freeze
 

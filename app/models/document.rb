@@ -173,6 +173,6 @@ class Document < Kithe::Work
   end
 
   def transition_publication_state
-    state_machine.transition_to!(publication_state) if publication_state_changed?
+    state_machine.transition_to!(publication_state.downcase) if publication_state_changed?
   end
 end

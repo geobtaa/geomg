@@ -4,11 +4,11 @@
 class DocumentStateMachine
   include Statesman::Machine
 
-  state :Draft, initial: true
-  state :Published
-  state :Unpublished
+  state :draft, initial: true
+  state :published
+  state :unpublished
 
-  transition from: :Draft, to: %i[Draft Published Unpublished]
-  transition from: :Published, to: %i[Draft Published Unpublished]
-  transition from: :Unpublished, to: %i[Draft Published Unpublished]
+  transition from: :draft, to: %i[draft published unpublished]
+  transition from: :published, to: %i[draft published unpublished]
+  transition from: :unpublished, to: %i[draft published unpublished]
 end

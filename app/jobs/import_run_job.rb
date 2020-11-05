@@ -19,10 +19,10 @@ class ImportRunJob < ApplicationJob
         import_id: import.id
       }
 
-      # Capture document
+      # Capture document for import attempt
       import_document = ImportDocument.create(kithe_document)
 
-      # Queue import background job
+      # Add import document to background job queue
       ImportDocumentJob.perform_later(import_document)
 
       # @TODO

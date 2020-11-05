@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :bulk_actions
+  resources :bulk_actions do
+    patch :run, on: :member
+  end
+  
   resources :imports do
     resources :mappings
     patch :run, on: :member

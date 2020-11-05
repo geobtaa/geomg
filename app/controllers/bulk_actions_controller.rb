@@ -2,7 +2,7 @@
 
 # BulkActionsController
 class BulkActionsController < ApplicationController
-  before_action :set_bulk_action, only: %i[show edit update destroy]
+  before_action :set_bulk_action, only: %i[show edit update destroy run]
 
   # GET /bulk_actions
   # GET /bulk_actions.json
@@ -12,7 +12,9 @@ class BulkActionsController < ApplicationController
 
   # GET /bulk_actions/1
   # GET /bulk_actions/1.json
-  def show; end
+  def show
+    @pagy, @documents = pagy(@bulk_action.documents, items: 30)
+  end
 
   # GET /bulk_actions/new
   def new
