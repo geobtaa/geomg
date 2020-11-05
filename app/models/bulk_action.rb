@@ -45,7 +45,8 @@ class BulkAction < ApplicationRecord
   private
 
   def collect_documents
-    uri = URI.parse(scope)
+    uri = URI.decode(scope)
+    uri = URI.parse(uri)
     if uri.path.include?('fetch')
       fetch_documents(uri)
     else

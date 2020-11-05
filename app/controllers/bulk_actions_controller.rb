@@ -7,7 +7,7 @@ class BulkActionsController < ApplicationController
   # GET /bulk_actions
   # GET /bulk_actions.json
   def index
-    @bulk_actions = BulkAction.all
+    @bulk_actions = BulkAction.all.order(created_at: :desc)
   end
 
   # GET /bulk_actions/1

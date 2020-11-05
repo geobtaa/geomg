@@ -10,7 +10,26 @@
       </a>
       <a class="dropdown-item" data-action="click->results#exportJsonGBLv1" href="javascript:void(0);">JSON (GeoBlacklight v1.0)</a>
       <div class="dropdown-divider"></div>
-      <a class="dropdown-item" data-action="click->results#exportJSON" href="javascript:void(0);">JSON (GEOMG App) </a>
+      <a class="dropdown-item" data-action="click->results#exportJSON" href="javascript:void(0);">JSON (GEOMG App)</a>
+    </div>
+  </span>
+
+  <span class="dropdown">
+    <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Publication State
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <span class="dropdown-item" href="javascript:void(0);">
+        <%= form_with(model: BulkAction.new, html: { data: { type: "html", action: "submit->results#setPubState" } }) do |form| -%>
+          <%= form.hidden_field :scope, value: "-" %>
+          <%= form.hidden_field :field_name, value: "Publication State" %>
+          <%= form.hidden_field :field_value, value: "published" %>
+          <%= hidden_field_tag :run, true %>
+          <%= form.submit "Published", class: 'btn btn-link'%>
+        <% end %>
+      </span>
+      <a class="dropdown-item" href="javascript:void(0);">Unpublished</a>
+      <a class="dropdown-item" href="javascript:void(0);">Draft</a>
     </div>
   </span>
 

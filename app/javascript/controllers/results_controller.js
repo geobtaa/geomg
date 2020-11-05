@@ -208,4 +208,19 @@ export default class extends Controller {
       window.location = '/bulk_actions/new?scope=' + encodeURIComponent(el.dataset.resultset)
     }
   }
+
+  setPubState(event) {
+    event.preventDefault();
+
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      scope = encodeURIComponent(el.dataset.pageset)
+    } else {
+      scope = encodeURIComponent(el.dataset.resultset)
+    }
+
+    var el = document.querySelector('#bulk_action_scope');
+    el.setAttribute('value', scope);
+  }
 }
