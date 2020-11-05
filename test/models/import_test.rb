@@ -7,7 +7,7 @@ class ImportTest < ActiveSupport::TestCase
     @import = Import.new
   end
 
-  test 'responds to import' do
-    assert_respond_to @import, :import!
+  test 'responds to run!' do
+    assert_respond_to @import, :run!
   end
 end
