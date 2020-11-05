@@ -8,7 +8,7 @@ class BulkAction < ApplicationRecord
   after_create_commit :collect_documents
 
   # Associations
-  has_many :documents, class_name: "BulkActionDocument", autosave: false, dependent: :destroy
+  has_many :documents, class_name: 'BulkActionDocument', autosave: false, dependent: :destroy
 
   has_many :bulk_action_transitions, autosave: false, dependent: :destroy
 
@@ -38,9 +38,8 @@ class BulkAction < ApplicationRecord
 
   def check_run_state
     return if state_machine.current_state == 'complete'
-    unless documents.in_state(:queued).present?
-      state_machine.transition_to!(:complete)
-    end
+
+    state_machine.transition_to!(:complete) if documents.in_state(:queued).blank?
   end
 
   private

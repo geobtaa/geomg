@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# BulkActionDocumentJob
 class BulkActionDocumentJob < ApplicationJob
   queue_as :default
 

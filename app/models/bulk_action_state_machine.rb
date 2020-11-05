@@ -9,6 +9,6 @@ class BulkActionStateMachine
   state :complete
   state :failed
 
-  transition from: :created,  to: [:queued]
+  transition from: :created, to: [:queued]
   transition from: :queued, to: %i[created queued complete failed]
 end

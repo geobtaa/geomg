@@ -59,6 +59,8 @@ Metrics/MethodLength:
 
 Rails/SkipsModelValidations:
   Exclude:
+    - 'app/models/bulk_action_transition.rb'
+    - 'app/models/bulk_action_document_transition.rb'
     - 'app/models/document_transition.rb'
     - 'app/models/import.rb'
     - 'app/models/import_transition.rb'
