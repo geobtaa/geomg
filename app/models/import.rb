@@ -16,15 +16,15 @@ class Import < ApplicationRecord
   has_many :mappings, -> { order(:id) }, dependent: :destroy, inverse_of: :import
   accepts_nested_attributes_for :mappings
 
+  # Validations
+  validates :name, :type, presence: true
+  validates :csv_file, attached: true, content_type: { in: 'text/csv', message: 'is not a CSV file' }
+
   # States
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: ImportTransition,
     initial_state: :created
   ]
-
-  # Validations
-  validates :name, :type, presence: true
-  validates :csv_file, attached: true, content_type: { in: 'text/csv', message: 'is not a CSV file' }
 
   def state_machine
     @state_machine ||= ImportStateMachine.new(self, transition_class: ImportTransition)
@@ -59,11 +59,11 @@ class Import < ApplicationRecord
     (GEOMG_SCHEMA[:required] - all_mapping_keys.uniq).empty?
   end
 
-  def import!
+  def run!
     # @TODO: guard this call, unless mappings_valid?
 
     # Queue Job
-    ImportImportJob.perform_later(self)
+    ImportRunJob.perform_later(self)
 
     # Capture State
     state_machine.transition_to!(:imported)

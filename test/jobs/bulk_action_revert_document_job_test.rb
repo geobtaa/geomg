@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImportImportJobTest < ActiveJob::TestCase
+class BulkActionRevertDocumentJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -4,6 +4,8 @@
 class Document < Kithe::Work
   include AttrJson::Record::QueryScopes
 
+  attr_accessor :skip_callbacks
+
   has_paper_trail
   belongs_to :import, optional: true
 
@@ -12,7 +14,7 @@ class Document < Kithe::Work
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: DocumentTransition,
-    initial_state: :Draft
+    initial_state: :draft
   ]
 
   def state_machine
@@ -21,7 +23,7 @@ class Document < Kithe::Work
 
   delegate :current_state, to: :state_machine
 
-  before_save :transition_publication_state
+  before_save :transition_publication_state, unless: :skip_callbacks
 
   # Indexer
   self.kithe_indexable_mapper = DocumentIndexer.new
@@ -159,6 +161,10 @@ class Document < Kithe::Work
     nil
   end
 
+  def current_version
+    versions.last.index
+  end
+
   private
 
   # "ENVELOPE(W,E,N,S)" convert to "W,S,E,N"
@@ -169,6 +175,6 @@ class Document < Kithe::Work
   end
 
   def transition_publication_state
-    state_machine.transition_to!(publication_state) if publication_state_changed?
+    state_machine.transition_to!(publication_state.downcase) if publication_state_changed?
   end
 end

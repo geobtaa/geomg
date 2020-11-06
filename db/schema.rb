@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_03_150203) do
+ActiveRecord::Schema.define(version: 2020_11_06_195119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -88,6 +88,50 @@ ActiveRecord::Schema.define(version: 2020_11_03_150203) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["document_id"], name: "index_bookmarks_on_document_id"
     t.index ["user_id"], name: "index_bookmarks_on_user_id"
+  end
+
+  create_table "bulk_action_document_transitions", force: :cascade do |t|
+    t.string "to_state", null: false
+    t.text "metadata", default: "{}"
+    t.integer "sort_key", null: false
+    t.integer "bulk_action_document_id", null: false
+    t.boolean "most_recent", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bulk_action_document_id", "most_recent"], name: "index_bulk_action_document_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["bulk_action_document_id", "sort_key"], name: "index_bulk_action_document_transitions_parent_sort", unique: true
+  end
+
+  create_table "bulk_action_documents", force: :cascade do |t|
+    t.string "friendlier_id", null: false
+    t.integer "version", null: false
+    t.bigint "bulk_action_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.uuid "document_id"
+    t.index ["bulk_action_id"], name: "index_bulk_action_documents_on_bulk_action_id"
+  end
+
+  create_table "bulk_action_transitions", force: :cascade do |t|
+    t.string "to_state", null: false
+    t.text "metadata", default: "{}"
+    t.integer "sort_key", null: false
+    t.integer "bulk_action_id", null: false
+    t.boolean "most_recent", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bulk_action_id", "most_recent"], name: "index_bulk_action_transitions_parent_most_recent", unique: true, where: "most_recent"
+    t.index ["bulk_action_id", "sort_key"], name: "index_bulk_action_transitions_parent_sort", unique: true
+  end
+
+  create_table "bulk_actions", force: :cascade do |t|
+    t.string "name"
+    t.string "scope", null: false
+    t.string "field_name", null: false
+    t.string "field_value", null: false
+    t.text "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "document_transitions", force: :cascade do |t|
@@ -184,7 +228,7 @@ ActiveRecord::Schema.define(version: 2020_11_03_150203) do
     t.uuid "leaf_representative_id"
     t.integer "kithe_model_type", null: false
     t.bigint "import_id"
-    t.string "publication_state", default: "Draft"
+    t.string "publication_state", default: "draft"
     t.index ["friendlier_id"], name: "index_kithe_models_on_friendlier_id", unique: true
     t.index ["import_id"], name: "index_kithe_models_on_import_id"
     t.index ["leaf_representative_id"], name: "index_kithe_models_on_leaf_representative_id"
@@ -239,6 +283,9 @@ ActiveRecord::Schema.define(version: 2020_11_03_150203) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "bulk_action_document_transitions", "bulk_action_documents"
+  add_foreign_key "bulk_action_documents", "bulk_actions"
+  add_foreign_key "bulk_action_transitions", "bulk_actions"
   add_foreign_key "import_document_transitions", "import_documents"
   add_foreign_key "import_documents", "imports"
   add_foreign_key "import_transitions", "imports"

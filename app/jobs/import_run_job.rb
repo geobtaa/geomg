@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# ImportImportJob class
-class ImportImportJob < ApplicationJob
+# ImportRunJob class
+class ImportRunJob < ApplicationJob
   queue_as :default
 
   def perform(import)
@@ -19,10 +19,10 @@ class ImportImportJob < ApplicationJob
         import_id: import.id
       }
 
-      # Capture import attempt
+      # Capture document for import attempt
       import_document = ImportDocument.create(kithe_document)
 
-      # Init background job
+      # Add import document to background job queue
       ImportDocumentJob.perform_later(import_document)
 
       # @TODO

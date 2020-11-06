@@ -4,15 +4,15 @@
 module DocumentHelper
   def publication_state_badge(document)
     case document.publication_state
-    when 'Draft'
+    when 'draft'
       link_to('#document_publication_state') do
         tag.span('Draft', class: 'badge badge-secondary')
       end
-    when 'Published'
+    when 'published'
       link_to('#document_publication_state') do
         tag.span('Published', class: 'badge badge-success')
       end
-    when 'Unpublished'
+    when 'unpublished'
       link_to('#document_publication_state') do
         tag.span('Unpublished', class: 'badge badge-danger')
       end

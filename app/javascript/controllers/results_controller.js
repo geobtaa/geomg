@@ -196,4 +196,75 @@ export default class extends Controller {
       window.location = el.dataset.resultset + "&format=json_gbl_v1"
     }
   }
+
+  bulkAction() {
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      console.log('/bulk_actions/new?scope=' + el.dataset.pageset)
+      window.location = '/bulk_actions/new?scope=' + encodeURIComponent(el.dataset.pageset)
+    } else {
+      console.log('/bulk_actions/new?scope=' + el.dataset.resultset)
+      window.location = '/bulk_actions/new?scope=' + encodeURIComponent(el.dataset.resultset)
+    }
+  }
+
+  setPubState(event) {
+    event.preventDefault();
+
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      scope = encodeURIComponent(el.dataset.pageset)
+    } else {
+      scope = encodeURIComponent(el.dataset.resultset)
+    }
+
+    var el = document.querySelector('#bulk_action_scope');
+    el.setAttribute('value', scope);
+  }
+
+  setPubFieldNameValue(event) {
+    var el = document.querySelector('#bulk_action_field_name');
+    el.setAttribute('value', "Publication State");
+
+    // Set field value
+    var el = document.querySelector('#bulk_action_field_value');
+    el.setAttribute(
+      'value',
+      event.currentTarget.innerHTML.toLowerCase().trim()
+    );
+
+    // Set scope value
+    this.setPubState(event);
+
+    // Submit form
+    var form = document.querySelector('#result-action-form');
+    form.submit();
+  }
+
+  bulkActionDelete(event) {
+    event.preventDefault();
+
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      scope = encodeURIComponent(el.dataset.pageset)
+    } else {
+      scope = encodeURIComponent(el.dataset.resultset)
+    }
+
+    var el = document.querySelector('#bulk_action_scope');
+    el.setAttribute('value', scope);
+
+    var el = document.querySelector('#bulk_action_field_name');
+    el.setAttribute('value', "Delete");
+
+    var el = document.querySelector('#bulk_action_field_value');
+    el.setAttribute('value', "delete");
+
+    // Submit form
+    var form = document.querySelector('#result-action-form');
+    form.submit();
+  }
 }
