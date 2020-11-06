@@ -67,6 +67,7 @@ class BulkActionsController < ApplicationController
 
   def run
     @bulk_action.run!
+    @bulk_action.state_machine.transition_to!(:queued)
     redirect_to bulk_action_url(@bulk_action), notice: 'Bulk action is running. Check back soon for results.'
   end
 
