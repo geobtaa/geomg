@@ -225,6 +225,9 @@ export default class extends Controller {
   }
 
   setPubFieldNameValue(event) {
+    var el = document.querySelector('#bulk_action_field_name');
+    el.setAttribute('value', "Publication State");
+
     // Set field value
     var el = document.querySelector('#bulk_action_field_value');
     el.setAttribute(
@@ -236,6 +239,32 @@ export default class extends Controller {
     this.setPubState(event);
 
     // Submit form
-    event.currentTarget.closest( 'form' ).submit();
+    var form = document.querySelector('#result-action-form');
+    form.submit();
+  }
+
+  bulkActionDelete(event) {
+    event.preventDefault();
+
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      scope = encodeURIComponent(el.dataset.pageset)
+    } else {
+      scope = encodeURIComponent(el.dataset.resultset)
+    }
+
+    var el = document.querySelector('#bulk_action_scope');
+    el.setAttribute('value', scope);
+
+    var el = document.querySelector('#bulk_action_field_name');
+    el.setAttribute('value', "Delete");
+
+    var el = document.querySelector('#bulk_action_field_value');
+    el.setAttribute('value', "delete");
+
+    // Submit form
+    var form = document.querySelector('#result-action-form');
+    form.submit();
   }
 }

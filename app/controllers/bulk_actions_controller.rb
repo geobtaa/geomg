@@ -32,10 +32,6 @@ class BulkActionsController < ApplicationController
 
     respond_to do |format|
       if @bulk_action.save
-
-        # Capture State
-        @bulk_action.state_machine.transition_to!(:queued)
-
         format.html { redirect_to @bulk_action, notice: 'Bulk action was successfully created.' }
         format.json { render :show, status: :created, location: @bulk_action }
       else

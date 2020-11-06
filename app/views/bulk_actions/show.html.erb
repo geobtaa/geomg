@@ -7,12 +7,18 @@
     <p>
       <strong>Change:</strong>
       <%= @bulk_action.field_name %>
-      /
-      <strong>To:</strong>
-      <%= @bulk_action.field_value %></p>
+      <% if @bulk_action.field_name != "Delete" %>
+        /
+        <strong>To:</strong>
+        <%= @bulk_action.field_value %></p>
+      <% end %>
     <p>
       <strong>Notes:</strong>
       <%= @bulk_action.notes %></p>
+
+    <p>
+      <strong>Scope:</strong>
+      <%= @bulk_action.scope %></p>
   </div>
   <div class="col-md-3">
     <div class="card">
