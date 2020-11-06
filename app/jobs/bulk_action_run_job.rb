@@ -17,8 +17,5 @@ class BulkActionRunJob < ApplicationJob
       BulkActionDocumentJob.perform_later(action, doc, bulk_action.field_name, bulk_action.field_value)
       doc.state_machine.transition_to!(:queued)
     end
-
-    # Capture State
-    bulk_action.state_machine.transition_to!(:queued)
   end
 end
