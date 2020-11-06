@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# BulkActionRevertJob
 class BulkActionRevertJob < ApplicationJob
   queue_as :default
 

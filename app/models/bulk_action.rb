@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'uri'
+require 'cgi'
 
 # BulkAction
 class BulkAction < ApplicationRecord
@@ -50,8 +51,8 @@ class BulkAction < ApplicationRecord
   private
 
   def collect_documents
-    uri = URI.decode(scope)
-    uri = URI.parse(uri)
+    cgi = CGI.unescape(scope)
+    uri = URI.parse(cgi)
     if uri.path.include?('fetch')
       fetch_documents(uri)
     else
