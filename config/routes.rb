@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   resources :bulk_actions do
     patch :run, on: :member
+    patch :revert, on: :member
   end
 
   resources :imports do

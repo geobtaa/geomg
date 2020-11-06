@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# BulkActionDocumentJob
-class BulkActionDocumentJob < ApplicationJob
+# BulkActionRunDocumentJob
+class BulkActionRunDocumentJob < ApplicationJob
   queue_as :default
 
   def perform(action, doc, field_name, field_value)

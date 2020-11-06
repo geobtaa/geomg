@@ -4,6 +4,8 @@
 class Document < Kithe::Work
   include AttrJson::Record::QueryScopes
 
+  attr_accessor :skip_callbacks
+
   has_paper_trail
   belongs_to :import, optional: true
 
@@ -21,7 +23,7 @@ class Document < Kithe::Work
 
   delegate :current_state, to: :state_machine
 
-  before_save :transition_publication_state
+  before_save :transition_publication_state, unless: :skip_callbacks
 
   # Indexer
   self.kithe_indexable_mapper = DocumentIndexer.new

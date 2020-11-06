@@ -11,4 +11,6 @@ class BulkActionDocumentStateMachine
 
   transition from: :created, to: [:queued]
   transition from: :queued, to: %i[queued success failed]
+  transition from: :success, to: %i[queued success failed]
+  transition from: :failed, to: %i[queued success failed]
 end

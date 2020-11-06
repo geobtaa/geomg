@@ -47,6 +47,12 @@
             <%- end -%>
           <% else %>
             <%= @bulk_action.state_machine.current_state %>
+            <% if @bulk_action.state_machine.current_state == 'complete' %>
+              <%= form_tag revert_bulk_action_path(@bulk_action), method: :patch do -%>
+                <%= hidden_field_tag :run, true -%>
+                <%= submit_tag 'Revert Bulk Action' -%>
+              <%- end -%>
+            <%- end -%>
           <% end %>
         </li>
       </ul>
@@ -66,6 +72,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
+          <th>Rails ID</th>
           <th>Identifier</th>
           <th>Version</th>
           <th>State</th>
@@ -74,6 +81,7 @@
       <tbody>
         <% @documents.each_with_index do |doc, index| %>
           <tr>
+            <td><%= doc.document_id %></td>
             <td>
             <%= link_to "http://localhost:3001/catalog/#{doc.friendlier_id}", target: "_blank" do %>
               <%= doc.friendlier_id %>

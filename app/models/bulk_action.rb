@@ -42,6 +42,11 @@ class BulkAction < ApplicationRecord
     state_machine.transition_to!(:complete) if documents.in_state(:queued).blank?
   end
 
+  def revert!
+    # Queue Revert Job
+    BulkActionRevertJob.perform_later(self)
+  end
+
   private
 
   def collect_documents
@@ -69,6 +74,7 @@ class BulkAction < ApplicationRecord
   def create_documents(documents)
     documents.collect do |doc|
       BulkActionDocument.create(
+        document_id: doc.id,
         friendlier_id: doc.friendlier_id,
         version: doc.current_version,
         bulk_action_id: id

@@ -2,7 +2,7 @@
 
 # BulkActionsController
 class BulkActionsController < ApplicationController
-  before_action :set_bulk_action, only: %i[show edit update destroy run]
+  before_action :set_bulk_action, only: %i[show edit update destroy run revert]
 
   # GET /bulk_actions
   # GET /bulk_actions.json
@@ -69,6 +69,12 @@ class BulkActionsController < ApplicationController
     @bulk_action.run!
     @bulk_action.state_machine.transition_to!(:queued)
     redirect_to bulk_action_url(@bulk_action), notice: 'Bulk action is running. Check back soon for results.'
+  end
+
+  def revert
+    @bulk_action.revert!
+    @bulk_action.state_machine.transition_to!(:queued)
+    redirect_to bulk_action_url(@bulk_action), notice: 'Revert bulk action is running. Check back soon for results.'
   end
 
   private

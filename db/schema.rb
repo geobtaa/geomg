@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_05_194641) do
+ActiveRecord::Schema.define(version: 2020_11_06_195119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_194641) do
     t.bigint "bulk_action_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "document_id"
     t.index ["bulk_action_id"], name: "index_bulk_action_documents_on_bulk_action_id"
   end
 
