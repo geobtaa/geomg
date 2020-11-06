@@ -223,4 +223,19 @@ export default class extends Controller {
     var el = document.querySelector('#bulk_action_scope');
     el.setAttribute('value', scope);
   }
+
+  setPubFieldNameValue(event) {
+    // Set field value
+    var el = document.querySelector('#bulk_action_field_value');
+    el.setAttribute(
+      'value',
+      event.currentTarget.innerHTML.toLowerCase().trim()
+    );
+
+    // Set scope value
+    this.setPubState(event);
+
+    // Submit form
+    event.currentTarget.closest( 'form' ).submit();
+  }
 }
