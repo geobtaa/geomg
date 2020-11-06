@@ -5,17 +5,10 @@
   <div class="col-md-6">
     <h1>Bulk Action</h1>
     <p>
-      <strong>Name:</strong>
-      <%= @bulk_action.name.present? ? @bulk_action.name : "Blank" %>
-    </p>
-    <p>
-      <strong>Scope:</strong>
-      <%= @bulk_action.scope %></p>
-    <p>
-      <strong>Field Name:</strong>
-      <%= @bulk_action.field_name %></p>
-    <p>
-      <strong>Field Value:</strong>
+      <strong>Change:</strong>
+      <%= @bulk_action.field_name %>
+      /
+      <strong>To:</strong>
       <%= @bulk_action.field_value %></p>
     <p>
       <strong>Notes:</strong>
@@ -46,9 +39,9 @@
               <%= hidden_field_tag :run, true -%>
               <%= submit_tag 'Run Bulk Action' -%>
             <%- end -%>
+          <% else %>
+            <%= @bulk_action.state_machine.current_state %>
           <% end %>
-          <p><%= @bulk_action.state_machine.current_state %></p>
-          <p><%= @bulk_action.documents.size %></p>
         </li>
       </ul>
     </div>
