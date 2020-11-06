@@ -12,7 +12,7 @@ class Document < Kithe::Work
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: DocumentTransition,
-    initial_state: :Draft
+    initial_state: :draft
   ]
 
   def state_machine
