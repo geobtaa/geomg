@@ -48,7 +48,7 @@ bundle exec rails server --port=3001
 Run test suite:
 
 ```bash
-bundle exec rake ci
+RAILS_ENV=test bundle exec rake ci
 ```
 
 ## TODOS
