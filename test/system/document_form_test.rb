@@ -21,6 +21,7 @@ class DocumentFormTest < ApplicationSystemTestCase
   def test_edit_action
     visit '/documents/35c8a641589c4e13b7aa11e37f3f00a1_0/edit'
     assert page.has_selector?('input#document_title')
+    assert page.has_selector?('span.create_bookmark')
   end
 
   def test_form_elements
