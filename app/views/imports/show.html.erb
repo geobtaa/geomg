@@ -120,7 +120,7 @@
             <td><%= doc.friendlier_id %></td>
             <td>
               <%= doc.state_machine.current_state %>
-              <% if doc.state_machine.current_state != "success" %>
+              <% if doc.state_machine.current_state == "failed" %>
                 <%= doc.state_machine.last_transition.metadata %>
               <% end %>
             </td>
