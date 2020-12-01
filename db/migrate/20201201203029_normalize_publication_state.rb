@@ -21,7 +21,11 @@ class NormalizePublicationState < ActiveRecord::Migration[6.0]
     docs = Document.all
     docs.each do |doc|
       # Should update Solr with new publication state
-      doc.save
+      begin
+        doc.save
+      rescue
+        puts "Failed Save - Doc - #{doc.friendlier_id}"
+      end
     end
   end
 end
