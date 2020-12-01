@@ -1,25 +1,38 @@
 class NormalizePublicationState < ActiveRecord::Migration[6.0]
   def change
+    errors = []
+
     docs = DocumentTransition.where(to_state: "Draft")
     docs.each do |doc|
       doc.to_state = 'draft'
-      doc.save
+      begin
+        doc.save
+      rescue
+        errors << "Failed Save - Doc - #{doc.friendlier_id}"
+      end
     end
 
     docs = DocumentTransition.where(to_state: "Published")
     docs.each do |doc|
       doc.to_state = 'published'
-      doc.save
+      begin
+        doc.save
+      rescue
+        errors << "Failed Save - Doc - #{doc.friendlier_id}"
+      end
     end
 
     docs = DocumentTransition.where(to_state: "Unpublished")
     docs.each do |doc|
       doc.to_state = 'Unpublished'
-      doc.save
+      begin
+        doc.save
+      rescue
+        errors << "Failed Save - Doc - #{doc.friendlier_id}"
+      end
     end
 
     docs = Document.all
-    errors = []
     docs.each do |doc|
       # Should update Solr with new publication state
       begin
