@@ -20,8 +20,8 @@
           <tr>
             <%= form.simple_fields_for :mappings do |f| %>
               <td><%= f.input :source_header, :input_html => {:value => header, :readonly => true} %></td>
-              <td><%= f.input :destination_field, collection: attribute_collection, selected: mapping_suggestion(header) %></td>
-              <td><%= f.input :delimited, :input_html => { checked: delimiter_suggestion(header) } %></td>
+              <td><%= f.input :destination_field, collection: attribute_collection, selected: mapping_suggestion(@import, header) %></td>
+              <td><%= f.input :delimited, :input_html => { checked: delimiter_suggestion(@import, header) } %></td>
               <td><%= f.association :import, as: :hidden %></td>
           <% end %>
           </tr>

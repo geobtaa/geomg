@@ -9,17 +9,17 @@ module MappingsHelper
     attrs
   end
 
-  def mapping_suggestion(header)
-    if Geomg.field_mappings_btaa.include?(header.to_sym)
-      Geomg.field_mappings_btaa[header.to_sym][:destination]
+  def mapping_suggestion(import, header)
+    if import.mapping_configuration.include?(header.to_sym)
+      import.mapping_configuration[header.to_sym][:destination]
     else
       false
     end
   end
 
-  def delimiter_suggestion(header)
-    if Geomg.field_mappings_btaa.include?(header.to_sym)
-      Geomg.field_mappings_btaa[header.to_sym][:delimited]
+  def delimiter_suggestion(import, header)
+    if import.mapping_configuration.include?(header.to_sym)
+      import.mapping_configuration[header.to_sym][:delimited]
     else
       false
     end

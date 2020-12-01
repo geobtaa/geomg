@@ -3,6 +3,11 @@
 require 'test_helper'
 
 class MappingsHelperTest < ActionView::TestCase
+
+  def setup
+    @import = ImportBtaa.new
+  end
+
   test 'attribute_collection' do
     assert_equal(
       attribute_collection,
@@ -12,28 +17,28 @@ class MappingsHelperTest < ActionView::TestCase
 
   test 'mapping_suggestion - exists' do
     assert_equal(
-      mapping_suggestion('Language'),
+      mapping_suggestion(@import, 'Language'),
       'dc_language_sm'
     )
   end
 
   test 'mapping_suggestion - does not exist' do
     assert_equal(
-      mapping_suggestion('Does Not Exist'),
+      mapping_suggestion(@import, 'Does Not Exist'),
       false
     )
   end
 
   test 'delimiter_suggestion - exists' do
     assert_equal(
-      delimiter_suggestion('Language'),
+      delimiter_suggestion(@import, 'Language'),
       true
     )
   end
 
   test 'delimiter_suggestion - does not exist' do
     assert_equal(
-      delimiter_suggestion('Does Not Exist'),
+      delimiter_suggestion(@import, 'Does Not Exist'),
       false
     )
   end

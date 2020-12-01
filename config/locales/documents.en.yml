@@ -65,11 +65,14 @@ en:
     enum_values:
       document/reference:
         category:
+          wcs: Web Coverage Service (WCS)
           wms: Web Mapping Service (WMS)
           wfs: Web Feature Service (WFS)
           iiif_image: IIIF Image API
           iiif_manifest: IIIF Manifest
           download: Direct download file
+          image: Image file
+          thumbnail: Thumbnail file
           documentation_download: Data dictionary / documentation download
           documentation_external: Full layer description
           metadata_iso: Metadata in ISO 19139
@@ -82,6 +85,7 @@ en:
           arcgis_image_map_layer: ArcGIS ImageMapLayer
           harvard: Harvard Geospatial Library Email Download
           open_index_map: OpenIndexMap
+          oembed: oEmbed
 
   simple_form:
     hints:

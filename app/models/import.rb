@@ -75,6 +75,7 @@ class Import < ApplicationRecord
     converted_data = append_default_mappings(converted_data)
     converted_data = append_assumed_mappings(converted_data)
     converted_data = append_derived_mappings(converted_data)
+    converted_data = append_required_mappings(converted_data)
   end
 
   private
@@ -114,7 +115,7 @@ class Import < ApplicationRecord
 
       # Split delimited field values, if field has a value present
       if mapping.delimited?
-        transformed_data[mapping.destination_field] = transformed_data[mapping.destination_field].present? ? transformed_data[mapping.destination_field].split('|') : ''
+        transformed_data[mapping.destination_field] = transformed_data[mapping.destination_field].present? ? transformed_data[mapping.destination_field].split(klass_delimiter) : ''
       end
     end
 
@@ -156,6 +157,24 @@ class Import < ApplicationRecord
         derived_mapping[key] = send(value[:method], args)
 
         data_hash.merge!(derived_mapping.stringify_keys)
+      end
+    end
+
+    data_hash
+  end
+
+  # Ensures required values are in the data hash
+  #
+  # ex. b1g_status_s is required.
+  def append_required_mappings(data_hash)
+    required_mappings.each do |mapping|
+      mapping.each do |key, value|
+        required_mapping = {}
+        required_mapping[key] = value
+
+        unless data_hash.has_key?(key)
+          data_hash.merge!(required_mapping.stringify_keys)
+        end
       end
     end
 

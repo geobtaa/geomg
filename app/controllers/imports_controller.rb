@@ -84,7 +84,7 @@ class ImportsController < ApplicationController
 
   def import_params
     # Handle STI key
-    key = (params.keys & %w[import import_btaa])[0]
+    key = (params.keys & %w[import import_btaa import_gblv1])[0]
     params.require(key).permit(
       permittable_params,
       mappings_attributes: %i[

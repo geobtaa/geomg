@@ -23,7 +23,7 @@ class ImportsTest < ApplicationSystemTestCase
 
     attach_file('import_csv_file', Rails.root.join('test/fixtures/files/btaa_formatted_records.csv'))
 
-    select 'BTAA CSV Template', from: 'import_type'
+    select 'BTAA CSV', from: 'import_type'
 
     click_on 'Create Import'
 
@@ -62,7 +62,7 @@ class ImportsTest < ApplicationSystemTestCase
     fill_in 'Source', with: @import.source
     fill_in 'Description', with: @import.description
     attach_file('import_csv_file', Rails.root.join('test/fixtures/files/schema_support.csv'))
-    select 'BTAA CSV Template', from: 'import_type'
+    select 'BTAA CSV', from: 'import_type'
 
     # Create Import
     click_on 'Create Import'

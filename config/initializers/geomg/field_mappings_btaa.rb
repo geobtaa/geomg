@@ -283,7 +283,11 @@ module Geomg
       "Index Map": 'open_index_map',
       "TileServer": 'arcgis_tiled_map_layer',
       "WFS": 'wfs',
-      "WMS": 'wms'
+      "WMS": 'wms',
+      "WCS": 'wcs',
+      "oEmbed": 'oembed',
+      "Thumbnail": 'thumbnail',
+      "Image": 'image'
     }
   end
 end

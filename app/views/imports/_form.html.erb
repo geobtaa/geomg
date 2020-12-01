@@ -14,7 +14,11 @@
   <%= f.input :source %>
   <%= f.input :description %>
   <%= f.file_field :csv_file, direct_upload: true %>
-  <%= f.input :type, collection:[['BTAA CSV Template', 'ImportBtaa']] %>
+  <%= f.input :type, collection:[
+      ['BTAA CSV', 'ImportBtaa'],
+      ['Solr GBLv1 CSV', 'ImportGblv1']
+    ]
+  %>
 </div>
 
 <div class="form-actions">

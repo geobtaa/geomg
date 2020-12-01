@@ -4,6 +4,14 @@
 class ImportBtaa < Import
   # validations, constants and methods
 
+  def mapping_configuration
+    Geomg.field_mappings_btaa
+  end
+
+  def klass_delimiter
+    '|'
+  end
+
   # Solr Field => Hard Value
   def default_mappings
     [
@@ -29,6 +37,14 @@ class ImportBtaa < Import
           field: 'solr_geom',
           method: 'derive_b1g_centroid_ss'
         } }
+    ]
+  end
+
+  # Required Values
+  # Key / Default Value
+  def required_mappings
+    [
+      { 'b1g_status_s': 'Active' }
     ]
   end
 

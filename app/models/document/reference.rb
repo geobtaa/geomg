@@ -7,6 +7,10 @@ class Document
     # Via GBL Wiki
     # https://github.com/geoblacklight/geoblacklight/wiki/External-references
     REFERENCE_VALUES = {
+      "wcs": {
+        label: 'Web Coverage Service (WCS)',
+        uri: 'http://www.opengis.net/def/serviceType/ogc/wcs'
+      },
       "wms": {
         label: 'Web Mapping Service (WMS)',
         uri: 'http://www.opengis.net/def/serviceType/ogc/wms'
@@ -23,9 +27,17 @@ class Document
         label: 'IIIF Manifest',
         uri: 'http://iiif.io/api/presentation#manifest'
       },
+      "image": {
+        label: 'Image file',
+        uri: 'http://schema.org/image'
+      },
       "download": {
         label: 'Direct download file',
         uri: 'http://schema.org/downloadUrl'
+      },
+      "thumbnail": {
+        label: 'Thumbnail file',
+        uri: 'http://schema.org/thumbnailUrl'
       },
       "documentation_download": {
         label: 'Data dictionary / documentation download',
@@ -74,6 +86,10 @@ class Document
       "open_index_map": {
         label: 'OpenIndexMap',
         uri: 'https://openindexmaps.org'
+      },
+      "oembed": {
+        label: 'oEmbed',
+        uri: 'https://oembed.com'
       }
     }.freeze
 
