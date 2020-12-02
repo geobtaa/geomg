@@ -62,7 +62,7 @@ class ImportGblv1 < Import
     data_hash = args[:data_hash]
     field = args[:field]
 
-    # Ex. [2020 TO 2020]
+    # Ex. [2020 TO 2020], [* TO 2020], [2020 TO *]
     date_range = nil
     date_range = data_hash[field][0] unless data_hash[field].empty?
     date_range = date_range[1..12]&.gsub(' TO ', '-') unless date_range.nil?

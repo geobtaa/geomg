@@ -31,12 +31,34 @@ class Document < Kithe::Work
   # Validations
   validates :b1g_status_s, :dc_identifier_s, :dc_rights_s, :layer_geom_type_s, :layer_slug_s, presence: true
 
+  # @TODO: Test for collection and restricted
   validates :dc_format_s, presence: true, unless: :a_collection_object?
-  # validates :b1g_date_range_drsim, presence: true
 
+  # Interactive Resouce
+  # Restricted items!
   def a_collection_object?
     dc_type_sm.include?('Collection')
   end
+
+  # Date Range Validations
+  #
+  # Allow: YYYY-YYYY, *-YYYY, YYYY-*
+  class DateRangeValidator < ActiveModel::Validator
+    def validate(record)
+      valid_date_ranges = true
+      record.b1g_date_range_drsim.each do |date_range|
+        if date_range[/\d{4}|\*-\d{4}|\*/]
+          valid_date_ranges = true
+        else
+          record.errors.add(:b1g_date_range_drsim, 'invalid date range present')
+          valid_date_ranges = false
+        end
+      end
+      valid_date_ranges
+    end
+  end
+
+  validates_with DateRangeValidator
 
   # Form
   # Identification
@@ -120,6 +142,8 @@ class Document < Kithe::Work
     date_ranges = []
     b1g_date_range_drsim.each do |date_range|
       start_d, end_d = date_range.split('-')
+      start_d = '*' if start_d == 'YYYY' || start_d.nil?
+      end_d   = '*' if end_d == 'YYYY' || end_d.nil?
       date_ranges << "[#{start_d} TO #{end_d}]" if start_d.present?
     end
     date_ranges
