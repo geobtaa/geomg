@@ -60,6 +60,54 @@ class Document < Kithe::Work
 
   validates_with DateRangeValidator
 
+  # Solr Geom Validation
+  #
+  # ex. Bad X value -100096.7909 is not in boundary Rect(minX=-180.0,maxX=180.0,minY=-90.0,maxY=90.0) input: ENVELOPE(-100096.7909,-90.0574,43.9474,39.9655)
+  class SolrGeomValidator < ActiveModel::Validator
+    def validate(record)
+      # Assume true for empty values
+      valid_geom = true
+
+      # Min/Max
+      min_max= [-180.0, 180.0, -90.0, 90.0]
+
+      # Record value
+      geom = record.solr_geom.match(/\((.*?)\)/)[1].split(',')
+      if geom.empty?
+        valid_geom = true
+      else
+        if geom[0].to_f < min_max[0]
+          valid_geom = false
+          record.errors.add(:solr_geom, 'invalid minX present')
+        elsif geom[1].to_f > min_max[1]
+          valid_geom = false
+          record.errors.add(:solr_geom, 'invalid maX present')
+        elsif geom[2].to_f < min_max[2]
+          valid_geom = false
+          record.errors.add(:solr_geom, 'invalid minY present')
+        elsif geom[3].to_f > min_max[3]
+          valid_geom = false
+          record.errors.add(:solr_geom, 'invalid maxY present')
+        end
+      end
+
+      # Sane for Solr?
+      unless record.solr_geom.start_with?("ENVELOPE(")
+        valid_geom = false
+        record.errors.add(:solr_geom, 'Incorrect ENVELOPE() wrapper')
+      end
+
+      unless record.solr_geom.end_with?(")")
+        valid_geom = false
+        record.errors.add(:solr_geom, 'Incorrect ENVELOPE() wrapper')
+      end
+
+      valid_geom
+    end
+  end
+
+  validates_with SolrGeomValidator
+
   # Form
   # Identification
   # - Descriptive
