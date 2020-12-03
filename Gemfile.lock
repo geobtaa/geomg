@@ -621,6 +621,7 @@ DEPENDENCIES
   rubocop (~> 0.86)
   rubocop-minitest
   rubocop-rails
+  ruby-progressbar
   sass-rails (>= 6)
   shoulda-context
   sidekiq (~> 6.0.7)

@@ -38,6 +38,7 @@ gem 'jquery-rails', '~> 4.4'
 gem 'kithe', '~> 2.0.0'
 gem 'qa', '~> 5.0'
 gem 'simple_form', '~> 5.0'
+gem 'ruby-progressbar'
 
 # Dotenv
 gem 'dotenv-rails'
