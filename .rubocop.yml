@@ -55,6 +55,8 @@ Metrics/ClassLength:
   Max: 120
 
 Metrics/MethodLength:
+  Exclude:
+    - 'app/models/document/solr_geom_validator.rb'
   Max: 16
 
 Rails/SkipsModelValidations:

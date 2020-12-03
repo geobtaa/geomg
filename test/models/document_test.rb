@@ -117,4 +117,40 @@ class DocumentTest < ActiveSupport::TestCase
   test 'responds to to_csv' do
     assert_respond_to @document, :to_csv
   end
+
+  # Test DateRanges
+  test 'b1g_date_range validation' do
+    @document = documents(:ag)
+    @document.b1g_date_range_drsim = ["1977-2020"]
+    assert_nothing_raised do
+      @document.save
+    end
+
+    # No letters allowed
+    @document.b1g_date_range_drsim = ["197X-2020"]
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
+  end
+
+  # Test SolrGeom
+  test 'solr_geom validation' do
+    @document = documents(:ag)
+    @document.solr_geom = "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)"
+    assert_nothing_raised do
+      @document.save
+    end
+
+    # No ENVELOPE() wrapper
+    @document.solr_geom = "-16.7909,-90.0574,43.9474,39.9655"
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
+
+    # Bad minX
+    @document.solr_geom = "-16000.7909,-90.0574,43.9474,39.9655"
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
+  end
 end

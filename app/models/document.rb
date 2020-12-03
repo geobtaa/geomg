@@ -3,6 +3,7 @@
 # Document
 class Document < Kithe::Work
   include AttrJson::Record::QueryScopes
+  include ActiveModel::Validations
 
   attr_accessor :skip_callbacks
 
@@ -40,73 +41,8 @@ class Document < Kithe::Work
     dc_type_sm.include?('Collection')
   end
 
-  # Date Range Validations
-  #
-  # Allow: YYYY-YYYY, *-YYYY, YYYY-*
-  class DateRangeValidator < ActiveModel::Validator
-    def validate(record)
-      valid_date_ranges = true
-      record.b1g_date_range_drsim.each do |date_range|
-        if date_range[/\d{4}|\*-\d{4}|\*/]
-          valid_date_ranges = true
-        else
-          record.errors.add(:b1g_date_range_drsim, 'invalid date range present')
-          valid_date_ranges = false
-        end
-      end
-      valid_date_ranges
-    end
-  end
-
-  validates_with DateRangeValidator
-
-  # Solr Geom Validation
-  #
-  # ex. Bad X value -100096.7909 is not in boundary Rect(minX=-180.0,maxX=180.0,minY=-90.0,maxY=90.0) input: ENVELOPE(-100096.7909,-90.0574,43.9474,39.9655)
-  class SolrGeomValidator < ActiveModel::Validator
-    def validate(record)
-      # Assume true for empty values
-      valid_geom = true
-
-      # Min/Max
-      min_max= [-180.0, 180.0, -90.0, 90.0]
-
-      # Record value
-      geom = record.solr_geom.match(/\((.*?)\)/)[1].split(',')
-      if geom.empty?
-        valid_geom = true
-      else
-        if geom[0].to_f < min_max[0]
-          valid_geom = false
-          record.errors.add(:solr_geom, 'invalid minX present')
-        elsif geom[1].to_f > min_max[1]
-          valid_geom = false
-          record.errors.add(:solr_geom, 'invalid maX present')
-        elsif geom[2].to_f < min_max[2]
-          valid_geom = false
-          record.errors.add(:solr_geom, 'invalid minY present')
-        elsif geom[3].to_f > min_max[3]
-          valid_geom = false
-          record.errors.add(:solr_geom, 'invalid maxY present')
-        end
-      end
-
-      # Sane for Solr?
-      unless record.solr_geom.start_with?("ENVELOPE(")
-        valid_geom = false
-        record.errors.add(:solr_geom, 'Incorrect ENVELOPE() wrapper')
-      end
-
-      unless record.solr_geom.end_with?(")")
-        valid_geom = false
-        record.errors.add(:solr_geom, 'Incorrect ENVELOPE() wrapper')
-      end
-
-      valid_geom
-    end
-  end
-
-  validates_with SolrGeomValidator
+  validates_with Document::DateRangeValidator
+  validates_with Document::SolrGeomValidator
 
   # Form
   # Identification

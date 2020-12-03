@@ -66,17 +66,20 @@ class ImportsTest < ApplicationSystemTestCase
 
     # Create Import
     click_on 'Create Import'
-    assert_text 'Import was successfull'
+
+    sleep(5)
 
     # Create Mapping
     click_on 'Create Mapping'
     assert_text 'Import was successfully updated.'
 
+    sleep(5)
+
     # Run Import!
     click_on 'Run Import'
     assert_text 'Import is running. Check back soon for results.'
 
-    sleep(5)
+    sleep(10)
 
     # Download CSV
     visit '/documents/slug.csv'
