@@ -3,6 +3,7 @@
 # Document
 class Document < Kithe::Work
   include AttrJson::Record::QueryScopes
+  include ActiveModel::Validations
 
   attr_accessor :skip_callbacks
 
@@ -40,25 +41,8 @@ class Document < Kithe::Work
     dc_type_sm.include?('Collection')
   end
 
-  # Date Range Validations
-  #
-  # Allow: YYYY-YYYY, *-YYYY, YYYY-*
-  class DateRangeValidator < ActiveModel::Validator
-    def validate(record)
-      valid_date_ranges = true
-      record.b1g_date_range_drsim.each do |date_range|
-        if date_range[/\d{4}|\*-\d{4}|\*/]
-          valid_date_ranges = true
-        else
-          record.errors.add(:b1g_date_range_drsim, 'invalid date range present')
-          valid_date_ranges = false
-        end
-      end
-      valid_date_ranges
-    end
-  end
-
-  validates_with DateRangeValidator
+  validates_with Document::DateRangeValidator
+  validates_with Document::SolrGeomValidator
 
   # Form
   # Identification

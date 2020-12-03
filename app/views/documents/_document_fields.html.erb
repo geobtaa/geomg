@@ -39,7 +39,7 @@
   <h3 id="spatial">Spatial</h3>
   <%= f.repeatable_attr_input :dct_spatial_sm, build: :at_least_one %>
   <%= f.repeatable_attr_input :b1g_geonames_sm, build: :at_least_one %>
-  <%= f.input :solr_geom, label: "Bounding Box", hint: "W.S.E.N" %>
+  <%= f.input :solr_geom, label: "Bounding Box", hint: "ENVELOPE(minX, maxX, maxY, minY)" %>
   <%= f.input :b1g_centroid_ss, label: "Centroid" %>
 </div>
 
