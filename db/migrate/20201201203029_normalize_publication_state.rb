@@ -24,7 +24,7 @@ class NormalizePublicationState < ActiveRecord::Migration[6.0]
 
     docs = DocumentTransition.where(to_state: "Unpublished")
     docs.each do |doc|
-      doc.to_state = 'Unpublished'
+      doc.to_state = 'unpublished'
       begin
         doc.save
       rescue
