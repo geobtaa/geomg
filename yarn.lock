@@ -6687,6 +6687,11 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
+stimulus-scroll-to@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/stimulus-scroll-to/-/stimulus-scroll-to-2.0.1.tgz#a097267d82e432ce63019ed6f09ea5a464a0fe26"
+  integrity sha512-FaxKbxAEVjjHa4zEq5/U03APBgGgRfUkruJ4KGTkWUPvssoqbu6DcV4e7abytcU70eNCCq8JoUE+Vszuvxy4iw==
+
 stimulus@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stimulus/-/stimulus-1.1.1.tgz#53c2fded6849e7b85eed3ed8dd76e33abd74bec5"
