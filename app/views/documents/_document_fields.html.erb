@@ -91,7 +91,7 @@
   <h3 id="accessibility">Accessibility</h3>
   <%= f.input :dc_rights_s, required: true, collection: Document::ControlledLists::RIGHTS, label: "Rights" %>
   <%= f.repeatable_attr_input :dct_accessRights_sm, build: :at_least_one %>
-  <%= f.input :suppressed_b, as: :boolean, checked_value: true, unchecked_value: false, inline_label: 'Suppressed' %>
-  <%= f.input :b1g_child_record_b, as: :boolean, checked_value: true, unchecked_value: false, inline_label: 'Child' %>
+  <%= f.input :suppressed_b, as: :boolean, inline_label: 'Suppressed' %>
+  <%= f.input :b1g_child_record_b, as: :boolean, inline_label: 'Child' %>
 </div>
 <hr/>
