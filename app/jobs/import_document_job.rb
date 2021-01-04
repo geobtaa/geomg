@@ -5,6 +5,7 @@ class ImportDocumentJob < ApplicationJob
   queue_as :default
 
   def perform(import_document)
+    # @TODO: Check for friendlier_id or raise error
     document = Document.where(
       friendlier_id: import_document.friendlier_id
     ).first_or_create
