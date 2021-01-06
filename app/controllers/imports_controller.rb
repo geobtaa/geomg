@@ -7,13 +7,14 @@ class ImportsController < ApplicationController
   # GET /imports
   # GET /imports.json
   def index
-    @imports = Import.all.order('created_at DESC')
+    @pagy, @imports = pagy(Import.all.order('created_at DESC'), items: 10)
   end
 
   # GET /imports/1
   # GET /imports/1.json
   def show
-    @pagy, @import_documents = pagy(@import.import_documents, items: 30)
+    @pagy_failed, @import_failed_documents = pagy(@import.import_documents.not_in_state(:success), items: 30)
+    @pagy_success, @import_success_documents = pagy(@import.import_documents.in_state(:success), items: 30)
   end
 
   # GET /imports/new
