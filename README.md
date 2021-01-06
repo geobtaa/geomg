@@ -31,16 +31,22 @@ An experimental UI for administering BTAA Geoblacklight JSON documents.
 1. Run Solr and Rails server:
 
 ```bash
+cd ~/Rails/geomg
 bundle exec rake geomg:server
 ```
 
-2. Run the BTAA/B1G Geoportal on port 3001
+2. Run foreman (background queue)
+```bash
+bundle exec foreman start
+```
+
+3. Run the BTAA/B1G Geoportal on port 3001
 ```bash
 cd ~/Rails/geoportal
 bundle exec rails server --port=3001
 ```
 
-3. Open [localhost:3000](http://localhost:3000)
+4. Open [localhost:3000](http://localhost:3000)
 
 
 ### Test suite
