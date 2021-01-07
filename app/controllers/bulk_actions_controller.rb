@@ -7,7 +7,7 @@ class BulkActionsController < ApplicationController
   # GET /bulk_actions
   # GET /bulk_actions.json
   def index
-    @bulk_actions = BulkAction.all.order(created_at: :desc)
+    @pagy, @bulk_actions = pagy(BulkAction.all.order(created_at: :desc), items: 10)
   end
 
   # GET /bulk_actions/1
