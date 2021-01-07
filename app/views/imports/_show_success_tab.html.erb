@@ -10,22 +10,21 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>State</th>
       <th>Title</th>
       <th>Identifier</th>
-      <th>State</th>
     </tr>
   </thead>
   <tbody>
     <% @import_success_documents.each_with_index do |doc, index| %>
       <tr>
+        <td>
+          <span class="badge badge-success">
+            <%= doc.state_machine.current_state %>
+          </span>
+        </td>
         <td><%= doc.title %></td>
         <td><%= doc.friendlier_id %></td>
-        <td>
-          <%= doc.state_machine.current_state %>
-          <% if doc.state_machine.current_state == "failed" %>
-            <%= doc.state_machine.last_transition.metadata %>
-          <% end %>
-        </td>
       </tr>
     <% end %>
   </tbody>

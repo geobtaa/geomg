@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :imports do
     resources :mappings
+    resources :import_documents, only: [:show]
     patch :run, on: :member
   end
 

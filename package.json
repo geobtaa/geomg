@@ -15,6 +15,7 @@
     "serialize-javascript": "^3.1.0",
     "stimulus": "^1.1.1",
     "stimulus-scroll-to": "^2.0.1",
+    "stimulus_reflex": "^3.4.0",
     "turbolinks": "^5.2.0",
     "yargs-parser": "^13.1.2"
   },

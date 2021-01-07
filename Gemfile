@@ -67,10 +67,14 @@ gem 'httparty'
 # Feedback
 gem 'exception_notification', '~> 4.4.0'
 
+# Awesome Print
+gem 'amazing_print'
+gem 'haml', '~> 5.2.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'inquisition', github: 'rubygarage/inquisition'
+  gem 'inquisition', github: 'rubygarage/inquisition', branch: 'develop'
   gem 'solr_wrapper', '~> 2.1'
 end
 

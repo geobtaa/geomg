@@ -48,6 +48,7 @@ Metrics/BlockLength:
     - 'Rakefile'
     - 'app/indexers/document_indexer.rb'
     - 'config/environments/*.rb'
+    - 'config/routes.rb'
     - 'spec/**/*.rb'
     - 'test/**/*.rb'
 
