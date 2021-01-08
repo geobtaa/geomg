@@ -5,8 +5,7 @@ class BlacklightApiFacets
   include HTTParty
   base_uri BLACKLIGHT_JSON_API_FACETS
 
-  def initialize
-  end
+  def initialize; end
 
   def fetch
     @fetch ||= self.class.get('/', query: {})

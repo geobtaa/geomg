@@ -20,7 +20,7 @@
               <%- options = facet['attributes']['items'].collect{ |item| item['attributes']['label'] } %>
 
               <div class="col-sm-8">
-                <%= select_tag "f[#{facet['id']}]", options_for_select(options), multiple: true, class: 'chosen-select', style: 'width:240px;' %>
+                <%= select_tag "f[#{facet['id']}]", options_for_select(options), class: 'chosen-select', style: 'width:240px;' %>
               </div>
 
             <% end %>
