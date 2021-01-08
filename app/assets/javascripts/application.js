@@ -13,12 +13,14 @@
 
 //= require jquery3
 //= require cocoon
+//= require chosen-jquery
 
 // VENDOR
 //= require bootstrap-datepicker/js/bootstrap-datepicker.js
 //= require inputmask/dist/jquery.inputmask
 
 // GEOMG
+//= require geomg/chosen
 //= require geomg/datepicker
 //= require geomg/inputmask
 //= require geomg/tooltips
