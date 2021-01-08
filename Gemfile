@@ -71,6 +71,9 @@ gem 'exception_notification', '~> 4.4.0'
 gem 'amazing_print'
 gem 'haml', '~> 5.2.0'
 
+# Advanced Search
+gem 'chosen-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

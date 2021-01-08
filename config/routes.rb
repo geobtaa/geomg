@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  get '/search' => 'search#index'
   resources :bulk_actions do
     patch :run, on: :member
     patch :revert, on: :member

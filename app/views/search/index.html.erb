@@ -1,0 +1,18 @@
+<%- @page_title= "Search" %>
+
+<h1 style="width:100%; margin-bottom:2rem;">
+  Search
+</h1>
+
+<div class="row">
+  <div class="col-8">
+    <h2>Search Form</h2>
+
+    <%= form_tag(documents_path, { method: :get, class: "form-inline my-2 my-lg-0" }) do %>
+      <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search documents" aria-label="Search" value="<%= params[:q] ? params[:q] : ''%>">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <% end %>
+
+    <%= @facet_options.inspect %>
+  </div>
+</div>
