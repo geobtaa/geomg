@@ -28,7 +28,7 @@
         <td><%= doc.friendlier_id %></td>
         <td>
           <%= link_to import_import_document_path(@import, doc) do %>
-            <%= doc.state_machine.last_transition.metadata %>
+            <%= doc.state_machine&.last_transition&.metadata %>
           <% end %>
         </td>
       </tr>
