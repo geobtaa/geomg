@@ -8,13 +8,13 @@ namespace :geomg do
   task sidekiq_stop: :environment do
     sh 'sudo systemctl stop sidekiq.service || true'
     sleep(5)
-    sh 'sudo systemctl status sidekiq.service || true'
+    sh 'sudo systemctl status --no-pager sidekiq.service || true'
   end
 
   task sidekiq_start: :environment do
     sh 'sudo systemctl start sidekiq.service || true'
     sleep(5)
-    sh 'sudo systemctl status sidekiq.service || true'
+    sh 'sudo systemctl status --no-pager sidekiq.service || true'
   end
 
   desc 'Check sidekiq stats'
