@@ -173,6 +173,11 @@ class Document < Kithe::Work
     versions.last.index
   end
 
+  # Institutional Access URLs
+  def access_urls
+    DocumentAccess.where(friendlier_id: friendlier_id).order(institution_code: :asc)
+  end
+
   private
 
   # "ENVELOPE(W,E,N,S)" convert to "W,S,E,N"

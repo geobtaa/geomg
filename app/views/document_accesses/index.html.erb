@@ -1,0 +1,34 @@
+<h1 style="width:100%;">
+  Document &middot; Institutional Access
+  <%= link_to '+ New Access URL', new_document_document_access_path(@document), { class: 'btn btn-primary float-right' } %>
+
+  <%= link_to '+ Import CSV', import_document_document_accesses_path(@document), { class: 'btn btn-primary float-right' } %>
+</h1>
+<h2 class='h3'><%= @document.title %></h2>
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Layer Slug</th>
+      <th>Institution Code</th>
+      <th>Institution Name</th>
+      <th>Access URL</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @document_accesses.each do |document_access| %>
+      <tr>
+        <td><%= document_access.friendlier_id %></td>
+        <td><%= document_access.institution_code %></td>
+        <td><%= b1g_institution_codes[document_access.institution_code] %></td>
+        <td><%= link_to(document_access.access_url, document_access.access_url) %></td>
+        <td><%= link_to 'Edit', edit_document_document_access_path(@document, document_access) %></td>
+        <td><%= link_to 'Destroy', document_document_access_path(@document, document_access), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

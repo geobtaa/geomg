@@ -1,0 +1,18 @@
+<p id="notice"><%= notice %></p>
+
+<h1 style="width:100%;">
+  Document &middot; Institutional Access
+  <%= link_to '+ New Access URL', new_document_document_access_path(@document), { class: 'btn btn-primary float-right' } %>
+</h1>
+<h2 class='h3'><%= @document.title %></h2>
+
+<h3>Import a CSV File</h3>
+<%= form_tag import_document_document_accesses_path(@document), multipart: true do %>
+  <div class="form-inputs">
+    <%= file_field_tag :file %>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_tag "Import CSV", {class: 'btn btn-primary'} %>
+  </div>
+<% end %>
