@@ -7,9 +7,12 @@
 <h2 class='h3'><%= @document.title %></h2>
 
 <h3>Import a CSV File</h3>
-<%= form_tag import_document_document_accesses_path(@document), multipart: true do %>
+<%= simple_form_for @document, url: import_document_document_accesses_path, method: :post, multipart: true do |f| %>
   <div class="form-inputs">
-    <%= file_field_tag :file %>
+    <%= f.input :friendlier_id, input_html: { value: @document.friendlier_id, readonly: true } %>
+    <%= f.simple_fields_for :assets do |asset_fields| %>
+      <%= asset_fields.input :file, as: :file, input_html: {} %>
+    <%- end %>
   </div>
 
   <div class="form-actions">

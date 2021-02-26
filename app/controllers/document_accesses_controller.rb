@@ -68,10 +68,15 @@ class DocumentAccessesController < ApplicationController
   # GET   /documents/#id/access/import
   # POST  /documents/#id/access/import
   def import
-    return unless params[:file]
+    return unless params.dig(:document, :assets, :file)
 
-    DocumentAccess.import(@document, params[:file])
-    redirect_to document_document_accesses_path(@document), notice: 'Document access links were created successfully.'
+    respond_to do |format|
+      DocumentAccess.import(@document, params.dig(:document, :assets, :file))
+      redirect_to document_document_accesses_path(@document), notice: 'Document access links were created successfully.'
+    rescue StandardError => e
+      format.html { redirect_to document_document_accesses_path(@document), notice: "Access URLs could not be created. #{e}" }
+      format.json { render json: @document.errors, status: :unprocessable_entity }
+    end
   end
 
   private
