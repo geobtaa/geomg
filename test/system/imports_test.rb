@@ -27,7 +27,7 @@ class ImportsTest < ApplicationSystemTestCase
 
     click_on 'Create Import'
 
-    assert_text 'Import was successfull'
+    assert_text 'Import was successfull. Please set your import mapping rules.'
   end
 
   test 'updating a Import' do

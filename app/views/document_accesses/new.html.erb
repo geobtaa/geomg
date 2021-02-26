@@ -1,0 +1,6 @@
+<h1>New Document Access</h1>
+<h2 class='h3'><%= @document.title %></h2>
+
+<%= render 'form', document_access: @document_access %>
+
+<%= link_to 'Back', document_document_accesses_path(@document) %>

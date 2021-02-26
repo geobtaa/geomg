@@ -31,6 +31,13 @@ Rails.application.routes.draw do
 
   # public-facing routes
   resources :documents do
+    resources :document_accesses, path: 'access' do
+      collection do
+        get 'import'
+        post 'import'
+      end
+    end
+
     collection do
       get 'fetch'
     end

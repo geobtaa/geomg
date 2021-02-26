@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kithe model:</strong>
+  <%= @document_access.kithe_model_id %>
+</p>
+
+<p>
+  <strong>Institution code:</strong>
+  <%= @document_access.institution_code %>
+</p>
+
+<p>
+  <strong>Access url:</strong>
+  <%= @document_access.access_url %>
+</p>
+
+<%= link_to 'Edit', edit_document_access_path(@document_access) %> |
+<%= link_to 'Back', document_accesses_path %>

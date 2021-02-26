@@ -118,6 +118,12 @@ class Document < Kithe::Work
     references.to_json
   end
 
+  def access_json
+    access = {}
+    access_urls.each { |au| access[au.institution_code] = au.access_url }
+    access.to_json
+  end
+
   def layer_modified_dt
     updated_at&.utc&.iso8601
   end
@@ -171,6 +177,11 @@ class Document < Kithe::Work
 
   def current_version
     versions.last.index
+  end
+
+  # Institutional Access URLs
+  def access_urls
+    DocumentAccess.where(friendlier_id: friendlier_id).order(institution_code: :asc)
   end
 
   private

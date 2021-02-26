@@ -51,6 +51,7 @@ class DocumentIndexer < Kithe::Indexer
     # - Metadata
     to_field 'dct_references_s', obj_extract('references_json')
     to_field 'b1g_image_ss', obj_extract('b1g_image_ss')
+    to_field 'b1g_access_s', obj_extract('access_json')
 
     # Administrative
     # - Codes
