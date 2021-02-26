@@ -53,7 +53,8 @@ Metrics/BlockLength:
     - 'test/**/*.rb'
 
 Metrics/ClassLength:
-  Max: 125
+  Exclude:
+    - 'app/models/document.rb'
 
 Metrics/MethodLength:
   Exclude:

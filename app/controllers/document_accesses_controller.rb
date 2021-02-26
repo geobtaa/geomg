@@ -5,8 +5,8 @@ class DocumentAccessesController < ApplicationController
   before_action :set_document
   before_action :set_document_access, only: %i[show edit update destroy]
 
-  # GET /document_accesses
-  # GET /document_accesses.json
+  # GET /documents/#id/access
+  # GET /documents/#id/access.json
   def index
     @document_accesses = DocumentAccess.where(friendlier_id: @document.friendlier_id).order(institution_code: :asc)
   end

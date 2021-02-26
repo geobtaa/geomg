@@ -118,6 +118,12 @@ class Document < Kithe::Work
     references.to_json
   end
 
+  def access_json
+    access = {}
+    access_urls.each { |au| access[au.institution_code] = au.access_url }
+    access.to_json
+  end
+
   def layer_modified_dt
     updated_at&.utc&.iso8601
   end
