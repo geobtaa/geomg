@@ -10,12 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_143731) do
+ActiveRecord::Schema.define(version: 2021_02_15_194144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
-
 
   create_function :kithe_models_friendlier_id_gen, sql_definition: <<-SQL
       CREATE OR REPLACE FUNCTION public.kithe_models_friendlier_id_gen(min_value bigint, max_value bigint)
@@ -57,6 +56,7 @@ ActiveRecord::Schema.define(version: 2020_12_02_143731) do
         END;
         $function$
   SQL
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -130,6 +130,14 @@ ActiveRecord::Schema.define(version: 2020_12_02_143731) do
     t.string "field_name", null: false
     t.string "field_value", null: false
     t.text "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "document_accesses", force: :cascade do |t|
+    t.string "friendlier_id", null: false
+    t.string "institution_code", null: false
+    t.text "access_url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

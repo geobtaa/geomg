@@ -15,7 +15,7 @@ class ImportBtaa < Import
   # Solr Field => Hard Value
   def default_mappings
     [
-      { 'geoblacklight_version': '1.0' }
+      { geoblacklight_version: '1.0' }
     ]
   end
 
@@ -32,7 +32,7 @@ class ImportBtaa < Import
   # Derived Values
   def derived_mappings
     [
-      { 'b1g_centroid_ss':
+      { b1g_centroid_ss:
         {
           field: 'solr_geom',
           method: 'derive_b1g_centroid_ss'
@@ -44,7 +44,7 @@ class ImportBtaa < Import
   # Key / Default Value
   def required_mappings
     [
-      { 'b1g_status_s': 'Active' }
+      { b1g_status_s: 'Active' }
     ]
   end
 
@@ -59,7 +59,7 @@ class ImportBtaa < Import
     field = args[:field]
 
     w, e, n, s = wens_matches(data_hash[field])
-    "#{((n.to_f + s.to_f) / 2)},#{((e.to_f + w.to_f) / 2)}"
+    "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
   end
 
   def wens_matches(data_hash_field)

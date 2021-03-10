@@ -53,12 +53,21 @@ Metrics/BlockLength:
     - 'test/**/*.rb'
 
 Metrics/ClassLength:
-  Max: 120
+  Exclude:
+    - 'app/models/document.rb'
 
 Metrics/MethodLength:
   Exclude:
     - 'app/models/document/solr_geom_validator.rb'
   Max: 16
+
+Metrics/ParameterLists:
+  Exclude:
+    - 'app/models/blacklight_api.rb'
+
+Rails/InverseOf:
+  Exclude:
+    - 'app/models/document_access.rb'
 
 Rails/SkipsModelValidations:
   Exclude:

@@ -1,5 +1,6 @@
 <% @documents.facets.each do |facet| %>
   <% if facet['type'] == 'facet' %>
+    <%- next if ['b1g_code_s', 'dct_isPartOf_sm'].include?(facet['id']) %>
     <h3 class="h5"><%= facet['attributes']['label'] %></h3>
     <ul class="list-unstyled">
       <%- facet['attributes']['items'].each do |item| %>
@@ -7,7 +8,7 @@
         <li class="#{agg[:action']}">
           <%= link_to agg[:link] do %>
             <%= agg[:action] == 'add' ? "+" : "-" %>
-            <%= item['attributes']['label'].titleize %> (<%= item['attributes']['hits'] %>)
+            <%= item['attributes']['label'] %> (<%= item['attributes']['hits'] %>)
             <%= agg[:action] == 'add' ? "" : "&#10060;".html_safe %>
           <% end %>
         </li>

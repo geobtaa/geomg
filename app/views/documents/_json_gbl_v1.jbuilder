@@ -19,6 +19,7 @@ json.dc_description_s   document.dc_description_s
 json.dc_format_s        document.dc_format_s
 json.dc_subject_sm      document.dc_subject_sm
 json.dct_references_s   document.references_json
+json.b1g_access_s       document.access_json
 json.dct_spatial_sm     document.dct_spatial_sm
 json.layer_geom_type_s  document.layer_geom_type_s
 json.layer_modified_dt  document.layer_modified_dt
