@@ -9,7 +9,7 @@ module Geomg
   def field_mappings_gblv1
     {
       'dc_title_s': {
-        destination: 'dc_title_s',
+        destination: GEOMG.FIELDS.TITLE,
         delimited: false,
         transformation_method: nil
       },

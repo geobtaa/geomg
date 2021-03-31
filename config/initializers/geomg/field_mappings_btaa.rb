@@ -9,7 +9,7 @@ module Geomg
   def field_mappings_btaa
     {
       'Title': {
-        destination: 'dc_title_s',
+        destination: GEOMG.FIELDS.TITLE,
         delimited: false,
         transformation_method: nil
       },

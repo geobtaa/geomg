@@ -12,7 +12,7 @@ class DocumentIndexer < Kithe::Indexer
     # Form
     # Identification
     # - Descriptive
-    to_field 'dc_title_s', obj_extract('title')
+    to_field GEOMG.FIELDS.TITLE, obj_extract('title')
     to_field 'dct_alternativeTitle_sm', obj_extract('dct_alternativeTitle_sm')
     to_field 'dc_description_s', obj_extract('dc_description_s')
     to_field 'dc_language_sm', obj_extract('dc_language_sm')

@@ -7,7 +7,7 @@
 json.geoblacklight_version '1.0'
 json.dc_identifier_s    document.dc_identifier_s
 json.dc_rights_s        document.dc_rights_s
-json.dc_title_s         document.title
+json.dc_title_s         document.send(GEOMG.FIELDS.TITLE)
 json.dct_provenance_s   document.dct_provenance_s
 json.layer_slug_s       document.layer_slug_s
 json.solr_geom          document.solr_geom

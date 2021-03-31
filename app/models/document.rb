@@ -47,7 +47,7 @@ class Document < Kithe::Work
   # Form
   # Identification
   # - Descriptive
-  attr_json :dc_title_s, :string
+  attr_json GEOMG.FIELDS.TITLE, :string
   attr_json :dct_alternativeTitle_sm, :string, array: true, default: -> { [] }
   attr_json :dc_description_s, :text
   attr_json :dc_language_sm, :string, array: true, default: -> { [] }

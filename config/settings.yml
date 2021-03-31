@@ -1,0 +1,5 @@
+# Solr Field Mappings
+#
+# Vernacular => Solr Schema
+FIELDS:
+  :TITLE: 'dc_title_s'
