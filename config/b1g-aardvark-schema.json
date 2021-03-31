@@ -183,9 +183,13 @@
       "type": "array",
       "items": {
         "type": "string"
+        "format": "date"
       }
     },
-    "b1g_dateRetired_s": { "type": "string" },
+    "b1g_dateRetired_s": {
+      "type": "string",
+      "format": "date"
+    },
     "b1g_child_record_b": { "type": "boolean" },
     "b1g_status_s": { "type": "string" }
   },
