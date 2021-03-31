@@ -14,252 +14,252 @@ module Geomg
         transformation_method: nil
       },
       'Alternative Title': {
-        destination: 'dct_alternativeTitle_sm',
+        destination: GEOMG.FIELDS.ALT_TITLE,
         delimited: true,
         transformation_method: nil
       },
       'Description': {
-        destination: 'dc_description_s',
+        destination: GEOMG.FIELDS.DESCRIPTION,
         delimited: false,
         transformation_method: nil
       },
       'Language': {
-        destination: 'dc_language_sm',
+        destination: GEOMG.FIELDS.LANGUAGE,
         delimited: true,
         transformation_method: nil
       },
       'Publisher': {
-        destination: 'dc_publisher_sm',
+        destination: GEOMG.FIELDS.PUBLISHER,
         delimited: true,
         transformation_method: nil
       },
       'Creator': {
-        destination: 'dc_creator_sm',
+        destination: GEOMG.FIELDS.CREATOR,
         delimited: true,
         transformation_method: nil
       },
       'Genre': {
-        destination: 'b1g_genre_sm',
+        destination: GEOMG.FIELDS.B1G_GENRE,
         delimited: true,
         transformation_method: nil
       },
       'Subject': {
-        destination: 'dc_subject_sm',
+        destination: GEOMG.FIELDS.SUBJECT,
         delimited: true,
         transformation_method: nil
       },
       'Keyword': {
-        destination: 'b1g_keyword_sm',
+        destination: GEOMG.FIELDS.B1G_KEYWORD,
         delimited: true,
         transformation_method: nil
       },
       'Date Issued': {
-        destination: 'dct_issued_s',
+        destination: GEOMG.FIELDS.ISSUED,
         delimited: false,
         transformation_method: nil
       },
       'Temporal Coverage': {
-        destination: 'dct_temporal_sm',
+        destination: GEOMG.FIELDS.TEMPORAL,
         delimited: true,
         transformation_method: nil
       },
       'Date Range': {
-        destination: 'b1g_date_range_drsim',
+        destination: GEOMG.FIELDS.B1G_DATE_RANGE,
         delimited: true,
         transformation_method: nil
       },
       'Spatial Coverage': {
-        destination: 'dct_spatial_sm',
+        destination: GEOMG.FIELDS.SPATIAL,
         delimited: true,
         transformation_method: nil
       },
       'Geonames': {
-        destination: 'b1g_geonames_sm',
+        destination: GEOMG.FIELDS.B1G_GEONAMES,
         delimited: true,
         transformation_method: nil
       },
       'Bounding Box': {
-        destination: 'solr_geom',
+        destination: GEOMG.FIELDS.GEOM,
         delimited: false,
         transformation_method: nil
       },
       'Format': {
-        destination: 'dc_format_s',
+        destination: GEOMG.FIELDS.FORMAT,
         delimited: false,
         transformation_method: nil
       },
       'Type': {
-        destination: 'dc_type_sm',
+        destination: GEOMG.FIELDS.TYPE,
         delimited: true,
         transformation_method: nil
       },
       'Geometry Type': {
-        destination: 'layer_geom_type_s',
+        destination: GEOMG.FIELDS.LAYER_GEOM_TYPE,
         delimited: false,
         transformation_method: nil
       },
       'Layer ID': {
-        destination: 'layer_id_s',
+        destination: GEOMG.FIELDS.LAYER_ID,
         delimited: false,
         transformation_method: nil
       },
       'Documentation': {
-        'destination': 'dct_references_s',
+        'destination': GEOMG.FIELDS.REFERENCES,
         'delimited': false,
         'transformation_method': 'build_dct_references'
       },
       'Download': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'FeatureServer': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'FGDC': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'HTML': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'IIIF': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'ImageServer': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'Information': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'ISO19139': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'Manifest': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'MapServer': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'MODS': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'Index Map': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'TileServer': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'WFS': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'WMS': {
-         'destination': 'dct_references_s',
+         'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'Image': {
-        destination: 'b1g_image_ss',
+        destination: GEOMG.FIELDS.B1G_IMAGE,
         delimited: false,
         transformation_method: nil
       },
       'Identifier': {
-        destination: 'dc_identifier_s',
+        destination: GEOMG.FIELDS.IDENTIFIER,
         delimited: false,
         transformation_method: nil
       },
       'Slug': {
-        destination: 'layer_slug_s',
+        destination: GEOMG.FIELDS.LAYER_SLUG,
         delimited: false,
         transformation_method: nil
       },
       'Provenance': {
-        destination: 'dct_provenance_s',
+        destination: GEOMG.FIELDS.PROVENANCE,
         delimited: false,
         transformation_method: nil
       },
       'Code': {
-        destination: 'b1g_code_s',
+        destination: GEOMG.FIELDS.B1G_CODE,
         delimited: false,
         transformation_method: nil
       },
       'Is Part Of': {
-        destination: 'dct_isPartOf_sm',
+        destination: GEOMG.FIELDS.IS_PART_OF,
         delimited: true,
         transformation_method: nil
       },
       'Source': {
-        destination: 'dc_source_sm',
+        destination: GEOMG.FIELDS.SOURCE,
         delimited: true,
         transformation_method: nil
       },
       'Status': {
-        destination: 'b1g_status_s',
+        destination: GEOMG.FIELDS.B1G_STATUS,
         delimited: false,
         transformation_method: nil
       },
       'Accrual Method': {
-        destination: 'dct_accrualMethod_s',
+        destination: GEOMG.FIELDS.ACCRUAL_METHOD,
         delimited: false,
         transformation_method: nil
       },
       'Accrual Periodicity': {
-        destination: 'dct_accrualPeriodicity_s',
+        destination: GEOMG.FIELDS.ACCRUAL_PERIODICITY,
         delimited: false,
         transformation_method: nil
       },
       'Date Accessioned': {
-        destination: 'b1g_dateAccessioned_s',
+        destination: GEOMG.FIELDS.B1G_DATE_ACCESSIONED,
         delimited: false,
         transformation_method: nil
       },
       'Date Retired': {
-        destination: 'b1g_dateRetired_s',
+        destination: GEOMG.FIELDS.B1G_DATE_RETIRED,
         delimited: false,
         transformation_method: nil
       },
       'Rights': {
-        destination: 'dc_rights_s',
+        destination: GEOMG.FIELDS.RIGHTS,
         delimited: false,
         transformation_method: nil
       },
       'Access Rights': {
-        destination: 'dct_accessRights_sm',
+        destination: GEOMG.FIELDS.ACCESS_RIGHTS,
         delimited: true,
         transformation_method: nil
       },
       'Suppressed': {
-        destination: 'suppressed_b',
+        destination: GEOMG.FIELDS.SUPPRESSED,
         delimited: false,
         transformation_method: nil
       },
       'Child': {
-        destination: 'b1g_child_record_b',
+        destination: GEOMG.FIELDS.B1G_CHILD_RECORD,
         delimited: false,
         transformation_method: nil
       }

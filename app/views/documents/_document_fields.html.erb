@@ -3,87 +3,87 @@
 <div class="grouping">
   <h3 id="descriptive">Descriptive</h3>
   <%= f.input :title, hint: "Theme: city, state, temporal coverage" %>
-  <%= f.repeatable_attr_input :dct_alternativeTitle_sm, build: :at_least_one %>
-  <%= f.input :dc_description_s, as: :text, input_html: { rows: 5 }, label: "Description" %>
-  <%= f.repeatable_attr_input :dc_language_sm, build: :at_least_one,
+  <%= f.repeatable_attr_input GEOMG.FIELDS.ALT_TITLE, build: :at_least_one %>
+  <%= f.input GEOMG.FIELDS.DESCRIPTION, as: :text, input_html: { rows: 5 }, label: "Description" %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.LANGUAGE, build: :at_least_one,
   html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "languages")} %>
 </div>
 
 <div class="grouping">
   <h3 id="credits">Credits</h3>
-  <%= f.repeatable_attr_input :dc_creator_sm, build: :at_least_one %>
-  <%= f.repeatable_attr_input :dc_publisher_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.CREATOR, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.PUBLISHER, build: :at_least_one %>
 </div>
 
 <div class="grouping">
   <h3 id="categories">Categories</h3>
-  <%= f.repeatable_attr_input :b1g_genre_sm, build: :at_least_one do |input_name, value| %>
-    <%= f.input_field :b1g_genre_sm, selected: value, include_blank: true, id: nil,
+  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_GENRE, build: :at_least_one do |input_name, value| %>
+    <%= f.input_field GEOMG.FIELDS.B1G_GENRE, selected: value, include_blank: true, id: nil,
         collection: Document::ControlledLists::GENRE,
         name: input_name,
         class: "form-control input-primitive" %>
   <% end %>
-  <%= f.repeatable_attr_input :dc_subject_sm, build: :at_least_one %>
-  <%= f.repeatable_attr_input :b1g_keyword_sm, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.SUBJECT, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_KEYWORD, build: :at_least_one %>
 </div>
 
 <div class="grouping">
   <h3 id="temporal">Temporal</h3>
-  <%= f.input :dct_issued_s, label: "Date Issued", hint: "YYYY-MM-DD", input_html: { data: {js: :datepicker} } %>
-  <%= f.repeatable_attr_input :dct_temporal_sm, build: :at_least_one %>
-  <%= f.repeatable_attr_input :b1g_date_range_drsim, build: :at_least_one,
+  <%= f.input GEOMG.FIELDS.ISSUED, label: "Date Issued", hint: "YYYY-MM-DD", input_html: { data: {js: :datepicker} } %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.TEMPORAL, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_DATE_RANGE, build: :at_least_one,
   html_attributes: { "data-inputmask-regex" => "'mask': '/\d{4}|\*-\d{4}|\*/'", 'placeholder': 'YYYY-YYYY'} %>
 </div>
 
 <div class="grouping">
   <h3 id="spatial">Spatial</h3>
-  <%= f.repeatable_attr_input :dct_spatial_sm, build: :at_least_one %>
-  <%= f.repeatable_attr_input :b1g_geonames_sm, build: :at_least_one %>
-  <%= f.input :solr_geom, label: "Bounding Box", hint: "ENVELOPE(minX, maxX, maxY, minY)" %>
-  <%= f.input :b1g_centroid_ss, label: "Centroid" %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.SPATIAL, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_GEONAMES, build: :at_least_one %>
+  <%= f.input GEOMG.FIELDS.GEOM, label: "Bounding Box", hint: "ENVELOPE(minX, maxX, maxY, minY)" %>
+  <%= f.input GEOMG.FIELDS.B1G_CENTROID, label: "Centroid" %>
 </div>
 
 <h2 id="distribution">Distribution</h2>
 
 <div class="grouping">
   <h3 id="object">Object</h3>
-  <%= f.repeatable_attr_input :dc_type_sm, build: :at_least_one do |input_name, value| %>
-    <%= f.input_field :dc_type_sm, selected: value, include_blank: true, id: nil,
+  <%= f.repeatable_attr_input GEOMG.FIELDS.TYPE, build: :at_least_one do |input_name, value| %>
+    <%= f.input_field GEOMG.FIELDS.TYPE, selected: value, include_blank: true, id: nil,
         collection: Document::ControlledLists::TYPE,
         name: input_name,
         class: "form-control input-primitive" %>
   <% end %>
-  <%= f.input :layer_geom_type_s, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Geometry Type"  %>
-  <%= f.input :dc_format_s, required: true, :input_html => { :data => { "scihist-qa-autocomplete" => qa_search_vocab_path("local", "formats")}}, label: "Format" %>
-  <%= f.input :layer_id_s, label: "Layer ID" %>
+  <%= f.input GEOMG.FIELDS.LAYER_GEOM_TYPE, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Geometry Type"  %>
+  <%= f.input GEOMG.FIELDS.FORMAT, required: true, :input_html => { :data => { "scihist-qa-autocomplete" => qa_search_vocab_path("local", "formats")}}, label: "Format" %>
+  <%= f.input GEOMG.FIELDS.LAYER_ID, label: "Layer ID" %>
 </div>
 
 <div class="grouping">
   <h3 id="references">References</h3>
-  <%= f.repeatable_attr_input(:dct_references_s, build: :at_least_one) do |sub_form| %>
+  <%= f.repeatable_attr_input(GEOMG.FIELDS.REFERENCES, build: :at_least_one) do |sub_form| %>
     <%= category_and_value(sub_form, category_list: Document::Reference::REFERENCE_VALUES.keys) %>
   <% end %>
-  <%= f.input :b1g_image_ss, label: "B1G Image URL" %>
+  <%= f.input GEOMG.FIELDS.B1G_IMAGE, label: "B1G Image URL" %>
 </div>
 
 <h2 id="administrative">Administrative</h2>
 <div class="grouping">
   <h3 id="codes">Codes</h3>
-  <%= f.input :dc_identifier_s, required: true, label: "Identifier" %>
-  <%= f.input :layer_slug_s, required: true, label: "Slug" %>
-  <%= f.input :dct_provenance_s, label: "Provenance", hint: "Minnesota" %>
-  <%= f.input :b1g_code_s, label: "Code" %>
-  <%= f.repeatable_attr_input :dct_isPartOf_sm, build: :at_least_one %>
-  <%= f.repeatable_attr_input :dc_source_sm, build: :at_least_one %>
+  <%= f.input GEOMG.FIELDS.IDENTIFIER, required: true, label: "Identifier" %>
+  <%= f.input GEOMG.FIELDS.LAYER_SLUG, required: true, label: "Slug" %>
+  <%= f.input GEOMG.FIELDS.PROVENANCE, label: "Provenance", hint: "Minnesota" %>
+  <%= f.input GEOMG.FIELDS.B1G_CODE, label: "Code" %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.IS_PART_OF, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.SOURCE, build: :at_least_one %>
 </div>
 
 <div class="grouping">
   <h3 id="life-cycle">Life Cycle</h3>
-  <%= f.input :b1g_status_s, label: 'Status', required: true, collection: Document::ControlledLists::B1G_STATUS %>
-  <%= f.input :dct_accrualMethod_s, label: "Accrual Method" %>
-  <%= f.input :dct_accrualPeriodicity_s, collection: Document::ControlledLists::ACCRUAL_PERIODICITY, label: "Accrual Periodicity" %>
-  <%= f.input :b1g_dateAccessioned_s, label: "Date Accessioned", hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
-  <%= f.input :b1g_dateRetired_s, label: 'Date Retired', hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
+  <%= f.input GEOMG.FIELDS.B1G_STATUS, label: 'Status', required: true, collection: Document::ControlledLists::B1G_STATUS %>
+  <%= f.input GEOMG.FIELDS.ACCRUAL_METHOD, label: "Accrual Method" %>
+  <%= f.input GEOMG.FIELDS.ACCRUAL_PERIODICITY, collection: Document::ControlledLists::ACCRUAL_PERIODICITY, label: "Accrual Periodicity" %>
+  <%= f.input GEOMG.FIELDS.B1G_DATE_ACCESSIONED, label: "Date Accessioned", hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
+  <%= f.input GEOMG.FIELDS.B1G_DATE_RETIRED, label: 'Date Retired', hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
   <% if @document.persisted? %>
     <%= f.input :publication_state, label: 'Publication State', required: true, collection: Document::ControlledLists::PUBLICATION_STATE %>
   <% else %>
@@ -93,9 +93,9 @@
 
 <div class="grouping">
   <h3 id="accessibility">Accessibility</h3>
-  <%= f.input :dc_rights_s, required: true, collection: Document::ControlledLists::RIGHTS, label: "Rights" %>
-  <%= f.repeatable_attr_input :dct_accessRights_sm, build: :at_least_one %>
-  <%= f.input :suppressed_b, as: :boolean, inline_label: 'Suppressed' %>
-  <%= f.input :b1g_child_record_b, as: :boolean, inline_label: 'Child' %>
+  <%= f.input GEOMG.FIELDS.RIGHTS, required: true, collection: Document::ControlledLists::RIGHTS, label: "Rights" %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.ACCESS_RIGHTS, build: :at_least_one %>
+  <%= f.input GEOMG.FIELDS.SUPPRESSED, as: :boolean, inline_label: 'Suppressed' %>
+  <%= f.input GEOMG.FIELDS.B1G_CHILD_RECORD, as: :boolean, inline_label: 'Child' %>
 </div>
 <hr/>

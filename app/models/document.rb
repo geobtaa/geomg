@@ -48,73 +48,73 @@ class Document < Kithe::Work
   # Identification
   # - Descriptive
   attr_json GEOMG.FIELDS.TITLE, :string
-  attr_json :dct_alternativeTitle_sm, :string, array: true, default: -> { [] }
-  attr_json :dc_description_s, :text
-  attr_json :dc_language_sm, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.ALT_TITLE, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.DESCRIPTION, :text
+  attr_json GEOMG.FIELDS.LANGUAGE, :string, array: true, default: -> { [] }
 
   # - Credits
-  attr_json :dc_creator_sm, :string, array: true, default: -> { [] }
-  attr_json :dc_publisher_sm, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.CREATOR, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.PUBLISHER, :string, array: true, default: -> { [] }
 
   # - Categories
-  attr_json :b1g_genre_sm, :string, array: true, default: -> { [] }
-  attr_json :dc_subject_sm, :string, array: true, default: -> { [] }
-  attr_json :b1g_keyword_sm, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_GENRE, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.SUBJECT, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_KEYWORD, :string, array: true, default: -> { [] }
 
   # - Temporal
-  attr_json :dct_issued_s, :string
-  attr_json :dct_temporal_sm, :string, array: true, default: -> { [] }
-  attr_json :b1g_date_range_drsim, :string, array: true, default: -> { [] }
-  attr_json :solr_year_i, :integer
+  attr_json GEOMG.FIELDS.ISSUED, :string
+  attr_json GEOMG.FIELDS.TEMPORAL, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_DATE_RANGE, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.YEAR, :integer
 
   # - Spatial
-  attr_json :dct_spatial_sm, :string, array: true, default: -> { [] }
-  attr_json :b1g_geonames_sm, :string, array: true, default: -> { [] }
-  attr_json :solr_geom, :string
-  attr_json :b1g_centroid_ss, :string
+  attr_json GEOMG.FIELDS.SPATIAL, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_GEONAMES, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.GEOM, :string
+  attr_json GEOMG.FIELDS.B1G_CENTROID, :string
 
   # Distribution
   # - Object
-  attr_json :dc_type_sm, :string, array: true, default: -> { [] }
-  attr_json :layer_geom_type_s, :string
-  attr_json :layer_id_s, :string
-  attr_json :dc_format_s, :string
+  attr_json GEOMG.FIELDS.TYPE, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.LAYER_GEOM_TYPE, :string
+  attr_json GEOMG.FIELDS.LAYER_ID, :string
+  attr_json GEOMG.FIELDS.FORMAT, :string
 
   # - Access Links
   # - Geospatial Web Services
   # - Images
   # - Metadata
-  attr_json :dct_references_s, Document::Reference.to_type, array: true, default: -> { [] }
-  attr_json :b1g_image_ss, :string
+  attr_json GEOMG.FIELDS.REFERENCES, Document::Reference.to_type, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_IMAGE, :string
 
   # Administrative
   # - Codes
-  attr_json :dc_identifier_s, :string
-  attr_json :layer_slug_s, :string
-  attr_json :dct_provenance_s, :string
-  attr_json :b1g_code_s, :string
-  attr_json :dct_isPartOf_sm, :string, array: true, default: -> { [] }
-  attr_json :dc_source_sm, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.IDENTIFIER, :string
+  attr_json GEOMG.FIELDS.LAYER_SLUG, :string
+  attr_json GEOMG.FIELDS.PROVENANCE, :string
+  attr_json GEOMG.FIELDS.B1G_CODE, :string
+  attr_json GEOMG.FIELDS.IS_PART_OF, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.SOURCE, :string, array: true, default: -> { [] }
 
   # - Status
-  attr_json :b1g_status_s, :string
-  attr_json :dct_accrualMethod_s, :string
-  attr_json :dct_accrualPeriodicity_s, :string
-  attr_json :b1g_dateAccessioned_s, :string
-  attr_json :b1g_dateRetired_s, :string
+  attr_json GEOMG.FIELDS.B1G_STATUS, :string
+  attr_json GEOMG.FIELDS.ACCRUAL_METHOD, :string
+  attr_json GEOMG.FIELDS.ACCRUAL_PERIODICITY, :string
+  attr_json GEOMG.FIELDS.B1G_DATE_ACCESSIONED, :string
+  attr_json GEOMG.FIELDS.B1G_DATE_RETIRED, :string
 
   # - Accessibility
-  attr_json :dc_rights_s, :string
-  attr_json :dct_accessRights_sm, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.RIGHTS, :string
+  attr_json GEOMG.FIELDS.ACCESS_RIGHTS, :string, array: true, default: -> { [] }
 
   # @TODO: Why are booleans not passed in form params?
-  attr_json :suppressed_b, :boolean
-  attr_json :b1g_child_record_b, :boolean
+  attr_json GEOMG.FIELDS.SUPPRESSED, :boolean
+  attr_json GEOMG.FIELDS.B1G_CHILD_RECORD, :boolean
 
   # Index Transformations - *_json functions
   def references_json
     references = {}
-    dct_references_s.each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
+    send(GEOMG.FIELDS.REFERENCES).each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
     references.to_json
   end
 
@@ -130,7 +130,7 @@ class Document < Kithe::Work
 
   def date_range_json
     date_ranges = []
-    b1g_date_range_drsim.each do |date_range|
+    send(GEOMG.FIELDS.B1G_DATE_RANGE).each do |date_range|
       start_d, end_d = date_range.split('-')
       start_d = '*' if start_d == 'YYYY' || start_d.nil?
       end_d   = '*' if end_d == 'YYYY' || end_d.nil?
@@ -140,9 +140,9 @@ class Document < Kithe::Work
   end
 
   def solr_year_json
-    return nil if b1g_date_range_drsim.blank?
+    return nil if send(GEOMG.FIELDS.B1G_DATE_RANGE).blank?
 
-    start_d, _end_d = b1g_date_range_drsim.first.split('-')
+    start_d, _end_d = send(GEOMG.FIELDS.B1G_DATE_RANGE).first.split('-')
     start_d if start_d.presence
   end
 
