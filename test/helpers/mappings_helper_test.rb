@@ -9,9 +9,14 @@ class MappingsHelperTest < ActionView::TestCase
   end
 
   test 'attribute_collection' do
+    puts attribute_collection.inspect
+    attrs = [GEOMG.FIELDS.B1G_CENTROID, GEOMG.FIELDS.B1G_CHILD_RECORD, GEOMG.FIELDS.B1G_CODE, GEOMG.FIELDS.B1G_DATE_ACCESSIONED, GEOMG.FIELDS.B1G_DATE_RETIRED, GEOMG.FIELDS.B1G_DATE_RANGE, GEOMG.FIELDS.B1G_GENRE, GEOMG.FIELDS.B1G_GEONAMES, GEOMG.FIELDS.B1G_IMAGE, GEOMG.FIELDS.B1G_KEYWORD, GEOMG.FIELDS.B1G_STATUS, GEOMG.FIELDS.CREATOR, GEOMG.FIELDS.DESCRIPTION, GEOMG.FIELDS.FORMAT, GEOMG.FIELDS.IDENTIFIER, GEOMG.FIELDS.LANGUAGE, GEOMG.FIELDS.PUBLISHER, GEOMG.FIELDS.RIGHTS, GEOMG.FIELDS.SOURCE, GEOMG.FIELDS.SUBJECT, GEOMG.FIELDS.TITLE, GEOMG.FIELDS.TYPE, GEOMG.FIELDS.ACCESS_RIGHTS, GEOMG.FIELDS.ACCRUAL_METHOD, GEOMG.FIELDS.ACCRUAL_PERIODICITY, GEOMG.FIELDS.ALT_TITLE, GEOMG.FIELDS.IS_PART_OF, GEOMG.FIELDS.ISSUED, GEOMG.FIELDS.PROVENANCE, GEOMG.FIELDS.REFERENCES, GEOMG.FIELDS.SPATIAL, GEOMG.FIELDS.TEMPORAL, GEOMG.FIELDS.LAYER_GEOM_TYPE, GEOMG.FIELDS.LAYER_ID, GEOMG.FIELDS.LAYER_SLUG, GEOMG.FIELDS.GEOM, GEOMG.FIELDS.YEAR, GEOMG.FIELDS.SUPPRESSED].map(&:to_sym)
+    attrs.prepend('')
+    attrs.prepend('Discard')
+
     assert_equal(
       attribute_collection,
-      ['Discard', '', :b1g_centroid_ss, :b1g_child_record_b, :b1g_code_s, :b1g_dateAccessioned_s, :b1g_dateRetired_s, :b1g_date_range_drsim, :b1g_genre_sm, :b1g_geonames_sm, :b1g_image_ss, :b1g_keyword_sm, :b1g_status_s, :dc_creator_sm, :dc_description_s, :dc_format_s, :dc_identifier_s, :dc_language_sm, :dc_publisher_sm, :dc_rights_s, :dc_source_sm, :dc_subject_sm, :dc_title_s, :dc_type_sm, :dct_accessRights_sm, :dct_accrualMethod_s, :dct_accrualPeriodicity_s, :dct_alternativeTitle_sm, :dct_isPartOf_sm, :dct_issued_s, :dct_provenance_s, :dct_references_s, :dct_spatial_sm, :dct_temporal_sm, :layer_geom_type_s, :layer_id_s, :layer_slug_s, :solr_geom, :solr_year_i, :suppressed_b]
+      attrs
     )
   end
 
