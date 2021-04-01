@@ -72,9 +72,9 @@
     },
     "dct_issued_s": { "type": "string" },
     "gbl_indexYear_im": {
-      "type": "integer",
+      "type": "array",
       "items": {
-        "type": "string"
+        "type": "integer"
       }
     },
     "gbl_dateRange_drsim": {
@@ -155,7 +155,12 @@
     "dct_format_s": { "type": "string" },
     "gbl_fileSize_s": { "type": "string" },
     "gbl_wxsIdentifier_s": { "type": "string" },
-    "dct_references_s": { "type": "string" },
+    "dct_references_s": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
     "id": { "type": "string" },
     "dct_identifier_sm": {
       "type": "array",
@@ -182,7 +187,7 @@
     "b1g_dateAccessioned_sm": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
         "format": "date"
       }
     },
@@ -193,5 +198,5 @@
     "b1g_child_record_b": { "type": "boolean" },
     "b1g_status_s": { "type": "string" }
   },
-  "required": ["dct_title_s", "gbl_resourceClass_sm", "gbl_indexYear_i", "dct_accessRights_s", "id"]
+  "required": ["dct_title_s", "gbl_resourceClass_sm", "gbl_indexYear_im", "dct_accessRights_s", "id"]
 }

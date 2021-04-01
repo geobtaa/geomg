@@ -82,6 +82,7 @@ group :development, :test do
   gem 'byebug'
   gem 'inquisition', github: 'rubygarage/inquisition', branch: 'develop'
   gem 'solr_wrapper', '~> 3.1'
+  gem 'json_schemer'
 end
 
 group :development do
