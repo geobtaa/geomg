@@ -1,0 +1,5 @@
+# Solr Field Mappings
+#
+# Vernacular => Solr Schema
+FIELDS:
+  :ALT_TITLE: 'dct_alternativeTitle_sm'
