@@ -46,7 +46,7 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new(document_params)
-    @document.friendlier_id = @document.dc_identifier_s
+    @document.friendlier_id = @document.dct_identifier_sm
     respond_to do |format|
       if @document.save
         format.html { redirect_to documents_path, notice: 'Document was successfully created.' }
@@ -111,7 +111,7 @@ class DocumentsController < ApplicationController
   # This could be done in a form object or otherwise abstracted, but this is good
   # enough for now.
   def permittable_params
-    %i[title publication_state layer_slug_s layer_geom_type_s dct_references_s q f page sort rows]
+    %i[title publication_state layer_geom_type_s dct_references_s q f page sort rows]
   end
 
   def document_params

@@ -32,7 +32,7 @@ FIELDS:
   :LAYER_GEOM_TYPE: 'gbl_resourceType_sm' # @TODO: Rename to RESOURCE_TYPE
   :LAYER_ID: 'gbl_wxsIdentifier_s' # @TODO: Rename to WXS_IDENTIFIER
   :LAYER_MODIFIED: 'gbl_mdModified_dt'
-  :LAYER_SLUG: 'id' # @TODO: Rename to ID
+  :LAYER_SLUG: 'geomg_id_s' # @TODO: Rename to ID
   :LICENSE: 'dct_license_sm' # @TODO: New field
   :MEMBER_OF: 'pcdm_memberOf_sm' # @TODO: New field
   :METADATA_VERSION: 'gbl_mdVersion_s' # @TODO: New assumed/hidden field
