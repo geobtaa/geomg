@@ -76,7 +76,7 @@ class Document < Kithe::Work
   # Distribution
   # - Object
   attr_json GEOMG.FIELDS.TYPE, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LAYER_GEOM_TYPE, :string
+  attr_json GEOMG.FIELDS.LAYER_GEOM_TYPE, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.LAYER_ID, :string
   attr_json GEOMG.FIELDS.FORMAT, :string
 
@@ -100,7 +100,7 @@ class Document < Kithe::Work
   attr_json GEOMG.FIELDS.B1G_STATUS, :string
   attr_json GEOMG.FIELDS.B1G_ACCRUAL_METHOD, :string
   attr_json GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY, :string
-  attr_json GEOMG.FIELDS.B1G_DATE_ACCESSIONED, :string
+  attr_json GEOMG.FIELDS.B1G_DATE_ACCESSIONED, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.B1G_DATE_RETIRED, :string
 
   # - Accessibility

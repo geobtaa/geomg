@@ -53,7 +53,12 @@
         name: input_name,
         class: "form-control input-primitive" %>
   <% end %>
-  <%= f.input GEOMG.FIELDS.LAYER_GEOM_TYPE, required: true, collection: Document::ControlledLists::LAYER_GEOM_TYPES, label: "Geometry Type"  %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.LAYER_GEOM_TYPE, build: :at_least_one do |input_name, value| %>
+    <%= f.input_field GEOMG.FIELDS.LAYER_GEOM_TYPE, selected: value, include_blank: true, id: nil,
+      collection: Document::ControlledLists::LAYER_GEOM_TYPES,
+      name: input_name,
+      class: "form-control input-primitive" %>
+  <% end %>
   <%= f.input GEOMG.FIELDS.FORMAT, required: true, :input_html => { :data => { "scihist-qa-autocomplete" => qa_search_vocab_path("local", "formats")}}, label: "Format" %>
   <%= f.input GEOMG.FIELDS.LAYER_ID, label: "Layer ID" %>
 </div>
@@ -69,7 +74,7 @@
 <h2 id="administrative">Administrative</h2>
 <div class="grouping">
   <h3 id="codes">Codes</h3>
-  <%= f.input GEOMG.FIELDS.IDENTIFIER, required: true, label: "Identifier" %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.IDENTIFIER, build: :at_least_one %>
   <%= f.input GEOMG.FIELDS.LAYER_SLUG, required: true, label: "Slug" %>
   <%= f.input GEOMG.FIELDS.PROVENANCE, label: "Provenance", hint: "Minnesota" %>
   <%= f.input GEOMG.FIELDS.B1G_CODE, label: "Code" %>
@@ -82,7 +87,9 @@
   <%= f.input GEOMG.FIELDS.B1G_STATUS, label: 'Status', required: true, collection: Document::ControlledLists::B1G_STATUS %>
   <%= f.input GEOMG.FIELDS.B1G_ACCRUAL_METHOD, label: "Accrual Method" %>
   <%= f.input GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY, collection: Document::ControlledLists::B1G_ACCRUAL_PERIODICITY, label: "Accrual Periodicity" %>
-  <%= f.input GEOMG.FIELDS.B1G_DATE_ACCESSIONED, label: "Date Accessioned", hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
+
+  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_DATE_ACCESSIONED, build: :at_least_one %>
+
   <%= f.input GEOMG.FIELDS.B1G_DATE_RETIRED, label: 'Date Retired', hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
   <% if @document.persisted? %>
     <%= f.input :publication_state, label: 'Publication State', required: true, collection: Document::ControlledLists::PUBLICATION_STATE %>
