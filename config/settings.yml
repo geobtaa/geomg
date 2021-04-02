@@ -2,41 +2,53 @@
 #
 # Vernacular => Solr Schema
 FIELDS:
-  :ACCESS_RIGHTS: 'dct_accessRights_sm'
-  :ACCRUAL_METHOD: 'dct_accrualMethod_s'
-  :ACCRUAL_PERIODICITY: 'dct_accrualPeriodicity_s'
-  :ALT_TITLE: 'dct_alternativeTitle_sm'
-  :B1G_CENTROID: 'b1g_centroid_ss'
+  :ACCESS_RIGHTS: 'dct_rights_sm'
+  :ALT_TITLE: 'dct_alternative_sm'
+  :B1G_ACCRUAL_METHOD: 'b1g_dct_accrualMethod_s'
+  :B1G_ACCRUAL_PERIODICITY: 'b1g_dct_accrualPeriodicity_s'
+  :B1G_CENTROID: 'dcat_centroid_ss' # @TODO: Rename to CENTROID
   :B1G_CHILD_RECORD: 'b1g_child_record_b'
   :B1G_CODE: 'b1g_code_s'
-  :B1G_DATE_ACCESSIONED: 'b1g_dateAccessioned_s'
-  :B1G_DATE_RANGE: 'b1g_date_range_drsim'
+  :B1G_DATE_ACCESSIONED: 'b1g_dateAccessioned_sm'
+  :B1G_DATE_RANGE: 'gbl_dateRange_drsim' # @TODO: Rename to DATE_RANGE
   :B1G_DATE_RETIRED: 'b1g_dateRetired_s'
-  :B1G_GENRE: 'b1g_genre_sm'
+  :B1G_GENRE: 'gbl_resourceClass_sm' # @TODO: Rename to RESOURCE_CLASS
   :B1G_GEONAMES: 'b1g_geonames_sm'
   :B1G_IMAGE: 'b1g_image_ss'
-  :B1G_KEYWORD: 'b1g_keyword_sm'
+  :B1G_KEYWORD: 'dcat_keyword_sm' # @TODO Rename to KEYWORD
   :B1G_STATUS: 'b1g_status_s'
-  :CREATOR: 'dc_creator_sm'
-  :DESCRIPTION: 'dc_description_s'
-  :FORMAT: 'dc_format_s'
-  :GEOM: 'solr_geom'
-  :IDENTIFIER: 'dc_identifier_s'
+  :CREATOR: 'dct_creator_sm'
+  :DESCRIPTION: 'dct_description_sm'
+  :FILE_SIZE: 'gbl_fileSize_s' # @TODO: New field
+  :FORMAT: 'dct_format_s'
+  :GEOM: 'locn_geometry' # @TODO: New Solr field name
+  :GEOREFERENCED: 'gbl_georeferenced_b' # @TODO: New field
+  :IDENTIFIER: 'dct_identifier_sm'
   :IS_PART_OF: 'dct_isPartOf_sm'
+  :IS_REPLACED_BY: 'dct_isReplacedBy_sm' # @TODO: New field
+  :IS_VERSION_OF: 'dct_isVersionOf_sm' # @TODO: New field
   :ISSUED: 'dct_issued_s'
-  :LANGUAGE: 'dc_language_sm'
-  :LAYER_GEOM_TYPE: 'layer_geom_type_s'
-  :LAYER_ID: 'layer_id_s'
-  :LAYER_SLUG: 'layer_slug_s'
-  :PROVENANCE: 'dct_provenance_s'
-  :PUBLISHER: 'dc_publisher_sm'
+  :LANGUAGE: 'dct_language_sm'
+  :LAYER_GEOM_TYPE: 'gbl_resourceType_sm' # @TODO: Rename to RESOURCE_TYPE
+  :LAYER_ID: 'gbl_wxsIdentifier_s' # @TODO: Rename to WXS_IDENTIFIER
+  :LAYER_MODIFIED: 'gbl_mdModified_dt'
+  :LAYER_SLUG: 'id' # @TODO: Rename to ID
+  :LICENSE: 'dct_license_sm' # @TODO: New field
+  :MEMBER_OF: 'pcdm_memberOf_sm' # @TODO: New field
+  :METADATA_VERSION: 'gbl_mdVersion_s' # @TODO: New assumed/hidden field
+  :PROVENANCE: 'schema_provider_s'
+  :PUBLISHER: 'dct_publisher_sm'
   :REFERENCES: 'dct_references_s'
-  :RIGHTS: 'dc_rights_s'
-  :SOURCE: 'dc_source_sm'
+  :RELATION: 'dct_relation_sm' # @TODO: New field
+  :REPLACES: 'dct_replaces_sm' # @TODO: New field
+  :RIGHTS: 'dct_accessRights_s'
+  :RIGHTS_HOLDER: 'dct_rightsHolder_sm' # @TODO: New field
+  :SOURCE: 'dct_source_sm'
   :SPATIAL: 'dct_spatial_sm'
-  :SUBJECT: 'dc_subject_sm'
-  :SUPPRESSED: 'suppressed_b'
+  :SUBJECT: 'dct_subject_sm'
+  :SUPPRESSED: 'gbl_suppressed_b'
   :TEMPORAL: 'dct_temporal_sm'
-  :TITLE: 'dc_title_s'
-  :TYPE: 'dc_type_sm'
-  :YEAR: 'solr_year_i'
+  :THEME: 'dcat_theme_sm' # @TODO: New field
+  :TITLE: 'dct_title_s'
+  :TYPE: 'dc_type_sm' # @TODO: Field deprecated
+  :YEAR: 'gbl_indexYear_im'

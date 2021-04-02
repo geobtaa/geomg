@@ -15,7 +15,7 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     assert_equal output_hash['model_pk_ssi'], [@document.id]
 
     # GeoBlacklight
-    assert_equal output_hash['geoblacklight_version'], ['1.0']
+    assert_equal output_hash['gbl_mdVersion_s'], ['Aardvark']
 
     # Form
     # Identification

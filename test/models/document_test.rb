@@ -78,8 +78,8 @@ class DocumentTest < ActiveSupport::TestCase
 
     # - Status
     assert_respond_to @document, GEOMG.FIELDS.B1G_STATUS
-    assert_respond_to @document, GEOMG.FIELDS.ACCRUAL_METHOD
-    assert_respond_to @document, GEOMG.FIELDS.ACCRUAL_PERIODICITY
+    assert_respond_to @document, GEOMG.FIELDS.B1G_ACCRUAL_METHOD
+    assert_respond_to @document, GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY
     assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_ACCESSIONED
     assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_RETIRED
 

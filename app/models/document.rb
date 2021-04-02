@@ -30,10 +30,10 @@ class Document < Kithe::Work
   self.kithe_indexable_mapper = DocumentIndexer.new
 
   # Validations
-  validates :b1g_status_s, :dc_identifier_s, :dc_rights_s, :layer_geom_type_s, :layer_slug_s, presence: true
+  validates :b1g_status_s, :dct_identifier_sm, :dct_accessRights_s, :gbl_resourceType_sm, presence: true
 
   # @TODO: Test for collection and restricted
-  validates :dc_format_s, presence: true, unless: :a_collection_object?
+  validates :dct_format_s, presence: true, unless: :a_collection_object?
 
   # Interactive Resouce
   # Restricted items!
@@ -49,7 +49,7 @@ class Document < Kithe::Work
   # - Descriptive
   attr_json GEOMG.FIELDS.TITLE, :string
   attr_json GEOMG.FIELDS.ALT_TITLE, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.DESCRIPTION, :text
+  attr_json GEOMG.FIELDS.DESCRIPTION, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.LANGUAGE, :string, array: true, default: -> { [] }
 
   # - Credits
@@ -89,7 +89,7 @@ class Document < Kithe::Work
 
   # Administrative
   # - Codes
-  attr_json GEOMG.FIELDS.IDENTIFIER, :string
+  attr_json GEOMG.FIELDS.IDENTIFIER, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.LAYER_SLUG, :string
   attr_json GEOMG.FIELDS.PROVENANCE, :string
   attr_json GEOMG.FIELDS.B1G_CODE, :string
@@ -98,8 +98,8 @@ class Document < Kithe::Work
 
   # - Status
   attr_json GEOMG.FIELDS.B1G_STATUS, :string
-  attr_json GEOMG.FIELDS.ACCRUAL_METHOD, :string
-  attr_json GEOMG.FIELDS.ACCRUAL_PERIODICITY, :string
+  attr_json GEOMG.FIELDS.B1G_ACCRUAL_METHOD, :string
+  attr_json GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY, :string
   attr_json GEOMG.FIELDS.B1G_DATE_ACCESSIONED, :string
   attr_json GEOMG.FIELDS.B1G_DATE_RETIRED, :string
 
@@ -153,7 +153,7 @@ class Document < Kithe::Work
     attributes.map do |key, value|
       if value[:delimited]
         send(value[:destination]).join('|')
-      elsif value[:destination] == 'solr_geom'
+      elsif value[:destination] == 'locn_geometry'
         solr_geom_to_csv(value[:destination])
       elsif value[:destination] == 'dct_references_s'
         dct_references_s_to_csv(key, value[:destination])

@@ -14,7 +14,7 @@ class Document
       valid_geom = true
 
       # Sane for Solr?
-      unless record.solr_geom.nil?
+      unless record.send(GEOMG.FIELDS.GEOM).nil?
         valid_geom = starts_with_envelope(record, valid_geom)
         valid_geom = ends_with_parenthesis(record, valid_geom)
         proper_bounding_box(record, valid_geom)
@@ -24,17 +24,17 @@ class Document
     end
 
     def starts_with_envelope(record, valid_geom)
-      unless record.solr_geom.start_with?('ENVELOPE(')
+      unless record.send(GEOMG.FIELDS.GEOM).start_with?('ENVELOPE(')
         valid_geom = false
-        record.errors.add(:solr_geom, 'Incorrect ENVELOPE() wrapper')
+        record.errors.add(GEOMG.FIELDS.GEOM, 'Incorrect ENVELOPE() wrapper')
       end
       valid_geom
     end
 
     def ends_with_parenthesis(record, valid_geom)
-      unless record.solr_geom.end_with?(')')
+      unless record.send(GEOMG.FIELDS.GEOM).end_with?(')')
         valid_geom = false
-        record.errors.add(:solr_geom, 'Incorrect ENVELOPE() wrapper')
+        record.errors.add(GEOMG.FIELDS.GEOM, 'Incorrect ENVELOPE() wrapper')
       end
       valid_geom
     end
@@ -43,22 +43,22 @@ class Document
       # Min/Max
       min_max = [-180.0, 180.0, -90.0, 90.0]
 
-      unless record.solr_geom.match(/\((.*?)\)/).nil?
-        geom = record.solr_geom.match(/\((.*?)\)/)[1].split(',')
+      unless record.send(GEOMG.FIELDS.GEOM).match(/\((.*?)\)/).nil?
+        geom = record.send(GEOMG.FIELDS.GEOM).match(/\((.*?)\)/)[1].split(',')
         if geom.empty?
           valid_geom = true
         elsif geom[0].to_f < min_max[0]
           valid_geom = false
-          record.errors.add(:solr_geom, 'invalid minX present')
+          record.errors.add(GEOMG.FIELDS.GEOM, 'invalid minX present')
         elsif geom[1].to_f > min_max[1]
           valid_geom = false
-          record.errors.add(:solr_geom, 'invalid maX present')
+          record.errors.add(GEOMG.FIELDS.GEOM, 'invalid maX present')
         elsif geom[2].to_f < min_max[2]
           valid_geom = false
-          record.errors.add(:solr_geom, 'invalid minY present')
+          record.errors.add(GEOMG.FIELDS.GEOM, 'invalid minY present')
         elsif geom[3].to_f > min_max[3]
           valid_geom = false
-          record.errors.add(:solr_geom, 'invalid maxY present')
+          record.errors.add(GEOMG.FIELDS.GEOM, 'invalid maxY present')
         end
       end
       valid_geom

@@ -4,7 +4,7 @@
   <h3 id="descriptive">Descriptive</h3>
   <%= f.input :title, hint: "Theme: city, state, temporal coverage" %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.ALT_TITLE, build: :at_least_one %>
-  <%= f.input GEOMG.FIELDS.DESCRIPTION, as: :text, input_html: { rows: 5 }, label: "Description" %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.DESCRIPTION, build: :at_least_one %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.LANGUAGE, build: :at_least_one,
   html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "languages")} %>
 </div>
@@ -80,8 +80,8 @@
 <div class="grouping">
   <h3 id="life-cycle">Life Cycle</h3>
   <%= f.input GEOMG.FIELDS.B1G_STATUS, label: 'Status', required: true, collection: Document::ControlledLists::B1G_STATUS %>
-  <%= f.input GEOMG.FIELDS.ACCRUAL_METHOD, label: "Accrual Method" %>
-  <%= f.input GEOMG.FIELDS.ACCRUAL_PERIODICITY, collection: Document::ControlledLists::ACCRUAL_PERIODICITY, label: "Accrual Periodicity" %>
+  <%= f.input GEOMG.FIELDS.B1G_ACCRUAL_METHOD, label: "Accrual Method" %>
+  <%= f.input GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY, collection: Document::ControlledLists::B1G_ACCRUAL_PERIODICITY, label: "Accrual Periodicity" %>
   <%= f.input GEOMG.FIELDS.B1G_DATE_ACCESSIONED, label: "Date Accessioned", hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
   <%= f.input GEOMG.FIELDS.B1G_DATE_RETIRED, label: 'Date Retired', hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
   <% if @document.persisted? %>

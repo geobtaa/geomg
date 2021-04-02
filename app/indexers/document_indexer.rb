@@ -7,7 +7,7 @@ class DocumentIndexer < Kithe::Indexer
     to_field 'model_pk_ssi', obj_extract('id') # the actual db pk, a UUID
 
     # GeoBlacklight
-    to_field 'geoblacklight_version', literal('1.0')
+    to_field 'gbl_mdVersion_s', literal('Aardvark')
 
     # Form
     # Identification
@@ -64,8 +64,8 @@ class DocumentIndexer < Kithe::Indexer
 
     # - Status
     to_field GEOMG.FIELDS.B1G_STATUS, obj_extract(GEOMG.FIELDS.B1G_STATUS)
-    to_field GEOMG.FIELDS.ACCRUAL_METHOD, obj_extract(GEOMG.FIELDS.ACCRUAL_METHOD)
-    to_field GEOMG.FIELDS.ACCRUAL_PERIODICITY, obj_extract(GEOMG.FIELDS.ACCRUAL_PERIODICITY)
+    to_field GEOMG.FIELDS.B1G_ACCRUAL_METHOD, obj_extract(GEOMG.FIELDS.B1G_ACCRUAL_METHOD)
+    to_field GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY, obj_extract(GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY)
     to_field GEOMG.FIELDS.B1G_DATE_ACCESSIONED, obj_extract(GEOMG.FIELDS.B1G_DATE_ACCESSIONED)
     to_field GEOMG.FIELDS.B1G_DATE_RETIRED, obj_extract(GEOMG.FIELDS.B1G_DATE_RETIRED)
     to_field 'b1g_publication_state_s', obj_extract('current_state')

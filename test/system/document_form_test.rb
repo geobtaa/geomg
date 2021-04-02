@@ -27,12 +27,12 @@ class DocumentFormTest < ApplicationSystemTestCase
   def test_form_elements
     visit '/documents/new'
     within('form#new_document') do
-      # dc_title_s
+      # title / dct_title_s
       assert page.has_selector?('input#document_title')
-      # dct_alternativeTitle_sm
-      assert page.has_selector?('input#document_dct_alternativeTitle_sm_attributes_', visible: false)
-      # dc_description_s
-      assert page.has_selector?('textarea#document_dc_description_s')
+      # dct_alternative_sm
+      assert page.has_selector?('input#document_dct_alternative_sm_attributes_', visible: false)
+      # dct_description_sm
+      assert page.has_selector?('input#document_dc_description_sm_attributes_', visible: false)
       # dc_language_sm
       assert page.has_selector?('input#document_dc_language_sm_attributes_', visible: false)
 

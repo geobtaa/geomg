@@ -81,8 +81,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'inquisition', github: 'rubygarage/inquisition', branch: 'develop'
-  gem 'solr_wrapper', '~> 3.1'
   gem 'json_schemer'
+  gem 'solr_wrapper', '~> 3.1'
 end
 
 group :development do

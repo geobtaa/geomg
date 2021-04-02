@@ -224,12 +224,12 @@ module Geomg
         transformation_method: nil
       },
       'Accrual Method': {
-        destination: GEOMG.FIELDS.ACCRUAL_METHOD,
+        destination: GEOMG.FIELDS.B1G_ACCRUAL_METHOD,
         delimited: false,
         transformation_method: nil
       },
       'Accrual Periodicity': {
-        destination: GEOMG.FIELDS.ACCRUAL_PERIODICITY,
+        destination: GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY,
         delimited: false,
         transformation_method: nil
       },
