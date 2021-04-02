@@ -47,69 +47,69 @@ class Document < Kithe::Work
   # Form
   # Identification
   # - Descriptive
-  attr_json GEOMG.FIELDS.TITLE, :string
-  attr_json GEOMG.FIELDS.ALT_TITLE, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.DESCRIPTION, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LANGUAGE, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.TITLE.to_sym, :string
+  attr_json GEOMG.FIELDS.ALT_TITLE.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.DESCRIPTION.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.LANGUAGE.to_sym, :string, array: true, default: -> { [] }
 
   # - Credits
-  attr_json GEOMG.FIELDS.CREATOR, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.PUBLISHER, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.CREATOR.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.PUBLISHER.to_sym, :string, array: true, default: -> { [] }
 
   # - Categories
-  attr_json GEOMG.FIELDS.B1G_GENRE, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.SUBJECT, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_KEYWORD, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_GENRE.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.SUBJECT.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_KEYWORD.to_sym, :string, array: true, default: -> { [] }
 
   # - Temporal
-  attr_json GEOMG.FIELDS.ISSUED, :string
-  attr_json GEOMG.FIELDS.TEMPORAL, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_DATE_RANGE, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.YEAR, :integer
+  attr_json GEOMG.FIELDS.ISSUED.to_sym, :string
+  attr_json GEOMG.FIELDS.TEMPORAL.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_DATE_RANGE.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.YEAR.to_sym, :integer
 
   # - Spatial
-  attr_json GEOMG.FIELDS.SPATIAL, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_GEONAMES, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.GEOM, :string
-  attr_json GEOMG.FIELDS.B1G_CENTROID, :string
+  attr_json GEOMG.FIELDS.SPATIAL.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_GEONAMES.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.GEOM.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_CENTROID.to_sym, :string
 
   # Distribution
   # - Object
-  attr_json GEOMG.FIELDS.TYPE, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LAYER_GEOM_TYPE, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LAYER_ID, :string
-  attr_json GEOMG.FIELDS.FORMAT, :string
+  attr_json GEOMG.FIELDS.TYPE.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.LAYER_GEOM_TYPE.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.LAYER_ID.to_sym, :string
+  attr_json GEOMG.FIELDS.FORMAT.to_sym, :string
 
   # - Access Links
   # - Geospatial Web Services
   # - Images
   # - Metadata
-  attr_json GEOMG.FIELDS.REFERENCES, Document::Reference.to_type, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_IMAGE, :string
+  attr_json GEOMG.FIELDS.REFERENCES.to_sym, Document::Reference.to_type, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_IMAGE.to_sym, :string
 
   # Administrative
   # - Codes
-  attr_json GEOMG.FIELDS.IDENTIFIER, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LAYER_SLUG, :string
-  attr_json GEOMG.FIELDS.PROVENANCE, :string
-  attr_json GEOMG.FIELDS.B1G_CODE, :string
-  attr_json GEOMG.FIELDS.IS_PART_OF, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.SOURCE, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.IDENTIFIER.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.LAYER_SLUG.to_sym, :string
+  attr_json GEOMG.FIELDS.PROVENANCE.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_CODE.to_sym, :string
+  attr_json GEOMG.FIELDS.IS_PART_OF.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.SOURCE.to_sym, :string, array: true, default: -> { [] }
 
   # - Status
-  attr_json GEOMG.FIELDS.B1G_STATUS, :string
-  attr_json GEOMG.FIELDS.B1G_ACCRUAL_METHOD, :string
-  attr_json GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY, :string
-  attr_json GEOMG.FIELDS.B1G_DATE_ACCESSIONED, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_DATE_RETIRED, :string
+  attr_json GEOMG.FIELDS.B1G_STATUS.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_ACCRUAL_METHOD.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_DATE_ACCESSIONED.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_DATE_RETIRED.to_sym, :string
 
   # - Accessibility
-  attr_json GEOMG.FIELDS.RIGHTS, :string
-  attr_json GEOMG.FIELDS.ACCESS_RIGHTS, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.RIGHTS.to_sym, :string
+  attr_json GEOMG.FIELDS.ACCESS_RIGHTS.to_sym, :string, array: true, default: -> { [] }
 
   # @TODO: Why are booleans not passed in form params?
-  attr_json GEOMG.FIELDS.SUPPRESSED, :boolean
-  attr_json GEOMG.FIELDS.B1G_CHILD_RECORD, :boolean
+  attr_json GEOMG.FIELDS.SUPPRESSED.to_sym, :boolean
+  attr_json GEOMG.FIELDS.B1G_CHILD_RECORD.to_sym, :boolean
 
   # Index Transformations - *_json functions
   def references_json
