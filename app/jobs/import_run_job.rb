@@ -13,9 +13,9 @@ class ImportRunJob < ApplicationJob
       converted_data = import.convert_data(extract_hash)
 
       kithe_document = {
-        title: converted_data['dc_title_s'],
+        title: converted_data[GEOMG.FIELDS.TITLE],
         json_attributes: converted_data,
-        friendlier_id: converted_data['layer_slug_s'],
+        friendlier_id: converted_data[GEOMG.FIELDS.LAYER_SLUG],
         import_id: import.id
       }
 
