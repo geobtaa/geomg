@@ -41,6 +41,8 @@ Layout/LineLength:
   Max: 140
 
 Metrics/AbcSize:
+  Exclude:
+    - 'app/models/document/solr_geom_validator.rb'
   Max: 40
 
 Metrics/BlockLength:
