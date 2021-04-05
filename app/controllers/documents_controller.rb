@@ -46,7 +46,7 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new(document_params)
-    @document.friendlier_id = @document.dct_identifier_sm
+    @document.friendlier_id = @document.send(GEOMG.FIELDS.LAYER_SLUG)
     respond_to do |format|
       if @document.save
         format.html { redirect_to documents_path, notice: 'Document was successfully created.' }

@@ -6,7 +6,8 @@
   <%= render 'documents/document_bookmark', document: document %>
 
   <%= "#{@documents.meta['pages']['offset_value'] + index + 1}." if @documents %>
-  <%= link_to document.send(GEOMG.FIELDS.TITLE), edit_document_path(document.friendlier_id) %>
+
+  <%= link_to document.title, edit_document_path(document.friendlier_id) %>
   &middot; <%= publication_state_badge(document) %>
   <% if document.send(GEOMG.FIELDS.PROVENANCE) %>
     &middot; <%= document.send(GEOMG.FIELDS.PROVENANCE) %>
@@ -14,7 +15,7 @@
   <% if document.send(GEOMG.FIELDS.TEMPORAL) %>
     &middot; <%= document.send(GEOMG.FIELDS.TEMPORAL).join("-") %>
   <% end %>
-  <% if document.send(GEOMG.FIELDS.DESCRIPTION) %>
+  <% if document.send(GEOMG.FIELDS.DESCRIPTION).present? %>
     <p><%= document.send(GEOMG.FIELDS.DESCRIPTION) %></p>
   <% end %>
 

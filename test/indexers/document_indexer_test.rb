@@ -30,7 +30,7 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     assert_equal output_hash[GEOMG.FIELDS.PUBLISHER], ['State of Iowa']
 
     # - Categories
-    assert_equal output_hash[GEOMG.FIELDS.B1G_GENRE], ['Geospatial data']
+    assert_equal output_hash[GEOMG.FIELDS.B1G_GENRE], ['Datasets']
     assert_equal output_hash[GEOMG.FIELDS.SUBJECT], ['Boundaries']
     assert_equal output_hash[GEOMG.FIELDS.B1G_KEYWORD], %w[iowa judicial districts boundaries]
 
@@ -48,7 +48,8 @@ class DocumentIndexerTest < ActiveSupport::TestCase
 
     # Distribution
     # - Object
-    assert_equal output_hash[GEOMG.FIELDS.TYPE], %w[Dataset Service]
+    # @TODO: TYPE IS DEPRECATED
+    # assert_equal output_hash[GEOMG.FIELDS.TYPE], %w[Dataset Service]
     assert_equal output_hash[GEOMG.FIELDS.LAYER_GEOM_TYPE], ['Vector']
     assert_equal output_hash[GEOMG.FIELDS.FORMAT], ['Shapefile']
 
@@ -68,11 +69,11 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     assert_equal output_hash[GEOMG.FIELDS.LAYER_SLUG], ['35c8a641589c4e13b7aa11e37f3f00a1_0']
     assert_equal output_hash[GEOMG.FIELDS.PROVENANCE], ['Iowa']
     assert_equal output_hash[GEOMG.FIELDS.B1G_CODE], ['03a-04']
-    assert_equal output_hash[GEOMG.FIELDS.IS_PART_OF], ['03a-04']
+    # assert_equal output_hash[GEOMG.FIELDS.IS_PART_OF], ['03a-04']
 
     # - Status
     assert_equal output_hash[GEOMG.FIELDS.B1G_STATUS], ['Active']
-    assert_equal output_hash[GEOMG.FIELDS.ACCRUAL_METHOD], ['ArcGIS Hub']
+    assert_equal output_hash[GEOMG.FIELDS.B1G_ACCRUAL_METHOD], ['ArcGIS Hub']
     assert_nil output_hash[GEOMG.FIELDS.ACCRUAL_PERIODICITY]
     assert_equal output_hash[GEOMG.FIELDS.B1G_DATE_ACCESSIONED], ['2020-04-24']
     assert_nil output_hash[GEOMG.FIELDS.B1G_DATE_RETIRED]

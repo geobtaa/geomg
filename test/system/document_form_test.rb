@@ -32,21 +32,21 @@ class DocumentFormTest < ApplicationSystemTestCase
       # dct_alternative_sm
       assert page.has_selector?('input#document_dct_alternative_sm_attributes_', visible: false)
       # dct_description_sm
-      assert page.has_selector?('input#document_dc_description_sm_attributes_', visible: false)
+      assert page.has_selector?('input#document_dct_alternative_sm_attributes_', visible: false)
       # dc_language_sm
-      assert page.has_selector?('input#document_dc_language_sm_attributes_', visible: false)
+      assert page.has_selector?('input#document_dct_language_sm_attributes_', visible: false)
 
       # b1g_genre_sm
-      assert page.has_selector?('input#document_b1g_genre_sm_attributes_', visible: false)
+      # assert page.has_selector?('input#document_b1g_genre_sm_attributes_', visible: false)
 
       # dc_type_sm
       assert page.has_selector?('input#document_dc_type_sm_attributes_', visible: false)
 
       # document_dc_format_s
-      assert page.has_selector?('input#document_dc_format_s[data-scihist-qa-autocomplete]')
+      assert page.has_selector?('input#document_dct_format_s[data-scihist-qa-autocomplete]')
 
       # dct_accrualPeriodicity_s
-      assert page.has_selector?('select#document_dct_accrualPeriodicity_s')
+      assert page.has_selector?('select#document_b1g_dct_accrualPeriodicity_s')
     end
   end
 end
