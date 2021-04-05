@@ -84,7 +84,7 @@ class Document
       'Structure',
       'Transportation',
       'Utilities and Communications'
-    ]
+    ].freeze
 
     TYPE = [
       'Image',
