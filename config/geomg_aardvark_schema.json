@@ -198,5 +198,5 @@
     "b1g_child_record_b": { "type": "boolean" },
     "b1g_status_s": { "type": "string" }
   },
-  "required": ["dct_title_s", "gbl_resourceClass_sm", "gbl_indexYear_im", "dct_accessRights_s", "id"]
+  "required": ["dct_title_s", "gbl_resourceClass_sm", "dct_accessRights_s", "geomg_id_s"]
 }
