@@ -20,7 +20,7 @@ module Geomg
       },
       'Description': {
         destination: GEOMG.FIELDS.DESCRIPTION,
-        delimited: false,
+        delimited: true,
         transformation_method: nil
       },
       'Language': {
@@ -95,7 +95,7 @@ module Geomg
       },
       'Geometry Type': {
         destination: GEOMG.FIELDS.LAYER_GEOM_TYPE,
-        delimited: false,
+        delimited: true,
         transformation_method: nil
       },
       'Layer ID': {
@@ -190,7 +190,7 @@ module Geomg
       },
       'Identifier': {
         destination: GEOMG.FIELDS.IDENTIFIER,
-        delimited: false,
+        delimited: true,
         transformation_method: nil
       },
       'Slug': {
@@ -235,7 +235,7 @@ module Geomg
       },
       'Date Accessioned': {
         destination: GEOMG.FIELDS.B1G_DATE_ACCESSIONED,
-        delimited: false,
+        delimited: true,
         transformation_method: nil
       },
       'Date Retired': {

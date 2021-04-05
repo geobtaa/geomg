@@ -149,12 +149,9 @@ class Document < Kithe::Work
   # Export Transformations - to_*
   def to_csv
     attributes = Geomg.field_mappings_btaa
-
     attributes.map do |key, value|
       if value[:delimited]
         send(value[:destination]).join('|')
-      elsif value[:destination] == 'locn_geometry'
-        solr_geom_to_csv(value[:destination])
       elsif value[:destination] == 'dct_references_s'
         dct_references_s_to_csv(key, value[:destination])
       else
@@ -169,12 +166,6 @@ class Document < Kithe::Work
     nil
   end
 
-  def solr_geom_to_csv(destination)
-    wsen_coordinates(send(destination))
-  rescue NoMethodError
-    nil
-  end
-
   def current_version
     versions.last.index
   end
@@ -184,14 +175,14 @@ class Document < Kithe::Work
     DocumentAccess.where(friendlier_id: friendlier_id).order(institution_code: :asc)
   end
 
-  private
-
-  # "ENVELOPE(W,E,N,S)" convert to "W,S,E,N"
-  def wsen_coordinates(coords)
-    # ex. ENVELOPE(-95.0379,-91.198,43.1373,40.6333)
-    w, e, n, s = coords[/\((.*?)\)/, 1].split(',')
-    "#{w},#{s},#{e},#{n}"
+  # Convert GEOM for Solr Indexing
+  def solr_geom_mapping
+    # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
+    w, s, e, n = send(GEOMG.FIELDS.GEOM).split(',')
+    "ENVELOPE(#{w},#{e},#{n},#{s})"
   end
+
+  private
 
   def transition_publication_state
     state_machine.transition_to!(publication_state.downcase) if publication_state_changed?
