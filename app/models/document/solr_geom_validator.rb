@@ -14,9 +14,7 @@ class Document
       valid_geom = true
 
       # Sane for Solr?
-      unless record.send(GEOMG.FIELDS.GEOM).nil?
-        proper_bounding_box(record, valid_geom)
-      end
+      proper_bounding_box(record, valid_geom) unless record.send(GEOMG.FIELDS.GEOM).nil?
 
       valid_geom
     end
