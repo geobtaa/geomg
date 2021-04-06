@@ -4,31 +4,40 @@ en:
   activerecord:
     attributes:
       document:
-        dct_alternativeTitle_sm:
+        dct_alternative_sm:
           one: "Alternative Title"
           other: "Alternative Title"
-        dc_language_sm:
+        dct_description_sm:
+          one: "Description"
+          other: "Description"
+        dct_language_sm:
           one: "Language"
           other: "Languages"
-        dc_creator_sm:
+        dct_creator_sm:
           one: "Creator"
           other: "Creator"
-        dc_publisher_sm:
+        dct_publisher_sm:
           one: "Publisher"
           other: "Publisher"
-        b1g_genre_sm:
-          one: "Genre"
-          other: "Genre"
-        dc_subject_sm:
+        gbl_resourceClass_sm:
+          one: "Resource Class"
+          other: "Resource Class"
+        gbl_resourceType_sm:
+          one: "Resource Type"
+          other: "Resource Type"
+        dct_subject_sm:
           one: "Subject"
           other: "Subject"
-        b1g_keyword_sm:
+        dcat_theme_sm:
+          one: "ISO Topic Category"
+          other: "ISO Topic Category"
+        dcat_keyword_sm:
           one: "Keyword"
           other: "Keyword"
         dct_temporal_sm:
           one: "Temporal Coverage"
           other: "Temporal Coverage"
-        b1g_date_range_drsim:
+        gbl_dateRange_drsim:
           one: "Date Range"
           other: "Date Range"
         dct_spatial_sm:
@@ -37,27 +46,66 @@ en:
         b1g_geonames_sm:
           one: "GeoNames"
           other: "GeoNames"
-        dc_type_sm:
-          one: "Type"
-          other: "Type"
+        dct_relation_sm:
+          one: "Relation"
+          other: "Relation"
+        pcdm_memberOf_sm:
+          one: "Member Of"
+          other: "Member Of"
         dct_references_s:
           one: "Reference"
           other: "Reference"
         dct_isPartOf_sm:
           one: "Is Part Of"
           other: "Is Part Of"
-        dc_source_sm:
+        dct_source_sm:
           one: "Source"
           other: "Source"
-        dct_accessRights_sm:
-          one: "Access Rights"
-          other: "Access Rights"
+        dct_isVersionOf_sm:
+          one: "Version"
+          other: "Version"
+        dct_replaces_sm:
+          one: "Replaces"
+          other: "Replaces"
+        dct_isReplacedBy_sm:
+          one: "Is Replaced By"
+          other: "Is Replaced By"
+        gbl_fileSize_s:
+          one: "Size"
+        gbl_wxsIdentifier_s:
+          one: "WxS Identifier"
+        gbl_georeferenced_b:
+          one: "Georeferenced"
+        dct_accessRights_s:
+          one: "Rights"
+          other: "Rights"
         suppressed_b:
           one: "Suppressed"
           other: "Suppressed"
         b1g_child_record_b:
           one: "Child Record"
           other: "Child Record"
+        dct_identifier_sm:
+          one: "Identifier"
+          other: "Identifier"
+        dct_rights_sm:
+          one: "Access Rights	"
+          other: "Access Rights	"
+        dct_rightsHolder_sm:
+          one: "Rights Holder"
+          other: "Rights Holder"
+        dct_license_sm:
+          one: "License"
+          other: "License"
+        b1g_dateAccessioned_sm:
+          one: "Date Accessioned"
+          other: "Date Accessioned"
+        b1g_dct_mediator_sm:
+          one: "Mediator"
+          other: "Mediator"
+        b1g_access_s:
+          one: "Access"
+          other: "Access"
 
   activemodel:
     models:
