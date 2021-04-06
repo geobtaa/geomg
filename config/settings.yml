@@ -4,6 +4,7 @@
 FIELDS:
   :ACCESS_RIGHTS: 'dct_rights_sm'
   :ALT_TITLE: 'dct_alternative_sm'
+  :B1G_ACCESS: 'b1g_access_s'
   :B1G_ACCRUAL_METHOD: 'b1g_dct_accrualMethod_s'
   :B1G_ACCRUAL_PERIODICITY: 'b1g_dct_accrualPeriodicity_s'
   :B1G_CENTROID: 'dcat_centroid_ss' # @TODO: Rename to CENTROID
@@ -34,9 +35,10 @@ FIELDS:
   :LAYER_MODIFIED: 'gbl_mdModified_dt'
   :LAYER_SLUG: 'geomg_id_s' # @TODO: Rename to ID
   :LICENSE: 'dct_license_sm' # @TODO: New field
+  :MEDIATOR: 'b1g_dct_mediator_sm' # @TODO: New field
   :MEMBER_OF: 'pcdm_memberOf_sm' # @TODO: New field
   :METADATA_VERSION: 'gbl_mdVersion_s' # @TODO: New assumed/hidden field
-  :PROVENANCE: 'schema_provider_s'
+  :PROVENANCE: 'schema_provider_s' # @TODO: Rename to SCHEMA_PROVIDER
   :PUBLISHER: 'dct_publisher_sm'
   :REFERENCES: 'dct_references_s'
   :RELATION: 'dct_relation_sm' # @TODO: New field
@@ -50,5 +52,5 @@ FIELDS:
   :TEMPORAL: 'dct_temporal_sm'
   :THEME: 'dcat_theme_sm' # @TODO: New field
   :TITLE: 'dct_title_s'
-  :TYPE: 'dc_type_sm' # @TODO: Field deprecated
+  :TYPE: 'dc_type_sm' # @TODO: Field deprecated, remove all
   :YEAR: 'gbl_indexYear_im'
