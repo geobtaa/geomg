@@ -81,7 +81,6 @@ class Document < Kithe::Work
   attr_json GEOMG.FIELDS.REPLACES.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.IS_REPLACED_BY.to_sym, :string, array: true, default: -> { [] }
 
-
   # Distribution
   # - Object
   attr_json GEOMG.FIELDS.LAYER_GEOM_TYPE.to_sym, :string, array: true, default: -> { [] }
@@ -138,7 +137,7 @@ class Document < Kithe::Work
     access.to_json
   end
 
-  def gbl_mdModified_dt
+  def gbl_md_modified_dt
     updated_at&.utc&.iso8601
   end
 
