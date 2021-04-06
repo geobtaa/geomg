@@ -22,7 +22,7 @@ json.dct_references_s   document.references_json
 json.b1g_access_s       document.access_json
 json.dct_spatial_sm     document.send(GEOMG.FIELDS.SPATIAL)
 json.layer_geom_type_s  document.send(GEOMG.FIELDS.LAYER_GEOM_TYPE)
-json.layer_modified_dt  document.layer_modified_dt
+json.layer_modified_dt  document.send(GEOMG.FIELDS.LAYER_MODIFIED)
 
 # Optional
 json.dc_language_sm     document.send(GEOMG.FIELDS.LANGUAGE)

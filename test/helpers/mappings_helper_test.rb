@@ -10,9 +10,11 @@ class MappingsHelperTest < ActionView::TestCase
 
   test 'attribute_collection' do
     puts attribute_collection.inspect
-    attrs = GEOMG.FIELDS.keys.collect{|c| GEOMG.FIELDS.send(c)}.sort
+    attrs = GEOMG.FIELDS.keys.collect{|c| GEOMG.FIELDS.send(c).to_sym}.sort
     attrs.prepend('')
     attrs.prepend('Discard')
+    attrs.delete (:gbl_mdVersion_s)   # Assumed value
+    attrs.delete (:gbl_mdModified_dt) # DB value
 
     assert_equal(
       attribute_collection,

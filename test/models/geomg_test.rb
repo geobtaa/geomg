@@ -13,7 +13,7 @@ class GeomgTest < ActiveSupport::TestCase
   end
 
   test 'BTAA - CSV Import - header/solr field mapping keys' do
-    keys = ['Title', 'Alternative Title', 'Description', 'Language', 'Publisher', 'Creator', 'Genre', 'Subject', 'Keyword', 'Date Issued', 'Temporal Coverage', 'Date Range', 'Spatial Coverage', 'Bounding Box', 'Format', 'Type', 'Geometry Type', 'Information', 'Download', 'FeatureServer', 'MapServer', 'ImageServer', 'Image', 'Identifier', 'Provenance', 'Code', 'Is Part Of', 'Status', 'Accrual Method', 'Accrual Periodicity', 'Date Accessioned', 'Rights', 'Suppressed', 'Child']
+    keys = ['Title', 'Alternative Title', 'Description', 'Language', 'Publisher', 'Creator', 'Genre', 'Subject', 'Keyword', 'Date Issued', 'Temporal Coverage', 'Date Range', 'Spatial Coverage', 'Bounding Box', 'Format', 'Geometry Type', 'Information', 'Download', 'FeatureServer', 'MapServer', 'ImageServer', 'Image', 'Identifier', 'Provenance', 'Code', 'Is Part Of', 'Status', 'Accrual Method', 'Accrual Periodicity', 'Date Accessioned', 'Rights', 'Suppressed', 'Child']
 
     keys.each do |key|
       assert_includes(@geomg_btaa_csv, key.to_sym)

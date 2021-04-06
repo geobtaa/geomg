@@ -67,6 +67,10 @@ Metrics/ParameterLists:
   Exclude:
     - 'app/models/blacklight_api.rb'
 
+Naming/MethodName:
+  Exclude:
+    - 'app/models/document.rb'
+
 Rails/InverseOf:
   Exclude:
     - 'app/models/document_access.rb'

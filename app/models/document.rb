@@ -32,8 +32,8 @@ class Document < Kithe::Work
   # Validations
   validates :b1g_status_s, :dct_identifier_sm, :dct_accessRights_s, :gbl_resourceType_sm, presence: true
 
-  # @TODO: Test for collection and restricted
-  validates :dct_format_s, presence: true, unless: :a_collection_object?
+  # Test for collection and restricted
+  validates :dct_format_s, presence: true # unless: :a_collection_object?
 
   # Interactive Resouce
   # Restricted items!
@@ -66,7 +66,7 @@ class Document < Kithe::Work
   attr_json GEOMG.FIELDS.ISSUED.to_sym, :string
   attr_json GEOMG.FIELDS.TEMPORAL.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.B1G_DATE_RANGE.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.YEAR.to_sym, :integer
+  attr_json GEOMG.FIELDS.YEAR.to_sym, :integer, array: true, default: -> { [] }
 
   # - Spatial
   attr_json GEOMG.FIELDS.SPATIAL.to_sym, :string, array: true, default: -> { [] }
@@ -137,7 +137,7 @@ class Document < Kithe::Work
     access.to_json
   end
 
-  def gbl_md_modified_dt
+  def gbl_mdModified_dt
     updated_at&.utc&.iso8601
   end
 
@@ -153,10 +153,10 @@ class Document < Kithe::Work
   end
 
   def solr_year_json
-    return nil if send(GEOMG.FIELDS.B1G_DATE_RANGE).blank?
+    return [] if send(GEOMG.FIELDS.B1G_DATE_RANGE).blank?
 
     start_d, _end_d = send(GEOMG.FIELDS.B1G_DATE_RANGE).first.split('-')
-    start_d if start_d.presence
+    [start_d] if start_d.presence
   end
 
   # Export Transformations - to_*

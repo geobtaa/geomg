@@ -40,7 +40,7 @@ class DocumentFormTest < ApplicationSystemTestCase
       # assert page.has_selector?('input#document_b1g_genre_sm_attributes_', visible: false)
 
       # dc_type_sm
-      assert page.has_selector?('input#document_dc_type_sm_attributes_', visible: false)
+      # assert page.has_selector?('input#document_dc_type_sm_attributes_', visible: false)
 
       # document_dc_format_s
       assert page.has_selector?('input#document_dct_format_s[data-scihist-qa-autocomplete]')

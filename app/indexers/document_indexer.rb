@@ -91,7 +91,7 @@ class DocumentIndexer < Kithe::Indexer
     to_field GEOMG.FIELDS.B1G_MEDIATOR, obj_extract(GEOMG.FIELDS.B1G_MEDIATOR)
     to_field GEOMG.FIELDS.B1G_ACCESS, obj_extract(GEOMG.FIELDS.B1G_ACCESS)
 
-    to_field 'gbl_mdModified_dt', obj_extract('gbl_md_modified_dt')
+    to_field 'gbl_mdModified_dt', obj_extract('gbl_mdModified_dt')
 
     # May want to switch to or add a 'date published' instead, right
     # now we only have date added to DB, which is what we had in sufia.
