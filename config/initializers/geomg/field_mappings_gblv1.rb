@@ -103,16 +103,6 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
-      'dc_type_s': {
-        destination: GEOMG.FIELDS.TYPE,
-        delimited: true,
-        transformation_method: nil
-      },
-      'dc_type_sm': {
-        destination: GEOMG.FIELDS.TYPE,
-        delimited: true,
-        transformation_method: nil
-      },
       'layer_geom_type_s': {
         destination: GEOMG.FIELDS.LAYER_GEOM_TYPE,
         delimited: false,

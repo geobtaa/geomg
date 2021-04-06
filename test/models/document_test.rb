@@ -57,7 +57,6 @@ class DocumentTest < ActiveSupport::TestCase
 
     # Distribution
     # - Object
-    assert_respond_to @document, GEOMG.FIELDS.TYPE
     assert_respond_to @document, GEOMG.FIELDS.LAYER_GEOM_TYPE
     assert_respond_to @document, GEOMG.FIELDS.FORMAT
 

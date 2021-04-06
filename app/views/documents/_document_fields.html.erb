@@ -47,12 +47,6 @@
 
 <div class="grouping">
   <h3 id="object">Object</h3>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.TYPE, build: :at_least_one do |input_name, value| %>
-    <%= f.input_field GEOMG.FIELDS.TYPE, selected: value, include_blank: true, id: nil,
-        collection: Document::ControlledLists::TYPE,
-        name: input_name,
-        class: "form-control input-primitive" %>
-  <% end %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.LAYER_GEOM_TYPE, build: :at_least_one do |input_name, value| %>
     <%= f.input_field GEOMG.FIELDS.LAYER_GEOM_TYPE, selected: value, include_blank: true, id: nil,
       collection: Document::ControlledLists::LAYER_GEOM_TYPES,

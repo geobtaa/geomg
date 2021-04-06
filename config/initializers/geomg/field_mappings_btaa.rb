@@ -48,6 +48,11 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
+      'ISO Topic Category': {
+        destination: GEOMG.FIELDS.THEME,
+        delimited: true,
+        transformation_method: nil
+      },
       'Keyword': {
         destination: GEOMG.FIELDS.B1G_KEYWORD,
         delimited: true,
@@ -68,6 +73,11 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
+      'Index Year': {
+        destination: GEOMG.FIELDS.YEAR,
+        delimited: true,
+        transformation_method: nil
+      },
       'Spatial Coverage': {
         destination: GEOMG.FIELDS.SPATIAL,
         delimited: true,
@@ -78,19 +88,24 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
+      'Relation': {
+        destination: GEOMG.FIELDS.RELATION,
+        delimited: true,
+        transformation_method: nil
+      },
       'Bounding Box': {
         destination: GEOMG.FIELDS.GEOM,
+        delimited: false,
+        transformation_method: nil
+      },
+      'Georeferenced': {
+        destination: GEOMG.FIELDS.GEOREFERENCED,
         delimited: false,
         transformation_method: nil
       },
       'Format': {
         destination: GEOMG.FIELDS.FORMAT,
         delimited: false,
-        transformation_method: nil
-      },
-      'Type': {
-        destination: GEOMG.FIELDS.TYPE,
-        delimited: true,
         transformation_method: nil
       },
       'Geometry Type': {
@@ -208,8 +223,28 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
+      'Replaces': {
+        destination: GEOMG.FIELDS.REPLACES,
+        delimited: true,
+        transformation_method: nil
+      },
+      'Member Of': {
+        destination: GEOMG.FIELDS.MEMBER_OF,
+        delimited: true,
+        transformation_method: nil
+      },
       'Is Part Of': {
         destination: GEOMG.FIELDS.IS_PART_OF,
+        delimited: true,
+        transformation_method: nil
+      },
+      'Is Replaced By': {
+        destination: GEOMG.FIELDS.IS_REPLACED_BY,
+        delimited: true,
+        transformation_method: nil
+      },
+      'Version': {
+        destination: GEOMG.FIELDS.IS_VERSION_OF,
         delimited: true,
         transformation_method: nil
       },
@@ -248,6 +283,16 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
+      'Rights Holder': {
+        destination: GEOMG.FIELDS.RIGHTS_HOLDER,
+        delimited: true,
+        transformation_method: nil
+      },
+      'License': {
+        destination: GEOMG.FIELDS.LICENSE,
+        delimited: true,
+        transformation_method: nil
+      },
       'Access Rights': {
         destination: GEOMG.FIELDS.ACCESS_RIGHTS,
         delimited: true,
@@ -260,6 +305,16 @@ module Geomg
       },
       'Child': {
         destination: GEOMG.FIELDS.B1G_CHILD_RECORD,
+        delimited: false,
+        transformation_method: nil
+      },
+      'Mediator': {
+        destination: GEOMG.FIELDS.B1G_MEDIATOR,
+        delimited: true,
+        transformation_method: nil
+      },
+      'Access': {
+        destination: GEOMG.FIELDS.B1G_ACCESS,
         delimited: false,
         transformation_method: nil
       }

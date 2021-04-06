@@ -17,6 +17,7 @@ FIELDS:
   :B1G_GEONAMES: 'b1g_geonames_sm'
   :B1G_IMAGE: 'b1g_image_ss'
   :B1G_KEYWORD: 'dcat_keyword_sm' # @TODO Rename to KEYWORD
+  :B1G_MEDIATOR: 'b1g_dct_mediator_sm' # @TODO: New field
   :B1G_STATUS: 'b1g_status_s'
   :CREATOR: 'dct_creator_sm'
   :DESCRIPTION: 'dct_description_sm'
@@ -35,7 +36,6 @@ FIELDS:
   :LAYER_MODIFIED: 'gbl_mdModified_dt'
   :LAYER_SLUG: 'geomg_id_s' # @TODO: Rename to ID
   :LICENSE: 'dct_license_sm' # @TODO: New field
-  :MEDIATOR: 'b1g_dct_mediator_sm' # @TODO: New field
   :MEMBER_OF: 'pcdm_memberOf_sm' # @TODO: New field
   :METADATA_VERSION: 'gbl_mdVersion_s' # @TODO: New assumed/hidden field
   :PROVENANCE: 'schema_provider_s' # @TODO: Rename to SCHEMA_PROVIDER
@@ -52,5 +52,4 @@ FIELDS:
   :TEMPORAL: 'dct_temporal_sm'
   :THEME: 'dcat_theme_sm' # @TODO: New field
   :TITLE: 'dct_title_s'
-  :TYPE: 'dc_type_sm' # @TODO: Field deprecated, remove all
   :YEAR: 'gbl_indexYear_im'

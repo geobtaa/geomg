@@ -59,6 +59,7 @@ class Document < Kithe::Work
   # - Categories
   attr_json GEOMG.FIELDS.B1G_GENRE.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.SUBJECT.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.THEME.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.B1G_KEYWORD.to_sym, :string, array: true, default: -> { [] }
 
   # - Temporal
@@ -73,12 +74,21 @@ class Document < Kithe::Work
   attr_json GEOMG.FIELDS.GEOM.to_sym, :string
   attr_json GEOMG.FIELDS.B1G_CENTROID.to_sym, :string
 
+  # - Relations
+  attr_json GEOMG.FIELDS.RELATION.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.MEMBER_OF.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.IS_VERSION_OF.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.REPLACES.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.IS_REPLACED_BY.to_sym, :string, array: true, default: -> { [] }
+
+
   # Distribution
   # - Object
-  attr_json GEOMG.FIELDS.TYPE.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.LAYER_GEOM_TYPE.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.LAYER_ID.to_sym, :string
   attr_json GEOMG.FIELDS.FORMAT.to_sym, :string
+  attr_json GEOMG.FIELDS.FILE_SIZE.to_sym, :string
+  attr_json GEOMG.FIELDS.GEOREFERENCED.to_sym, :boolean
 
   # - Access Links
   # - Geospatial Web Services
@@ -96,18 +106,22 @@ class Document < Kithe::Work
   attr_json GEOMG.FIELDS.IS_PART_OF.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.SOURCE.to_sym, :string, array: true, default: -> { [] }
 
-  # - Status
-  attr_json GEOMG.FIELDS.B1G_STATUS.to_sym, :string
+  # - Rights
+  attr_json GEOMG.FIELDS.LICENSE.to_sym, :string, array: true, default: -> { [] }
+
+  # - Life Cycle
   attr_json GEOMG.FIELDS.B1G_ACCRUAL_METHOD.to_sym, :string
   attr_json GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY.to_sym, :string
   attr_json GEOMG.FIELDS.B1G_DATE_ACCESSIONED.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.B1G_DATE_RETIRED.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_STATUS.to_sym, :string
 
   # - Accessibility
   attr_json GEOMG.FIELDS.RIGHTS.to_sym, :string
+  attr_json GEOMG.FIELDS.RIGHTS_HOLDER.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.ACCESS_RIGHTS.to_sym, :string, array: true, default: -> { [] }
-
-  # @TODO: Why are booleans not passed in form params?
+  attr_json GEOMG.FIELDS.B1G_MEDIATOR.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_ACCESS.to_sym, :string
   attr_json GEOMG.FIELDS.SUPPRESSED.to_sym, :boolean
   attr_json GEOMG.FIELDS.B1G_CHILD_RECORD.to_sym, :boolean
 
@@ -124,7 +138,7 @@ class Document < Kithe::Work
     access.to_json
   end
 
-  def layer_modified_dt
+  def gbl_mdModified_dt
     updated_at&.utc&.iso8601
   end
 

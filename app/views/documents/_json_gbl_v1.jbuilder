@@ -28,7 +28,6 @@ json.layer_modified_dt  document.layer_modified_dt
 json.dc_language_sm     document.send(GEOMG.FIELDS.LANGUAGE)
 json.dc_publisher_s     document.send(GEOMG.FIELDS.PUBLISHER)
 json.dc_source_sm       document.send(GEOMG.FIELDS.SOURCE)
-json.dc_type_s          document.send(GEOMG.FIELDS.TYPE)
 json.dct_isPartOf_sm    document.send(GEOMG.FIELDS.IS_PART_OF)
 json.dct_issued_s       document.send(GEOMG.FIELDS.ISSUED)
 json.dct_temporal_sm    document.send(GEOMG.FIELDS.TEMPORAL)

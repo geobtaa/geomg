@@ -48,8 +48,6 @@ class DocumentIndexerTest < ActiveSupport::TestCase
 
     # Distribution
     # - Object
-    # @TODO: TYPE IS DEPRECATED
-    # assert_equal output_hash[GEOMG.FIELDS.TYPE], %w[Dataset Service]
     assert_equal output_hash[GEOMG.FIELDS.LAYER_GEOM_TYPE], ['Vector']
     assert_equal output_hash[GEOMG.FIELDS.FORMAT], ['Shapefile']
 
