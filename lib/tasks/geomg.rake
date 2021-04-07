@@ -56,7 +56,7 @@ namespace :geomg do
         puts 'Solr running at http://localhost:8983/solr/geoportal-core-development/, ^C to exit'
         puts ' '
         begin
-          # Rake::Task['geomg:solr:reindex'].invoke
+          Rake::Task['geomg:solr:reindex'].invoke
           system "bundle exec rails s --binding=#{ENV.fetch('GEOMG_SERVER_BIND_INTERFACE', '0.0.0.0')} --port=#{ENV.fetch('GEOMG_SERVER_PORT', '3000')}"
           sleep
         rescue Interrupt
