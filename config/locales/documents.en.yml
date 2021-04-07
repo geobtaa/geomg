@@ -71,7 +71,7 @@ en:
           one: "Is Replaced By"
           other: "Is Replaced By"
         gbl_fileSize_s:
-          one: "Size"
+          one: "File Size"
         gbl_wxsIdentifier_s:
           one: "WxS Identifier"
         gbl_georeferenced_b:

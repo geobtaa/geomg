@@ -2,7 +2,7 @@
 #
 # Vernacular => Solr Schema
 FIELDS:
-  :ACCESS_RIGHTS: 'dct_rights_sm'
+  :ACCESS_RIGHTS: 'dct_accessRights_s'
   :ALT_TITLE: 'dct_alternative_sm'
   :B1G_ACCESS: 'b1g_access_s'
   :B1G_ACCRUAL_METHOD: 'b1g_dct_accrualMethod_s'
@@ -43,7 +43,7 @@ FIELDS:
   :REFERENCES: 'dct_references_s'
   :RELATION: 'dct_relation_sm' # @TODO: New field
   :REPLACES: 'dct_replaces_sm' # @TODO: New field
-  :RIGHTS: 'dct_accessRights_s'
+  :RIGHTS: 'dct_rights_sm'
   :RIGHTS_HOLDER: 'dct_rightsHolder_sm' # @TODO: New field
   :SOURCE: 'dct_source_sm'
   :SPATIAL: 'dct_spatial_sm'

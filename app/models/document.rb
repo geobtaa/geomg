@@ -33,12 +33,11 @@ class Document < Kithe::Work
   validates :b1g_status_s, :dct_identifier_sm, :dct_accessRights_s, :gbl_resourceType_sm, presence: true
 
   # Test for collection and restricted
-  validates :dct_format_s, presence: true # unless: :a_collection_object?
+  validates :dct_format_s, presence: true, if: :a_downloadable_resource?
 
-  # Interactive Resouce
-  # Restricted items!
-  def a_collection_object?
-    dc_type_sm.include?('Collection')
+  # Downloadable Resouce
+  def a_downloadable_resource?
+    references_json.include?('downloadUrl')
   end
 
   validates_with Document::DateRangeValidator
@@ -116,9 +115,9 @@ class Document < Kithe::Work
   attr_json GEOMG.FIELDS.B1G_STATUS.to_sym, :string
 
   # - Accessibility
-  attr_json GEOMG.FIELDS.RIGHTS.to_sym, :string
+  attr_json GEOMG.FIELDS.ACCESS_RIGHTS.to_sym, :string
   attr_json GEOMG.FIELDS.RIGHTS_HOLDER.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.ACCESS_RIGHTS.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.RIGHTS.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.B1G_MEDIATOR.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.B1G_ACCESS.to_sym, :string
   attr_json GEOMG.FIELDS.SUPPRESSED.to_sym, :boolean

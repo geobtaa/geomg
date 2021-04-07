@@ -8,25 +8,32 @@ class ImportRunJob < ApplicationJob
     data = CSV.parse(import.csv_file.download.force_encoding('UTF-8'), headers: true)
 
     data.each do |doc|
-      extract_hash = doc.to_h
 
-      converted_data = import.convert_data(extract_hash)
+      begin
+        extract_hash = doc.to_h
 
-      kithe_document = {
-        title: converted_data[GEOMG.FIELDS.TITLE],
-        json_attributes: converted_data,
-        friendlier_id: converted_data[GEOMG.FIELDS.LAYER_SLUG],
-        import_id: import.id
-      }
+        converted_data = import.convert_data(extract_hash)
 
-      # Capture document for import attempt
-      import_document = ImportDocument.create(kithe_document)
+        kithe_document = {
+          title: converted_data[GEOMG.FIELDS.TITLE],
+          json_attributes: converted_data,
+          friendlier_id: converted_data[GEOMG.FIELDS.LAYER_SLUG],
+          import_id: import.id
+        }
 
-      # Add import document to background job queue
-      ImportDocumentJob.perform_later(import_document)
+        # Capture document for import attempt
+        import_document = ImportDocument.create(kithe_document)
 
-      # @TODO
-      # - Possibly kick off URI and SidecarImage jobs
+        # Add import document to background job queue
+        ImportDocumentJob.perform_later(import_document)
+
+        # @TODO
+        # - Possibly kick off URI and SidecarImage jobs
+      rescue => e
+        puts "\n\nCANNOT IMPORT: #{extract_hash.inspect}"
+        puts "Error: #{e.inspect}\n\n"
+        next
+      end
     end
   end
 end

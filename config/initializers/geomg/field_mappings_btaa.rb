@@ -88,7 +88,7 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
-      'Spatial Extent': {
+      'Bounding Box': {
         destination: GEOMG.FIELDS.GEOM,
         delimited: false,
         transformation_method: nil
@@ -138,7 +138,7 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
-      'Size': {
+      'File Size': {
         destination: GEOMG.FIELDS.FILE_SIZE,
         delimited: false,
         transformation_method: nil
@@ -255,7 +255,7 @@ module Geomg
       },
       'Rights': {
         destination: GEOMG.FIELDS.RIGHTS,
-        delimited: false,
+        delimited: true,
         transformation_method: nil
       },
       'Rights Holder': {
@@ -270,7 +270,7 @@ module Geomg
       },
       'Access Rights': {
         destination: GEOMG.FIELDS.ACCESS_RIGHTS,
-        delimited: true,
+        delimited: false,
         transformation_method: nil
       },
       'Accrual Method': {

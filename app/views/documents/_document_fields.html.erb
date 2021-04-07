@@ -24,12 +24,7 @@
         name: input_name,
         class: "form-control input-primitive" %>
   <% end %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.LAYER_GEOM_TYPE, build: :at_least_one do |input_name, value| %>
-    <%= f.input_field GEOMG.FIELDS.LAYER_GEOM_TYPE, selected: value, include_blank: true, id: nil,
-        collection: Document::ControlledLists::LAYER_GEOM_TYPES,
-        name: input_name,
-        class: "form-control input-primitive" %>
-  <% end %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.LAYER_GEOM_TYPE, build: :at_least_one %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.SUBJECT, build: :at_least_one %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.THEME, build: :at_least_one do |input_name, value| %>
     <%= f.input_field GEOMG.FIELDS.THEME, selected: value, include_blank: true, id: nil,
@@ -51,8 +46,7 @@
 <div class="grouping">
   <h3 id="spatial">Spatial</h3>
   <%= f.repeatable_attr_input GEOMG.FIELDS.SPATIAL, build: :at_least_one %>
-  <%= f.input GEOMG.FIELDS.GEOM, label: "Spatial Extent", hint: "W,S,E,N" %>
-  <%= f.input GEOMG.FIELDS.B1G_CENTROID, label: "Centroid" %>
+  <%= f.input GEOMG.FIELDS.GEOM, label: "Bounding Box", hint: "W,S,E,N - A centroid will be derived from this value." %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_GEONAMES, build: :at_least_one %>
 </div>
 
@@ -95,10 +89,10 @@
 
 <div class="grouping">
   <h3 id="rights">Rights</h3>
-  <%= f.input GEOMG.FIELDS.RIGHTS %>
+  <%= f.input GEOMG.FIELDS.ACCESS_RIGHTS %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.RIGHTS_HOLDER, build: :at_least_one %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.LICENSE, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.ACCESS_RIGHTS, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.RIGHTS, build: :at_least_one %>
 </div>
 
 <div class="grouping">
