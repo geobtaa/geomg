@@ -89,7 +89,6 @@ class DocumentIndexer < Kithe::Indexer
     to_field GEOMG.FIELDS.SUPPRESSED, obj_extract(GEOMG.FIELDS.SUPPRESSED)
     to_field GEOMG.FIELDS.B1G_CHILD_RECORD, obj_extract(GEOMG.FIELDS.B1G_CHILD_RECORD)
     to_field GEOMG.FIELDS.B1G_MEDIATOR, obj_extract(GEOMG.FIELDS.B1G_MEDIATOR)
-    to_field GEOMG.FIELDS.B1G_ACCESS, obj_extract(GEOMG.FIELDS.B1G_ACCESS)
 
     to_field 'gbl_mdModified_dt', obj_extract('gbl_mdModified_dt')
 
