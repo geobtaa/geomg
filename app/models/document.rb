@@ -189,9 +189,13 @@ class Document < Kithe::Work
 
   # Convert GEOM for Solr Indexing
   def solr_geom_mapping
-    # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
-    w, s, e, n = send(GEOMG.FIELDS.GEOM).split(',')
-    "ENVELOPE(#{w},#{e},#{n},#{s})"
+    if send(GEOMG.FIELDS.GEOM).present?
+      # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
+      w, s, e, n = send(GEOMG.FIELDS.GEOM).split(',')
+      "ENVELOPE(#{w},#{e},#{n},#{s})"
+    else
+      ""
+    end
   end
 
   private
