@@ -9,7 +9,6 @@ class MappingsHelperTest < ActionView::TestCase
   end
 
   test 'attribute_collection' do
-    puts attribute_collection.inspect
     attrs = GEOMG.FIELDS.keys.collect{|c| GEOMG.FIELDS.send(c).to_sym}.sort
     attrs.prepend('')
     attrs.prepend('Discard')
