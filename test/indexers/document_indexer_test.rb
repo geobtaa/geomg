@@ -78,8 +78,7 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     assert_equal output_hash['b1g_publication_state_s'], ['draft']
 
     # - Accessibility
-    assert_equal output_hash[GEOMG.FIELDS.RIGHTS], ['Public']
-    assert_nil output_hash[GEOMG.FIELDS.ACCESS_RIGHTS]
+    assert_equal output_hash[GEOMG.FIELDS.ACCESS_RIGHTS], ['Public']
     assert_equal output_hash[GEOMG.FIELDS.SUPPRESSED], [false]
     assert_equal output_hash[GEOMG.FIELDS.B1G_CHILD_RECORD], [false]
   end

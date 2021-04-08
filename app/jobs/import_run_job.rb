@@ -24,12 +24,9 @@ class ImportRunJob < ApplicationJob
 
       # Add import document to background job queue
       ImportDocumentJob.perform_later(import_document)
-
-      # @TODO
-      # - Possibly kick off URI and SidecarImage jobs
     rescue StandardError => e
-      puts "\n\nCANNOT IMPORT: #{extract_hash.inspect}"
-      puts "Error: #{e.inspect}\n\n"
+      logger.debug "\n\nCANNOT IMPORT: #{extract_hash.inspect}"
+      logger.debug "Error: #{e.inspect}\n\n"
       next
     end
   end

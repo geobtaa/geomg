@@ -54,9 +54,9 @@ class ImportBtaa < Import
     data_hash = args[:data_hash]
     field = args[:field]
 
-    if data_hash[field].present?
-      w, s, e, n = data_hash[field].split(',')
-      "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
-    end
+    return if data_hash[field].blank?
+
+    w, s, e, n = data_hash[field].split(',')
+    "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
   end
 end
