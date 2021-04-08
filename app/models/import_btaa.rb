@@ -57,8 +57,6 @@ class ImportBtaa < Import
     if data_hash[field].present?
       w, s, e, n = data_hash[field].split(',')
       "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
-    else
-      nil
     end
   end
 end

@@ -68,10 +68,10 @@ class ImportBtaaAardvark < Import
       geom = geom&.delete('ENVELOPE(')
       geom = geom&.delete(')')
       geom = geom&.delete('\\')
-      w,e,n,s = geom.split(',')
+      w, e, n, s = geom.split(',')
       "#{w},#{s},#{e},#{n}"
     else
-      ""
+      ''
     end
   end
 

@@ -194,7 +194,7 @@ class Document < Kithe::Work
       w, s, e, n = send(GEOMG.FIELDS.GEOM).split(',')
       "ENVELOPE(#{w},#{e},#{n},#{s})"
     else
-      ""
+      ''
     end
   end
 
