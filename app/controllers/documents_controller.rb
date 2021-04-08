@@ -14,6 +14,7 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @documents.results.to_json }
+      format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
       format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
       format.csv  { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
@@ -27,6 +28,7 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @documents.to_json }
+      format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
       format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
       format.csv { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
@@ -86,6 +88,7 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to edit_document_url(@document) }
       format.json { render json: @document.to_json } # App-style JSON
+      format.json_btaa_aardvark
       format.json_gbl_v1
       # B1G CSV
       format.csv { send_data collect_csv([@document]), filename: "documents-#{Time.zone.today}.csv" }
