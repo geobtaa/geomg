@@ -13,8 +13,8 @@ class ImportsController < ApplicationController
   # GET /imports/1
   # GET /imports/1.json
   def show
-    @pagy_failed, @import_failed_documents = pagy(@import.import_documents.not_in_state(:success), items: 30)
-    @pagy_success, @import_success_documents = pagy(@import.import_documents.in_state(:success), items: 30)
+    @pagy_failed, @import_failed_documents = pagy(@import.import_documents.not_in_state(:success), items: 100)
+    @pagy_success, @import_success_documents = pagy(@import.import_documents.in_state(:success), items: 100)
   end
 
   # GET /imports/new
