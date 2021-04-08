@@ -16,6 +16,7 @@
   <%= f.file_field :csv_file, direct_upload: true %>
   <%= f.input :type, collection:[
       ['BTAA CSV', 'ImportBtaa'],
+      ['Solr BTAA Aardvark CSV', 'ImportBtaaAardvark'],
       ['Solr GBLv1 CSV', 'ImportGblv1']
     ]
   %>
