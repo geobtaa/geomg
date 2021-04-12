@@ -25,7 +25,7 @@ class Document
   class ControlledLists
     PUBLICATION_STATE = %w[draft published unpublished].freeze
 
-    RIGHTS = %w[Public Restricted].freeze
+    ACCESS_RIGHTS = %w[Public Restricted].freeze
 
     LAYER_GEOM_TYPES = %w[Point Line Polygon Image Raster Mixed Table Vector].freeze
 
