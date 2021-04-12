@@ -77,8 +77,8 @@ en:
         gbl_georeferenced_b:
           one: "Georeferenced"
         dct_accessRights_s:
-          one: "Rights"
-          other: "Rights"
+          one: "Access Rights"
+          other: "Access Rights"
         suppressed_b:
           one: "Suppressed"
           other: "Suppressed"
@@ -89,8 +89,8 @@ en:
           one: "Identifier"
           other: "Identifier"
         dct_rights_sm:
-          one: "Access Rights	"
-          other: "Access Rights	"
+          one: "Rights"
+          other: "Rights"
         dct_rightsHolder_sm:
           one: "Rights Holder"
           other: "Rights Holder"
