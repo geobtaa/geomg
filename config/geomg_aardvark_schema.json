@@ -207,5 +207,5 @@
     "b1g_access_s": { "type": "string" },
     "b1g_code_s": { "type": "string" }
   },
-  "required": ["dct_title_s", "gbl_resourceClass_sm", "dct_accessRights_s", "geomg_id_s"]
+  "required": ["dct_title_s", "gbl_resourceType_sm", "dct_accessRights_s", "geomg_id_s"]
 }
