@@ -30,7 +30,7 @@ class Document < Kithe::Work
   self.kithe_indexable_mapper = DocumentIndexer.new
 
   # Validations
-  validates :b1g_status_s, :dct_identifier_sm, :dct_accessRights_s, :gbl_resourceType_sm, presence: true
+  validates :b1g_status_s, :dct_identifier_sm, :dct_accessRights_s, :gbl_resourceClass_sm, presence: true
 
   # Test for collection and restricted
   validates :dct_format_s, presence: true, if: :a_downloadable_resource?
