@@ -65,7 +65,7 @@
 
 <div class="grouping">
   <h3 id="object">Object</h3>
-  <%= f.input GEOMG.FIELDS.FORMAT, required: true, :input_html => { :data => { "scihist-qa-autocomplete" => qa_search_vocab_path("local", "formats")}}, label: "Format" %>
+  <%= f.input GEOMG.FIELDS.FORMAT, :input_html => { :data => { "scihist-qa-autocomplete" => qa_search_vocab_path("local", "formats")}}, label: "Format" %>
   <%= f.input GEOMG.FIELDS.FILE_SIZE %>
   <%= f.input GEOMG.FIELDS.LAYER_ID %>
   <%= f.input GEOMG.FIELDS.GEOREFERENCED, as: :boolean, inline_label: 'Georeferenced' %>
@@ -89,7 +89,7 @@
 
 <div class="grouping">
   <h3 id="rights">Rights</h3>
-  <%= f.input GEOMG.FIELDS.ACCESS_RIGHTS %>
+  <%= f.input GEOMG.FIELDS.ACCESS_RIGHTS, required: true %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.RIGHTS_HOLDER, build: :at_least_one %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.LICENSE, build: :at_least_one %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.RIGHTS, build: :at_least_one %>
