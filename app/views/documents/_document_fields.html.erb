@@ -24,7 +24,8 @@
         name: input_name,
         class: "form-control input-primitive" %>
   <% end %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.LAYER_GEOM_TYPE, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.LAYER_GEOM_TYPE, build: :at_least_one,
+  html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "resource_type")} %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.SUBJECT, build: :at_least_one %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.THEME, build: :at_least_one do |input_name, value| %>
     <%= f.input_field GEOMG.FIELDS.THEME, selected: value, include_blank: true, id: nil,
