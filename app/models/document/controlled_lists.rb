@@ -45,7 +45,8 @@ class Document
       'Imagery',
       'Collections',
       'Websites',
-      'Web services'
+      'Web services',
+      'Other'
     ].freeze
 
     SCHEMA_PROVIDER = [
