@@ -28,6 +28,7 @@ AllCops:
     - '**/*.rake'
     - 'app/helpers/form_input_helper.rb'
     - 'app/models/import.rb'
+    - 'app/models/document/date_range_validator.rb'
 
 Layout/ExtraSpacing:
   Exclude:
