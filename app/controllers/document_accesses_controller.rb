@@ -8,7 +8,11 @@ class DocumentAccessesController < ApplicationController
   # GET /documents/#id/access
   # GET /documents/#id/access.json
   def index
-    @document_accesses = DocumentAccess.where(friendlier_id: @document.friendlier_id).order(institution_code: :asc)
+    @document_accesses = if params[:document_id]
+                           DocumentAccess.where(friendlier_id: @document.friendlier_id).order(institution_code: :asc)
+                         else
+                           DocumentAccess.all
+                         end
   end
 
   # GET /document_accesses/1
@@ -68,14 +72,17 @@ class DocumentAccessesController < ApplicationController
   # GET   /documents/#id/access/import
   # POST  /documents/#id/access/import
   def import
-    return unless params.dig(:document, :assets, :file)
+    logger.debug('Import Action')
+    return unless params.dig(:document_access, :assets, :file)
 
     respond_to do |format|
-      DocumentAccess.import(@document, params.dig(:document, :assets, :file))
-      redirect_to document_document_accesses_path(@document), notice: 'Document access links were created successfully.'
+      if DocumentAccess.import(params.dig(:document_access, :assets, :file))
+        format.html { redirect_to document_accesses_path, notice: 'Document access links were created successfully.' }
+      else
+        format.html { redirect_to document_accesses_path, notice: 'Access URLs could not be created.' }
+      end
     rescue StandardError => e
-      format.html { redirect_to document_document_accesses_path(@document), notice: "Access URLs could not be created. #{e}" }
-      format.json { render json: @document.errors, status: :unprocessable_entity }
+      format.html { redirect_to document_accesses_path, notice: "Access URLs could not be created. #{e}" }
     end
   end
 
@@ -83,6 +90,8 @@ class DocumentAccessesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_document
+    return unless params[:document_id] # If not nested
+
     @document = Document.includes(:leaf_representative).find_by!(friendlier_id: params[:document_id])
   end
 

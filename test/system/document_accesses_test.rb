@@ -7,7 +7,7 @@ class DocumentAccessesTest < ApplicationSystemTestCase
     @document_access = document_accesses(:one)
   end
 
-  test "visiting the index" do
+  test "visiting the document index" do
     visit document_document_accesses_url(@document)
     assert_selector "h1", text: "Document · Access URLs"
   end

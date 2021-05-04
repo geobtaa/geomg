@@ -14,7 +14,22 @@ class DocumentAccessesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
+    get document_accesses_url
+    assert_response :success
+  end
+
+  test "should get import" do
+    get import_document_accesses_url
+    assert_response :success
+  end
+
+  test "should get document index" do
     get document_document_accesses_url(@document)
+    assert_response :success
+  end
+
+  test "should get document import" do
+    get import_document_document_accesses_url(@document)
     assert_response :success
   end
 
