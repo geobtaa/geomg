@@ -8,11 +8,11 @@ class DocumentAccessesController < ApplicationController
   # GET /documents/#id/access
   # GET /documents/#id/access.json
   def index
-    @document_accesses = if params[:document_id]
-                           DocumentAccess.where(friendlier_id: @document.friendlier_id).order(institution_code: :asc)
-                         else
-                           DocumentAccess.all
-                         end
+    if params[:document_id]
+      @document_accesses = DocumentAccess.where(friendlier_id: @document.friendlier_id).order(institution_code: :asc)
+    else
+      @pagy, @document_accesses = pagy(DocumentAccess.all.order('updated_at DESC'), items: 20)
+    end
   end
 
   # GET /document_accesses/1
