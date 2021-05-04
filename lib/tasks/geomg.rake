@@ -44,7 +44,7 @@ namespace :geomg do
     CodeStatistics::TEST_TYPES << 'Indexers Tests'
   end
 
-  desc 'Run Solr and GeOMG for development'
+  desc 'Run Solr and GEOMG for development'
   task server: :environment do
     require 'solr_wrapper'
 

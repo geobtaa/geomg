@@ -6,7 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.2', '>= 6.0.2.1'
+gem 'rails', '~> 6.1'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.4'
 gem 'pg'
@@ -74,11 +74,15 @@ gem 'haml', '~> 5.2.0'
 # Advanced Search
 gem 'chosen-rails'
 
+# Config
+gem 'config'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'inquisition', github: 'rubygarage/inquisition', branch: 'develop'
-  gem 'solr_wrapper', '~> 2.1'
+  gem 'json_schemer'
+  gem 'solr_wrapper', '~> 3.1'
 end
 
 group :development do

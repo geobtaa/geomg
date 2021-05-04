@@ -5,3 +5,4 @@ csv:
   content_type: 'text/csv'
   byte_size: 85013
   checksum: "AHlUfMNN6426hq5YY+wLIA=="
+  service_name: 'local'

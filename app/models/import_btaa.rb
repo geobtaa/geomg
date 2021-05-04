@@ -15,7 +15,7 @@ class ImportBtaa < Import
   # Solr Field => Hard Value
   def default_mappings
     [
-      { geoblacklight_version: '1.0' }
+      { gbl_mdVersion_s: 'Aardvark' }
     ]
   end
 
@@ -32,11 +32,13 @@ class ImportBtaa < Import
   # Derived Values
   def derived_mappings
     [
-      { b1g_centroid_ss:
-        {
-          field: 'solr_geom',
-          method: 'derive_b1g_centroid_ss'
-        } }
+      {
+        dcat_centroid_ss:
+          {
+            field: 'locn_geometry',
+            method: 'derive_b1g_centroid_ss'
+          }
+      }
     ]
   end
 
@@ -48,22 +50,13 @@ class ImportBtaa < Import
     ]
   end
 
-  def solr_geom_mapping(geom)
-    # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
-    w, s, e, n = geom.split(',')
-    "ENVELOPE(#{w},#{e},#{n},#{s})"
-  end
-
   def derive_b1g_centroid_ss(args)
     data_hash = args[:data_hash]
     field = args[:field]
 
-    w, e, n, s = wens_matches(data_hash[field])
-    "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
-  end
+    return if data_hash[field].blank?
 
-  def wens_matches(data_hash_field)
-    matches = data_hash_field.match(/\(([^)]+)\)/)
-    matches.captures[0].split(',')
+    w, s, e, n = data_hash[field].split(',')
+    "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
   end
 end

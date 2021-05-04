@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+require "active_support/core_ext/integer/time"
 
 # The test environment is used exclusively to run your application's
 # test suite. You never need to work with it otherwise. Remember that
@@ -9,6 +9,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   config.cache_classes = false
+  config.action_view.cache_template_loading = true
 
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
@@ -45,14 +46,18 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
-  # Raises error for missing translations.
-  # config.action_view.raise_on_missing_translations = true
+  # Raise exceptions for disallowed deprecations.
+  config.active_support.disallowed_deprecation = :raise
 
-  # Do not allow a pg_dump action after migrations, because in automated testing
-  # or on clients that cannot run the same pg client as the server, pg_dump
-  # might not work at all, resulting in error returns from otherwise successful tasks
-  config.active_record.dump_schema_after_migration = false
+  # Tell Active Support which deprecation messages to disallow.
+  config.active_support.disallowed_deprecation_warnings = []
+
+  # Raises error for missing translations.
+  # config.i18n.raise_on_missing_translations = true
 
   # Background Queue
   config.active_job.queue_adapter = :inline
+
+  # Annotate rendered view with file names.
+  # config.action_view.annotate_rendered_view_with_filenames = true
 end

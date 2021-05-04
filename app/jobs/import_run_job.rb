@@ -13,9 +13,9 @@ class ImportRunJob < ApplicationJob
       converted_data = import.convert_data(extract_hash)
 
       kithe_document = {
-        title: converted_data['dc_title_s'],
+        title: converted_data[GEOMG.FIELDS.TITLE],
         json_attributes: converted_data,
-        friendlier_id: converted_data['layer_slug_s'],
+        friendlier_id: converted_data[GEOMG.FIELDS.LAYER_SLUG],
         import_id: import.id
       }
 
@@ -24,9 +24,10 @@ class ImportRunJob < ApplicationJob
 
       # Add import document to background job queue
       ImportDocumentJob.perform_later(import_document)
-
-      # @TODO
-      # - Possibly kick off URI and SidecarImage jobs
+    rescue StandardError => e
+      logger.debug "\n\nCANNOT IMPORT: #{extract_hash.inspect}"
+      logger.debug "Error: #{e.inspect}\n\n"
+      next
     end
   end
 end

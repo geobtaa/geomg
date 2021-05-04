@@ -27,26 +27,26 @@ class DocumentFormTest < ApplicationSystemTestCase
   def test_form_elements
     visit '/documents/new'
     within('form#new_document') do
-      # dc_title_s
+      # title / dct_title_s
       assert page.has_selector?('input#document_title')
-      # dct_alternativeTitle_sm
-      assert page.has_selector?('input#document_dct_alternativeTitle_sm_attributes_', visible: false)
-      # dc_description_s
-      assert page.has_selector?('textarea#document_dc_description_s')
+      # dct_alternative_sm
+      assert page.has_selector?('input#document_dct_alternative_sm_attributes_', visible: false)
+      # dct_description_sm
+      assert page.has_selector?('input#document_dct_alternative_sm_attributes_', visible: false)
       # dc_language_sm
-      assert page.has_selector?('input#document_dc_language_sm_attributes_', visible: false)
+      assert page.has_selector?('input#document_dct_language_sm_attributes_', visible: false)
 
       # b1g_genre_sm
-      assert page.has_selector?('input#document_b1g_genre_sm_attributes_', visible: false)
+      # assert page.has_selector?('input#document_b1g_genre_sm_attributes_', visible: false)
 
       # dc_type_sm
-      assert page.has_selector?('input#document_dc_type_sm_attributes_', visible: false)
+      # assert page.has_selector?('input#document_dc_type_sm_attributes_', visible: false)
 
       # document_dc_format_s
-      assert page.has_selector?('input#document_dc_format_s[data-scihist-qa-autocomplete]')
+      assert page.has_selector?('input#document_dct_format_s[data-scihist-qa-autocomplete]')
 
       # dct_accrualPeriodicity_s
-      assert page.has_selector?('select#document_dct_accrualPeriodicity_s')
+      assert page.has_selector?('select#document_b1g_dct_accrualPeriodicity_s')
     end
   end
 end

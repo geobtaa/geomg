@@ -30,15 +30,14 @@ class Document < Kithe::Work
   self.kithe_indexable_mapper = DocumentIndexer.new
 
   # Validations
-  validates :b1g_status_s, :dc_identifier_s, :dc_rights_s, :layer_geom_type_s, :layer_slug_s, presence: true
+  validates :title, :dct_accessRights_s, :gbl_resourceClass_sm, :geomg_id_s, presence: true
 
-  # @TODO: Test for collection and restricted
-  validates :dc_format_s, presence: true, unless: :a_collection_object?
+  # Test for collection and restricted
+  validates :dct_format_s, presence: true, if: :a_downloadable_resource?
 
-  # Interactive Resouce
-  # Restricted items!
-  def a_collection_object?
-    dc_type_sm.include?('Collection')
+  # Downloadable Resouce
+  def a_downloadable_resource?
+    references_json.include?('downloadUrl')
   end
 
   validates_with Document::DateRangeValidator
@@ -47,74 +46,87 @@ class Document < Kithe::Work
   # Form
   # Identification
   # - Descriptive
-  attr_json :dc_title_s, :string
-  attr_json :dct_alternativeTitle_sm, :string, array: true, default: -> { [] }
-  attr_json :dc_description_s, :text
-  attr_json :dc_language_sm, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.TITLE.to_sym, :string
+  attr_json GEOMG.FIELDS.ALT_TITLE.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.DESCRIPTION.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.LANGUAGE.to_sym, :string, array: true, default: -> { [] }
 
   # - Credits
-  attr_json :dc_creator_sm, :string, array: true, default: -> { [] }
-  attr_json :dc_publisher_sm, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.CREATOR.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.PUBLISHER.to_sym, :string, array: true, default: -> { [] }
 
   # - Categories
-  attr_json :b1g_genre_sm, :string, array: true, default: -> { [] }
-  attr_json :dc_subject_sm, :string, array: true, default: -> { [] }
-  attr_json :b1g_keyword_sm, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_GENRE.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.SUBJECT.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.THEME.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_KEYWORD.to_sym, :string, array: true, default: -> { [] }
 
   # - Temporal
-  attr_json :dct_issued_s, :string
-  attr_json :dct_temporal_sm, :string, array: true, default: -> { [] }
-  attr_json :b1g_date_range_drsim, :string, array: true, default: -> { [] }
-  attr_json :solr_year_i, :integer
+  attr_json GEOMG.FIELDS.ISSUED.to_sym, :string
+  attr_json GEOMG.FIELDS.TEMPORAL.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_DATE_RANGE.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.YEAR.to_sym, :integer, array: true, default: -> { [] }
 
   # - Spatial
-  attr_json :dct_spatial_sm, :string, array: true, default: -> { [] }
-  attr_json :b1g_geonames_sm, :string, array: true, default: -> { [] }
-  attr_json :solr_geom, :string
-  attr_json :b1g_centroid_ss, :string
+  attr_json GEOMG.FIELDS.SPATIAL.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_GEONAMES.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.GEOM.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_CENTROID.to_sym, :string
+
+  # - Relations
+  attr_json GEOMG.FIELDS.RELATION.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.MEMBER_OF.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.IS_VERSION_OF.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.REPLACES.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.IS_REPLACED_BY.to_sym, :string, array: true, default: -> { [] }
 
   # Distribution
   # - Object
-  attr_json :dc_type_sm, :string, array: true, default: -> { [] }
-  attr_json :layer_geom_type_s, :string
-  attr_json :layer_id_s, :string
-  attr_json :dc_format_s, :string
+  attr_json GEOMG.FIELDS.LAYER_GEOM_TYPE.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.LAYER_ID.to_sym, :string
+  attr_json GEOMG.FIELDS.FORMAT.to_sym, :string
+  attr_json GEOMG.FIELDS.FILE_SIZE.to_sym, :string
+  attr_json GEOMG.FIELDS.GEOREFERENCED.to_sym, :boolean
 
   # - Access Links
   # - Geospatial Web Services
   # - Images
   # - Metadata
-  attr_json :dct_references_s, Document::Reference.to_type, array: true, default: -> { [] }
-  attr_json :b1g_image_ss, :string
+  attr_json GEOMG.FIELDS.REFERENCES.to_sym, Document::Reference.to_type, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_IMAGE.to_sym, :string
 
   # Administrative
   # - Codes
-  attr_json :dc_identifier_s, :string
-  attr_json :layer_slug_s, :string
-  attr_json :dct_provenance_s, :string
-  attr_json :b1g_code_s, :string
-  attr_json :dct_isPartOf_sm, :string, array: true, default: -> { [] }
-  attr_json :dc_source_sm, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.IDENTIFIER.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.LAYER_SLUG.to_sym, :string
+  attr_json GEOMG.FIELDS.PROVENANCE.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_CODE.to_sym, :string
+  attr_json GEOMG.FIELDS.IS_PART_OF.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.SOURCE.to_sym, :string, array: true, default: -> { [] }
 
-  # - Status
-  attr_json :b1g_status_s, :string
-  attr_json :dct_accrualMethod_s, :string
-  attr_json :dct_accrualPeriodicity_s, :string
-  attr_json :b1g_dateAccessioned_s, :string
-  attr_json :b1g_dateRetired_s, :string
+  # - Rights
+  attr_json GEOMG.FIELDS.LICENSE.to_sym, :string, array: true, default: -> { [] }
+
+  # - Life Cycle
+  attr_json GEOMG.FIELDS.B1G_ACCRUAL_METHOD.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_DATE_ACCESSIONED.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_DATE_RETIRED.to_sym, :string
+  attr_json GEOMG.FIELDS.B1G_STATUS.to_sym, :string
 
   # - Accessibility
-  attr_json :dc_rights_s, :string
-  attr_json :dct_accessRights_sm, :string, array: true, default: -> { [] }
-
-  # @TODO: Why are booleans not passed in form params?
-  attr_json :suppressed_b, :boolean
-  attr_json :b1g_child_record_b, :boolean
+  attr_json GEOMG.FIELDS.ACCESS_RIGHTS.to_sym, :string
+  attr_json GEOMG.FIELDS.RIGHTS_HOLDER.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.RIGHTS.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_MEDIATOR.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_ACCESS.to_sym, :string
+  attr_json GEOMG.FIELDS.SUPPRESSED.to_sym, :boolean
+  attr_json GEOMG.FIELDS.B1G_CHILD_RECORD.to_sym, :boolean
 
   # Index Transformations - *_json functions
   def references_json
     references = {}
-    dct_references_s.each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
+    send(GEOMG.FIELDS.REFERENCES).each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
     references.to_json
   end
 
@@ -124,13 +136,13 @@ class Document < Kithe::Work
     access.to_json
   end
 
-  def layer_modified_dt
+  def gbl_mdModified_dt
     updated_at&.utc&.iso8601
   end
 
   def date_range_json
     date_ranges = []
-    b1g_date_range_drsim.each do |date_range|
+    send(GEOMG.FIELDS.B1G_DATE_RANGE).each do |date_range|
       start_d, end_d = date_range.split('-')
       start_d = '*' if start_d == 'YYYY' || start_d.nil?
       end_d   = '*' if end_d == 'YYYY' || end_d.nil?
@@ -140,21 +152,18 @@ class Document < Kithe::Work
   end
 
   def solr_year_json
-    return nil if b1g_date_range_drsim.blank?
+    return [] if send(GEOMG.FIELDS.B1G_DATE_RANGE).blank?
 
-    start_d, _end_d = b1g_date_range_drsim.first.split('-')
-    start_d if start_d.presence
+    start_d, _end_d = send(GEOMG.FIELDS.B1G_DATE_RANGE).first.split('-')
+    [start_d] if start_d.presence
   end
 
   # Export Transformations - to_*
   def to_csv
     attributes = Geomg.field_mappings_btaa
-
     attributes.map do |key, value|
       if value[:delimited]
         send(value[:destination]).join('|')
-      elsif value[:destination] == 'solr_geom'
-        solr_geom_to_csv(value[:destination])
       elsif value[:destination] == 'dct_references_s'
         dct_references_s_to_csv(key, value[:destination])
       else
@@ -169,12 +178,6 @@ class Document < Kithe::Work
     nil
   end
 
-  def solr_geom_to_csv(destination)
-    wsen_coordinates(send(destination))
-  rescue NoMethodError
-    nil
-  end
-
   def current_version
     versions.last.index
   end
@@ -184,14 +187,18 @@ class Document < Kithe::Work
     DocumentAccess.where(friendlier_id: friendlier_id).order(institution_code: :asc)
   end
 
-  private
-
-  # "ENVELOPE(W,E,N,S)" convert to "W,S,E,N"
-  def wsen_coordinates(coords)
-    # ex. ENVELOPE(-95.0379,-91.198,43.1373,40.6333)
-    w, e, n, s = coords[/\((.*?)\)/, 1].split(',')
-    "#{w},#{s},#{e},#{n}"
+  # Convert GEOM for Solr Indexing
+  def solr_geom_mapping
+    if send(GEOMG.FIELDS.GEOM).present?
+      # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
+      w, s, e, n = send(GEOMG.FIELDS.GEOM).split(',')
+      "ENVELOPE(#{w},#{e},#{n},#{s})"
+    else
+      ''
+    end
   end
+
+  private
 
   def transition_publication_state
     state_machine.transition_to!(publication_state.downcase) if publication_state_changed?
