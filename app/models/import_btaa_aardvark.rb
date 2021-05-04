@@ -5,7 +5,7 @@ class ImportBtaaAardvark < Import
   # validations, constants and methods
 
   def mapping_configuration
-    Geomg.field_mappings_btaa_aardvark
+    GEOMG.field_mappings_btaa_aardvark
   end
 
   def klass_delimiter
@@ -98,7 +98,7 @@ class ImportBtaaAardvark < Import
       json_data.each do |key, value|
         reference = {
           value: value,
-          category: Geomg.uri_2_category_references_mappings[key]
+          category: GEOMG.uri_2_category_references_mappings[key]
         }
         references << reference
       end

@@ -25,4 +25,7 @@
 //= require geomg/inputmask
 //= require geomg/tooltips
 
+// GEOBLACKLIGHT
+//= require geoblacklight/geoblacklight
+
 //= require_tree .

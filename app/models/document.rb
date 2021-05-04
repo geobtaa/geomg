@@ -160,7 +160,7 @@ class Document < Kithe::Work
 
   # Export Transformations - to_*
   def to_csv
-    attributes = Geomg.field_mappings_btaa
+    attributes = GEOMG.field_mappings_btaa
     attributes.map do |key, value|
       if value[:delimited]
         send(value[:destination]).join('|')
@@ -173,7 +173,7 @@ class Document < Kithe::Work
   end
 
   def dct_references_s_to_csv(key, destination)
-    send(destination).detect { |ref| ref.category == Geomg.dct_references_mappings[key] }.value
+    send(destination).detect { |ref| ref.category == GEOMG.dct_references_mappings[key] }.value
   rescue NoMethodError
     nil
   end

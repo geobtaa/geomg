@@ -99,7 +99,7 @@ class Import < ApplicationRecord
         transformed_data[mapping.destination_field] ||= []
         unless extract_hash[mapping.source_header].nil?
           transformed_data[mapping.destination_field] << {
-            category: Geomg.dct_references_mappings[mapping.source_header.to_sym],
+            category: GEOMG.dct_references_mappings[mapping.source_header.to_sym],
             value: extract_hash[mapping.source_header]
           }
         end

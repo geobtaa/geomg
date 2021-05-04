@@ -4,7 +4,7 @@ require 'test_helper'
 
 class GeomgTest < ActiveSupport::TestCase
   def setup
-    @geomg_btaa_csv = Geomg.field_mappings_btaa
+    @geomg_btaa_csv = GEOMG.field_mappings_btaa
   end
 
   test 'methods' do
@@ -22,9 +22,9 @@ class GeomgTest < ActiveSupport::TestCase
 
   # @TODO: move to Geomg config test
   test 'dct_references_mappings' do
-    assert_instance_of(Hash, Geomg.dct_references_mappings)
+    assert_instance_of(Hash, GEOMG.dct_references_mappings)
     %w[Download FeatureServer ImageServer Information MapServer].each do |mapping|
-      assert(Geomg.dct_references_mappings.key?(mapping.to_sym))
+      assert(GEOMG.dct_references_mappings.key?(mapping.to_sym))
     end
   end
 end

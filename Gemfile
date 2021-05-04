@@ -77,6 +77,9 @@ gem 'chosen-rails'
 # Config
 gem 'config'
 
+# GeoBlacklight
+gem 'geoblacklight', '~> 3.3'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
