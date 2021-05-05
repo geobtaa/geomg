@@ -3,6 +3,6 @@ csv:
   key: '12345678'
   filename: 'btaa_formatted_records.csv'
   content_type: 'text/csv'
-  byte_size: 85013
-  checksum: "AHlUfMNN6426hq5YY+wLIA=="
+  byte_size: 88435
+  checksum: "dWCq/sL1i8EB4AE2Oeg09w=="
   service_name: 'local'
