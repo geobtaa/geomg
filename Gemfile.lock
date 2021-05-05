@@ -1,4 +1,21 @@
 GIT
+  remote: git@github.com:Data-Liberation-Front/csvlint.rb.git
+  revision: dd25a28626c7c84bc3ee8fbf23ce95b9d82a8769
+  ref: dd25a28626c7c84bc3ee8fbf23ce95b9d82a8769
+  specs:
+    csvlint (0.4.0)
+      activesupport
+      addressable
+      escape_utils
+      net-http-persistent
+      open_uri_redirections
+      rack
+      rainbow
+      thor
+      typhoeus
+      uri_template
+
+GIT
   remote: https://github.com/rubygarage/inquisition.git
   revision: 63e1279ef3a5c3ba3db53040ac70142d8e81cf66
   branch: develop
@@ -229,6 +246,9 @@ GEM
     equalizer (0.0.11)
     erubi (1.10.0)
     erubis (2.7.0)
+    escape_utils (1.2.1)
+    ethon (0.14.0)
+      ffi (>= 1.15.0)
     exception_notification (4.4.3)
       actionmailer (>= 4.0, < 7)
       activesupport (>= 4.0, < 7)
@@ -384,10 +404,13 @@ GEM
     msgpack (1.4.2)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
+    net-http-persistent (4.0.1)
+      connection_pool (~> 2.2)
     nio4r (2.5.7)
     nokogiri (1.11.3)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
+    open_uri_redirections (0.2.1)
     orm_adapter (0.5.0)
     pagy (3.13.0)
     paper_trail (12.0.0)
@@ -618,6 +641,8 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
+    typhoeus (1.4.0)
+      ethon (>= 0.9.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
@@ -667,6 +692,7 @@ DEPENDENCIES
   chosen-rails
   cocoon (~> 1.2)
   config
+  csvlint!
   devise (~> 4.7.0)
   devise-bootstrap-views (~> 1.0)
   devise_invitable (~> 2.0.0)

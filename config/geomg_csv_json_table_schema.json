@@ -1,0 +1,205 @@
+{
+  "fields": [
+    {
+      "name": "Title",
+      "constraints": {
+        "required": true
+      }
+    },
+    {
+      "name": "Alternative Title"
+    },
+    {
+      "name": "Description"
+    },
+    {
+      "name": "Language"
+    },
+    {
+      "name": "Creator"
+    },
+    {
+      "name": "Publisher"
+    },
+    {
+      "name": "Provider"
+    },
+    {
+      "name": "Resource Class",
+      "constraints": {
+        "required": true
+      }
+    },
+    {
+      "name": "Resource Type"
+    },
+    {
+      "name": "Subject"
+    },
+    {
+      "name": "ISO Topic Category"
+    },
+    {
+      "name": "Keyword"
+    },
+    {
+      "name": "Temporal Coverage"
+    },
+    {
+      "name": "Date Issued"
+    },
+    {
+      "name": "Date Range"
+    },
+    {
+      "name": "Spatial Coverage"
+    },
+    {
+      "name": "Bounding Box"
+    },
+    {
+      "name": "GeoNames"
+    },
+    {
+      "name": "Relation"
+    },
+    {
+      "name": "Member Of"
+    },
+    {
+      "name": "Is Part Of"
+    },
+    {
+      "name": "Source"
+    },
+    {
+      "name": "Version"
+    },
+    {
+      "name": "Replaces"
+    },
+    {
+      "name": "Is Replaced By"
+    },
+    {
+      "name": "Format"
+    },
+    {
+      "name": "File Size"
+    },
+    {
+      "name": "WxS Identifier"
+    },
+    {
+      "name": "Georeferenced"
+    },
+    {
+      "name": "Documentation"
+    },
+    {
+      "name": "Download"
+    },
+    {
+      "name": "FeatureServer"
+    },
+    {
+      "name": "FGDC"
+    },
+    {
+      "name": "HTML"
+    },
+    {
+      "name": "IIIF"
+    },
+    {
+      "name": "ImageServer"
+    },
+    {
+      "name": "Information"
+    },
+    {
+      "name": "ISO19139"
+    },
+    {
+      "name": "Manifest"
+    },
+    {
+      "name": "MapServer"
+    },
+    {
+      "name": "MODS"
+    },
+    {
+      "name": "Index Map"
+    },
+    {
+      "name": "TileServer"
+    },
+    {
+      "name": "WFS"
+    },
+    {
+      "name": "WMS"
+    },
+    {
+      "name": "Image"
+    },
+    {
+      "name": "ID",
+      "constraints": {
+        "required": true
+      }
+    },
+    {
+      "name": "Identifier"
+    },
+    {
+      "name": "Code"
+    },
+    {
+      "name": "Rights"
+    },
+    {
+      "name": "Rights Holder"
+    },
+    {
+      "name": "License"
+    },
+    {
+      "name": "Access Rights",
+      "constraints": {
+        "required": true
+      }
+    },
+    {
+      "name": "Accrual Method"
+    },
+    {
+      "name": "Accrual Periodicity"
+    },
+    {
+      "name": "Date Accessioned"
+    },
+    {
+      "name": "Date Retired"
+    },
+    {
+      "name": "Status"
+    },
+    {
+      "name": "Suppressed"
+    },
+    {
+      "name": "Child Record"
+    },
+    {
+      "name": "Mediator",
+      "constraints": {
+        "required": true
+      }
+    },
+    {
+      "name": "Access"
+    }
+  ]
+}

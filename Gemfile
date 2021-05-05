@@ -77,6 +77,9 @@ gem 'chosen-rails'
 # Config
 gem 'config'
 
+# CSV Lint
+gem 'csvlint', git: 'git@github.com:Data-Liberation-Front/csvlint.rb.git', ref: 'dd25a28626c7c84bc3ee8fbf23ce95b9d82a8769'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
