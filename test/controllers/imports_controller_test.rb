@@ -34,6 +34,13 @@ class ImportsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to import_mappings_url(Import.last)
   end
 
+  test 'should redirect bad headers' do
+    @import = imports(:two)
+    assert_no_difference('Import.count') do
+      post imports_url, params: { import: { content_type: @import.content_type, description: @import.description, encoding: @import.encoding, extension: @import.extension, filename: @import.filename, headers: @import.headers, name: @import.name, row_count: @import.row_count, source: @import.source, validity: @import.validity, validation_result: @import.validation_result, csv_file: fixture_file_upload('files/btaa_formatted_records.csv', 'text/csv'), type: @import.type } }
+    end
+  end
+
   test 'should show import' do
     skip('@TODO: Blob link to test attachment not working?')
     get import_url(@import)

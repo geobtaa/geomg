@@ -9,6 +9,9 @@ one:
   headers:
     - Title
     - Alternative Title
+    - Resource Class
+    - Access Rights
+    - ID
   encoding: MyString
   content_type: text/csv
   extension: MyString
