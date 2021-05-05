@@ -39,7 +39,7 @@
 <div class="grouping">
   <h3 id="temporal">Temporal</h3>
   <%= f.repeatable_attr_input GEOMG.FIELDS.TEMPORAL, build: :at_least_one %>
-  <%= f.input GEOMG.FIELDS.ISSUED, label: "Date Issued", hint: "YYYY-MM-DD", input_html: { data: {js: :datepicker} } %>
+  <%= f.input GEOMG.FIELDS.ISSUED, label: "Date Issued", hint: "YYYY", input_html: { data: {js: 'datepicker-years'} } %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_DATE_RANGE, build: :at_least_one,
   html_attributes: { "data-inputmask-regex" => "'mask': '/\d{4}|\*-\d{4}|\*/'", 'placeholder': 'YYYY-YYYY'} %>
 </div>
