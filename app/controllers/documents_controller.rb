@@ -48,7 +48,7 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new(document_params)
-    @document.friendlier_id = @document.send(GEOMG.FIELDS.LAYER_SLUG)
+    @document.friendlier_id = @document.send(Settings.FIELDS.LAYER_SLUG)
     respond_to do |format|
       if @document.save
         format.html { redirect_to documents_path, notice: 'Document was successfully created.' }
@@ -123,7 +123,7 @@ class DocumentsController < ApplicationController
 
   def collect_csv(documents)
     CSV.generate(headers: true) do |csv|
-      csv << GEOMG.field_mappings_btaa.map { |k, _v| k.to_s }
+      csv << Settings.field_mappings_btaa.map { |k, _v| k.to_s }
       if documents.instance_of?(BlacklightApi)
         documents.load_all.map do |doc|
           csv << doc.to_csv if doc.present?

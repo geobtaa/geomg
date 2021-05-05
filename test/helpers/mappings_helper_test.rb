@@ -9,7 +9,7 @@ class MappingsHelperTest < ActionView::TestCase
   end
 
   test 'attribute_collection' do
-    attrs = GEOMG.FIELDS.keys.collect{|c| GEOMG.FIELDS.send(c).to_sym}.sort
+    attrs = Settings.FIELDS.keys.collect{|c| Settings.FIELDS.send(c).to_sym}.sort
     attrs.prepend('')
     attrs.prepend('Discard')
     attrs.delete (:gbl_mdVersion_s)   # Assumed value
@@ -24,7 +24,7 @@ class MappingsHelperTest < ActionView::TestCase
   test 'mapping_suggestion - exists' do
     assert_equal(
       mapping_suggestion(@import, 'Language'),
-      GEOMG.FIELDS.LANGUAGE
+      Settings.FIELDS.LANGUAGE
     )
   end
 

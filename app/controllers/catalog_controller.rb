@@ -29,7 +29,7 @@ class CatalogController < ApplicationController
     #
     config.default_document_solr_params = {
      :qt => 'document',
-     :q => "{!raw f=#{GEOMG.FIELDS.UNIQUE_KEY} v=$id}"
+     :q => "{!raw f=#{Settings.FIELDS.UNIQUE_KEY} v=$id}"
     }
 
 
@@ -37,7 +37,7 @@ class CatalogController < ApplicationController
     # config.index.show_link = 'title_display'
     # config.index.record_display_type = 'format'
 
-    config.index.title_field = GEOMG.FIELDS.TITLE
+    config.index.title_field = Settings.FIELDS.TITLE
 
     # solr field configuration for document/show views
 
@@ -85,19 +85,19 @@ class CatalogController < ApplicationController
     #    :years_25 => { :label => 'within 25 Years', :fq => "pub_date:[#{Time.now.year - 25 } TO *]" }
     # }
 
-    config.add_facet_field GEOMG.FIELDS.PROVENANCE, label: 'Institution', limit: 8, partial: "icon_facet"
-    config.add_facet_field GEOMG.FIELDS.CREATOR, :label => 'Author', :limit => 8
-    config.add_facet_field GEOMG.FIELDS.PUBLISHER, :label => 'Publisher', :limit => 8
-    config.add_facet_field GEOMG.FIELDS.SUBJECT, :label => 'Subject', :limit => 8
-    config.add_facet_field GEOMG.FIELDS.SPATIAL_COVERAGE, :label => 'Place', :limit => 8
-    config.add_facet_field GEOMG.FIELDS.PART_OF, :label => 'Collection', :limit => 8
+    config.add_facet_field Settings.FIELDS.PROVENANCE, label: 'Institution', limit: 8, partial: "icon_facet"
+    config.add_facet_field Settings.FIELDS.CREATOR, :label => 'Author', :limit => 8
+    config.add_facet_field Settings.FIELDS.PUBLISHER, :label => 'Publisher', :limit => 8
+    config.add_facet_field Settings.FIELDS.SUBJECT, :label => 'Subject', :limit => 8
+    config.add_facet_field Settings.FIELDS.SPATIAL_COVERAGE, :label => 'Place', :limit => 8
+    config.add_facet_field Settings.FIELDS.PART_OF, :label => 'Collection', :limit => 8
 
-    config.add_facet_field GEOMG.FIELDS.YEAR, :label => 'Year', :limit => 10
+    config.add_facet_field Settings.FIELDS.YEAR, :label => 'Year', :limit => 10
 
-    config.add_facet_field GEOMG.FIELDS.RIGHTS, label: 'Access', limit: 8, partial: "icon_facet"
-    config.add_facet_field GEOMG.FIELDS.GEOM_TYPE, label: 'Data type', limit: 8, partial: "icon_facet"
-    config.add_facet_field GEOMG.FIELDS.FILE_FORMAT, :label => 'Format', :limit => 8
-    config.add_facet_field GEOMG.FIELDS.SOURCE, show: false
+    config.add_facet_field Settings.FIELDS.RIGHTS, label: 'Access', limit: 8, partial: "icon_facet"
+    config.add_facet_field Settings.FIELDS.GEOM_TYPE, label: 'Data type', limit: 8, partial: "icon_facet"
+    config.add_facet_field Settings.FIELDS.FILE_FORMAT, :label => 'Format', :limit => 8
+    config.add_facet_field Settings.FIELDS.SOURCE, show: false
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -117,14 +117,14 @@ class CatalogController < ApplicationController
     # config.add_index_field 'lc_callnum_display', :label => 'Call number:'
 
     # config.add_index_field 'dc_title_t', :label => 'Display Name:'
-    # config.add_index_field GEOMG.FIELDS.PROVENANCE, :label => 'Institution:'
-    # config.add_index_field GEOMG.FIELDS.RIGHTS, :label => 'Access:'
+    # config.add_index_field Settings.FIELDS.PROVENANCE, :label => 'Institution:'
+    # config.add_index_field Settings.FIELDS.RIGHTS, :label => 'Access:'
     # # config.add_index_field 'Area', :label => 'Area:'
-    # config.add_index_field GEOMG.FIELDS.SUBJECT, :label => 'Keywords:'
-    config.add_index_field GEOMG.FIELDS.YEAR
-    config.add_index_field GEOMG.FIELDS.CREATOR
-    config.add_index_field GEOMG.FIELDS.DESCRIPTION, helper_method: :snippit
-    config.add_index_field GEOMG.FIELDS.PUBLISHER
+    # config.add_index_field Settings.FIELDS.SUBJECT, :label => 'Keywords:'
+    config.add_index_field Settings.FIELDS.YEAR
+    config.add_index_field Settings.FIELDS.CREATOR
+    config.add_index_field Settings.FIELDS.DESCRIPTION, helper_method: :snippit
+    config.add_index_field Settings.FIELDS.PUBLISHER
 
 
 
@@ -134,16 +134,16 @@ class CatalogController < ApplicationController
     # item_prop: [String] property given to span with Schema.org item property
     # link_to_search: [Boolean] that can be passed to link to a facet search
     # helper_method: [Symbol] method that can be used to render the value
-    config.add_show_field GEOMG.FIELDS.CREATOR, label: 'Author(s)', itemprop: 'author'
-    config.add_show_field GEOMG.FIELDS.DESCRIPTION, label: 'Description', itemprop: 'description', helper_method: :render_value_as_truncate_abstract
-    config.add_show_field GEOMG.FIELDS.PUBLISHER, label: 'Publisher', itemprop: 'publisher'
-    config.add_show_field GEOMG.FIELDS.PART_OF, label: 'Collection', itemprop: 'isPartOf'
-    config.add_show_field GEOMG.FIELDS.SPATIAL_COVERAGE, label: 'Place(s)', itemprop: 'spatial', link_to_facet: true
-    config.add_show_field GEOMG.FIELDS.SUBJECT, label: 'Subject(s)', itemprop: 'keywords', link_to_facet: true
-    config.add_show_field GEOMG.FIELDS.TEMPORAL, label: 'Year', itemprop: 'temporal'
-    config.add_show_field GEOMG.FIELDS.PROVENANCE, label: 'Held by', link_to_facet: true
+    config.add_show_field Settings.FIELDS.CREATOR, label: 'Author(s)', itemprop: 'author'
+    config.add_show_field Settings.FIELDS.DESCRIPTION, label: 'Description', itemprop: 'description', helper_method: :render_value_as_truncate_abstract
+    config.add_show_field Settings.FIELDS.PUBLISHER, label: 'Publisher', itemprop: 'publisher'
+    config.add_show_field Settings.FIELDS.PART_OF, label: 'Collection', itemprop: 'isPartOf'
+    config.add_show_field Settings.FIELDS.SPATIAL_COVERAGE, label: 'Place(s)', itemprop: 'spatial', link_to_facet: true
+    config.add_show_field Settings.FIELDS.SUBJECT, label: 'Subject(s)', itemprop: 'keywords', link_to_facet: true
+    config.add_show_field Settings.FIELDS.TEMPORAL, label: 'Year', itemprop: 'temporal'
+    config.add_show_field Settings.FIELDS.PROVENANCE, label: 'Held by', link_to_facet: true
     config.add_show_field(
-      GEOMG.FIELDS.REFERENCES,
+      Settings.FIELDS.REFERENCES,
       label: 'More details at',
       accessor: [:external_url],
       if: proc { |_, _, doc| doc.external_url },
@@ -223,8 +223,8 @@ class CatalogController < ApplicationController
     # whether the sort is ascending or descending (it must be asc or desc
     # except in the relevancy case).
     config.add_sort_field 'score desc, dc_title_sort asc', :label => 'relevance'
-    config.add_sort_field "#{GEOMG.FIELDS.YEAR} desc, dc_title_sort asc", :label => 'year'
-    config.add_sort_field "#{GEOMG.FIELDS.PUBLISHER} asc, dc_title_sort asc", :label => 'publisher'
+    config.add_sort_field "#{Settings.FIELDS.YEAR} desc, dc_title_sort asc", :label => 'year'
+    config.add_sort_field "#{Settings.FIELDS.PUBLISHER} asc, dc_title_sort asc", :label => 'publisher'
     config.add_sort_field 'dc_title_sort asc', :label => 'title'
 
     # If there are more than this many search results, no spelling ("did you
@@ -244,8 +244,8 @@ class CatalogController < ApplicationController
     config.add_show_tools_partial(:sms, if: :render_sms_action?, callback: :sms_action, validator: :validate_sms_params)
 
     # Custom tools for GeoBlacklight
-    config.add_show_tools_partial :web_services, if: proc { |_context, _config, options| options[:document] && (GEOMG.WEBSERVICES_SHOWN & options[:document].references.refs.map(&:type).map(&:to_s)).any? }
-    config.add_show_tools_partial :metadata, if: proc { |_context, _config, options| options[:document] && (GEOMG.METADATA_SHOWN & options[:document].references.refs.map(&:type).map(&:to_s)).any? }
+    config.add_show_tools_partial :web_services, if: proc { |_context, _config, options| options[:document] && (Settings.WEBSERVICES_SHOWN & options[:document].references.refs.map(&:type).map(&:to_s)).any? }
+    config.add_show_tools_partial :metadata, if: proc { |_context, _config, options| options[:document] && (Settings.METADATA_SHOWN & options[:document].references.refs.map(&:type).map(&:to_s)).any? }
     config.add_show_tools_partial :carto, partial: 'carto', if: proc { |_context, _config, options| options[:document] && options[:document].carto_reference.present? }
     config.add_show_tools_partial :arcgis, partial: 'arcgis', if: proc { |_context, _config, options| options[:document] && options[:document].arcgis_urls.present? }
     config.add_show_tools_partial :data_dictionary, partial: 'data_dictionary', if: proc { |_context, _config, options| options[:document] && options[:document].data_dictionary_download.present? }

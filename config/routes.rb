@@ -27,7 +27,12 @@ Rails.application.routes.draw do
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  root to: 'documents#index'
+  # root to: 'documents#index'
+  root to: "catalog#index"
+  concern :searchable, Blacklight::Routes::Searchable.new
+  resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
+    concerns :searchable
+  end
 
   # public-facing routes
   resources :documents do

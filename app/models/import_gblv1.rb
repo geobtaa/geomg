@@ -5,7 +5,7 @@ class ImportGblv1 < Import
   # validations, constants and methods
 
   def mapping_configuration
-    GEOMG.field_mappings_gblv1
+    Settings.field_mappings_gblv1
   end
 
   def klass_delimiter
@@ -81,7 +81,7 @@ class ImportGblv1 < Import
       json_data.each do |key, value|
         reference = {
           value: value,
-          category: GEOMG.uri_2_category_references_mappings[key]
+          category: Settings.uri_2_category_references_mappings[key]
         }
         references << reference
       end

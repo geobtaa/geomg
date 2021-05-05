@@ -5,7 +5,7 @@ class ImportBtaa < Import
   # validations, constants and methods
 
   def mapping_configuration
-    GEOMG.field_mappings_btaa
+    Settings.field_mappings_btaa
   end
 
   def klass_delimiter

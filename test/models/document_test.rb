@@ -29,64 +29,64 @@ class DocumentTest < ActiveSupport::TestCase
     # Form
     # Identification
     # - Descriptive
-    assert_respond_to @document, GEOMG.FIELDS.TITLE
-    assert_respond_to @document, GEOMG.FIELDS.ALT_TITLE
-    assert_respond_to @document, GEOMG.FIELDS.DESCRIPTION
-    assert_respond_to @document, GEOMG.FIELDS.LANGUAGE
+    assert_respond_to @document, Settings.FIELDS.TITLE
+    assert_respond_to @document, Settings.FIELDS.ALT_TITLE
+    assert_respond_to @document, Settings.FIELDS.DESCRIPTION
+    assert_respond_to @document, Settings.FIELDS.LANGUAGE
 
     # - Credits
-    assert_respond_to @document, GEOMG.FIELDS.CREATOR
-    assert_respond_to @document, GEOMG.FIELDS.PUBLISHER
+    assert_respond_to @document, Settings.FIELDS.CREATOR
+    assert_respond_to @document, Settings.FIELDS.PUBLISHER
 
     # - Categories
-    assert_respond_to @document, GEOMG.FIELDS.B1G_GENRE
-    assert_respond_to @document, GEOMG.FIELDS.SUBJECT
-    assert_respond_to @document, GEOMG.FIELDS.B1G_KEYWORD
+    assert_respond_to @document, Settings.FIELDS.B1G_GENRE
+    assert_respond_to @document, Settings.FIELDS.SUBJECT
+    assert_respond_to @document, Settings.FIELDS.B1G_KEYWORD
 
     # - Temporal
-    assert_respond_to @document, GEOMG.FIELDS.ISSUED
-    assert_respond_to @document, GEOMG.FIELDS.TEMPORAL
-    assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_RANGE
-    assert_respond_to @document, GEOMG.FIELDS.YEAR
+    assert_respond_to @document, Settings.FIELDS.ISSUED
+    assert_respond_to @document, Settings.FIELDS.TEMPORAL
+    assert_respond_to @document, Settings.FIELDS.B1G_DATE_RANGE
+    assert_respond_to @document, Settings.FIELDS.YEAR
 
     # - Spatial
-    assert_respond_to @document, GEOMG.FIELDS.SPATIAL
-    assert_respond_to @document, GEOMG.FIELDS.B1G_GEONAMES
-    assert_respond_to @document, GEOMG.FIELDS.GEOM
-    assert_respond_to @document, GEOMG.FIELDS.B1G_CENTROID
+    assert_respond_to @document, Settings.FIELDS.SPATIAL
+    assert_respond_to @document, Settings.FIELDS.B1G_GEONAMES
+    assert_respond_to @document, Settings.FIELDS.GEOM
+    assert_respond_to @document, Settings.FIELDS.B1G_CENTROID
 
     # Distribution
     # - Object
-    assert_respond_to @document, GEOMG.FIELDS.LAYER_GEOM_TYPE
-    assert_respond_to @document, GEOMG.FIELDS.FORMAT
+    assert_respond_to @document, Settings.FIELDS.LAYER_GEOM_TYPE
+    assert_respond_to @document, Settings.FIELDS.FORMAT
 
     # - Access Links
     # - Geospatial Web Services
     # - Images
     # - Metadata
-    assert_respond_to @document, GEOMG.FIELDS.REFERENCES
-    assert_respond_to @document, GEOMG.FIELDS.B1G_IMAGE
+    assert_respond_to @document, Settings.FIELDS.REFERENCES
+    assert_respond_to @document, Settings.FIELDS.B1G_IMAGE
 
     # Administrative
     # - Codes
-    assert_respond_to @document, GEOMG.FIELDS.IDENTIFIER
-    assert_respond_to @document, GEOMG.FIELDS.LAYER_SLUG
-    assert_respond_to @document, GEOMG.FIELDS.PROVENANCE
-    assert_respond_to @document, GEOMG.FIELDS.B1G_CODE
-    assert_respond_to @document, GEOMG.FIELDS.IS_PART_OF
+    assert_respond_to @document, Settings.FIELDS.IDENTIFIER
+    assert_respond_to @document, Settings.FIELDS.LAYER_SLUG
+    assert_respond_to @document, Settings.FIELDS.PROVENANCE
+    assert_respond_to @document, Settings.FIELDS.B1G_CODE
+    assert_respond_to @document, Settings.FIELDS.IS_PART_OF
 
     # - Status
-    assert_respond_to @document, GEOMG.FIELDS.B1G_STATUS
-    assert_respond_to @document, GEOMG.FIELDS.B1G_ACCRUAL_METHOD
-    assert_respond_to @document, GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY
-    assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_ACCESSIONED
-    assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_RETIRED
+    assert_respond_to @document, Settings.FIELDS.B1G_STATUS
+    assert_respond_to @document, Settings.FIELDS.B1G_ACCRUAL_METHOD
+    assert_respond_to @document, Settings.FIELDS.B1G_ACCRUAL_PERIODICITY
+    assert_respond_to @document, Settings.FIELDS.B1G_DATE_ACCESSIONED
+    assert_respond_to @document, Settings.FIELDS.B1G_DATE_RETIRED
 
     # - Accessibility
-    assert_respond_to @document, GEOMG.FIELDS.RIGHTS
-    assert_respond_to @document, GEOMG.FIELDS.ACCESS_RIGHTS
-    assert_respond_to @document, GEOMG.FIELDS.SUPPRESSED
-    assert_respond_to @document, GEOMG.FIELDS.B1G_CHILD_RECORD
+    assert_respond_to @document, Settings.FIELDS.RIGHTS
+    assert_respond_to @document, Settings.FIELDS.ACCESS_RIGHTS
+    assert_respond_to @document, Settings.FIELDS.SUPPRESSED
+    assert_respond_to @document, Settings.FIELDS.B1G_CHILD_RECORD
   end
 
   test 'responds to type' do
@@ -120,13 +120,13 @@ class DocumentTest < ActiveSupport::TestCase
   # Test DateRanges
   test 'b1g_date_range validation' do
     @document = documents(:ag)
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=",["1977-2020"])
+    @document.send("#{Settings.FIELDS.B1G_DATE_RANGE}=",["1977-2020"])
     assert_nothing_raised do
       @document.save
     end
 
     # No letters allowed
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["197X-2020"])
+    @document.send("#{Settings.FIELDS.B1G_DATE_RANGE}=", ["197X-2020"])
     @document.save
     assert @document.invalid?
     assert @document.errors
@@ -135,19 +135,19 @@ class DocumentTest < ActiveSupport::TestCase
   # Test SolrGeom
   test 'solr_geom validation' do
     @document = documents(:ag)
-    @document.send("#{GEOMG.FIELDS.GEOM}=", "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)")
+    @document.send("#{Settings.FIELDS.GEOM}=", "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)")
     assert_nothing_raised do
       @document.save
     end
 
     # No ENVELOPE() wrapper
-    @document.send("#{GEOMG.FIELDS.GEOM}=", "-16.7909,-90.0574,43.9474,39.9655")
+    @document.send("#{Settings.FIELDS.GEOM}=", "-16.7909,-90.0574,43.9474,39.9655")
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Bad minX
-    @document.send("#{GEOMG.FIELDS.GEOM}=", "-16000.7909,-90.0574,43.9474,39.9655")
+    @document.send("#{Settings.FIELDS.GEOM}=", "-16000.7909,-90.0574,43.9474,39.9655")
     @document.save
     assert @document.invalid?
     assert @document.errors

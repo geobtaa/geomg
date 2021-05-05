@@ -14,7 +14,7 @@ class Document
       valid_geom = true
 
       # Sane for Solr?
-      proper_bounding_box(record, valid_geom) unless record.send(GEOMG.FIELDS.GEOM).nil?
+      proper_bounding_box(record, valid_geom) unless record.send(Settings.FIELDS.GEOM).nil?
 
       valid_geom
     end
@@ -24,26 +24,26 @@ class Document
       min_max = [-180.0, -90.0, 180.0, 90.0]
 
       # (W,E,N,S) to "W,S,E,N"
-      unless record.send(GEOMG.FIELDS.GEOM).split(',').nil?
-        geom = record.send(GEOMG.FIELDS.GEOM).split(',')
+      unless record.send(Settings.FIELDS.GEOM).split(',').nil?
+        geom = record.send(Settings.FIELDS.GEOM).split(',')
         if geom.empty?
           valid_geom = true
         elsif geom[0].to_f < min_max[0]
           # W
           valid_geom = false
-          record.errors.add(GEOMG.FIELDS.GEOM, 'invalid minX present')
+          record.errors.add(Settings.FIELDS.GEOM, 'invalid minX present')
         elsif geom[1].to_f < min_max[1]
           # S
           valid_geom = false
-          record.errors.add(GEOMG.FIELDS.GEOM, 'invalid minY present')
+          record.errors.add(Settings.FIELDS.GEOM, 'invalid minY present')
         elsif geom[2].to_f > min_max[2]
           # E
           valid_geom = false
-          record.errors.add(GEOMG.FIELDS.GEOM, 'invalid maX present')
+          record.errors.add(Settings.FIELDS.GEOM, 'invalid maX present')
         elsif geom[3].to_f > min_max[3]
           # N
           valid_geom = false
-          record.errors.add(GEOMG.FIELDS.GEOM, 'invalid maxY present')
+          record.errors.add(Settings.FIELDS.GEOM, 'invalid maxY present')
         end
       end
       valid_geom
