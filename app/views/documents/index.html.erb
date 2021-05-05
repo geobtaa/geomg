@@ -5,12 +5,12 @@
   <%= link_to '+ New Document', new_document_path, {class: 'btn btn-primary float-right'} %>
 </h1>
 
-<div class="row">
+<div id="facets" class="row">
   <div class="col-4">
     <%= render "result_facets" %>
   </div>
 
-  <div class="col-8">
+  <div id="resultset" class="col-8">
     <p>
       <%= render "result_toggle" %>
       <%= render "result_selected_options" %>

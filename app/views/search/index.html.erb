@@ -5,11 +5,11 @@
 </h1>
 
 <div class="row">
-  <div class="col-8">
+  <div id="search-form" class="col-8">
     <%= form_tag(documents_path, { method: :get, class: "my-2 my-lg-0" }) do %>
       <input name="q" autofocus class="form-control mr-sm-8" type="search" placeholder="Search documents" aria-label="Search" value="<%= params[:q] ? params[:q] : ''%>">
 
-      <div class="col-md-12 mt-4">
+      <div id="facet-limits" class="col-md-12 mt-4">
         <h3>Limit Results By</h3>
         <% @facet_options.each do |facet| %>
           <div class="row">
