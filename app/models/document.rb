@@ -41,7 +41,7 @@ class Document < Kithe::Work
   end
 
   validates_with Document::DateRangeValidator
-  validates_with Document::SolrGeomValidator
+  validates_with Document::LocnGeometryValidator
 
   # Form
   # Identification
