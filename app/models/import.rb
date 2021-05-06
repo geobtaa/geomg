@@ -23,6 +23,7 @@ class Import < ApplicationRecord
   validates :csv_file, attached: true, content_type: { in: 'text/csv', message: 'is not a CSV file' }
 
   validates_with Import::CsvHeaderValidator
+  validates_with Import::CsvDuplicatesValidator
 
   # States
   include Statesman::Adapters::ActiveRecordQueries[

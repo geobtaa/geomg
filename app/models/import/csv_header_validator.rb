@@ -18,11 +18,7 @@ class Import
 
     def valid_csv_headers?(csv_file)
       headers = CSV.parse(csv_file.download)[0]
-      if (['Title', 'Resource Class', 'Access Rights', 'ID'] - headers).empty?
-        true
-      else
-        false
-      end
+      (['Title', 'Resource Class', 'Access Rights', 'ID'] - headers).empty?
     end
   end
 end

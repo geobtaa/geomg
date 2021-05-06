@@ -68,4 +68,11 @@ class ImportsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to imports_url
   end
+
+  test 'validation - no dupliate ids allowed' do
+    skip('file download missing in test runner')
+    assert_no_difference('Import.count') do
+      post imports_url, params: { import: { name: 'Test', csv_file: fixture_file_upload("#{Rails.root}/test/fixtures/files/duplicate_ids.csv", "text/csv") } }
+    end
+  end
 end
