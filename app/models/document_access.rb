@@ -12,7 +12,7 @@ class DocumentAccess < ApplicationRecord
     logger.debug('CSV Import')
     CSV.foreach(file.path, headers: true) do |row|
       logger.debug("CSV Row: #{row.to_hash}")
-      document_access = DocumentAccess.find_or_create_by!(friendlier_id: row[0], institution_code: row[1])
+      document_access = DocumentAccess.find_or_initialize_by(friendlier_id: row[0], institution_code: row[1])
       document_access.update(row.to_hash)
     end
   end
