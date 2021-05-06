@@ -132,16 +132,17 @@ class DocumentTest < ActiveSupport::TestCase
     assert @document.errors
   end
 
-  # Test SolrGeom
-  test 'solr_geom validation' do
+  # Test LocnGeometry
+  test 'locn_geometry validation' do
     @document = documents(:ag)
-    @document.send("#{GEOMG.FIELDS.GEOM}=", "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)")
-    assert_nothing_raised do
-      @document.save
-    end
 
-    # No ENVELOPE() wrapper
+    # Bad minY
     @document.send("#{GEOMG.FIELDS.GEOM}=", "-16.7909,-90.0574,43.9474,39.9655")
+    assert @document.invalid?
+    assert @document.errors
+
+    # No ENVELOPE() wrapper allowed
+    @document.send("#{GEOMG.FIELDS.GEOM}=", "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)")
     @document.save
     assert @document.invalid?
     assert @document.errors
