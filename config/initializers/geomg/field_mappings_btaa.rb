@@ -213,12 +213,22 @@ module Geomg
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
+      'oEmbed': {
+         'destination': GEOMG.FIELDS.REFERENCES,
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
       'Index Map': {
          'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'TileServer': {
+         'destination': GEOMG.FIELDS.REFERENCES,
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
+      'WCS': {
          'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
          'transformation_method': 'build_dct_references'
