@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='0.962056' skipped='0' failures='0' errors='0' name="NavigationTest" assertions='11' tests='1' timestamp="2021-05-06T12:01:28-05:00">
+  <testcase time='0.962056' file="test/system/navigation_test.rb" name="test_visiting_the_index" assertions='11'>
+  </testcase>
+</testsuite>

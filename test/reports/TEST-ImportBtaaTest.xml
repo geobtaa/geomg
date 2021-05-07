@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='0.008131' skipped='0' failures='0' errors='0' name="ImportBtaaTest" assertions='14' tests='5' timestamp="2021-05-06T12:01:28-05:00">
+  <testcase time='0.002737' file="test/models/import_btaa_test.rb" name="test_derived_mappings" assertions='3'>
+  </testcase>
+  <testcase time='0.001588' file="test/models/import_btaa_test.rb" name="test_derive_b1g_centroid_ss" assertions='2'>
+  </testcase>
+  <testcase time='0.001216' file="test/models/import_btaa_test.rb" name="test_methods" assertions='5'>
+  </testcase>
+  <testcase time='0.001366' file="test/models/import_btaa_test.rb" name="test_responds_to_run" assertions='1'>
+  </testcase>
+  <testcase time='0.001224' file="test/models/import_btaa_test.rb" name="test_default_mappings" assertions='3'>
+  </testcase>
+</testsuite>
