@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='5.732256' skipped='1' failures='0' errors='0' name="DocumentsControllerTest" assertions='23' tests='11' timestamp="2021-05-06T12:01:28-05:00">
+  <testcase time='0.559098' file="test/controllers/documents_controller_test.rb" name="test_should_render_documents#index_as_json" assertions='2'>
+  </testcase>
+  <testcase time='0.501999' file="test/controllers/documents_controller_test.rb" name="test_should_render_document#show_as_json_gbl_v1" assertions='2'>
+  </testcase>
+  <testcase time='0.371421' file="test/controllers/documents_controller_test.rb" name="test_should_render_documents#index_as_csv" assertions='1'>
+    <skipped type='Minitest::Skip' message="@TODO: divorce from geoportal">test/controllers/documents_controller_test.rb:69:in `block in &lt;class:DocumentsControllerTest&gt;&#39;
+    </skipped>
+  </testcase>
+  <testcase time='0.517699' file="test/controllers/documents_controller_test.rb" name="test_should_render_documents#index_as_json_gbl_v1" assertions='2'>
+  </testcase>
+  <testcase time='0.419887' file="test/controllers/documents_controller_test.rb" name="test_should_redirect_document_show_view" assertions='3'>
+  </testcase>
+  <testcase time='0.428545' file="test/controllers/documents_controller_test.rb" name="test_should_render_document#show_as_json_btaa_aardvark" assertions='2'>
+  </testcase>
+  <testcase time='0.387794' file="test/controllers/documents_controller_test.rb" name="test_should_render_document#show_as_csv" assertions='2'>
+  </testcase>
+  <testcase time='0.701888' file="test/controllers/documents_controller_test.rb" name="test_should_render_documents_index_view" assertions='2'>
+  </testcase>
+  <testcase time='0.775823' file="test/controllers/documents_controller_test.rb" name="test_should_render_document_edit_view" assertions='2'>
+  </testcase>
+  <testcase time='0.554747' file="test/controllers/documents_controller_test.rb" name="test_should_render_documents#index_as_json_btaa_aardvark" assertions='2'>
+  </testcase>
+  <testcase time='0.513355' file="test/controllers/documents_controller_test.rb" name="test_redirects_when_not_logged_in" assertions='3'>
+  </testcase>
+</testsuite>

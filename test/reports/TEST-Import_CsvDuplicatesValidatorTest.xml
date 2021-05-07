@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='0.560736' skipped='1' failures='0' errors='0' name="Import::CsvDuplicatesValidatorTest" assertions='0' tests='1' timestamp="2021-05-06T12:01:28-05:00">
+  <testcase time='0.560736' file="test/models/import/csv_duplicates_validator_test.rb" name="test_validate_-_no_duplicate_IDs_allow" assertions='0'>
+    <skipped type='Minitest::Skip' message="file download missing in test runner">test/models/import/csv_duplicates_validator_test.rb:9:in `block in &lt;class:CsvDuplicatesValidatorTest&gt;&#39;
+    </skipped>
+  </testcase>
+</testsuite>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='3.988256' skipped='5' failures='0' errors='0' name="ImportsControllerTest" assertions='14' tests='9' timestamp="2021-05-06T12:01:28-05:00">
+  <testcase time='0.396206' file="test/controllers/imports_controller_test.rb" name="test_should_create_import" assertions='1'>
+    <skipped type='Minitest::Skip' message="file download missing in test runner">test/controllers/imports_controller_test.rb:30:in `block in &lt;class:ImportsControllerTest&gt;&#39;
+    </skipped>
+  </testcase>
+  <testcase time='0.405849' file="test/controllers/imports_controller_test.rb" name="test_should_redirect_bad_headers" assertions='1'>
+    <skipped type='Minitest::Skip' message="file download missing in test runner">test/controllers/imports_controller_test.rb:39:in `block in &lt;class:ImportsControllerTest&gt;&#39;
+    </skipped>
+  </testcase>
+  <testcase time='0.506999' file="test/controllers/imports_controller_test.rb" name="test_should_get_new" assertions='2'>
+  </testcase>
+  <testcase time='0.518545' file="test/controllers/imports_controller_test.rb" name="test_should_get_index" assertions='2'>
+  </testcase>
+  <testcase time='0.388854' file="test/controllers/imports_controller_test.rb" name="test_validation_-_no_dupliate_ids_allowed" assertions='1'>
+    <skipped type='Minitest::Skip' message="file download missing in test runner">test/controllers/imports_controller_test.rb:73:in `block in &lt;class:ImportsControllerTest&gt;&#39;
+    </skipped>
+  </testcase>
+  <testcase time='0.378073' file="test/controllers/imports_controller_test.rb" name="test_should_show_import" assertions='1'>
+    <skipped type='Minitest::Skip' message="@TODO: Blob link to test attachment not working?">test/controllers/imports_controller_test.rb:47:in `block in &lt;class:ImportsControllerTest&gt;&#39;
+    </skipped>
+  </testcase>
+  <testcase time='0.412275' file="test/controllers/imports_controller_test.rb" name="test_should_destroy_import" assertions='3'>
+  </testcase>
+  <testcase time='0.514856' file="test/controllers/imports_controller_test.rb" name="test_should_get_edit" assertions='2'>
+  </testcase>
+  <testcase time='0.466599' file="test/controllers/imports_controller_test.rb" name="test_should_update_import" assertions='1'>
+    <skipped type='Minitest::Skip' message="file download missing in test runner">test/controllers/imports_controller_test.rb:58:in `block in &lt;class:ImportsControllerTest&gt;&#39;
+    </skipped>
+  </testcase>
+</testsuite>

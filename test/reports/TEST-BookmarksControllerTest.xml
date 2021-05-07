@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='6.753031' skipped='0' failures='0' errors='0' name="BookmarksControllerTest" assertions='4' tests='2' timestamp="2021-05-06T12:01:28-05:00">
+  <testcase time='6.341394' file="test/controllers/bookmarks_controller_test.rb" name="test_should_render_bookmarks_index_view" assertions='2'>
+  </testcase>
+  <testcase time='0.411637' file="test/controllers/bookmarks_controller_test.rb" name="test_should_render_bookmarks#index_as_csv" assertions='2'>
+  </testcase>
+</testsuite>

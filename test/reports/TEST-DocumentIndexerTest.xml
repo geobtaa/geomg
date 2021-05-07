@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='0.014342' skipped='0' failures='0' errors='0' name="DocumentIndexerTest" assertions='36' tests='1' timestamp="2021-05-06T12:01:28-05:00">
+  <testcase time='0.014342' file="test/indexers/document_indexer_test.rb" name="test_indexes" assertions='36'>
+  </testcase>
+</testsuite>
