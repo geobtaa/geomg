@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+  postgres:
+    image: postgres:12
+    ports:
+      # Allow us to choose an external port or default to 5432
+      # Set this in .env.test or .env.development
+      - '127.0.0.1:${GEOMG_DB_PORT:-5432}:5432'
+    environment:
+      POSTGRES_PASSWORD: ${GEOMG_DB_PASSWORD:-mysecretpassword}
+      POSTGRES_USER: ${GEOMG_DB_USER:-geomg}
+    #env_file:
+    #  - ./.env.test
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgresql:/docker-entrypoint-initdb.d
+
+volumes:
+  pgdata:
+    driver: local

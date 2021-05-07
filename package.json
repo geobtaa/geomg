@@ -6,8 +6,17 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
+    "bootstrap": "^4.5.0",
+    "bootstrap-datepicker": "^1.9.0",
+    "devbridge-autocomplete": "^1.4.10",
+    "inputmask": "^5.0.3",
+    "node-forge": "^0.10.0",
+    "popper.js": "^1.16.1",
+    "serialize-javascript": "^3.1.0",
+    "stimulus": "^1.1.1",
+    "stimulus-scroll-to": "^2.0.1",
     "turbolinks": "^5.2.0",
-    "devbridge-autocomplete": "^1.4.10"
+    "yargs-parser": "^13.1.2"
   },
   "version": "0.1.0",
   "devDependencies": {

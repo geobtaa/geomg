@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  source_header: MyString
+  destination_field: MyString
+  delimited: false
+  transformation_method: MyString
+  import: one
+
+two:
+  source_header: MyString
+  destination_field: MyString
+  delimited: false
+  transformation_method: MyString
+  import: two

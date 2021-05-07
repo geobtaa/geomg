@@ -1,30 +1,44 @@
-<%= @page_title= "Resources" %>
+<%- @page_title= "Documents" %>
 
-<p id="notice"><%= notice %></p>
+<h1 style="width:100%; margin-bottom:2rem;">
+  Documents
+  <%= link_to '+ New Document', new_document_path, {class: 'btn btn-primary float-right'} %>
+</h1>
 
-<h1>Documents</h1>
+<div id="facets" class="row">
+  <div class="col-4">
+    <%= render "result_facets" %>
+  </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <div id="resultset" class="col-8">
+    <p>
+      <%= render "result_toggle" %>
+      <%= render "result_selected_options" %>
+      <%= render "result_pagination" %>
+    </p>
 
-  <tbody>
-    <% @documents.each do |document| %>
-      <tr>
-        <td><%= document.title %></td>
-        <td><%= document.inspect %></td>
-        <td><%= link_to 'Show', document %></td>
-        <td><%= link_to 'Edit', edit_document_path(document) %></td>
-        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <hr/>
 
-<br>
+    <%= render "result_selection_options" %>
 
-<%= link_to 'New Document', new_document_path %>
+    <ol id='results' class='list-unstyled' data-controller='results'>
+      <% @documents.results.each_with_index do |document, index| %>
+        <% doc = Document.find_by(friendlier_id: document['id']) %>
+        <% if doc.present? %>
+          <%= render "document", document: doc, index: index %>
+        <% else %>
+          <p><%= "#{index + 1}." %> Database is missing document <%= document['id'] %></p>
+        <% end %>
+      <% end %>
+    </ol>
+
+    <hr/>
+
+    <p>
+      <span class='float-right'>
+        <%= previous_link(@documents.links) %>
+        <%= next_link(@documents.links) %>
+      </span>
+    </p>
+  </div>
+</div>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # We could have done these as methods on a custom local SimpleForm::FormBuilder class?
 # But for now we use ugly ugly helpers, first arg is always form builder.
 #
@@ -9,7 +11,6 @@
 # Arguably we should extract some of these to helper classes. Rails does not provide
 # a great architecture for complex view generation code.
 module FormInputHelper
-
   # We have a variety of inputs that are a category (with a select input)
   # followed by a value. They always map to custom AttrJson::Model classes, which
   # this helper assumes -- and gets that class for reflection from builder.object.class.
@@ -44,33 +45,30 @@ module FormInputHelper
 
     # If existing value (which may be nil) is not in category list, add it to front.
     existing_category_value = builder.object.send(category_key)
-    unless category_list.include?(existing_category_value)
-      category_list = [existing_category_value] + category_list
-    end
+    category_list = [existing_category_value] + category_list unless category_list.include?(existing_category_value)
 
     # Turn category list into values and human labels, using i18n or rails humanizing.
     category_list = category_list.collect do |key|
       value = if key.nil?
-        key
-      elsif model_class.respond_to?(:model_name) && key.present?
-        I18n.t(key,
-          scope: "activemodel.enum_values.#{model_class.model_name.i18n_key}.#{category_key}",
-          default: key.humanize)
-      else
-        key.humanize
-      end
+                key
+              elsif model_class.respond_to?(:model_name) && key.present?
+                I18n.t(key,
+                       scope: "activemodel.enum_values.#{model_class.model_name.i18n_key}.#{category_key}",
+                       default: key)
+              else
+                key
+              end
 
       [value, key]
     end.to_h
 
-    content_tag("div", class: "form-row category-and-value") do
-      content_tag("div", class: "col-left category") do
+    tag.div(class: 'form-row category-and-value') do
+      tag.div(class: 'col-left category') do
         builder.input category_key, collection: category_list, label: false, include_blank: false
       end +
-      content_tag("div", class: "col-sm value") do
-        builder.input value_key, label: false, input_html: { data: input_data_attributes }
-      end
+        tag.div(class: 'col-sm value') do
+          builder.input value_key, label: false, input_html: { data: input_data_attributes }
+        end
     end
   end
-
 end

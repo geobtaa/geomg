@@ -1,13 +1,39 @@
+# frozen_string_literal: true
+
+# DocumentsController
 class DocumentsController < ApplicationController
+  ActionController::Parameters.permit_all_parameters = true
   before_action :set_document,
-    only: [:show, :edit, :update, :destroy, :publish, :unpublish]
+                only: %i[show edit update destroy]
 
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all
+    @documents = BlacklightApi.new(params['q'], params['f'], params['page'], params['sort'], params['rows'] || 20)
+
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @documents.results.to_json }
+      format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
+      format.json_gbl_v1 { render json_gbl_v1: @documents }
+      # B1G CSV
+      format.csv  { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
+    end
   end
 
+  # Fetch documents from array of ids
+  def fetch
+    @documents = Document.where(friendlier_id: params['ids'])
+
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @documents.to_json }
+      format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
+      format.json_gbl_v1 { render json_gbl_v1: @documents }
+      # B1G CSV
+      format.csv { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
+    end
+  end
 
   # GET /documents/new
   def new
@@ -16,14 +42,13 @@ class DocumentsController < ApplicationController
   end
 
   # GET /documents/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /documents
   # POST /documents.json
   def create
     @document = Document.new(document_params)
-
+    @document.friendlier_id = @document.send(GEOMG.FIELDS.LAYER_SLUG)
     respond_to do |format|
       if @document.save
         format.html { redirect_to documents_path, notice: 'Document was successfully created.' }
@@ -40,7 +65,7 @@ class DocumentsController < ApplicationController
   def update
     respond_to do |format|
       if @document.update(document_params)
-        format.html { redirect_to edit_document_path(@document), notice: 'document was successfully updated.' }
+        format.html { redirect_to edit_document_path(@document), notice: 'Document was successfully updated.' }
         format.json { render :show, status: :ok, location: @document }
       else
         format.html { render :edit }
@@ -49,82 +74,65 @@ class DocumentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /documents/1/publish
-  #
-  # publishes document AND all of it's children (multi-level).
-  #
-  # fetches all children so rails callbacks will be called, but uses postgres
-  # recursive CTE so it'll be efficient-ish.
-  def publish
-    authorize! :publish, @document
-
-    @document.class.transaction do
-      @document.update!(published: true)
-      @document.all_descendent_members.find_each do |member|
-        member.update!(published: true)
-      end
-    end
-
-    redirect_to admin_document_url(@document)
-  rescue ActiveRecord::RecordInvalid => e
-    # probably because missing a field required for a document to be published, but
-    # could apply to a CHILD document, not just the parent you actually may have clicked 'publish'
-    # on.
-    #
-    # The document we're going to report and redirect to is just the FIRST one we encountered
-    # with an error, there could be more.
-    @document = e.record
-    @document.published = true
-    flash.now[:error] = "Can't publish document: #{@document.title}: #{e.message}"
-    render :edit
-  end
-
-  # PUT /documents/1/unpublish
-  #
-  # unpublishes document AND all of it's children (multi-level) using a pg recursive CTE
-  #
-  # fetches all children so rails callbacks will be called, but uses postgres
-  # recursive CTE so it'll be efficient-ish.
-  def unpublish
-    authorize! :publish, @document
-
-    @document.class.transaction do
-      @document.update!(published: false)
-      @document.all_descendent_members.find_each do |member|
-        member.update!(published: false)
-      end
-    end
-
-    redirect_to admin_document_url(@document)
-  end
-
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy
     @document.destroy
     respond_to do |format|
-      format.html { redirect_to documents_url, notice: "document '#{@document.title}' was successfully destroyed." }
+      format.html { redirect_to documents_url, notice: "Document '#{@document.title}' was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   def show
+    respond_to do |format|
+      format.html { redirect_to edit_document_url(@document) }
+      format.json { render json: @document.to_json } # App-style JSON
+      format.json_btaa_aardvark
+      format.json_gbl_v1
+      # B1G CSV
+      format.csv { send_data collect_csv([@document]), filename: "documents-#{Time.zone.today}.csv" }
+
+      # @TODO:
+      # geoblacklight_version: 1.0 (strict)
+      # geoblacklight_version: 1.0 + B1G customizations
+      # geoblacklight_version: 2.0 (strict)
+      # geoblacklight_version: 2.0 + B1G customizations
+    end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_document
-      @document = Document.includes(:leaf_representative).find_by_friendlier_id!(params[:id])
-    end
 
-    # only allow whitelisted params through (TODO, we're allowing all document params!)
-    # Plus sanitization or any other mutation.
-    #
-    # This could be done in a form object or otherwise abstracted, but this is good
-    # enough for now.
-    def document_params
-      Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(
-        :title, :layer_slug_s, :layer_geom_type_s, :dct_references_s
-      )
+  # Use callbacks to share common setup or constraints between actions.
+  def set_document
+    @document = Document.includes(:leaf_representative).find_by!(friendlier_id: params[:id])
+  end
+
+  # only allow whitelisted params through (TODO, we're allowing all document params!)
+  # Plus sanitization or any other mutation.
+  #
+  # This could be done in a form object or otherwise abstracted, but this is good
+  # enough for now.
+  def permittable_params
+    %i[title publication_state layer_geom_type_s dct_references_s q f page sort rows]
+  end
+
+  def document_params
+    Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(permittable_params)
+  end
+
+  def collect_csv(documents)
+    CSV.generate(headers: true) do |csv|
+      csv << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
+      if documents.instance_of?(BlacklightApi)
+        documents.load_all.map do |doc|
+          csv << doc.to_csv if doc.present?
+        end
+      else
+        documents.each do |doc|
+          csv << doc.to_csv
+        end
+      end
     end
+  end
 end

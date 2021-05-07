@@ -1,0 +1,89 @@
+# The behavior of RuboCop can be controlled via the .rubocop.yml
+# configuration file. It makes it possible to enable/disable
+# certain cops (checks) and to alter their behavior if they accept
+# any parameters. The file can be placed either in your home
+# directory or in some project directory.
+#
+# RuboCop will start looking for the configuration file in the directory
+# where the inspected file is and continue its way up to the root directory.
+#
+# See https://docs.rubocop.org/rubocop/configuration
+
+# @TODO: import.rb
+
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+    - 'spec/fixtures/**/*'
+    - 'tmp/**/*'
+    - 'node_modules/**/*'
+    - 'test/**/*'
+    - 'config/environments/**/*'
+    - 'config/initializers/**/*'
+    - '**/*.rake'
+    - 'app/helpers/form_input_helper.rb'
+    - 'app/models/import.rb'
+    - 'app/models/document/date_range_validator.rb'
+    - 'app/models/document/locn_geometry_validator.rb'
+
+Layout/ExtraSpacing:
+  Exclude:
+    - '**/*.jbuilder'
+
+Layout/LineLength:
+  Enabled: true
+  Exclude:
+    - '**/*.rake'
+    - '**/*.jbuilder'
+  Max: 140
+
+Metrics/AbcSize:
+  Exclude:
+    - 'app/models/document/solr_geom_validator.rb'
+  Max: 40
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - 'app/indexers/document_indexer.rb'
+    - 'config/environments/*.rb'
+    - 'config/routes.rb'
+    - 'spec/**/*.rb'
+    - 'test/**/*.rb'
+
+Metrics/ClassLength:
+  Exclude:
+    - 'app/models/document.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'app/jobs/import_run_job.rb'
+    - 'app/models/document/solr_geom_validator.rb'
+    - 'app/models/import_btaa_aardvark.rb'
+  Max: 16
+
+Metrics/ParameterLists:
+  Exclude:
+    - 'app/models/blacklight_api.rb'
+
+Naming/MethodName:
+  Exclude:
+    - 'app/models/document.rb'
+
+Rails/InverseOf:
+  Exclude:
+    - 'app/models/document_access.rb'
+
+Rails/SkipsModelValidations:
+  Exclude:
+    - 'app/models/bulk_action_transition.rb'
+    - 'app/models/bulk_action_document_transition.rb'
+    - 'app/models/document_transition.rb'
+    - 'app/models/import.rb'
+    - 'app/models/import_transition.rb'
+    - 'app/models/import_document_transition.rb'

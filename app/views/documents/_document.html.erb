@@ -1,0 +1,22 @@
+<% bookmarked = current_user.document_is_bookmarked?(document) ? 'bookmarked' : '' %>
+
+<%= content_tag :li, id: dom_id(document), class: bookmarked do %>
+  <%= check_box_tag nil, nil, false, data: { id: document.friendlier_id, action: 'click->results#checkChecked'}%>
+
+  <%= render 'documents/document_bookmark', document: document %>
+
+  <%= "#{@documents.meta['pages']['offset_value'] + index + 1}." if @documents %>
+
+  <%= link_to document.title, edit_document_path(document.friendlier_id) %>
+  &middot; <%= publication_state_badge(document) %>
+  <% if document.send(GEOMG.FIELDS.PROVENANCE) %>
+    &middot; <%= document.send(GEOMG.FIELDS.PROVENANCE) %>
+  <% end %>
+  <% if document.send(GEOMG.FIELDS.TEMPORAL) %>
+    &middot; <%= document.send(GEOMG.FIELDS.TEMPORAL).join("-") %>
+  <% end %>
+  <% if document.send(GEOMG.FIELDS.DESCRIPTION).present? %>
+    <p><%= document.send(GEOMG.FIELDS.DESCRIPTION) %></p>
+  <% end %>
+
+<% end %>

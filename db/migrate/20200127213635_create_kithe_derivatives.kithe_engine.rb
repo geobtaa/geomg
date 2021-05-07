@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 # This migration comes from kithe_engine (originally 20181128185658)
 class CreateKitheDerivatives < ActiveRecord::Migration[5.2]
   def change
     create_table :kithe_derivatives do |t|
       t.string :key, null: false
       t.jsonb :file_data
-      t.references :asset, foreign_key: {to_table: :kithe_models}, type: :uuid, index: true, null: false
+      t.references :asset, foreign_key: { to_table: :kithe_models }, type: :uuid, index: true, null: false
 
       t.timestamps
     end
 
-    add_index :kithe_derivatives, [:asset_id, :key], unique: true
+    add_index :kithe_derivatives, %i[asset_id key], unique: true
   end
 end

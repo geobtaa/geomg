@@ -12,8 +12,11 @@
   </head>
 
   <body>
+    <%= render "shared/navbar" %>
     <div class="container-fluid">
+      <p id="notice"><%= render "shared/flash_messages" %></p>
       <%= yield %>
     </div>
+    <%= render "shared/footer" %>
   </body>
 </html>

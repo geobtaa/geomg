@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from kithe_engine (originally 20181031190647)
 class AddFileDataToModel < ActiveRecord::Migration[5.2]
   def change

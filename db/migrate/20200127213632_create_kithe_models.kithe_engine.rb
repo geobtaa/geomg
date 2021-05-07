@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from kithe_engine (originally 20181015143413)
 class CreateKitheModels < ActiveRecord::Migration[5.2]
   def change
@@ -16,6 +18,6 @@ class CreateKitheModels < ActiveRecord::Migration[5.2]
     end
 
     # self-referential work children/members
-    add_reference :kithe_models, :parent, type: :uuid, foreign_key: {to_table: :kithe_models}
+    add_reference :kithe_models, :parent, type: :uuid, foreign_key: { to_table: :kithe_models }
   end
 end

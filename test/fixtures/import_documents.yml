@@ -1,0 +1,15 @@
+ag:
+  friendlier_id: 35c8a641589c4e13b7aa11e37f3f00a1_0
+  title: 'Agricultural Districts: Iowa'
+  json_attributes:
+    {"solr_geom": "ENVELOPE(-96.6391,-90.1401,43.5012,40.3754)", "b1g_code_s": "03a-04", "dc_title_s": "Agricultural Districts: Iowa", "dc_type_sm": ["Dataset", "Service"], "dc_format_s": "Shapefile", "dc_rights_s": "Public", "b1g_genre_sm": ["Geospatial data"], "b1g_image_ss": null, "b1g_status_s": "Active", "dct_issued_s": "2015-09-03", "layer_slug_s": "35c8a641589c4e13b7aa11e37f3f00a1_0", "suppressed_b": false, "dc_creator_sm": ["Legislative Services Agency"], "dc_subject_sm": ["Boundaries"], "b1g_keyword_sm": ["iowa", "judicial", "districts", "boundaries"], "dc_language_sm": ["English"], "dct_spatial_sm": ["Iowa"], "b1g_centroid_ss": "41.9383,-93.3896", "b1g_geonames_sm": [], "dc_identifier_s": "35c8a641589c4e13b7aa11e37f3f00a1_0", "dc_publisher_sm": ["State of Iowa"], "dct_isPartOf_sm": ["03a-04"], "dct_temporal_sm": ["2015"], "dc_description_s": "Iowa Agricultural Districts", "dct_provenance_s": "Iowa", "dct_references_s": [{"value": "https://open-iowa.opendata.arcgis.com/datasets/35c8a641589c4e13b7aa11e37f3f00a1_0", "category": "documentation_external"}, {"value": "https://open-iowa.opendata.arcgis.com/datasets/35c8a641589c4e13b7aa11e37f3f00a1_0.zip", "category": "download"}, {"value": "https://services2.arcgis.com/KhKjlwEBlPJd6v51/arcgis/rest/services/AgDistricts/FeatureServer/0", "category": "arcgis_feature_layer"}], "layer_geom_type_s": "Vector", "b1g_child_record_b": false, "dct_accessRights_sm": [""], "dct_accrualMethod_s": "ArcGIS Hub", "b1g_date_range_drsim": ["2015-2015"], "b1g_dateAccessioned_s": "2020-04-24", "geoblacklight_version": "1.0", "dct_alternativeTitle_sm": ["Ag Districts"], "dct_accrualPeriodicity_s": null}
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2020-08-03 19:25:53.006901000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2020-08-03 19:25:53.006901000 Z
+    zone: *2
+    time: *3
+  import_id: 1

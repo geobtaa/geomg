@@ -1,0 +1,37 @@
+<div class="make-me-sticky">
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <%= link_to "View in Geoportal", blacklight_link(@document), { class: 'btn btn-outline-primary', target: :_blank } %>
+    </li>
+    <li class="nav-item">
+      <a data-controller="scroll-to" class="nav-link" href="#identification">Identification</a>
+      <ul>
+        <li><a data-controller="scroll-to" href="#descriptive">Descriptive</a></li>
+        <li><a data-controller="scroll-to" href="#credits">Credits</a></li>
+        <li><a data-controller="scroll-to" href="#categories">Categories</a></li>
+        <li><a data-controller="scroll-to" href="#temporal">Temporal</a></li>
+        <li><a data-controller="scroll-to" href="#spatial">Spatial</a></li>
+        <li><a data-controller="scroll-to" href="#relations">Relations</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a data-controller="scroll-to" class="nav-link" href="#distribution">Distribution</a>
+      <ul>
+        <li><a data-controller="scroll-to" href="#object">Object</a></li>
+        <li><a data-controller="scroll-to" href="#links">Links</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a data-controller="scroll-to" class="nav-link" href="#administrative">Administrative</a>
+      <ul>
+        <li><a data-controller="scroll-to" href="#codes">Codes</a></li>
+        <li><a data-controller="scroll-to" href="#rights">Rights</a></li>
+        <li><a data-controller="scroll-to" href="#life-cycle">Life Cycle</a></li>
+        <li><a data-controller="scroll-to" href="#accessibility">Accessibility</a></li>
+        <% if @document.persisted? %>
+          <li><%= link_to "Institutional Access Links", document_document_accesses_url(@document) %></li>
+        <% end %>
+      </ul>
+    </li>
+  </ul>
+</div>

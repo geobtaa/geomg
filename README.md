@@ -1,62 +1,107 @@
-# README
+# GEOMG
 
-### Kithe / Steps from Zero to Running
+An experimental UI for administering BTAA Geoblacklight JSON documents.
 
-#### PG
+![geomg](https://user-images.githubusercontent.com/69827/84302126-7940a300-ab1a-11ea-9cfc-9dd3c48a0cee.gif)
 
-- brew install postgresql
-- add to Gemfile
+## Requirements
 
-#### Bootstrap
+* Ruby 2.7+
+* Ruby on Rails 6+
+* Bundler
+* Yarn (JS)
+* PostgreSQL 12+ (Kithe datastore)
+* Apache Solr  (GeoBlacklight index)
+* Redis / Sidekiq (Background queue)
 
-- add to Gemfile
-- add to application.scss
-- add basic container markup to layout
+## Installation
 
-#### SimpleForm
+* clone repo
+* yarn install
+* bundle
+* bundle exec rails db:create
+* bundle exec rails db:migrate
+* RAILS_ENV=test bundle exec rails db:migrate
+* Update dotenv files
 
-- rails generate simple_form:install —bootstrap
+## Development
 
-#### Cocoon
+### Run the app
 
-- add assets/javascripts
-- add assets/javascripts/application.js
-- require cocoon
+1. Run Solr and Rails server:
 
-#### QuestionAuthority
+```bash
+cd ~/Rails/geomg
+bundle exec rake geomg:server
+```
 
-- add to Gemfile
+2. Run foreman (background queue)
+```bash
+bundle exec foreman start
+```
 
-#### Solr_wrapper
+3. Run the BTAA/B1G Geoportal on port 3001
+```bash
+cd ~/Rails/geoportal
+bundle exec rails server --port=3001
+```
 
-- add to Gemfile
-- add .solr_wrapper from Geoportal
+4. Open [localhost:3000](http://localhost:3000)
 
-#### jQuery
 
-- add to Gemfile
+### Test suite
 
-#### Sprockets 4
+Run test suite:
 
-- add to manifest.js
-- //= link application.js
+```bash
+RAILS_ENV=test bundle exec rake ci
+```
 
-#### Rake
+## PostgreSQL Notes
 
-- add geomg:server task (similar to GBL)
+### Via Homebrew
+* brew install postgresql
+* brew services start postgresql
 
-#### DotEnv
+### Via Docker
+This basic setup does not preserve postgresql data! When the container is stopped, data will be purged.
 
-- add to Gemfile
-- add .env.development
-- set SOLR_URL val
+#### One-off Postgresql docker container
+```
+# Start a postgres image named "geomg-postgres" on the local interface
+# and a password "mysecretpassword"
+$ docker run --name geomg-postgres -p127.0.0.1:5432:5432 -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+```
 
-#### Kithe initializer
+#### Persistent development database with docker-compose
+Requires installation of`docker-compose`
 
-- add solr env path
+```
+# Start postgresql with a persistent data volume via docker-compose
+$ docker-compose up
+```
+Sample `config/database.yml` for docker connectivity:
+```yaml
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: geomg_development
+  pool: 5
+  username: geomg
+  password: mysecretpassword
+  hostname: 127.0.0.1
+  host: 127.0.0.1
+  port: 5432
+```
 
-#### Kithe Solr Schema vs. GBL expectations
+### Common database initialization
 
-- id field
-- *_ssi field (model_name_ssi)
-- *_dtsi / pdate field type (date_created_dtsi)
+```
+$ bundle exec rails db:create
+$ bundle exec rails db:migrate
+$ RAILS_ENV=test bundle exec rails db:migrate
+```
+
+## Release Version
+
+B1G Geoportal Version 3.0.0 / GEOMG 0.5.0 / GeoBlacklight 3.3.0
