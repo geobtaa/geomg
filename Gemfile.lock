@@ -410,7 +410,7 @@ GEM
     popper_js (1.16.0)
     psych (3.3.1)
     public_suffix (4.0.6)
-    puma (5.2.2)
+    puma (5.3.1)
       nio4r (~> 2.0)
     qa (5.6.0)
       activerecord-import
@@ -690,7 +690,7 @@ DEPENDENCIES
   pagy (~> 3.8)
   paper_trail
   pg
-  puma (~> 5.1)
+  puma (~> 5.3)
   qa (~> 5.0)
   rails (~> 6.1)
   rubocop (~> 0.86)
