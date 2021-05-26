@@ -57,37 +57,6 @@ Run test suite:
 RAILS_ENV=test bundle exec rake ci
 ```
 
-## TODOS
-
-* Basic BTAA/GBL Form
-  - -Better labels (via I18n)-
-  - -Form validation-
-  - -Input datepickers-
-  - Controlled vocabulary lists
-
-* Document Versioning
-  - -Paper Trail-
-
-* CSV Import Workflow
-  - -BTAA CSV-
-  - SOLR CSV
-  - DCAT CSV
-
-* Auth (Devise)
-  - Remove registerable
-  - Add invitable
-  - Seed initial users
-
-* Search
-  - -Via Blacklight JSON-API-
-
-* Test Suite
-
-* Publish/Unpublish Toggle
-  - -Add Admin::API controller to Geoportal (plugin candidate)-
-  - Add published boolean attribute
-  - Add default filter for Geoportal's CatalogController
-
 ## PostgreSQL Notes
 
 ### Via Homebrew
@@ -132,3 +101,7 @@ $ bundle exec rails db:create
 $ bundle exec rails db:migrate
 $ RAILS_ENV=test bundle exec rails db:migrate
 ```
+
+## Release Version
+
+B1G Geoportal Version 3.0.0 / GEOMG 0.6.0 / GeoBlacklight 3.3.0

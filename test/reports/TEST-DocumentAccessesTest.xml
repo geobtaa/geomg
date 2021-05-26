@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='3.283927' skipped='0' failures='0' errors='0' name="DocumentAccessesTest" assertions='4' tests='4' timestamp="2021-05-06T12:01:28-05:00">
+  <testcase time='1.165384' file="test/system/document_accesses_test.rb" name="test_creating_a_Document_access" assertions='1'>
+  </testcase>
+  <testcase time='0.700221' file="test/system/document_accesses_test.rb" name="test_destroying_a_Document_access" assertions='1'>
+  </testcase>
+  <testcase time='0.333634' file="test/system/document_accesses_test.rb" name="test_visiting_the_document_index" assertions='1'>
+  </testcase>
+  <testcase time='1.084688' file="test/system/document_accesses_test.rb" name="test_updating_a_Document_access" assertions='1'>
+  </testcase>
+</testsuite>

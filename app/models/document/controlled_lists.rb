@@ -25,13 +25,13 @@ class Document
   class ControlledLists
     PUBLICATION_STATE = %w[draft published unpublished].freeze
 
-    RIGHTS = %w[Public Restricted].freeze
+    ACCESS_RIGHTS = %w[Public Restricted].freeze
 
     LAYER_GEOM_TYPES = %w[Point Line Polygon Image Raster Mixed Table Vector].freeze
 
     B1G_STATUS = %w[Active Inactive Unknown].freeze
 
-    ACCRUAL_PERIODICITY = [
+    B1G_ACCRUAL_PERIODICITY = [
       'Annually',
       'Semiannually',
       'Quarterly',
@@ -40,9 +40,51 @@ class Document
     ].freeze
 
     GENRE = [
-      'Geospatial data',
       'Maps',
-      'Aerial Imagery'
+      'Datasets',
+      'Imagery',
+      'Collections',
+      'Websites',
+      'Web services',
+      'Other'
+    ].freeze
+
+    SCHEMA_PROVIDER = [
+      'Indiana University',
+      'University of Illinois Urbana-Champaign',
+      'University of Iowa',
+      'University of Maryland',
+      'University of Minnesota',
+      'Michigan State University',
+      'University of Michigan',
+      'Pennsylvania State University',
+      'Purdue University',
+      'University of Wisconsin - Madison',
+      'The Ohio State University',
+      'University of Chicago',
+      'University of Nebraska-Lincoln'
+    ].freeze
+
+    THEME = [
+      'Farming',
+      'Biota',
+      'Boundaries',
+      'Climatology, Meteorology and Atmosphere',
+      'Economy',
+      'Elevation',
+      'Environment',
+      'Geoscientific Information',
+      'Health',
+      'Imagery and Base Maps',
+      'Intelligence and Military',
+      'Inland Waters',
+      'Location',
+      'Oceans',
+      'Planning and Cadastral',
+      'Society',
+      'Structure',
+      'Transportation',
+      'Utilities and Communications'
     ].freeze
 
     TYPE = [

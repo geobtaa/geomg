@@ -43,5 +43,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :document_accesses, path: 'access' do
+    collection do
+      get 'import'
+      post 'import'
+    end
+  end
+
   mount Qa::Engine => '/authorities'
 end

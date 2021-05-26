@@ -5,5 +5,7 @@
 # Mime::Type.register "text/richtext", :rtf
 
 # Order is important. ActiveStorage needs :json to be last
+Mime::Type.register "application/json", :json_aardvark
+Mime::Type.register "application/json", :json_btaa_aardvark
 Mime::Type.register "application/json", :json_gbl_v1
 Mime::Type.register "application/json", :json

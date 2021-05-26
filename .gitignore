@@ -30,6 +30,7 @@ config/master.key
 !config/sidekiq.yml
 !config/storage.yml
 !config/webpacker.yml
+!config/settings.yml
 
 # dotenv
 # TODO Comment out this rule if environment variables can be committed
@@ -75,7 +76,12 @@ yarn-debug.log*
 
 # Ignore test reports
 /test/reports/*
+test/reports/*
 .env.development
 .env.test
 coverage
 /doc/rubycritic/*
+
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml

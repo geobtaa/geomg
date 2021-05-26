@@ -29,65 +29,64 @@ class DocumentTest < ActiveSupport::TestCase
     # Form
     # Identification
     # - Descriptive
-    assert_respond_to @document, :dc_title_s
-    assert_respond_to @document, :dct_alternativeTitle_sm
-    assert_respond_to @document, :dc_description_s
-    assert_respond_to @document, :dc_language_sm
+    assert_respond_to @document, GEOMG.FIELDS.TITLE
+    assert_respond_to @document, GEOMG.FIELDS.ALT_TITLE
+    assert_respond_to @document, GEOMG.FIELDS.DESCRIPTION
+    assert_respond_to @document, GEOMG.FIELDS.LANGUAGE
 
     # - Credits
-    assert_respond_to @document, :dc_creator_sm
-    assert_respond_to @document, :dc_publisher_sm
+    assert_respond_to @document, GEOMG.FIELDS.CREATOR
+    assert_respond_to @document, GEOMG.FIELDS.PUBLISHER
 
     # - Categories
-    assert_respond_to @document, :b1g_genre_sm
-    assert_respond_to @document, :dc_subject_sm
-    assert_respond_to @document, :b1g_keyword_sm
+    assert_respond_to @document, GEOMG.FIELDS.B1G_GENRE
+    assert_respond_to @document, GEOMG.FIELDS.SUBJECT
+    assert_respond_to @document, GEOMG.FIELDS.B1G_KEYWORD
 
     # - Temporal
-    assert_respond_to @document, :dct_issued_s
-    assert_respond_to @document, :dct_temporal_sm
-    assert_respond_to @document, :b1g_date_range_drsim
-    assert_respond_to @document, :solr_year_i
+    assert_respond_to @document, GEOMG.FIELDS.ISSUED
+    assert_respond_to @document, GEOMG.FIELDS.TEMPORAL
+    assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_RANGE
+    assert_respond_to @document, GEOMG.FIELDS.YEAR
 
     # - Spatial
-    assert_respond_to @document, :dct_spatial_sm
-    assert_respond_to @document, :b1g_geonames_sm
-    assert_respond_to @document, :solr_geom
-    assert_respond_to @document, :b1g_centroid_ss
+    assert_respond_to @document, GEOMG.FIELDS.SPATIAL
+    assert_respond_to @document, GEOMG.FIELDS.B1G_GEONAMES
+    assert_respond_to @document, GEOMG.FIELDS.GEOM
+    assert_respond_to @document, GEOMG.FIELDS.B1G_CENTROID
 
     # Distribution
     # - Object
-    assert_respond_to @document, :dc_type_sm
-    assert_respond_to @document, :layer_geom_type_s
-    assert_respond_to @document, :dc_format_s
+    assert_respond_to @document, GEOMG.FIELDS.LAYER_GEOM_TYPE
+    assert_respond_to @document, GEOMG.FIELDS.FORMAT
 
     # - Access Links
     # - Geospatial Web Services
     # - Images
     # - Metadata
-    assert_respond_to @document, :dct_references_s
-    assert_respond_to @document, :b1g_image_ss
+    assert_respond_to @document, GEOMG.FIELDS.REFERENCES
+    assert_respond_to @document, GEOMG.FIELDS.B1G_IMAGE
 
     # Administrative
     # - Codes
-    assert_respond_to @document, :dc_identifier_s
-    assert_respond_to @document, :layer_slug_s
-    assert_respond_to @document, :dct_provenance_s
-    assert_respond_to @document, :b1g_code_s
-    assert_respond_to @document, :dct_isPartOf_sm
+    assert_respond_to @document, GEOMG.FIELDS.IDENTIFIER
+    assert_respond_to @document, GEOMG.FIELDS.LAYER_SLUG
+    assert_respond_to @document, GEOMG.FIELDS.PROVENANCE
+    assert_respond_to @document, GEOMG.FIELDS.B1G_CODE
+    assert_respond_to @document, GEOMG.FIELDS.IS_PART_OF
 
     # - Status
-    assert_respond_to @document, :b1g_status_s
-    assert_respond_to @document, :dct_accrualMethod_s
-    assert_respond_to @document, :dct_accrualPeriodicity_s
-    assert_respond_to @document, :b1g_dateAccessioned_s
-    assert_respond_to @document, :b1g_dateRetired_s
+    assert_respond_to @document, GEOMG.FIELDS.B1G_STATUS
+    assert_respond_to @document, GEOMG.FIELDS.B1G_ACCRUAL_METHOD
+    assert_respond_to @document, GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY
+    assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_ACCESSIONED
+    assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_RETIRED
 
     # - Accessibility
-    assert_respond_to @document, :dc_rights_s
-    assert_respond_to @document, :dct_accessRights_sm
-    assert_respond_to @document, :suppressed_b
-    assert_respond_to @document, :b1g_child_record_b
+    assert_respond_to @document, GEOMG.FIELDS.RIGHTS
+    assert_respond_to @document, GEOMG.FIELDS.ACCESS_RIGHTS
+    assert_respond_to @document, GEOMG.FIELDS.SUPPRESSED
+    assert_respond_to @document, GEOMG.FIELDS.B1G_CHILD_RECORD
   end
 
   test 'responds to type' do
@@ -121,34 +120,35 @@ class DocumentTest < ActiveSupport::TestCase
   # Test DateRanges
   test 'b1g_date_range validation' do
     @document = documents(:ag)
-    @document.b1g_date_range_drsim = ["1977-2020"]
+    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=",["1977-2020"])
     assert_nothing_raised do
       @document.save
     end
 
     # No letters allowed
-    @document.b1g_date_range_drsim = ["197X-2020"]
+    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["197X-2020"])
     @document.save
     assert @document.invalid?
     assert @document.errors
   end
 
-  # Test SolrGeom
-  test 'solr_geom validation' do
+  # Test LocnGeometry
+  test 'locn_geometry validation' do
     @document = documents(:ag)
-    @document.solr_geom = "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)"
-    assert_nothing_raised do
-      @document.save
-    end
 
-    # No ENVELOPE() wrapper
-    @document.solr_geom = "-16.7909,-90.0574,43.9474,39.9655"
+    # Bad minY
+    @document.send("#{GEOMG.FIELDS.GEOM}=", "-16.7909,-90.0574,43.9474,39.9655")
+    assert @document.invalid?
+    assert @document.errors
+
+    # No ENVELOPE() wrapper allowed
+    @document.send("#{GEOMG.FIELDS.GEOM}=", "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)")
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Bad minX
-    @document.solr_geom = "-16000.7909,-90.0574,43.9474,39.9655"
+    @document.send("#{GEOMG.FIELDS.GEOM}=", "-16000.7909,-90.0574,43.9474,39.9655")
     @document.save
     assert @document.invalid?
     assert @document.errors

@@ -4,6 +4,8 @@ require 'csv'
 
 # Import class
 class Import < ApplicationRecord
+  include ActiveModel::Validations
+
   # Callbacks (keep at top)
   after_commit :set_csv_file_attributes, if: :persisted?
   after_commit :check_if_mapped, if: :persisted?
@@ -19,6 +21,9 @@ class Import < ApplicationRecord
   # Validations
   validates :name, :type, presence: true
   validates :csv_file, attached: true, content_type: { in: 'text/csv', message: 'is not a CSV file' }
+
+  validates_with Import::CsvHeaderValidator
+  validates_with Import::CsvDuplicatesValidator
 
   # States
   include Statesman::Adapters::ActiveRecordQueries[

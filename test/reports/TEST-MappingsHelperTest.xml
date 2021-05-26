@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite time='0.096064' skipped='0' failures='0' errors='0' name="MappingsHelperTest" assertions='5' tests='5' timestamp="2021-05-06T12:01:28-05:00">
+  <testcase time='0.030871' file="test/helpers/mappings_helper_test.rb" name="test_mapping_suggestion_-_does_not_exist" assertions='1'>
+  </testcase>
+  <testcase time='0.022627' file="test/helpers/mappings_helper_test.rb" name="test_delimiter_suggestion_-_does_not_exist" assertions='1'>
+  </testcase>
+  <testcase time='0.004937' file="test/helpers/mappings_helper_test.rb" name="test_attribute_collection" assertions='1'>
+  </testcase>
+  <testcase time='0.008771' file="test/helpers/mappings_helper_test.rb" name="test_delimiter_suggestion_-_exists" assertions='1'>
+  </testcase>
+  <testcase time='0.028858' file="test/helpers/mappings_helper_test.rb" name="test_mapping_suggestion_-_exists" assertions='1'>
+  </testcase>
+</testsuite>

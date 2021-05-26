@@ -197,6 +197,26 @@ export default class extends Controller {
     }
   }
 
+  exportJsonAardvark() {
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      window.location = el.dataset.pageset + "&format=json_aardvark"
+    } else {
+      window.location = el.dataset.resultset + "&format=json_aardvark"
+    }
+  }
+
+  exportJsonBtaaAardvark() {
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      window.location = el.dataset.pageset + "&format=json_btaa_aardvark"
+    } else {
+      window.location = el.dataset.resultset + "&format=json_btaa_aardvark"
+    }
+  }
+
   bulkAction() {
     var scope = this.checkSelectionScope();
     var el = document.querySelector('#result-selected-options');
