@@ -56,8 +56,8 @@ export default class extends Controller {
       case false:
         this.setResultSelectionVisibility('hide')
         this.setResultActionsVisibility('hide')
-        document.getElementById('resultset').classList.add('hidden');
-        document.getElementById('pageset').classList.remove('hidden');
+        document.getElementById('select-resultset').classList.add('hidden');
+        document.getElementById('select-pageset').classList.remove('hidden');
         break;
       default:
         this.setResultSelectionVisibility('hide')
@@ -66,8 +66,8 @@ export default class extends Controller {
   }
 
   selectResultSet() {
-    document.getElementById('pageset').classList.add('hidden');
-    document.getElementById('resultset').classList.remove('hidden');
+    document.getElementById('select-pageset').classList.add('hidden');
+    document.getElementById('select-resultset').classList.remove('hidden');
 
     // Set scope to full resultset
     var el = document.querySelector('#result-selected-options');
@@ -75,8 +75,8 @@ export default class extends Controller {
   }
 
   removeResultSet() {
-    document.getElementById('pageset').classList.remove('hidden');
-    document.getElementById('resultset').classList.add('hidden');
+    document.getElementById('select-pageset').classList.remove('hidden');
+    document.getElementById('select-resultset').classList.add('hidden');
 
     // Set scope to just pageset
     var el = document.querySelector('#result-selected-options');
