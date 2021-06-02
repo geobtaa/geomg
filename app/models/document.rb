@@ -65,7 +65,7 @@ class Document < Kithe::Work
   attr_json GEOMG.FIELDS.ISSUED.to_sym, :string
   attr_json GEOMG.FIELDS.TEMPORAL.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.B1G_DATE_RANGE.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.YEAR.to_sym, :integer, array: true, default: -> { [] }
+  # GEOMG.FIELDS.YEAR.to_sym is derived via self.solr_year_json
 
   # - Spatial
   attr_json GEOMG.FIELDS.SPATIAL.to_sym, :string, array: true, default: -> { [] }
@@ -157,6 +157,7 @@ class Document < Kithe::Work
     start_d, _end_d = send(GEOMG.FIELDS.B1G_DATE_RANGE).first.split('-')
     [start_d] if start_d.presence
   end
+  alias gbl_indexYear_im solr_year_json
 
   # Export Transformations - to_*
   def to_csv

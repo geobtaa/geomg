@@ -13,6 +13,7 @@ class MappingsHelperTest < ActionView::TestCase
     attrs.prepend('')
     attrs.prepend('Discard')
     attrs.delete (:gbl_mdVersion_s)   # Assumed value
+    attrs.delete (:gbl_indexYear_im)  # Derived value
     attrs.delete (:gbl_mdModified_dt) # DB value
 
     assert_equal(
