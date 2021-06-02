@@ -4,6 +4,16 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  # jbuilder helper
+  def no_json_blanks(value)
+    case value
+    when String
+      value.blank? ? nil : value
+    when Array
+      value.join.blank? ? nil : value
+    end
+  end
+
   # qa (questioning_authoriry) gem oddly gives us no route helpers, so
   # let's make one ourselves, for it's current mount point, we can change
   # it if needed but at least it's DRY.
