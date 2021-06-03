@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite time='2.712929' skipped='0' failures='0' errors='0' name="DocumentFormTest" assertions='14' tests='3' timestamp="2021-05-06T12:01:28-05:00">
-  <testcase time='1.408377' file="test/system/document_form_test.rb" name="test_basic_dom" assertions='6'>
-  </testcase>
-  <testcase time='0.706166' file="test/system/document_form_test.rb" name="test_edit_action" assertions='2'>
-  </testcase>
-  <testcase time='0.598386' file="test/system/document_form_test.rb" name="test_form_elements" assertions='6'>
-  </testcase>
-</testsuite>

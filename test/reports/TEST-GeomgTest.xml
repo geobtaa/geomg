@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite time='0.007789' skipped='0' failures='0' errors='0' name="GeomgTest" assertions='132' tests='3' timestamp="2021-05-06T12:01:28-05:00">
-  <testcase time='0.003440' file="test/models/geomg_test.rb" name="test_BTAA_-_CSV_Import_-_header/solr_field_mapping_keys" assertions='124'>
-  </testcase>
-  <testcase time='0.001828' file="test/models/geomg_test.rb" name="test_dct_references_mappings" assertions='6'>
-  </testcase>
-  <testcase time='0.002521' file="test/models/geomg_test.rb" name="test_methods" assertions='2'>
-  </testcase>
-</testsuite>

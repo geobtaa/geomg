@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite time='8.508841' skipped='0' failures='0' errors='0' name="RubocopTest" assertions='2' tests='1' timestamp="2021-05-06T12:01:28-05:00">
-  <testcase time='8.508841' file="test/linters/rubocop_test.rb" name="test_no_offenses_found" assertions='2'>
-  </testcase>
-</testsuite>

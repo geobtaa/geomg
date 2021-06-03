@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite time='0.438500' skipped='1' failures='0' errors='0' name="SearchControllerTest" assertions='1' tests='1' timestamp="2021-05-06T12:01:28-05:00">
-  <testcase time='0.438500' file="test/controllers/search_controller_test.rb" name="test_should_get_index" assertions='1'>
-    <skipped type='Minitest::Skip' message="@TODO: Decouple from GBL">test/controllers/search_controller_test.rb:14:in `block in &lt;class:SearchControllerTest&gt;&#39;
-    </skipped>
-  </testcase>
-</testsuite>

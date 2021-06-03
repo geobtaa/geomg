@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite time='0.504164' skipped='0' failures='0' errors='0' name="ImportDocumentsControllerTest" assertions='2' tests='1' timestamp="2021-05-06T12:01:28-05:00">
-  <testcase time='0.504164' file="test/controllers/import_documents_controller_test.rb" name="test_should_get_show" assertions='2'>
-  </testcase>
-</testsuite>
