@@ -8,7 +8,7 @@ module ApplicationHelper
   def no_json_blanks(value)
     case value
     when String
-      value.blank? ? nil : value
+      value.presence
     when Array
       value.join.blank? ? nil : value
     end
