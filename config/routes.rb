@@ -51,4 +51,5 @@ Rails.application.routes.draw do
   end
 
   mount Qa::Engine => '/authorities'
+  mount ActionCable.server => '/cable'
 end

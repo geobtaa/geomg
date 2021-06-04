@@ -18,7 +18,10 @@ class DocumentsController < ApplicationController
       format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
       format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
-      format.csv  { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
+      format.csv {
+        ExportJob.perform_later(current_user, @documents.pluck(:id), ExportCsvService)
+        head :no_content
+      }
     end
   end
 
@@ -33,7 +36,10 @@ class DocumentsController < ApplicationController
       format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
       format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
-      format.csv { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
+      format.csv {
+        ExportJob.perform_later(current_user, @documents.pluck(:id), ExportCsvService)
+        head :no_content
+      }
     end
   end
 
@@ -122,20 +128,5 @@ class DocumentsController < ApplicationController
 
   def document_params
     Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(permittable_params)
-  end
-
-  def collect_csv(documents)
-    CSV.generate(headers: true) do |csv|
-      csv << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
-      if documents.instance_of?(BlacklightApi)
-        documents.load_all.map do |doc|
-          csv << doc.to_csv if doc.present?
-        end
-      else
-        documents.each do |doc|
-          csv << doc.to_csv
-        end
-      end
-    end
   end
 end

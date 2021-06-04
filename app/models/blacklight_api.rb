@@ -38,6 +38,10 @@ class BlacklightApi
     results.map { |result| Document.find_by(friendlier_id: result['id']) }
   end
 
+  def pluck(field)
+    load_all.pluck(field.to_sym)
+  end
+
   private
 
   def append_facets(facets, options)
