@@ -16,7 +16,7 @@
     &middot; <%= document.send(GEOMG.FIELDS.TEMPORAL).join("-") %>
   <% end %>
   <% if document.send(GEOMG.FIELDS.DESCRIPTION).present? %>
-    <p><%= document.send(GEOMG.FIELDS.DESCRIPTION) %></p>
+    <p class="js-truncate"><%= document.send(GEOMG.FIELDS.DESCRIPTION).join %></p>
   <% end %>
 
 <% end %>

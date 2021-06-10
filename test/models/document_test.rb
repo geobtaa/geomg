@@ -153,4 +153,16 @@ class DocumentTest < ActiveSupport::TestCase
     assert @document.invalid?
     assert @document.errors
   end
+
+  # Test solr_year_json
+  test 'derive gbl_indexYear_im via gbl_dateRange_drsim' do
+    @document = documents(:ag)
+    # Input date range
+    # "gbl_dateRange_drsim": ["2015-2015"]
+
+    # Export indexYear values
+    # Via method and via alias
+    assert_equal(@document.solr_year_json, ["2015"])
+    assert_equal(@document.gbl_indexYear_im, ["2015"])
+  end
 end

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite time='0.002231' skipped='0' failures='0' errors='0' name="ImportTest" assertions='1' tests='1' timestamp="2021-05-06T12:01:28-05:00">
-  <testcase time='0.002231' file="test/models/import_test.rb" name="test_responds_to_run!" assertions='1'>
-  </testcase>
-</testsuite>

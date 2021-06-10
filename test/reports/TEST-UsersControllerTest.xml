@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite time='0.271216' skipped='0' failures='0' errors='0' name="UsersControllerTest" assertions='2' tests='1' timestamp="2021-05-06T12:01:28-05:00">
-  <testcase time='0.271216' file="test/controllers/users_controller_test.rb" name="test_should_get_index" assertions='2'>
-  </testcase>
-</testsuite>
