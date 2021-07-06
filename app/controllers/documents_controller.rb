@@ -18,10 +18,10 @@ class DocumentsController < ApplicationController
       format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
       format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
-      format.csv {
+      format.csv do
         ExportJob.perform_later(current_user, @documents.pluck(:id), ExportCsvService)
         head :no_content
-      }
+      end
     end
   end
 
@@ -36,10 +36,10 @@ class DocumentsController < ApplicationController
       format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
       format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
-      format.csv {
+      format.csv do
         ExportJob.perform_later(current_user, @documents.pluck(:id), ExportCsvService)
         head :no_content
-      }
+      end
     end
   end
 
