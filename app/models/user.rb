@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :bookmarks, dependent: :destroy, as: :user
+  has_many :notifications, dependent: :destroy, as: :recipient
 
   def bookmarks_for_documents(documents = [])
     if documents.any?

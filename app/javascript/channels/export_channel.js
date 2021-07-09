@@ -19,18 +19,12 @@ consumer.subscriptions.create({ channel: "ExportChannel" }, {
       console.log(data['progress']);
     }
 
-    if (data['csv_file']) {
-      var blob, csv_download_link;
-
-      blob = new Blob([data['csv_file']['content']]);
-
-      // Create a link with the data
-      // Trigger the link click event to download the file
-      csv_download_link = document.createElement('a');
-
-      csv_download_link.href = window.URL.createObjectURL(blob);
-      csv_download_link.download = data['csv_file']['file_name'];
-      csv_download_link.click();
+    if (data['actions']) {
+      for (let index = 0; index < data.actions.length; ++index) {
+        var fnstring = data.actions[index].method;
+        var fn = window["GEOMG"][fnstring];
+        if (typeof fn === "function") fn(data.actions[index].payload);
+      }
     }
   }
 });

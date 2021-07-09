@@ -20,8 +20,10 @@
 //= require inputmask/dist/jquery.inputmask
 
 // GEOMG
+//= require geomg/geomg
 //= require geomg/chosen
 //= require geomg/datepicker
+//= require geomg/exports
 //= require geomg/inputmask
 //= require geomg/tooltips
 

@@ -14,16 +14,17 @@ class ExportCsvService
 
     CSV.generate(headers: true) do |_csv|
       csv_file << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
-      document_ids.each_slice(slice_count) do |doc_id|
+      document_ids.each_slice(slice_count) do |slice|
         # Broadcast progress percentage
         count += slice_count
         progress = ((count.to_f / total) * 100).round
         progress = 100 if progress > 100
 
         ActionCable.server.broadcast('export_channel', { progress: progress })
-        doc = Document.find(doc_id)
-
-        csv_file << doc.to_csv
+        slice.each do |doc_id|
+          doc = Document.find(doc_id)
+          csv_file << doc.to_csv
+        end
       end
     end
 

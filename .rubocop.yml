@@ -42,6 +42,10 @@ Layout/LineLength:
     - '**/*.jbuilder'
   Max: 140
 
+Lint/AssignmentInCondition:
+  Exclude:
+    - 'app/channels/application_cable/connection.rb'
+
 Metrics/AbcSize:
   Exclude:
     - 'app/models/document/solr_geom_validator.rb'
@@ -63,6 +67,7 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Exclude:
     - 'app/jobs/import_run_job.rb'
+    - 'app/jobs/export_job.rb'
     - 'app/models/document/solr_geom_validator.rb'
     - 'app/models/import_btaa_aardvark.rb'
     - 'app/services/export_csv_service.rb'

@@ -18,6 +18,10 @@ Rails.application.routes.draw do
 
   get 'users/index'
 
+  resources :notifications do
+    put 'batch', on: :collection
+  end
+
   devise_for :users, controllers: { invitations: 'devise/invitations' }, skip: [:registrations]
   as :user do
     get '/sign_in' => 'devise/sessions#new' # custom path to login/sign_in
