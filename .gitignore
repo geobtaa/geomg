@@ -31,6 +31,7 @@ config/master.key
 !config/storage.yml
 !config/webpacker.yml
 !config/settings.yml
+!config/cable.yml
 
 # dotenv
 # TODO Comment out this rule if environment variables can be committed

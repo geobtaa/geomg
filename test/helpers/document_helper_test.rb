@@ -14,11 +14,12 @@ class DocumentHelperTest < ActionView::TestCase
   # Render local sort link from API results
   test 'sort_link' do
     @documents = BlacklightApi.new(
-      'water',                                  # query
-      [],                                       # facets
-      1,                                        # page
-      'solr_year_i+desc%2C+dc_title_sort+asc',  # sort
-      20                                        # per_page
+      {
+        q: 'water',
+        page: 1,
+        sort: 'solr_year_i+desc%2C+dc_title_sort+asc',
+        rows: 20
+      }
     )
 
     link = @documents.sorts.first
@@ -88,11 +89,12 @@ class DocumentHelperTest < ActionView::TestCase
 
   test 'next_link - not present' do
     @documents = BlacklightApi.new(
-      'afafdafds',                              # query (nonsensical)
-      [],                                       # facets
-      1,                                        # page
-      'solr_year_i+desc%2C+dc_title_sort+asc',  # sort
-      20                                        # per_page
+      {
+        q: 'afafdafds',
+        page: 1,
+        sort: 'solr_year_i+desc%2C+dc_title_sort+asc',
+        rows: 20
+      }
     )
 
     next_ = next_link(@documents.links)

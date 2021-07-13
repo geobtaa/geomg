@@ -23,6 +23,13 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav flex-row ml-md-auto d-none d-md-flex">
+      <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to notifications_url, { class: 'nav-link' } do %>
+            <%= "Notifications #{notifications_badge}".html_safe %>
+          <% end %>
+        </li>
+      <% end %>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Admin Tools

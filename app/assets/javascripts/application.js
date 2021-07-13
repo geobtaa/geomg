@@ -21,8 +21,10 @@
 //= require shave/dist/jquery.shave.js
 
 // GEOMG
+//= require geomg/geomg
 //= require geomg/chosen
 //= require geomg/datepicker
+//= require geomg/exports
 //= require geomg/inputmask
 //= require geomg/tooltips
 //= require geomg/truncate

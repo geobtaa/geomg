@@ -9,7 +9,9 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = BlacklightApi.new(params['q'], params['f'], params['page'], params['sort'], params['rows'] || 20)
+    query_params = { q: params['q'], f: params['f'], page: params['page'], rows: 20 }
+
+    @documents = BlacklightApi.new(**query_params)
 
     respond_to do |format|
       format.html { render :index }
@@ -18,11 +20,15 @@ class DocumentsController < ApplicationController
       format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
       format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
-      format.csv  { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
+      format.csv do
+        ExportJob.perform_later(current_user, query_params, ExportCsvService)
+        flash.now[:notice] = 'test'
+        head :no_content
+      end
     end
   end
 
-  # Fetch documents from array of ids
+  # Fetch documents from array of friendlier_ids
   def fetch
     @documents = Document.where(friendlier_id: params['ids'])
 
@@ -33,7 +39,11 @@ class DocumentsController < ApplicationController
       format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
       format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
-      format.csv { send_data collect_csv(@documents), filename: "documents-#{Time.zone.today}.csv" }
+      format.csv do
+        ExportJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id) }, ExportCsvService)
+        flash.now[:notice] = 'test'
+        head :no_content
+      end
     end
   end
 

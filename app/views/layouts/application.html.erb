@@ -14,7 +14,8 @@
   <body>
     <%= render "shared/navbar" %>
     <div class="container-fluid">
-      <p id="notice"><%= render "shared/flash_messages" %></p>
+      <%= render "shared/flash_messages" %>
+      <div id="toast-wrapper" aria-live="polite" aria-atomic="true"></div>
       <%= yield %>
     </div>
     <%= render "shared/footer" %>
