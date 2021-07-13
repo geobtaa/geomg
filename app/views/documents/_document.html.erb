@@ -1,6 +1,6 @@
 <% bookmarked = current_user.document_is_bookmarked?(document) ? 'bookmarked' : '' %>
 
-<%= content_tag :li, id: dom_id(document), class: bookmarked do %>
+<%= content_tag :li, id: document.friendlier_id, class: bookmarked do %>
   <%= check_box_tag nil, nil, false, data: { id: document.friendlier_id, action: 'click->results#checkChecked'}%>
 
   <%= render 'documents/document_bookmark', document: document %>

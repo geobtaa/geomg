@@ -5,9 +5,17 @@ class BlacklightApi
   include HTTParty
   base_uri BLACKLIGHT_JSON_API
 
-  def initialize(query = '*', facets = [], page = 1, sort = 'score+desc%2C+dc_title_sort+asc', rows = 20)
-    @options = { q: query, page: page, sort: sort, rows: rows }
-    append_facets(facets, @options)
+  def initialize(**args)
+    defaults = {
+      query: '*',
+      page: 1,
+      sort: 'score+desc%2C+dc_title_sort+asc',
+      rows: 20
+    }
+
+    @options = defaults.merge(**args)
+    append_facets(@options[:f], @options)
+    @options.compact!
   end
 
   def fetch
@@ -19,7 +27,7 @@ class BlacklightApi
   end
 
   def facets
-    fetch['included'].filter_map { |s| s if s['type'] == 'facet' }
+    fetch['included'].filter_map { |s| s if s['type'] == 'facet' } if fetch['included']
   end
 
   def sorts

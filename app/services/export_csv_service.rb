@@ -7,10 +7,13 @@ class ExportCsvService
   def self.call(document_ids)
     ActionCable.server.broadcast('export_channel', { progress: 0 })
 
+    document_ids = document_ids.flatten
     total = document_ids.size
     count = 0
     slice_count = 100
     csv_file = []
+
+    Rails.logger.debug("\n\nExportCsvService: #{document_ids.inspect}\n\n")
 
     CSV.generate(headers: true) do |_csv|
       csv_file << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
@@ -22,7 +25,7 @@ class ExportCsvService
 
         ActionCable.server.broadcast('export_channel', { progress: progress })
         slice.each do |doc_id|
-          doc = Document.find(doc_id)
+          doc = Document.find_by_friendlier_id(doc_id)
           csv_file << doc.to_csv
         end
       end

@@ -5,7 +5,7 @@
     <ul class="list-unstyled">
       <%- facet['attributes']['items'].each do |item| %>
         <% agg = link_from_api(item) %>
-        <li class="#{agg[:action']}">
+        <li>
           <%= link_to agg[:link] do %>
             <%= agg[:action] == 'add' ? "+" : "-" %>
             <%= item['attributes']['label'] %> (<%= item['attributes']['hits'] %>)

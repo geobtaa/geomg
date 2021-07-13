@@ -6,15 +6,24 @@ require 'csv'
 class ExportJob < ApplicationJob
   queue_as :default
 
-  def perform(current_user, document_ids, export_service)
+  def perform(current_user, query_params, export_service)
     logger.debug("\n\n Background Job: ♞")
     logger.debug("User: #{current_user.inspect}")
-    logger.debug("Doc Ids: #{document_ids.inspect}")
+    logger.debug("Query: #{query_params.inspect}")
     logger.debug("Export Service: #{export_service.inspect}")
     logger.debug("\n\n")
 
     # Test broadcast
     ActionCable.server.broadcast('export_channel', { data: 'Hello from Export Job!' })
+
+    # Query params into Doc ids
+    if query_params[:ids]
+      document_ids = query_params[:ids]
+    else
+      document_ids = crawl_query(query_params)
+    end
+
+    logger.debug("Document Ids: #{document_ids}")
 
     # Send progress
     file_content = export_service.call(document_ids)
@@ -29,7 +38,7 @@ class ExportJob < ApplicationJob
     end
 
     # Create notification
-    notification = ExportNotification.with(message: "#{ActionController::Base.helpers.number_with_delimiter(file_content.size)} rows")
+    notification = ExportNotification.with(message: "#{ActionController::Base.helpers.number_with_delimiter(file_content.size - 1)} rows")
 
     # Deliver notification
     notification.deliver(current_user)
@@ -47,5 +56,17 @@ class ExportJob < ApplicationJob
         }
       ]
     })
+  end
+
+  def crawl_query(query_params, doc_ids=[])
+    logger.debug("\n\n CRAWL Query: #{query_params}")
+    api_results = BlacklightApi.new(query_params)
+    logger.debug("API Results: #{api_results.results.inspect}")
+
+    doc_ids << api_results.results.pluck('id')
+
+    crawl_query(query_params.merge!({ page: api_results.meta['pages']['next_page'] } ), doc_ids) unless api_results.meta['pages']['next_page'].nil?
+
+    doc_ids
   end
 end
