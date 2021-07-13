@@ -5,6 +5,7 @@
 # ExportNotification.with(post: @post).deliver_later(current_user)
 # ExportNotification.with(post: @post).deliver(current_user)
 
+# ExportNotification
 class ExportNotification < Noticed::Base
   # Add your delivery methods
   #

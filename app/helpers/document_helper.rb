@@ -34,7 +34,7 @@ module DocumentHelper
     { action: 'add', link: "/documents?#{uri.query}" }
   rescue StandardError
     # Remove facet - Only path and query returned
-    uri = uri = URI.parse(link['links']['remove'])
+    uri = URI.parse(link['links']['remove'])
     { action: 'remove', link: "/documents?#{uri.query}" }
   end
 

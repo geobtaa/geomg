@@ -27,7 +27,7 @@ class BlacklightApi
   end
 
   def facets
-    fetch['included'].filter_map { |s| s if s['type'] == 'facet' } if fetch['included']
+    fetch['included']&.filter_map { |s| s if s['type'] == 'facet' }
   end
 
   def sorts

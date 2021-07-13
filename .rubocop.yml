@@ -40,6 +40,7 @@ Layout/LineLength:
   Exclude:
     - '**/*.rake'
     - '**/*.jbuilder'
+    - app/helpers/application_helper.rb
   Max: 140
 
 Lint/AssignmentInCondition:
@@ -48,6 +49,7 @@ Lint/AssignmentInCondition:
 
 Metrics/AbcSize:
   Exclude:
+    - 'app/jobs/export_job.rb'
     - 'app/models/document/solr_geom_validator.rb'
   Max: 40
 
@@ -63,6 +65,7 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - 'app/models/document.rb'
+    - 'app/controllers/documents_controller.rb'
 
 Metrics/MethodLength:
   Exclude:

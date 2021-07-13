@@ -9,15 +9,9 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
+    query_params = { q: params['q'], f: params['f'], page: params['page'], rows: 20 }
 
-    query_params = {
-      q: params['q'],
-      f: params['f'],
-      page: params['page'],
-      rows: 20
-    }
-
-    @documents = BlacklightApi.new(query_params)
+    @documents = BlacklightApi.new(**query_params)
 
     respond_to do |format|
       format.html { render :index }
@@ -28,7 +22,7 @@ class DocumentsController < ApplicationController
       # B1G CSV
       format.csv do
         ExportJob.perform_later(current_user, query_params, ExportCsvService)
-        flash.now[:notice] = "test"
+        flash.now[:notice] = 'test'
         head :no_content
       end
     end
@@ -46,8 +40,8 @@ class DocumentsController < ApplicationController
       format.json_gbl_v1 { render json_gbl_v1: @documents }
       # B1G CSV
       format.csv do
-        ExportJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id)}, ExportCsvService)
-        flash.now[:notice] = "test"
+        ExportJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id) }, ExportCsvService)
+        flash.now[:notice] = 'test'
         head :no_content
       end
     end
@@ -138,5 +132,20 @@ class DocumentsController < ApplicationController
 
   def document_params
     Kithe::Parameters.new(params).require(:document).permit_attr_json(Document).permit(permittable_params)
+  end
+
+  def collect_csv(documents)
+    CSV.generate(headers: true) do |csv|
+      csv << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
+      if documents.instance_of?(BlacklightApi)
+        documents.load_all.map do |doc|
+          csv << doc.to_csv if doc.present?
+        end
+      else
+        documents.each do |doc|
+          csv << doc.to_csv
+        end
+      end
+    end
   end
 end

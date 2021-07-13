@@ -17,11 +17,7 @@ class ExportJob < ApplicationJob
     ActionCable.server.broadcast('export_channel', { data: 'Hello from Export Job!' })
 
     # Query params into Doc ids
-    if query_params[:ids]
-      document_ids = query_params[:ids]
-    else
-      document_ids = crawl_query(query_params)
-    end
+    document_ids = query_params[:ids] || crawl_query(query_params)
 
     logger.debug("Document Ids: #{document_ids}")
 
@@ -48,24 +44,27 @@ class ExportJob < ApplicationJob
 
     # Update UI
     ActionCable.server.broadcast('export_channel', {
-      data: 'Notification ready!',
-      actions: [
-        {
-          method: 'RefreshNotifications',
-          payload: current_user.notifications.unread.count
-        }
-      ]
-    })
+                                   data: 'Notification ready!',
+                                   actions: [
+                                     {
+                                       method: 'RefreshNotifications',
+                                       payload: current_user.notifications.unread.count
+                                     }
+                                   ]
+                                 })
   end
 
-  def crawl_query(query_params, doc_ids=[])
+  def crawl_query(query_params, doc_ids = [])
     logger.debug("\n\n CRAWL Query: #{query_params}")
     api_results = BlacklightApi.new(query_params)
     logger.debug("API Results: #{api_results.results.inspect}")
 
     doc_ids << api_results.results.pluck('id')
 
-    crawl_query(query_params.merge!({ page: api_results.meta['pages']['next_page'] } ), doc_ids) unless api_results.meta['pages']['next_page'].nil?
+    unless api_results.meta['pages']['next_page'].nil?
+      crawl_query(query_params.merge!({ page: api_results.meta['pages']['next_page'] }),
+                  doc_ids)
+    end
 
     doc_ids
   end
