@@ -25,8 +25,12 @@ class ExportCsvService
 
         ActionCable.server.broadcast('export_channel', { progress: progress })
         slice.each do |doc_id|
-          doc = Document.find_by_friendlier_id(doc_id)
-          csv_file << doc.to_csv
+          begin
+            doc = Document.find_by_friendlier_id(doc_id)
+            csv_file << doc.to_csv
+          rescue NoMethodError => e
+            Rails.logger.debug("\n\nExport Failed: #{doc_id.inspect}\n\n")
+          end
         end
       end
     end
