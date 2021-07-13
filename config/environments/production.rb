@@ -59,8 +59,8 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "geomg_production"
+  # We want sidekiq for job handling in production
+  config.active_job.queue_adapter = :sidekiq
 
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
@@ -132,6 +132,6 @@ Rails.application.configure do
      :email_prefix => "[GEOMG Error] ",
      # Google Groups won't accept messages unless the sender host resolves!
      :sender_address => %{"GEOMG" <swadm@#{`hostname`.strip}>},
-     :exception_recipients => %w{libwebdev+alert@umn.edu majew030@umn.edu}
+     :exception_recipients => %w{libwebdev+alert@umn.edu ewlarson@gmail.com majew030@umn.edu}
    }
 end

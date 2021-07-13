@@ -40,10 +40,16 @@ Layout/LineLength:
   Exclude:
     - '**/*.rake'
     - '**/*.jbuilder'
+    - app/helpers/application_helper.rb
   Max: 140
+
+Lint/AssignmentInCondition:
+  Exclude:
+    - 'app/channels/application_cable/connection.rb'
 
 Metrics/AbcSize:
   Exclude:
+    - 'app/jobs/export_job.rb'
     - 'app/models/document/solr_geom_validator.rb'
   Max: 40
 
@@ -59,12 +65,15 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - 'app/models/document.rb'
+    - 'app/controllers/documents_controller.rb'
 
 Metrics/MethodLength:
   Exclude:
     - 'app/jobs/import_run_job.rb'
+    - 'app/jobs/export_job.rb'
     - 'app/models/document/solr_geom_validator.rb'
     - 'app/models/import_btaa_aardvark.rb'
+    - 'app/services/export_csv_service.rb'
   Max: 16
 
 Metrics/ParameterLists:

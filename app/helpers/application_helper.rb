@@ -52,4 +52,11 @@ module ApplicationHelper
       '13' => 'University of Nebraska-Lincoln'
     }
   end
+
+  def notifications_badge
+    notifications_classes = ['badge']
+    notifications_classes << 'badge-dark' if current_user.notifications.unread.empty?
+    notifications_classes << 'badge-danger' if current_user.notifications.unread.size.positive?
+    "<span class='#{notifications_classes.join(' ')}' id='notification-count'>#{current_user.notifications.unread.size}</span>"
+  end
 end
