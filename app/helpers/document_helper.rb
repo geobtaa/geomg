@@ -34,8 +34,8 @@ module DocumentHelper
     { action: 'add', link: "/documents?#{uri.query}" }
   rescue StandardError
     # Remove facet - Only path and query returned
-    uri = link['links']['remove']
-    { action: 'remove', link: "/documents?#{uri.split('/catalog.json?').last}" }
+    uri = uri = URI.parse(link['links']['remove'])
+    { action: 'remove', link: "/documents?#{uri.query}" }
   end
 
   def previous_link(links)
