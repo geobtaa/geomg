@@ -7,7 +7,7 @@ class BlacklightApi
 
   def initialize(**args)
     defaults = {
-      query: '*',
+      q: '*',
       page: 1,
       sort: 'score+desc%2C+dc_title_sort+asc',
       rows: 20
