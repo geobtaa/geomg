@@ -14,7 +14,7 @@ class DocumentHelperTest < ActionView::TestCase
   # Render local sort link from API results
   test 'sort_link' do
     @documents = BlacklightApi.new(
-      {
+      **{
         q: 'water',
         page: 1,
         sort: 'solr_year_i+desc%2C+dc_title_sort+asc',
@@ -89,7 +89,7 @@ class DocumentHelperTest < ActionView::TestCase
 
   test 'next_link - not present' do
     @documents = BlacklightApi.new(
-      {
+      **{
         q: 'afafdafds',
         page: 1,
         sort: 'solr_year_i+desc%2C+dc_title_sort+asc',

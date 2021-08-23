@@ -7,6 +7,11 @@ class BlacklightApiTest < ActiveSupport::TestCase
     @blapi = BlacklightApi.new
   end
 
+  test 'Expects hash for arguments' do
+    error = assert_raises(ArgumentError) { BlacklightApi.new('foo', 'bar', 'baz') }
+    assert_equal error.message, 'wrong number of arguments (given 3, expected 0)'
+  end
+
   test 'responds to fetch' do
     assert_respond_to @blapi, :fetch
   end
