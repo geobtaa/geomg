@@ -131,7 +131,7 @@ Rails.application.configure do
    :email => {
      :email_prefix => "[GEOMG Error] ",
      # Google Groups won't accept messages unless the sender host resolves!
-     :sender_address => %{"GEOMG" <swadm@#{`hostname`.strip}>},
-     :exception_recipients => %w{libwebdev+alert@umn.edu ewlarson@gmail.com majew030@umn.edu}
+     :sender_address => %{"GEOMG" <ulapps@#{`hostname`.strip}>},
+     :exception_recipients => %w{mjb+alert@umn.edu ewlarson@gmail.com majew030@umn.edu}
    }
 end
