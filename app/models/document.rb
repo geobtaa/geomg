@@ -140,6 +140,11 @@ class Document < Kithe::Work
     updated_at&.utc&.iso8601
   end
 
+  # Ensures a manually created "title" makes it into the attr_json "title"
+  def dct_title_s
+    title
+  end
+
   def date_range_json
     date_ranges = []
     send(GEOMG.FIELDS.B1G_DATE_RANGE).each do |date_range|
