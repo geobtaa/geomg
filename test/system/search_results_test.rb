@@ -13,6 +13,7 @@ class SearchResultsTest < ApplicationSystemTestCase
     assert page.has_selector?('#facets')
     within('#facets') do
       assert page.has_text?('Publication State')
+      assert page.has_text?('Resource Class')
       assert page.has_text?('Provider')
       assert page.has_text?('Accrual Method')
       assert page.has_text?('Public/Restricted')

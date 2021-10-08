@@ -7,6 +7,20 @@ class DocumentTest < ActiveSupport::TestCase
     @document = Document.new
   end
 
+  # Create / db-stored title should also be dct_title_s
+  test 'creates a document' do
+    @document.title = "Test"
+    @document.dct_accessRights_s = "Public"
+    @document.gbl_resourceClass_sm = "Collections"
+    @document.geomg_id_s = "eric-test-foo"
+
+    assert_nothing_raised do
+      @document.save
+    end
+
+    assert_equal(@document.title, @document.dct_title_s)
+  end
+
   # Attrs
   test 'responds to title' do
     assert_respond_to @document, :title
