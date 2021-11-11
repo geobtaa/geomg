@@ -82,7 +82,7 @@ Rails.application.configure do
   config.hosts << 'geomg.ngrok.io'
 
   # Background Queue
-  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_adapter = :inline
   Redis.exists_returns_integer =  true
 
   # Uncomment if you wish to allow Action Cable access from any origin.

@@ -9,20 +9,35 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    query_params = { q: params['q'], f: params['f'], page: params['page'], rows: 20 }
+    query_params = { q: params['q'], f: params['f'], page: params['page'], rows: params['rows'] || 20 }
 
     @documents = BlacklightApi.new(**query_params)
 
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @documents.results.to_json }
-      format.json_aardvark { render json_aardvark: @documents }
-      format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
-      format.json_gbl_v1 { render json_gbl_v1: @documents }
-      # B1G CSV
+
+      # JSON - BTAA Aardvark
+      format.json_btaa_aardvark do
+        ExportJsonJob.perform_later(current_user, query_params.merge!({ format: 'json_btaa_aardvark' }), ExportJsonService)
+        head :no_content
+      end
+
+      # JSON - GBL Aardvark
+      format.json_aardvark do
+        ExportJsonJob.perform_later(current_user, query_params.merge!({ format: 'json_aardvark' }), ExportJsonService)
+        head :no_content
+      end
+
+      # JSON - GBL v1
+      format.json_gbl_v1 do
+        ExportJsonJob.perform_later(current_user, query_params.merge!({ format: 'json_gbl_v1' }), ExportJsonService)
+        head :no_content
+      end
+
+      # CSV - B1G
       format.csv do
         ExportJob.perform_later(current_user, query_params, ExportCsvService)
-        flash.now[:notice] = 'test'
         head :no_content
       end
     end
@@ -35,13 +50,29 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @documents.to_json }
-      format.json_aardvark { render json_aardvark: @documents }
-      format.json_btaa_aardvark { render json_btaa_aardvark: @documents }
-      format.json_gbl_v1 { render json_gbl_v1: @documents }
-      # B1G CSV
+
+      # JSON - BTAA Aardvark
+      format.json_btaa_aardvark do
+        ExportJsonJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'json_btaa_aardvark' },
+                                    ExportJsonService)
+        head :no_content
+      end
+
+      # JSON - GBL Aardvark
+      format.json_aardvark do
+        ExportJsonJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'json_aardvark' }, ExportJsonService)
+        head :no_content
+      end
+
+      # JSON - GBL v1
+      format.json_gbl_v1 do
+        ExportJsonJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'json_gbl_v1' }, ExportJsonService)
+        head :no_content
+      end
+
+      # CSV - B1G
       format.csv do
-        ExportJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id) }, ExportCsvService)
-        flash.now[:notice] = 'test'
+        ExportJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'csv' }, ExportCsvService)
         head :no_content
       end
     end

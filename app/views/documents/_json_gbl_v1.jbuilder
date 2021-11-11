@@ -13,7 +13,7 @@ json.layer_slug_s       no_json_blanks document.send(GEOMG.FIELDS.LAYER_SLUG)
 json.solr_geom          no_json_blanks document.solr_geom_mapping
 
 # Recommended
-json.solr_year_i        no_json_blanks document.send(GEOMG.FIELDS.YEAR).join('|')
+json.solr_year_i        no_json_blanks document.send(GEOMG.FIELDS.YEAR)&.join('|')
 json.dc_creator_sm      no_json_blanks document.send(GEOMG.FIELDS.CREATOR)
 json.dc_description_s   no_json_blanks document.send(GEOMG.FIELDS.DESCRIPTION).join('|')
 json.dc_format_s        no_json_blanks document.send(GEOMG.FIELDS.FORMAT)

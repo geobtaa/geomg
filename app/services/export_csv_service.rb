@@ -13,7 +13,7 @@ class ExportCsvService
     slice_count = 100
     csv_file = []
 
-    Rails.logger.debug("\n\nExportCsvService: #{document_ids.inspect}\n\n")
+    Rails.logger.debug { "\n\nExportCsvService: #{document_ids.inspect}\n\n" }
 
     CSV.generate(headers: true) do |_csv|
       csv_file << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
@@ -28,7 +28,7 @@ class ExportCsvService
           doc = Document.find_by(friendlier_id: doc_id)
           csv_file << doc.to_csv
         rescue NoMethodError
-          Rails.logger.debug("\n\nExport Failed: #{doc_id.inspect}\n\n")
+          Rails.logger.debug { "\n\nExport Failed: #{doc_id.inspect}\n\n" }
         end
       end
     end

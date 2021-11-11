@@ -40,7 +40,9 @@ Layout/LineLength:
   Exclude:
     - '**/*.rake'
     - '**/*.jbuilder'
-    - app/helpers/application_helper.rb
+    - 'app/helpers/application_helper.rb'
+    - 'app/jobs/export_job.rb'
+    - 'app/jobs/export_json_job.rb'
   Max: 140
 
 Lint/AssignmentInCondition:
@@ -57,6 +59,7 @@ Metrics/BlockLength:
   Exclude:
     - 'Rakefile'
     - 'app/indexers/document_indexer.rb'
+    - 'app/jobs/export_json_job.rb'
     - 'config/environments/*.rb'
     - 'config/routes.rb'
     - 'spec/**/*.rb'
@@ -69,11 +72,13 @@ Metrics/ClassLength:
 
 Metrics/MethodLength:
   Exclude:
+    - 'app/controllers/documents_controller.rb'
     - 'app/jobs/import_run_job.rb'
     - 'app/jobs/export_job.rb'
     - 'app/models/document/solr_geom_validator.rb'
     - 'app/models/import_btaa_aardvark.rb'
     - 'app/services/export_csv_service.rb'
+    - 'app/services/export_json_service.rb'
   Max: 16
 
 Metrics/ParameterLists:
