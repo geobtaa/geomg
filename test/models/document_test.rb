@@ -166,6 +166,12 @@ class DocumentTest < ActiveSupport::TestCase
     @document.save
     assert @document.invalid?
     assert @document.errors
+
+    # Solr - maxY must be >= minY
+    @document.send("#{GEOMG.FIELDS.GEOM}=", "92.1893,28.5432,101.1768,9.6004")
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
   end
 
   # Test solr_year_json
