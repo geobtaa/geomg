@@ -48,9 +48,10 @@ class ExportJsonJob < ApplicationJob
           json_output = DocumentsController.render(:_json_btaa_aardvark,
                                                    locals: { document: doc })
 
-          Rails.logger.debug json_output
+          json_obj = JSON.parse(json_output)
+          Rails.logger.debug json_obj
 
-          tree.write(json_output)
+          tree.write(JSON.pretty_generate(json_obj))
         when 'json_aardvark'
           Rails.logger.debug { "==== Writing - #{doc.friendlier_id} - GBL Aardvark ====" }
           @download_type = ' JSON - GBL Aardvark'
@@ -61,9 +62,10 @@ class ExportJsonJob < ApplicationJob
           json_output = DocumentsController.render(:_json_aardvark,
                                                    locals: { document: doc })
 
-          Rails.logger.debug json_output
+          json_obj = JSON.parse(json_output)
+          Rails.logger.debug json_obj
 
-          tree.write(json_output)
+          tree.write(JSON.pretty_generate(json_obj))
         when 'json_gbl_v1'
           Rails.logger.debug { "==== Writing - #{doc.friendlier_id} - GBL v1 JSON ====" }
           @download_type = 'JSON - GBL v1'
@@ -74,9 +76,10 @@ class ExportJsonJob < ApplicationJob
           json_output = DocumentsController.render(:_json_gbl_v1,
                                                    locals: { document: doc })
 
-          Rails.logger.debug json_output
+          json_obj = JSON.parse(json_output)
+          Rails.logger.debug json_obj
 
-          tree.write(json_output)
+          tree.write(JSON.pretty_generate(json_obj))
         end
       end
 
