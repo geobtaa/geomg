@@ -20,7 +20,7 @@ json.dc_format_s        no_json_blanks document.send(GEOMG.FIELDS.FORMAT)
 json.dc_subject_sm      no_json_blanks document.send(GEOMG.FIELDS.SUBJECT)
 json.dct_references_s   no_json_blanks document.references_json
 json.dct_spatial_sm     no_json_blanks document.send(GEOMG.FIELDS.SPATIAL)
-json.layer_geom_type_s  no_json_blanks document.send(GEOMG.FIELDS.LAYER_GEOM_TYPE)&.first
+json.layer_geom_type_s  no_json_blanks document.send(GEOMG.FIELDS.LAYER_GEOM_TYPE)&.first&.chomp(" data")
 json.layer_modified_dt  no_json_blanks document.send(GEOMG.FIELDS.LAYER_MODIFIED)
 
 # Optional
