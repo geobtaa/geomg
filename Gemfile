@@ -11,7 +11,7 @@ gem 'rails', '~> 6.1'
 # gem 'sqlite3', '~> 1.4'
 gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 5.1'
+gem 'puma', '~> 5.5'
 gem 'sd_notify', '>= 0.1.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'

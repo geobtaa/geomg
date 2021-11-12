@@ -394,7 +394,7 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
-    nio4r (2.5.7)
+    nio4r (2.5.8)
     nokogiri (1.12.5)
       mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
@@ -424,7 +424,7 @@ GEM
     popper_js (1.16.0)
     psych (3.3.2)
     public_suffix (4.0.6)
-    puma (5.3.2)
+    puma (5.5.1)
       nio4r (~> 2.0)
     qa (5.6.0)
       activerecord-import
@@ -709,7 +709,7 @@ DEPENDENCIES
   pagy (~> 3.8)
   paper_trail
   pg
-  puma (~> 5.1)
+  puma (~> 5.5)
   qa (~> 5.0)
   rails (~> 6.1)
   rubocop (~> 0.86)
