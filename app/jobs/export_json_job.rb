@@ -39,20 +39,26 @@ class ExportJsonJob < ApplicationJob
         Rails.logger.debug { "==== Query Format #{query_params[:format]} ====" }
         Rails.logger.debug { "==== Writing - #{doc.friendlier_id} - #{query_params[:format]} ====" }
 
-        # File Path
-        code = doc.b1g_code_s.presence || '_b1g_code_s_missing'
-        resource_class = doc.gbl_resourceClass_sm.present? ? doc.gbl_resourceClass_sm.first : '_gbl_resourceClass_sm_missing'
-        tree = Pathname("#{dir}/#{code}/#{resource_class}/#{doc.friendlier_id}.json")
-        tree.dirname.mkpath
-        Rails.logger.debug tree.inspect
+        begin
+          # File Path
+          code = doc.b1g_code_s.presence || '_b1g_code_s_missing'
+          resource_class = doc.gbl_resourceClass_sm.present? ? doc.gbl_resourceClass_sm.first : '_gbl_resourceClass_sm_missing'
+          tree = Pathname("#{dir}/#{code}/#{resource_class}/#{doc.friendlier_id}.json")
+          tree.dirname.mkpath
+          Rails.logger.debug tree.inspect
 
-        json_output = DocumentsController.render("_#{query_params[:format]}",
-                                                 locals: { document: doc })
+          json_output = DocumentsController.render("_#{query_params[:format]}",
+                                                   locals: { document: doc })
 
-        json_obj = JSON.parse(json_output)
-        Rails.logger.debug json_obj
+          json_obj = JSON.parse(json_output)
+          Rails.logger.debug json_obj
 
-        tree.write(JSON.pretty_generate(json_obj))
+          tree.write(JSON.pretty_generate(json_obj))
+        rescue NoMethodError => e
+          Rails.logger.debug { "==== Error! - #{doc.friendlier_id} ====" }
+          Rails.logger.debug e.inspect
+          next
+        end
       end
 
       # ===== Local debugging =====
