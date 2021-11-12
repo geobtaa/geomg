@@ -668,7 +668,6 @@ GEM
       nokogiri (~> 1.8)
     yell (2.2.2)
     zeitwerk (2.5.1)
-    zip (2.0.2)
 
 PLATFORMS
   ruby
@@ -717,6 +716,7 @@ DEPENDENCIES
   rubocop-minitest
   rubocop-rails
   ruby-progressbar
+  rubyzip
   sass-rails (>= 6)
   sd_notify (>= 0.1.0)
   shoulda-context
@@ -732,7 +732,6 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers
   webpacker (~> 5.0)
-  zip
 
 RUBY VERSION
    ruby 2.7.1p83
