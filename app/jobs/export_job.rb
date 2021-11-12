@@ -34,7 +34,8 @@ class ExportJob < ApplicationJob
     end
 
     # Create notification
-    notification = ExportNotification.with(message: "#{ActionController::Base.helpers.number_with_delimiter(file_content.size - 1)} rows")
+    # Message: "Download Type|Row Count|Button Label"
+    notification = ExportNotification.with(message: "CSV|#{ActionController::Base.helpers.number_with_delimiter(file_content.size - 1)} rows|CSV")
 
     # Deliver notification
     notification.deliver(current_user)

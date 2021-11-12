@@ -3,7 +3,7 @@
 # @TODO Add BTAA/Aardvark Schema Documentation
 
 # Required
-json.gbl_mdVersion_s 'Aardvark'
+json.gbl_mdVersion_s 'BTAA Aardvark'
 json.dct_title_s          no_json_blanks document.send(GEOMG.FIELDS.TITLE)
 json.dct_alternative_sm   no_json_blanks document.send(GEOMG.FIELDS.ALT_TITLE)
 json.dct_description_sm   no_json_blanks document.send(GEOMG.FIELDS.DESCRIPTION)

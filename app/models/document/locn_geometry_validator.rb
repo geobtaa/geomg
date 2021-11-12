@@ -47,6 +47,10 @@ class Document
         elsif geom[3].to_f > min_max[3]
           valid_geom = false
           record.errors.add(GEOMG.FIELDS.GEOM, 'invalid maxY present')
+        # Solr - maxY must be >= minY
+        elsif geom[1].to_f >= geom[3].to_f
+          valid_geom = false
+          record.errors.add(GEOMG.FIELDS.GEOM, 'maxY must be >= minY')
         end
       end
       valid_geom
