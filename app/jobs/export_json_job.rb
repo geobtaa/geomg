@@ -43,7 +43,7 @@ class ExportJsonJob < ApplicationJob
           # File Path
           code = doc.b1g_code_s.presence || '_b1g_code_s_missing'
           resource_class = doc.gbl_resourceClass_sm.present? ? doc.gbl_resourceClass_sm.first : '_gbl_resourceClass_sm_missing'
-          tree = Pathname("#{dir}/#{code}/#{resource_class}/#{doc.friendlier_id}.json")
+          tree = Pathname("#{dir}/#{resource_class}/#{code}/#{doc.friendlier_id}.json")
           tree.dirname.mkpath
           Rails.logger.debug tree.inspect
 
@@ -52,6 +52,9 @@ class ExportJsonJob < ApplicationJob
 
           json_obj = JSON.parse(json_output)
           Rails.logger.debug json_obj
+
+          # Remove nil/null values from JSON
+          json_obj.reject! {|k,v| v.nil?}
 
           tree.write(JSON.pretty_generate(json_obj))
         rescue NoMethodError => e
