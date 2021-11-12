@@ -3,7 +3,7 @@ default: &default
   encoding: unicode
   host:     <%= ENV['GEOMG_DB_HOST'] || '127.0.0.1' %>
   port:     <%= ENV['GEOMG_DB_PORT'] || '5432' %>
-  database: <%= ENV['GEOMG_DB_DATABASE'] %>
+  database: <%= ENV['GEOMG_DB_DATABASE'] || 'geomg_development' %>
   username: <%= ENV['GEOMG_DB_USER'] %>
   password: <%= ENV['GEOMG_DB_PASSWORD'] %>
   pool: 5
