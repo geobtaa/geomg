@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 # BlacklightApi
-class BlacklightApi
+class BlacklightApiIds
   include HTTParty
   default_timeout 300
 
-  base_uri BLACKLIGHT_JSON_API
+  base_uri BLACKLIGHT_JSON_API_IDS
 
   def initialize(**args)
     defaults = {
       q: '*',
       page: 1,
       sort: 'score+desc%2C+dc_title_sort+asc',
-      rows: 20
+      rows: 1000
     }
 
     @options = defaults.merge(**args)
