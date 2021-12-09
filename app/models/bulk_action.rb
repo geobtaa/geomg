@@ -69,7 +69,7 @@ class BulkAction < ApplicationRecord
   def api_documents(uri)
     qargs = Rack::Utils.parse_nested_query(uri.query)
     query_params = { q: qargs['q'], f: qargs['f'], page: qargs['page'], rows: 1_000_000 }
-    api_documents = BlacklightApi.new(**query_params)
+    api_documents = BlacklightApiIds.new(**query_params)
     create_documents(api_documents.load_all)
   end
 
