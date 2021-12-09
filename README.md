@@ -9,7 +9,7 @@ An experimental UI for administering BTAA Geoblacklight JSON documents.
 * Ruby 2.7+
 * Ruby on Rails 6+
 * Bundler
-* Yarn (JS)
+* Yarn (JS) / Node (Latest LTS release)
 * PostgreSQL 12+ (Kithe datastore)
 * Apache Solr  (GeoBlacklight index)
 * Redis / Sidekiq (Background queue)
