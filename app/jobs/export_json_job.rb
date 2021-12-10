@@ -105,7 +105,7 @@ class ExportJsonJob < ApplicationJob
 
   def crawl_query(query_params, doc_ids = [])
     logger.debug("\n\n CRAWL Query: #{query_params}")
-    api_results = BlacklightApi.new(query_params)
+    api_results = BlacklightApiIds.new(query_params)
     logger.debug("API Results: #{api_results.results.inspect}")
 
     doc_ids << api_results.results.pluck('id')

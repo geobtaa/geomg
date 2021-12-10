@@ -9,7 +9,7 @@ An experimental UI for administering BTAA Geoblacklight JSON documents.
 * Ruby 2.7+
 * Ruby on Rails 6+
 * Bundler
-* Yarn (JS)
+* Yarn (JS) / Node (Latest LTS release)
 * PostgreSQL 12+ (Kithe datastore)
 * Apache Solr  (GeoBlacklight index)
 * Redis / Sidekiq (Background queue)
@@ -104,4 +104,4 @@ $ RAILS_ENV=test bundle exec rails db:migrate
 
 ## Release Version
 
-B1G Geoportal Version v4.0.4 / GEOMG v0.9.0 / GeoBlacklight v4.0.0-alpha.3
+B1G Geoportal Version v4.2.0 / GEOMG v0.10.0 / GeoBlacklight v4.0.0-alpha.3
