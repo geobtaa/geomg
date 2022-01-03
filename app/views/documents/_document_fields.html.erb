@@ -102,7 +102,7 @@
   <%= f.input GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY, collection: Document::ControlledLists::B1G_ACCRUAL_PERIODICITY, label: "Accrual Periodicity" %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_DATE_ACCESSIONED, build: :at_least_one %>
   <%= f.input GEOMG.FIELDS.B1G_DATE_RETIRED, label: 'Date Retired', hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
-  <%= f.input GEOMG.FIELDS.B1G_STATUS, label: 'Status', required: true, collection: Document::ControlledLists::B1G_STATUS %>
+  <%= f.input GEOMG.FIELDS.B1G_STATUS, label: 'Status' %>
 
   <% if @document.persisted? %>
     <%= f.input :publication_state, label: 'Publication State', required: true, collection: Document::ControlledLists::PUBLICATION_STATE %>
