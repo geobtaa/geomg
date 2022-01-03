@@ -79,8 +79,8 @@ class Document
         label: 'ArcGIS ImageMapLayer',
         uri: 'urn:x-esri:serviceType:ArcGIS#ImageMapLayer'
       },
-      harvard: {
-        label: 'Harvard Geospatial Library Email Download',
+      harvard_download: {
+        label: 'Harvard Download',
         uri: 'http://schema.org/DownloadAction'
       },
       open_index_map: {

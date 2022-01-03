@@ -263,7 +263,6 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
-
       'score': {
         destination: 'Discard',
         delimited: false,
