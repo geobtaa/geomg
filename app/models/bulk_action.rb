@@ -75,16 +75,14 @@ class BulkAction < ApplicationRecord
 
   def create_documents(documents)
     documents.collect do |doc|
-      begin
-        BulkActionDocument.create(
-          document_id: doc.id,
-          friendlier_id: doc.friendlier_id,
-          version: doc.current_version,
-          bulk_action_id: id
-        )
-      rescue
-        logger.debug("BULK ACTION BAD DOC: #{doc.inspect}")
-      end
+      BulkActionDocument.create(
+        document_id: doc.id,
+        friendlier_id: doc.friendlier_id,
+        version: doc.current_version,
+        bulk_action_id: id
+      )
+    rescue StandardError
+      logger.debug("BULK ACTION BAD DOC: #{doc.inspect}")
     end
   end
 end
