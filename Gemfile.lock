@@ -351,8 +351,6 @@ GEM
       rdf
     racc (1.6.0)
     rack (2.2.3)
-    rack-protection (2.1.0)
-      rack
     rack-proxy (0.7.0)
       rack
     rack-test (1.1.0)
@@ -448,11 +446,10 @@ GEM
       down (~> 5.0)
       http (>= 3.2, < 6)
       shrine (>= 3.0.0.rc, < 4)
-    sidekiq (6.0.7)
+    sidekiq (6.3.1)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
-      rack-protection (>= 2.0.0)
-      redis (>= 4.1.0)
+      redis (>= 4.2.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -582,7 +579,7 @@ DEPENDENCIES
   sass-rails (>= 6)
   sd_notify (>= 0.1.0)
   shoulda-context
-  sidekiq (~> 6.0.7)
+  sidekiq (~> 6.0)
   simple_form (~> 5.0)
   simplecov
   solr_wrapper (~> 3.1)

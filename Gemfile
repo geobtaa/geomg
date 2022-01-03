@@ -53,7 +53,7 @@ gem 'devise', '~> 4.7.0'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'devise_invitable', '~> 2.0.0'
 
-gem 'sidekiq', '~> 6.0.7'
+gem 'sidekiq', '~> 6.0'
 
 # Versioning
 gem 'paper_trail'
