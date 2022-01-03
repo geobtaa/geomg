@@ -84,7 +84,7 @@ class Document
       'Society',
       'Structure',
       'Transportation',
-      'Utilities and Communications'
+      'Utilities and Communication'
     ].freeze
 
     TYPE = [
