@@ -145,6 +145,7 @@ GEM
       coffee-rails (>= 3.2)
       railties (>= 3.0)
       sassc-rails (>= 2.1.2)
+    chronic (0.10.2)
     cocoon (1.2.15)
     code_analyzer (0.5.2)
       sexp_processor
@@ -302,6 +303,8 @@ GEM
     httpclient (2.8.3)
     i18n (1.8.11)
       concurrent-ruby (~> 1.0)
+    i18n-js (3.9.0)
+      i18n (>= 0.6.6)
     i18n-tasks (0.9.34)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
@@ -390,6 +393,8 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    momentjs-rails (2.29.1.1)
+      railties (>= 3.1)
     msgpack (1.4.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
@@ -681,6 +686,7 @@ DEPENDENCIES
   capybara
   capybara-screenshot
   chosen-rails
+  chronic
   cocoon (~> 1.2)
   config
   devise (~> 4.7.0)
@@ -691,6 +697,7 @@ DEPENDENCIES
   foreman
   haml (~> 5.2.0)
   httparty
+  i18n-js
   inline_svg
   inquisition!
   jbuilder (~> 2.7)
@@ -703,6 +710,7 @@ DEPENDENCIES
   minitest
   minitest-ci (~> 3.4.0)
   minitest-reporters
+  momentjs-rails
   multi_json
   noticed (~> 1.4)
   oj
@@ -712,6 +720,7 @@ DEPENDENCIES
   puma (~> 5.1)
   qa (~> 5.0)
   rails (~> 6.1)
+  rsolr
   rubocop (~> 0.86)
   rubocop-minitest
   rubocop-rails

@@ -83,6 +83,12 @@ gem 'config'
 # Noticed
 gem 'noticed', '~> 1.4'
 
+# Reporting
+gem 'rsolr'
+gem 'chronic'
+gem 'momentjs-rails'
+gem "i18n-js"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

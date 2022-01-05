@@ -19,11 +19,15 @@
 //= require bootstrap-datepicker/js/bootstrap-datepicker.js
 //= require inputmask/dist/jquery.inputmask
 //= require shave/dist/jquery.shave.js
+//= require moment
+//= require i18n
+//= require i18n/translations
 
 // GEOMG
 //= require geomg/geomg
 //= require geomg/chosen
 //= require geomg/datepicker
+//= require geomg/date_range_picker
 //= require geomg/exports
 //= require geomg/inputmask
 //= require geomg/tooltips
