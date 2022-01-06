@@ -88,6 +88,7 @@ gem 'rsolr'
 gem 'chronic'
 gem 'momentjs-rails'
 gem "i18n-js"
+gem "blazer"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

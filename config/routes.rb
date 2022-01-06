@@ -59,4 +59,8 @@ Rails.application.routes.draw do
 
   mount Qa::Engine => '/authorities'
   mount ActionCable.server => '/cable'
+
+  authenticate :user, ->(user) { user } do
+    mount Blazer::Engine, at: "blazer"
+  end
 end
