@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_05_222353) do
+ActiveRecord::Schema.define(version: 2022_01_06_163622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -139,6 +139,15 @@ ActiveRecord::Schema.define(version: 2022_01_05_222353) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["creator_id"], name: "index_blazer_queries_on_creator_id"
+  end
+
+  create_table "blazer_uploads", force: :cascade do |t|
+    t.bigint "creator_id"
+    t.string "table"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["creator_id"], name: "index_blazer_uploads_on_creator_id"
   end
 
   create_table "bookmarks", force: :cascade do |t|
@@ -285,7 +294,7 @@ ActiveRecord::Schema.define(version: 2022_01_05_222353) do
     t.index ["container_id"], name: "index_kithe_model_contains_on_container_id"
   end
 
-  create_table "kithe_models", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "kithe_models", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.string "title", null: false
     t.string "type", null: false
     t.integer "position"
