@@ -74,6 +74,6 @@ mapbox_access_token: <%= ENV["MAPBOX_ACCESS_TOKEN"] %>
 
 # enable uploads
 uploads:
-  url: <%= ENV["BLAZER_UPLOADS_URL"] %>
+  url: <%= ENV["BLAZER_DATABASE_URL"] %>
   schema: blazer_uploads
   data_source: main
