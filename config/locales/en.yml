@@ -39,7 +39,7 @@ en:
       momentjs_datepicker: 'YYYY-MM-DD'     # momentjs date format
       momentjs_datetime: 'MM/DD/YYYY h:mma' # momentjs date format
       momentjs_iso: 'YYYY-MM-DD'            # momentjs date format
-      default: 'YYYY-MM-DD'                 # ruby date format
+      default: '%Y-%m-%d'                 # ruby date format
       long: "%d %B %Y"                      # ruby date format
       short: "%m-%d-%y"                     # ruby date format
       iso: "%Y-%m-%d"                       # ruby date format

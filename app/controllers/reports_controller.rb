@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
 
-  # before_action :report_date_params, :except => %i(index search)
+  before_action :report_date_params, :except => %i(index search)
 
   def index
     redirect_to :action => 'overview'
