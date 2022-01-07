@@ -1,4 +1,9 @@
-# Basic Solr query against text field
+# Solr JSON Queries
+
+## Examples used while building GEOMG's Report class
+
+### Basic Solr query against text field
+```bash
 curl -XGET http://localhost:8983/solr/geoportal-core-development/select -d '
 {
   "query": {
@@ -9,8 +14,11 @@ curl -XGET http://localhost:8983/solr/geoportal-core-development/select -d '
     }
   }
 }'
+```
 
-# Basic Solr query with Facet
+### Basic Solr query with Facet
+
+```bash
 curl -XGET http://localhost:8983/solr/geoportal-core-development/select -d '
 {
   "query": {
@@ -34,8 +42,11 @@ curl -XGET http://localhost:8983/solr/geoportal-core-development/select -d '
     }
   }
 }'
+```
 
-# With Date Range field / Schema change
+### With Date Range field / Schema change
+
+```bash
 curl -XGET http://localhost:8983/solr/geoportal-core-development/select -d '
 {
   "query": {
@@ -61,3 +72,4 @@ curl -XGET http://localhost:8983/solr/geoportal-core-development/select -d '
     }
   }
 }'
+```
