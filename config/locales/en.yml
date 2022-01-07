@@ -31,6 +31,12 @@
 
 en:
   hello: "Hello world"
+  facets:
+    b1g_publication_state_s: Publication State
+    gbl_resourceClass_sm: Resource Class
+    schema_provider_s: Provider
+    b1g_dct_accrualMethod_s: Accrual Method
+    dct_accessRights_s: Public/Restricted
 
   date:
     formats:
