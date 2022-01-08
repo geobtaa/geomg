@@ -87,6 +87,14 @@ class Report::Overview
     end
   end
 
+  def facets
+    if @data['facet_counts'] && @data['facet_counts']['facet_fields']
+      @data['facet_counts']['facet_fields']
+    else
+      []
+    end
+  end
+
   private
 
   def build_search_query(params = {})
@@ -101,11 +109,11 @@ class Report::Overview
       }
     }.with_indifferent_access
 
-    # Query
+    # apply_query!
     search_query[:query][:bool][:must] << apply_query!
     Rails.logger.debug("Apply Query: #{search_query.inspect}")
 
-    # Includes
+    # apply_includes!
     apply_includes!(search_query, params)
     Rails.logger.debug("Apply Includes: #{search_query.inspect}")
 
@@ -139,19 +147,20 @@ class Report::Overview
     should_includes = []
 
     # Add each include
-    facet_constraints(params[:fq]).each do |facet_field|
-      # includes << { :terms => { facet_field => params[:fq][facet_field] } }
-      shoulds = []
-      params[:fq][facet_field].each do |fltr|
-         shoulds << { :term => { facet_field => fltr } }
-      end
+    if params[:f]
+      params[:f].each do |facet_field|
+        shoulds = []
+        params[:f][facet_field[0]].each do |fltr|
+           shoulds << "#{facet_field[0]}:\"#{fltr}\""
+        end
 
-      should_includes << {
-        :bool => {
-          :should => shoulds,
-          :minimum_should_match => 1
+        should_includes << {
+          :bool => {
+            :should => shoulds,
+            :minimum_should_match => 1
+          }
         }
-      }
+      end
     end
 
     # Build compare dates

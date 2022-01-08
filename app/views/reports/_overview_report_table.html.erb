@@ -1,0 +1,51 @@
+<div>
+  <table class="table table-bordered table-sm">
+    <thead class="thead-dark">
+      <tr>
+        <th>Facet</th>
+        <th>Current</th>
+        <th>Previous</th>
+        <th>Delta</th>
+    </thead>
+    <tfoot>
+      <tr>
+        <td>Total Documents</td>
+        <td><%= number_with_delimiter(@search.num_found) %></td>
+        <td><%= number_with_delimiter(@comparison.num_found) %></td>
+        <td>
+          <%= percent_change(@search.num_found, @comparison.num_found) %>
+        </td>
+      </tr>
+    </tfoot>
+    <tbody>
+      <%- @search.facets.each do |key, value| %>
+        <tr class="table-secondary">
+          <td colspan='4'><%= I18n.t("facets.#{key}") %></td>
+        </tr>
+        <%- value.each_slice(2) do |facet_result| %>
+          <%- facet_result.split.each do |name,total| %>
+            <%- agg = link_from_solr(key, name, total, params) %>
+            <tr>
+              <td>
+                <%= agg[:action] == 'add' ? "+" : "-" %>
+                <%= link_to agg[:url] do %>
+                  <%=name %>
+                <% end %>
+                <%= agg[:action] == 'add' ? "" : "&#10060;".html_safe %>
+              </td>
+              <td class="<%= overview_cell_color(overview_facets(@search, @comparison)[key][name]) %>">
+                <%= number_with_delimiter(total) %>
+              </td>
+              <td>
+                <%= overview_facets(@search, @comparison)[key][name]['q2'] %>
+              </td>
+              <td>
+                <%= overview_facets(@search, @comparison)[key][name]['delta'] %>
+              </td>
+            </tr>
+          <%- end %>
+        <%- end %>
+      <%- end %>
+    </tbody>
+  </table>
+</div>

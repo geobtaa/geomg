@@ -1,7 +1,7 @@
 <%- @page_title= "Overview" %>
 
 <h1 style="width:100%; margin-bottom:2rem;">
-  Reports &middot; Overview
+  Reports &middot; Date Range Comparison
 </h1>
 
 <p>
@@ -52,7 +52,11 @@
 <%= render partial: 'overview_chart.js' %>
 
 <h2>
-  Count / <%= number_with_delimiter(@search.num_found) %>
+  Documents
 </h2>
+<p>
+  Current: <%= @search.date_start %> - <%= @search.date_end %><br/>
+  Previous: <%= @comparison.date_start %> - <%= @comparison.date_end %>
+</p>
 
-<%= console %>
+<%= render partial: 'overview_report_table' %>

@@ -1,4 +1,8 @@
 <script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
+
   // Date Range picker
   $('#date-range').on('change', function(event){
     GEOMG.DateRangeSelect();

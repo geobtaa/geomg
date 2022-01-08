@@ -11,10 +11,8 @@ class ReportsController < ApplicationController
     # Primary date range query
     @search = Report::Overview.new(report_params.to_h)
 
-    unless params[:compare] == "fantastic"
-      @comparison = Report::Overview.new(report_params.to_h, true)
-      logger.debug("Compare: #{@comparison.date_start} | #{@comparison.date_end}")
-    end
+    @comparison = Report::Overview.new(report_params.to_h, true)
+    logger.debug("Compare: #{@comparison.date_start} | #{@comparison.date_end}")
 
     logger.debug("Report Params: #{report_params.to_h.inspect}")
     logger.debug("Search: #{@search.date_start} | #{@search.date_end}")
@@ -32,7 +30,7 @@ class ReportsController < ApplicationController
     @date_end = params[:created_at][:end] ||= (Time.zone.now).strftime(I18n.t('date.formats.default'))
 
     # Comparison query
-    if params[:compare]
+    if params[:compare] == "true"
       @date_compare       = params[:created_at][:compare] ||= {}
 
       @date_compare_start = params[:created_at][:compare][:start] ||= (Chronic.parse(@date_start) - 28.days).strftime(I18n.t('date.formats.default'))
@@ -49,8 +47,12 @@ class ReportsController < ApplicationController
       :q,
       :sort,
       :page,
-      :fq => {
-        :facet => [],
+      :f => {
+        :gbl_resourceClass_sm => [],
+        :b1g_publication_state_s => [],
+        :schema_provider_s => [],
+        :b1g_dct_accrualMethod_s => [],
+        :dct_accessRights_s => []
       },
       :created_at => [
         :range,
