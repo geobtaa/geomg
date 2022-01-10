@@ -61,6 +61,6 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
 
   authenticate :user, ->(user) { user } do
-    mount Blazer::Engine, at: "blazer"
+    mount Blazer::Engine, at: 'blazer'
   end
 end
