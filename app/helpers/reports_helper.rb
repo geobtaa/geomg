@@ -22,7 +22,7 @@ module ReportsHelper
   #   ==> facet_name
   #   ===> q1: facet_value
   #   ===> q2: facet_value
-  def overview_facets(search, comparison: false)
+  def overview_facets(search, comparison)
     facet_table = {}
 
     # Populate q1 - Search Facets

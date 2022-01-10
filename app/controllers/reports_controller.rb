@@ -13,7 +13,7 @@ class ReportsController < ApplicationController
     # Primary date range query
     @search = Report::Overview.new(report_params.to_h)
 
-    @comparison = Report::Overview.new(report_params.to_h, true)
+    @comparison = Report::Overview.new(report_params.to_h, compare: true)
     logger.debug("Compare: #{@comparison.date_start} | #{@comparison.date_end}")
 
     logger.debug("Report Params: #{report_params.to_h.inspect}")
