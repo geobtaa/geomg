@@ -1,0 +1,99 @@
+<script>
+
+  var $container = $('#overview-chart');
+  var chart;
+  var DAY_MSEC = 24 * 60 * 60 * 1000;
+
+  $container.highcharts({
+    chart: {
+      type: 'area',
+      spacingBottom: 15,
+      spacingTop: 32,
+      spacingLeft: 32,
+      spacingRight: 32,
+      zoomType: 'x'
+    },
+    responsive: {
+      rules: [{
+        condition: {
+            maxHeight: 400
+        }
+      }],
+    },
+    credits: {
+      enabled: false
+    },
+    title: {
+      text: "Documents"
+    },
+    xAxis: {
+      type: 'datetime',
+      maxZoom: 48 * 3600 * 1000
+    },
+    yAxis: {
+      title: {
+        text: "Count"
+      },
+      allowDecimals: false
+    },
+    tooltip: {
+      formatter: function() {
+        var s = [];
+
+        // Set Locale
+        moment.locale("<%= I18n.locale %>");
+
+        $.each(this.points, function(i, point) {
+          s.push('<span style="">'+ moment(point.series.options.dates[point.point.index]).format('dddd, MMMM Do') +' : '+ point.y +'<span>');
+        });
+
+        return s.join('<br/>');
+      },
+
+      shared: true
+    },
+    plotOptions: {
+      area: {
+        marker: {
+          enabled: false,
+          symbol: 'circle',
+          radius: 2,
+          states: {
+            hover: {
+              enabled: true
+            }
+          }
+        }
+      }
+    },
+    series: [
+      {
+        type: "area",
+        name: "Current",
+        pointStart: new Date('<%=@search.first_date.to_s%>').getTime(),
+        pointIntervalUnit: 'month',
+        data: <%= @search.data_series.to_json.html_safe %>,
+        dates: <%= @search.date_str_series.to_json.html_safe %>
+      },
+      <%- if @comparison %>
+        {
+          type: "area",
+          name: "Previous",
+          pointStart: new Date('<%=@search.first_date.to_s%>').getTime(),
+          pointIntervalUnit: 'month',
+          data: <%= @comparison.data_series.to_json.html_safe %>,
+          dates: <%= @comparison.date_str_series.to_json.html_safe %>
+        }
+      <%- end %>
+    ]
+  });
+
+  chart = $container.highcharts();
+
+  <%- if request.variant.include? :mobile %>
+    $(window).resize(function() {
+      chart.setSize(null, 300);
+    });
+  <% end %>
+
+</script>

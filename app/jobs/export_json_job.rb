@@ -54,7 +54,7 @@ class ExportJsonJob < ApplicationJob
           Rails.logger.debug json_obj
 
           # Remove nil/null values from JSON
-          json_obj.reject! {|k,v| v.nil?}
+          json_obj.reject! { |_k, v| v.nil? }
 
           tree.write(JSON.pretty_generate(json_obj))
         rescue NoMethodError => e

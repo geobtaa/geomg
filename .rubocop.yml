@@ -1,3 +1,5 @@
+inherit_from: .rubocop_todo.yml
+
 # The behavior of RuboCop can be controlled via the .rubocop.yml
 # configuration file. It makes it possible to enable/disable
 # certain cops (checks) and to alter their behavior if they accept
@@ -43,6 +45,7 @@ Layout/LineLength:
     - 'app/helpers/application_helper.rb'
     - 'app/jobs/export_job.rb'
     - 'app/jobs/export_json_job.rb'
+    - 'app/controllers/reports_controller.rb'
   Max: 140
 
 Lint/AssignmentInCondition:
@@ -54,6 +57,8 @@ Metrics/AbcSize:
     - 'app/jobs/export_job.rb'
     - 'app/jobs/export_json_job.rb'
     - 'app/models/document/solr_geom_validator.rb'
+    - 'app/models/report.rb'
+    - 'app/controllers/reports_controller.rb'
   Max: 40
 
 Metrics/BlockLength:
@@ -74,6 +79,9 @@ Metrics/ClassLength:
 Metrics/MethodLength:
   Exclude:
     - 'app/controllers/documents_controller.rb'
+    - 'app/controllers/reports_controller.rb'
+    - 'app/helpers/reports_helper.rb'
+    - 'app/models/report.rb'
     - 'app/jobs/import_run_job.rb'
     - 'app/jobs/export_job.rb'
     - 'app/jobs/export_json_job.rb'

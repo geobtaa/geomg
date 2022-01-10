@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.1'
+ruby '3.0.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.1'
@@ -53,7 +53,7 @@ gem 'devise', '~> 4.7.0'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'devise_invitable', '~> 2.0.0'
 
-gem 'sidekiq', '~> 6.0.7'
+gem 'sidekiq', '~> 6.0'
 
 # Versioning
 gem 'paper_trail'
@@ -83,10 +83,17 @@ gem 'config'
 # Noticed
 gem 'noticed', '~> 1.4'
 
+# Reporting
+gem 'blazer'
+gem 'chronic'
+gem 'i18n-js'
+gem 'momentjs-rails'
+gem 'rsolr'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'inquisition', github: 'rubygarage/inquisition', branch: 'develop'
+  # gem 'inquisition', github: 'rubygarage/inquisition', branch: 'develop'
   gem 'json_schemer'
   gem 'solr_wrapper', '~> 3.1'
 end

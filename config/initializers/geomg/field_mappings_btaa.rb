@@ -173,6 +173,11 @@ module Geomg
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
+      'Harvard Download': {
+         'destination': GEOMG.FIELDS.REFERENCES,
+         'delimited': false,
+         'transformation_method': 'build_dct_references'
+      },
       'HTML': {
          'destination': GEOMG.FIELDS.REFERENCES,
          'delimited': false,
@@ -338,6 +343,7 @@ module Geomg
       "FeatureServer": 'arcgis_feature_layer',
       "FGDC": 'metadata_fgdc',
       "HTML": 'metadata_html',
+      "Harvard Download": 'harvard_download',
       "IIIF": 'iiif_image',
       "ImageServer": 'arcgis_image_map_layer',
       "Information": 'documentation_external',

@@ -131,7 +131,7 @@ en:
           arcgis_tiled_map_layer: ArcGIS TiledMapLayer
           arcgis_dynamic_map_layer: ArcGIS DynamicMapLayer
           arcgis_image_map_layer: ArcGIS ImageMapLayer
-          harvard: Harvard Geospatial Library Email Download
+          harvard_download: Harvard Download
           open_index_map: OpenIndexMap
           oembed: oEmbed
 

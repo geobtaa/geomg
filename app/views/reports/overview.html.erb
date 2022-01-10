@@ -1,0 +1,64 @@
+<%- @page_title= "Overview" %>
+
+<h1 style="width:100%; margin-bottom:2rem;">
+  Reports &middot; Date Range Comparison
+</h1>
+
+<p>
+<%= form_tag(reports_path, { method: :get, class: "form-inline my-2 my-lg-0" }) do %>
+
+  <div class="input-group">
+    <input name="q" class="form-control" type="search" placeholder="Search report" aria-label="Search" value="<%= params[:q] ? params[:q] : ''%>">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+    </div>
+  </div>
+
+  <!-- Button dropdown -->
+  <div class="btn-group">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="modal" data-target="#date-range-modal">
+      Date Range
+    </button>
+
+    <div class="modal fade" id="date-range-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="max-width:520px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Set Date Range</h5>
+          </div>
+          <div class="modal-body">
+            <div class="px-1 py-1">
+              <%= render partial: 'date_range_inputs' %>
+              <%= render partial: 'date_range_compare' %>
+
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <button id="saver" class="btn btn-primary" type="submit">Apply</button>
+
+                  <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+</p>
+
+<div id='overview-chart'></div>
+
+<!-- @TODO: Removing chart until schema change -->
+<!--<%= render partial: 'overview_chart.js' %>-->
+
+<h2>
+  Documents
+</h2>
+<p>
+  Current: <%= @search.date_start %> - <%= @search.date_end %><br/>
+  Previous: <%= @comparison.date_start %> - <%= @comparison.date_end %>
+</p>
+
+<%= render partial: 'overview_report_table' %>

@@ -1,0 +1,26 @@
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  });
+
+  // Date Range picker
+  $('#date-range').on('change', function(event){
+    GEOMG.DateRangeSelect();
+
+    if ($('#compare').length > 0) {
+      GEOMG.CompareRangeSelect();
+    }
+  });
+
+  // Compare Range checkbox toggle
+  $("input#compare").on('change', function(event){
+    GEOMG.DisplayCompareDateRange();
+    GEOMG.CompareRangeSelect();
+    GEOMG.ToggleCompare();
+  });
+
+  // Compare Range picker
+  $('#compare-options').on('change', function(event){
+    GEOMG.CompareRangeSelect();
+  });
+</script>

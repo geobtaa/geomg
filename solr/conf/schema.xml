@@ -225,4 +225,7 @@
 
   <!-- for bbox value -->
   <copyField source="locn_geometry" dest="solr_bboxtype"/>
+
+  <!-- for GEOMG reporting -->
+  <copyField source="date_created_dtsi" dest="date_created_drsim"/>
 </schema>
