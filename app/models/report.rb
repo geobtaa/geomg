@@ -118,16 +118,17 @@ class Report::Overview
     Rails.logger.debug("Apply Includes: #{search_query.inspect}")
 
     # @TODO - Facets
+    # WARNING: requires schema change, to copy date created into a date range field
     # apply_aggregations!(search_query, params)
-    search_query[:facet] = {
-      "doc_counts": {
-        "type": "range",
-        "field": "date_created_dtsi",
-        "start": "NOW/DAY-365DAYS",
-        "end":  "NOW",
-        "gap": "+1MONTH"
-      }
-    }
+    # search_query[:facet] = {
+    #   "doc_counts": {
+    #     "type": "range",
+    #     "field": "date_created_dtsi",
+    #     "start": "NOW/DAY-365DAYS",
+    #     "end":  "NOW",
+    #     "gap": "+1MONTH"
+    #   }
+    # }
 
     search_query
   end
