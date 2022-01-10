@@ -13,7 +13,7 @@
         <td><%= number_with_delimiter(@search.num_found) %></td>
         <td><%= number_with_delimiter(@comparison.num_found) %></td>
         <td>
-          <%= percent_change(@search.num_found, @comparison.num_found) %>
+          <%= percent_change(@search.num_found, @comparison.num_found) %> %
         </td>
       </tr>
     </tfoot>
@@ -40,7 +40,7 @@
                 <%= overview_facets(@search, @comparison)[key][name]['q2'] %>
               </td>
               <td>
-                <%= overview_facets(@search, @comparison)[key][name]['delta'] %>
+                <%= overview_facets(@search, @comparison)[key][name]['delta'] %>%
               </td>
             </tr>
           <%- end %>
