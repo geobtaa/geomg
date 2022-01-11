@@ -7,7 +7,7 @@ class BlacklightApiIds
 
   base_uri BLACKLIGHT_JSON_API_IDS
 
-  def initialize(args  = {})
+  def initialize(args = {})
     defaults = {
       q: '*',
       page: 1,
