@@ -6,15 +6,15 @@ require 'sidekiq/api'
 namespace :geomg do
   desc 'Stop sidekiq'
   task sidekiq_stop: :environment do
-    sh 'sudo systemctl stop sidekiq.service || true'
+    sh 'sudo systemctl stop sidekiq-geomg.service || true'
     sleep(5)
-    sh 'sudo systemctl status --no-pager sidekiq.service || true'
+    sh 'sudo systemctl status --no-pager sidekiq-geomg.service || true'
   end
 
   task sidekiq_start: :environment do
-    sh 'sudo systemctl start sidekiq.service || true'
+    sh 'sudo systemctl start sidekiq-geomg.service || true'
     sleep(5)
-    sh 'sudo systemctl status --no-pager sidekiq.service || true'
+    sh 'sudo systemctl status --no-pager sidekiq-geomg.service || true'
   end
 
   desc 'Check sidekiq stats'
