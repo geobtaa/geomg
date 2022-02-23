@@ -56,7 +56,7 @@ namespace :geomg do
         puts 'Solr running at http://localhost:8983/solr/geoportal-core-development/, ^C to exit'
         puts ' '
         begin
-          Rake::Task['geomg:solr:reindex'].invoke
+          Rake::Task['geomg:solr:restore'].invoke
           system "bundle exec rails s --binding=#{ENV.fetch('GEOMG_SERVER_BIND_INTERFACE', '0.0.0.0')} --port=#{ENV.fetch('GEOMG_SERVER_PORT', '3000')}"
           sleep
         rescue Interrupt
@@ -137,6 +137,34 @@ namespace :geomg do
     desc 'print out mapped index hash for specified ID, eg rake scihist:solr:debug_indexing[adf232adf]'
     task :debug_indexing, [:friendlier_id] => [:environment] do |_t, args|
       Kithe::Model.find_by(friendlier_id: args[:friendlier_id]).update_index(writer: Traject::DebugWriter.new({}))
+    end
+
+    desc 'Backup - Create a Solr snapshot'
+    task :backup => :environment do
+      solr = ENV['SOLR_URL']
+      replication = 'replication?command=backup'
+
+      res = Faraday.get "#{solr}/#{replication}"
+      puts res.body
+
+      sleep(10)
+
+      snapshots = Dir.glob("#{Rails.root.join('tmp/geoportal-core-development/server/solr/geoportal-core-development/data/snapshot.*')}")
+
+      FileUtils.cp_r(snapshots, "#{Rails.root.join('solr/snapshots')}")
+    end
+
+    desc 'Restore Backup'
+    task :restore => :environment do
+      solr = ENV['SOLR_URL']
+      replication = 'replication?command=restore'
+
+      snapshot = Dir.glob("#{Rails.root.join('solr/snapshots/snapshot.*')}").last
+
+      FileUtils.cp_r(snapshot, "#{Rails.root.join('tmp/geoportal-core-development/server/solr/geoportal-core-development/data')}")
+
+      res = Faraday.get "#{solr}/#{replication}"
+      puts res.body
     end
   end
 end

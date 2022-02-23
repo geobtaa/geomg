@@ -7,7 +7,7 @@ FIELDS:
   :B1G_ACCESS: 'b1g_access_s'
   :B1G_ACCRUAL_METHOD: 'b1g_dct_accrualMethod_s'
   :B1G_ACCRUAL_PERIODICITY: 'b1g_dct_accrualPeriodicity_s'
-  :B1G_CENTROID: 'dcat_centroid_ss' # @TODO: Rename to CENTROID
+  :B1G_CENTROID: 'dcat_centroid_ss' # @TODO: Rename to CENTROID, dcat_centroid
   :B1G_CHILD_RECORD: 'b1g_child_record_b'
   :B1G_CODE: 'b1g_code_s'
   :B1G_DATE_ACCESSIONED: 'b1g_dateAccessioned_sm'
@@ -19,6 +19,8 @@ FIELDS:
   :B1G_KEYWORD: 'dcat_keyword_sm' # @TODO Rename to KEYWORD
   :B1G_MEDIATOR: 'b1g_dct_mediator_sm' # @TODO: New field
   :B1G_STATUS: 'b1g_status_s'
+  :BBOX: 'dcat_bbox'
+  :CENTROID: 'dcat_centroid'
   :CREATOR: 'dct_creator_sm'
   :DESCRIPTION: 'dct_description_sm'
   :FILE_SIZE: 'gbl_fileSize_s' # @TODO: New field

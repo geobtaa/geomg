@@ -31,7 +31,7 @@ AllCops:
     - 'app/helpers/form_input_helper.rb'
     - 'app/models/import.rb'
     - 'app/models/document/date_range_validator.rb'
-    - 'app/models/document/locn_geometry_validator.rb'
+    - 'app/models/document/bbox_validator.rb'
 
 Layout/ExtraSpacing:
   Exclude:

@@ -33,10 +33,10 @@ class ImportBtaa < Import
   def derived_mappings
     [
       {
-        dcat_centroid_ss:
+        dcat_centroid:
           {
-            field: 'locn_geometry',
-            method: 'derive_b1g_centroid_ss'
+            field: 'dcat_bbox',
+            method: 'derive_dcat_centroid'
           }
       }
     ]
@@ -50,7 +50,7 @@ class ImportBtaa < Import
     ]
   end
 
-  def derive_b1g_centroid_ss(args)
+  def derive_dcat_centroid(args)
     data_hash = args[:data_hash]
     field = args[:field]
 

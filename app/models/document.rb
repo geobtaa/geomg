@@ -41,7 +41,7 @@ class Document < Kithe::Work
   end
 
   validates_with Document::DateRangeValidator
-  validates_with Document::LocnGeometryValidator
+  validates_with Document::BboxValidator
 
   # Form
   # Identification
@@ -71,7 +71,9 @@ class Document < Kithe::Work
   attr_json GEOMG.FIELDS.SPATIAL.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.B1G_GEONAMES.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.GEOM.to_sym, :string
+  attr_json GEOMG.FIELDS.BBOX.to_sym, :string
   attr_json GEOMG.FIELDS.B1G_CENTROID.to_sym, :string
+  attr_json GEOMG.FIELDS.CENTROID.to_sym, :string
 
   # - Relations
   attr_json GEOMG.FIELDS.RELATION.to_sym, :string, array: true, default: -> { [] }

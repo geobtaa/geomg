@@ -18,7 +18,7 @@ class ImportBtaaTest < ActiveSupport::TestCase
     assert_respond_to(@import, :assumed_mappings)
     assert_respond_to(@import, :derived_mappings)
     assert_respond_to(@import, :required_mappings)
-    assert_respond_to(@import, :derive_b1g_centroid_ss)
+    assert_respond_to(@import, :derive_dcat_centroid)
   end
 
   test 'default_mappings' do
@@ -28,15 +28,15 @@ class ImportBtaaTest < ActiveSupport::TestCase
 
   test 'derived_mappings' do
     assert_instance_of(Array, @import.derived_mappings)
-    assert_includes @import.derived_mappings.map(&:keys).flatten, :dcat_centroid_ss
+    assert_includes @import.derived_mappings.map(&:keys).flatten, :dcat_centroid
   end
 
-  test 'derive_b1g_centroid_ss' do
+  test 'derive_dcat_centroid' do
     solr_geom_hash = {
       data_hash: { solr_geom: '-18.6,-35.3,52.3,37.17' },
       field: :solr_geom
     }
-    assert_instance_of(String, @import.derive_b1g_centroid_ss(solr_geom_hash))
-    assert_equal('0.9350000000000023,16.849999999999998', @import.derive_b1g_centroid_ss(solr_geom_hash))
+    assert_instance_of(String, @import.derive_dcat_centroid(solr_geom_hash))
+    assert_equal('0.9350000000000023,16.849999999999998', @import.derive_dcat_centroid(solr_geom_hash))
   end
 end

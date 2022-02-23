@@ -89,7 +89,7 @@ module Geomg
         transformation_method: nil
       },
       'Bounding Box': {
-        destination: GEOMG.FIELDS.GEOM,
+        destination: GEOMG.FIELDS.BBOX,
         delimited: false,
         transformation_method: nil
       },

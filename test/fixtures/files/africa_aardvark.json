@@ -28,8 +28,9 @@
   "dct_spatial_sm": [
     "Africa"
   ],
+  "dcat_bbox": "ENVELOPE(-18.6,52.3,37.17,-35.3)",
   "locn_geometry": "ENVELOPE(-18.6,52.3,37.17,-35.3)",
-  "dcat_centroid_ss": "0.9350000000000023,16.849999999999998",
+  "dcat_centroid": "0.9350000000000023,16.849999999999998",
   "pcdm_memberOf_sm": [
     "06d-01"
   ],
