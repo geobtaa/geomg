@@ -5,6 +5,10 @@
     <field name="_version_" type="long"   stored="true" indexed="true"/>
     <field name="timestamp" type="date"   stored="true" indexed="true" default="NOW"/>
 
+    <!-- core generated fields -->
+    <field name="text" type="text_en" stored="false" indexed="true" multiValued="true"
+                       termVectors="true" termPositions="true" termOffsets="true" />
+
     <!-- Kithe -->
     <!-- id is the unique key -->
     <field name="id" type="string" stored="true" indexed="true" multiValued="false" required="true"/>
@@ -12,12 +16,13 @@
     <dynamicField name="*_ssi" type="string" stored="true" indexed="true" multiValued="false"/>
     <!-- date_created_dtsi -->
     <dynamicField name="*_dtsi" type="pdate" stored="true" indexed="true" multiValued="false"/>
-
     <!-- END Kithe -->
 
-    <!-- GeoBlacklight -->
+    <!-- GEOMG -->
     <field name="geomg_id_s" type="string" stored="true" indexed="true" required="true"/>
+    <!-- END GEOMG -->
 
+    <!-- GeoBlacklight -->
     <!-- Spatial Field Type: Represents the exent of the resource and powers map search functionality.
       Value can be any valid WKT or ENVELOPE String:
         <field name="locn_geometry">POLYGON((1 8, 1 9, 2 9, 2 8, 1 8))</field>
@@ -34,10 +39,6 @@
 
     <!-- Spatial Field Type: Internal field used for overlap ratio boosting. -->
     <field name="solr_bboxtype" type="bbox" stored="true" indexed="true"/>
-
-    <!-- core generated fields -->
-    <field name="text" type="text_en" stored="false" indexed="true" multiValued="true"
-                       termVectors="true" termPositions="true" termOffsets="true" />
 
     <!-- dynamic field with simple types by suffix -->
     <dynamicField name="*_b"    type="boolean" stored="true"  indexed="true"/>
@@ -74,24 +75,6 @@
     <!-- date range (_dr...) (for faster AND better range queries) -->
     <dynamicField name="*_drsim" type="dateRange" stored="true" indexed="true" multiValued="true"/>
 
-    <!-- Spatial field types:
-
-         Solr3:
-           <field name="my_pt">83.1,-117.312</field>
-             as (y,x)
-
-         Solr4:
-
-           <field name="my_bbox">-117.312 83.1 -115.39 84.31</field>
-             as (W S E N)
-
-           <field name="my_geometry">ENVELOPE(-117.312, -115.39, 84.31, 83.1)</field>
-             as (W E N S)
-
-           <field name="my_jts">POLYGON((1 8, 1 9, 2 9, 2 8, 1 8))</field>
-             as WKT for point, linestring, polygon
-
-      -->
     <dynamicField name="*_pt"   type="location"     stored="true" indexed="true"/>
     <dynamicField name="*_bbox" type="location_rpt" stored="true" indexed="true"/><!-- deprecated -->
     <dynamicField name="*_geom" type="location_rpt" stored="true" indexed="true"/>
@@ -184,6 +167,7 @@
     <fieldType name="location_geo3d"
       class="solr.SpatialRecursivePrefixTreeFieldType"
       spatialContextFactory="Geo3D"
+      prefixTree="s2"
       geo="true"
       maxDistErr="0.001"
       planetModel="WGS84"/>
@@ -238,7 +222,7 @@
   <copyField source="dct_spatial_sm" dest="suggest"/>
 
   <!-- for bbox value -->
-  <copyField source="locn_geometry" dest="solr_bboxtype"/>
+  <copyField source="dcat_bbox" dest="solr_bboxtype"/>
 
   <!-- for GEOMG reporting -->
   <copyField source="date_created_dtsi" dest="date_created_drsim"/>
