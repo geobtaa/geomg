@@ -32,11 +32,14 @@ class Document
     B1G_STATUS = %w[Active Inactive Unknown].freeze
 
     B1G_ACCRUAL_PERIODICITY = [
-      'Annually',
-      'Semiannually',
+      'Annual',
+      'Semiannual',
       'Quarterly',
       'Monthly',
-      'As Needed'
+      'Irregular',
+      'As Needed',
+      'Once',
+      'Never'
     ].freeze
 
     GENRE = [
@@ -66,25 +69,27 @@ class Document
     ].freeze
 
     THEME = [
-      'Farming',
-      'Biota',
+      'Agriculture',
+      'Biology',
       'Boundaries',
-      'Climatology, Meteorology and Atmosphere',
+      'Climate',
       'Economy',
       'Elevation',
       'Environment',
-      'Geoscientific Information',
+      'Events',
+      'Geology',
       'Health',
-      'Imagery and Base Maps',
-      'Intelligence and Military',
-      'Inland Waters',
+      'Imagery',
+      'Inland waters',
+      'Land cover',
       'Location',
+      'Military',
       'Oceans',
-      'Planning and Cadastral',
+      'Property',
       'Society',
       'Structure',
       'Transportation',
-      'Utilities and Communication'
+      'Utilities'
     ].freeze
 
     TYPE = [
