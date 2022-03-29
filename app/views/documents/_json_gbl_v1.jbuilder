@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# See GBL Wiki
-# https://github.com/geoblacklight/geoblacklight/wiki/GeoBlacklight-1.0-Metadata-Elements
+# See OpenGeoMetadata Legacy Versions
+# https://opengeometadata.org/docs/gbl-1.0
 
 # Required
 json.geoblacklight_version '1.0'
@@ -20,14 +20,12 @@ json.dc_format_s        no_json_blanks document.send(GEOMG.FIELDS.FORMAT)
 json.dc_subject_sm      no_json_blanks document.send(GEOMG.FIELDS.SUBJECT)
 json.dct_references_s   no_json_blanks document.references_json
 json.dct_spatial_sm     no_json_blanks document.send(GEOMG.FIELDS.SPATIAL)
-json.layer_geom_type_s  no_json_blanks document.send(GEOMG.FIELDS.LAYER_GEOM_TYPE)&.first&.chomp(' data')
 json.layer_modified_dt  no_json_blanks document.send(GEOMG.FIELDS.LAYER_MODIFIED)
 
 # Optional
 json.dc_language_sm     no_json_blanks document.send(GEOMG.FIELDS.LANGUAGE)
 json.dc_publisher_s     no_json_blanks document.send(GEOMG.FIELDS.PUBLISHER).join('|')
 json.dc_source_sm       no_json_blanks document.send(GEOMG.FIELDS.SOURCE)
-json.dct_isPartOf_sm    no_json_blanks document.send(GEOMG.FIELDS.IS_PART_OF)
 json.dct_issued_s       no_json_blanks document.send(GEOMG.FIELDS.ISSUED)
 json.dct_temporal_sm    no_json_blanks document.send(GEOMG.FIELDS.TEMPORAL)
 json.layer_id_s         no_json_blanks document.send(GEOMG.FIELDS.LAYER_ID)
