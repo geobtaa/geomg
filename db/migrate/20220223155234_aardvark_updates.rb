@@ -14,7 +14,11 @@ class AardvarkUpdates < ActiveRecord::Migration[6.1]
         end
 
         # Reindex doc
-        doc.save
+        begin
+          doc.save
+        rescue
+          puts "Save Failed: #{doc.id}\n"
+        end
       end
 
       @steps = @steps + relation.count

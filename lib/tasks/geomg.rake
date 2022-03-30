@@ -56,7 +56,7 @@ namespace :geomg do
         puts 'Solr running at http://localhost:8983/solr/geoportal-core-development/, ^C to exit'
         puts ' '
         begin
-          Rake::Task['geomg:solr:restore'].invoke
+          # Rake::Task['geomg:solr:restore'].invoke
           system "bundle exec rails s --binding=#{ENV.fetch('GEOMG_SERVER_BIND_INTERFACE', '0.0.0.0')} --port=#{ENV.fetch('GEOMG_SERVER_PORT', '3000')}"
           sleep
         rescue Interrupt
@@ -137,6 +137,24 @@ namespace :geomg do
     desc 'print out mapped index hash for specified ID, eg rake scihist:solr:debug_indexing[adf232adf]'
     task :debug_indexing, [:friendlier_id] => [:environment] do |_t, args|
       Kithe::Model.find_by(friendlier_id: args[:friendlier_id]).update_index(writer: Traject::DebugWriter.new({}))
+    end
+
+    desc 'Save - Sanity Check'
+    task save_check: :environment do
+      @steps = 0
+      Document.in_batches(of: 1000).each do |relation|
+        relation.each do |doc|
+          begin
+            # Reindex doc
+            doc.save
+          rescue
+            puts "Save Failed: #{doc.id}\n"
+          end
+        end
+
+        @steps = @steps + relation.count
+        puts "Docs Saved: #{@steps}"
+      end
     end
 
     desc 'Backup - Create a Solr snapshot'
