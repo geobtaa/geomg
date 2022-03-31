@@ -95,3 +95,6 @@ config/environments/*.local.yml
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+/solr/snapshots/*
+!/solr/snapshots/.keep

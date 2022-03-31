@@ -567,6 +567,7 @@ DEPENDENCIES
   devise_invitable (~> 2.0.0)
   dotenv-rails
   exception_notification (~> 4.4.0)
+  faraday
   foreman
   haml (~> 5.2.0)
   httparty
