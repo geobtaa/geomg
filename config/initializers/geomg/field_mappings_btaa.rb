@@ -58,7 +58,7 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
-      'ISO Topic Category': {
+      'Theme': {
         destination: GEOMG.FIELDS.THEME,
         delimited: true,
         transformation_method: nil

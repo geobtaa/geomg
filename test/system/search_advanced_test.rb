@@ -22,7 +22,7 @@ class SearchAdvancedTest < ApplicationSystemTestCase
         assert page.has_text?('Member Of')
         assert page.has_text?('Resource Type')
         assert page.has_text?('Subject')
-        assert page.has_text?('ISO Topic Category')
+        assert page.has_text?('Theme')
         assert page.has_text?('Format')
         assert page.has_text?('Suppressed')
         assert page.has_text?('Child Record')
