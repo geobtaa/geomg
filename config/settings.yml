@@ -17,6 +17,7 @@ FIELDS:
   :B1G_GEONAMES: 'b1g_geonames_sm'
   :B1G_IMAGE: 'b1g_image_ss'
   :B1G_KEYWORD: 'dcat_keyword_sm' # @TODO Rename to KEYWORD
+  :B1G_LANGUAGE: 'b1g_language_sm'
   :B1G_MEDIATOR: 'b1g_dct_mediator_sm' # @TODO: New field
   :B1G_STATUS: 'b1g_status_s'
   :BBOX: 'dcat_bbox'
