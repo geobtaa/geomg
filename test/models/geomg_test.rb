@@ -10,6 +10,7 @@ class GeomgTest < ActiveSupport::TestCase
   test 'methods' do
     assert_respond_to(Geomg, :field_mappings_btaa)
     assert_respond_to(Geomg, :dct_references_mappings)
+    assert_respond_to(Geomg, :iso_language_codes)
   end
 
   test 'BTAA - CSV Import - header/solr field mapping keys' do
@@ -26,5 +27,10 @@ class GeomgTest < ActiveSupport::TestCase
     %w[Download FeatureServer ImageServer Information MapServer].each do |mapping|
       assert(Geomg.dct_references_mappings.key?(mapping.to_sym))
     end
+  end
+
+  test 'iso_language_codes' do
+    assert_instance_of(ActiveSupport::HashWithIndifferentAccess, Geomg.iso_language_codes)
+    assert_equal(Geomg.iso_language_codes['fre'], 'French')
   end
 end

@@ -23,7 +23,8 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     assert_equal output_hash[GEOMG.FIELDS.TITLE], ['Agricultural Districts: Iowa']
     assert_equal output_hash[GEOMG.FIELDS.ALT_TITLE], ['Ag Districts']
     assert_equal output_hash[GEOMG.FIELDS.DESCRIPTION], ['Iowa Agricultural Districts']
-    assert_equal output_hash[GEOMG.FIELDS.LANGUAGE], ['English']
+    assert_equal output_hash[GEOMG.FIELDS.LANGUAGE], ['eng']
+    assert_equal output_hash[GEOMG.FIELDS.B1G_LANGUAGE], ['English']
 
     # - Credits
     assert_equal output_hash[GEOMG.FIELDS.CREATOR], ['Legislative Services Agency']

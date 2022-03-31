@@ -206,6 +206,17 @@ class Document < Kithe::Work
     end
   end
 
+  # Convert three char language code to proper string
+  def iso_language_mapping
+    mapping = []
+    if send(GEOMG.FIELDS.LANGUAGE).present?
+      send(GEOMG.FIELDS.LANGUAGE).each do |lang|
+        mapping << Geomg.iso_language_codes[lang]
+      end
+    end
+    mapping
+  end
+
   private
 
   def transition_publication_state

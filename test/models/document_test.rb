@@ -121,6 +121,12 @@ class DocumentTest < ActiveSupport::TestCase
     assert_respond_to @document, :friendlier_id
   end
 
+  test 'responds to iso_language_mapping' do
+    assert_respond_to @document, :iso_language_mapping
+    @document = documents(:ag)
+    assert_equal(@document.iso_language_mapping, ["English"])
+  end
+
   # Paper Trail
   test 'responds to versions' do
     assert_respond_to @document, :versions
