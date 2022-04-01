@@ -22,7 +22,8 @@ json.gbl_indexYear_im     no_json_blanks document.send(GEOMG.FIELDS.YEAR)
 json.gbl_dateRange_drsim  no_json_blanks document.date_range_json
 json.dct_spatial_sm       no_json_blanks document.send(GEOMG.FIELDS.SPATIAL)
 json.locn_geometry        no_json_blanks document.solr_geom_mapping
-json.dcat_centroid_ss     no_json_blanks document.send(GEOMG.FIELDS.B1G_CENTROID)
+json.dcat_bbox            no_json_blanks document.solr_geom_mapping
+json.dcat_centroid        no_json_blanks document.send(GEOMG.FIELDS.CENTROID)
 json.dct_relation_sm      no_json_blanks document.send(GEOMG.FIELDS.RELATION)
 json.pcdm_memberOf_sm     no_json_blanks document.send(GEOMG.FIELDS.MEMBER_OF)
 json.dct_isPartOf_sm      no_json_blanks document.send(GEOMG.FIELDS.IS_PART_OF)

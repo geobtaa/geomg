@@ -66,7 +66,7 @@ class DocumentTest < ActiveSupport::TestCase
     # - Spatial
     assert_respond_to @document, GEOMG.FIELDS.SPATIAL
     assert_respond_to @document, GEOMG.FIELDS.B1G_GEONAMES
-    assert_respond_to @document, GEOMG.FIELDS.GEOM
+    assert_respond_to @document, GEOMG.FIELDS.BBOX
     assert_respond_to @document, GEOMG.FIELDS.B1G_CENTROID
 
     # Distribution
@@ -121,6 +121,12 @@ class DocumentTest < ActiveSupport::TestCase
     assert_respond_to @document, :friendlier_id
   end
 
+  test 'responds to iso_language_mapping' do
+    assert_respond_to @document, :iso_language_mapping
+    @document = documents(:ag)
+    assert_equal(@document.iso_language_mapping, ["English"])
+  end
+
   # Paper Trail
   test 'responds to versions' do
     assert_respond_to @document, :versions
@@ -146,29 +152,29 @@ class DocumentTest < ActiveSupport::TestCase
     assert @document.errors
   end
 
-  # Test LocnGeometry
-  test 'locn_geometry validation' do
+  # Test Bbox
+  test 'bbox validation' do
     @document = documents(:ag)
 
     # Bad minY
-    @document.send("#{GEOMG.FIELDS.GEOM}=", "-16.7909,-90.0574,43.9474,39.9655")
+    @document.send("#{GEOMG.FIELDS.BBOX}=", "-16.7909,-90.0574,43.9474,39.9655")
     assert @document.invalid?
     assert @document.errors
 
     # No ENVELOPE() wrapper allowed
-    @document.send("#{GEOMG.FIELDS.GEOM}=", "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)")
+    @document.send("#{GEOMG.FIELDS.BBOX}=", "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)")
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Bad minX
-    @document.send("#{GEOMG.FIELDS.GEOM}=", "-16000.7909,-90.0574,43.9474,39.9655")
+    @document.send("#{GEOMG.FIELDS.BBOX}=", "-16000.7909,-90.0574,43.9474,39.9655")
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Solr - maxY must be >= minY
-    @document.send("#{GEOMG.FIELDS.GEOM}=", "92.1893,28.5432,101.1768,9.6004")
+    @document.send("#{GEOMG.FIELDS.BBOX}=", "92.1893,28.5432,101.1768,9.6004")
     @document.save
     assert @document.invalid?
     assert @document.errors

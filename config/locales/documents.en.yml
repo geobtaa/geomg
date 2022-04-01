@@ -29,8 +29,8 @@ en:
           one: "Subject"
           other: "Subject"
         dcat_theme_sm:
-          one: "ISO Topic Category"
-          other: "ISO Topic Category"
+          one: "Theme"
+          other: "Theme"
         dcat_keyword_sm:
           one: "Keyword"
           other: "Keyword"

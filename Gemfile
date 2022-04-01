@@ -11,7 +11,7 @@ gem 'rails', '~> 6.1'
 # gem 'sqlite3', '~> 1.4'
 gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 5.1'
+gem 'puma', '~> 5.6'
 gem 'sd_notify', '>= 0.1.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
@@ -53,7 +53,7 @@ gem 'devise', '~> 4.7.0'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'devise_invitable', '~> 2.0.0'
 
-gem 'sidekiq', '~> 6.0'
+gem 'sidekiq', '~> 6.4'
 
 # Versioning
 gem 'paper_trail'
@@ -128,3 +128,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 # Bookmarks
 gem 'inline_svg'
 gem 'pagy', '~> 3.8'
+
+# Solr Backup/Restore
+gem 'faraday'

@@ -16,6 +16,7 @@ class DocumentIndexer < Kithe::Indexer
     to_field GEOMG.FIELDS.ALT_TITLE, obj_extract(GEOMG.FIELDS.ALT_TITLE)
     to_field GEOMG.FIELDS.DESCRIPTION, obj_extract(GEOMG.FIELDS.DESCRIPTION)
     to_field GEOMG.FIELDS.LANGUAGE, obj_extract(GEOMG.FIELDS.LANGUAGE)
+    to_field GEOMG.FIELDS.B1G_LANGUAGE, obj_extract('iso_language_mapping')
 
     # - Credits
     to_field GEOMG.FIELDS.CREATOR, obj_extract(GEOMG.FIELDS.CREATOR), transform(->(v) { v.presence ? v : nil })
@@ -37,7 +38,8 @@ class DocumentIndexer < Kithe::Indexer
     to_field GEOMG.FIELDS.SPATIAL, obj_extract(GEOMG.FIELDS.SPATIAL), transform(->(v) { v.presence ? v : nil })
     to_field GEOMG.FIELDS.B1G_GEONAMES, obj_extract(GEOMG.FIELDS.B1G_GEONAMES)
     to_field GEOMG.FIELDS.GEOM, obj_extract('solr_geom_mapping')
-    to_field GEOMG.FIELDS.B1G_CENTROID, obj_extract(GEOMG.FIELDS.B1G_CENTROID)
+    to_field GEOMG.FIELDS.BBOX, obj_extract('solr_geom_mapping')
+    to_field GEOMG.FIELDS.CENTROID, obj_extract(GEOMG.FIELDS.CENTROID)
 
     # - Relations
     to_field GEOMG.FIELDS.IS_REPLACED_BY, obj_extract(GEOMG.FIELDS.IS_REPLACED_BY)

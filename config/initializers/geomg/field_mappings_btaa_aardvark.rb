@@ -92,6 +92,11 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
+      'dcat_bbox': {
+        destination: GEOMG.FIELDS.BBOX,
+        delimited: false,
+        transformation_method: nil
+      },
       'b1g_geonames_sm': {
         destination: GEOMG.FIELDS.B1G_GEONAMES,
         delimited: true,
@@ -309,6 +314,11 @@ module Geomg
         transformation_method: nil
       },
       'b1g_centroid_ss': {
+        destination: 'Discard',
+        delimited: false,
+        transformation_method: nil
+      },
+      'dcat_centroid': {
         destination: 'Discard',
         delimited: false,
         transformation_method: nil

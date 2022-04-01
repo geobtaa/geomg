@@ -23,7 +23,8 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     assert_equal output_hash[GEOMG.FIELDS.TITLE], ['Agricultural Districts: Iowa']
     assert_equal output_hash[GEOMG.FIELDS.ALT_TITLE], ['Ag Districts']
     assert_equal output_hash[GEOMG.FIELDS.DESCRIPTION], ['Iowa Agricultural Districts']
-    assert_equal output_hash[GEOMG.FIELDS.LANGUAGE], ['English']
+    assert_equal output_hash[GEOMG.FIELDS.LANGUAGE], ['eng']
+    assert_equal output_hash[GEOMG.FIELDS.B1G_LANGUAGE], ['English']
 
     # - Credits
     assert_equal output_hash[GEOMG.FIELDS.CREATOR], ['Legislative Services Agency']
@@ -44,7 +45,8 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     assert_equal output_hash[GEOMG.FIELDS.SPATIAL], ['Iowa']
     assert_nil output_hash[GEOMG.FIELDS.B1G_GEONAMES]
     assert_equal output_hash[GEOMG.FIELDS.GEOM], ['ENVELOPE(-96.6391,-90.1401,43.5012,40.3754)']
-    assert_equal output_hash[GEOMG.FIELDS.B1G_CENTROID], ['41.9383,-93.3896']
+    assert_equal output_hash[GEOMG.FIELDS.BBOX], ['ENVELOPE(-96.6391,-90.1401,43.5012,40.3754)']
+    assert_equal output_hash[GEOMG.FIELDS.CENTROID], ['41.9383,-93.3896']
 
     # Distribution
     # - Object
