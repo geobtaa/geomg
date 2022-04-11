@@ -196,11 +196,20 @@ class Document < Kithe::Work
   end
 
   # Convert GEOM for Solr Indexing
-  def solr_geom_mapping
-    if send(GEOMG.FIELDS.GEOM).present?
+  def derive_dcat_bbox
+    if send(GEOMG.FIELDS.BBOX).present?
       # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
-      w, s, e, n = send(GEOMG.FIELDS.GEOM).split(',')
+      w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
       "ENVELOPE(#{w},#{e},#{n},#{s})"
+    else
+      ''
+    end
+  end
+
+  def derive_dcat_centroid
+    if send(GEOMG.FIELDS.BBOX).present?
+      w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
+      "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
     else
       ''
     end

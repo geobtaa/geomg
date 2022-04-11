@@ -37,9 +37,9 @@ class DocumentIndexer < Kithe::Indexer
     # - Spatial
     to_field GEOMG.FIELDS.SPATIAL, obj_extract(GEOMG.FIELDS.SPATIAL), transform(->(v) { v.presence ? v : nil })
     to_field GEOMG.FIELDS.B1G_GEONAMES, obj_extract(GEOMG.FIELDS.B1G_GEONAMES)
-    to_field GEOMG.FIELDS.GEOM, obj_extract('solr_geom_mapping')
-    to_field GEOMG.FIELDS.BBOX, obj_extract('solr_geom_mapping')
-    to_field GEOMG.FIELDS.CENTROID, obj_extract(GEOMG.FIELDS.CENTROID)
+    to_field GEOMG.FIELDS.GEOM, obj_extract('derive_dcat_bbox')
+    to_field GEOMG.FIELDS.BBOX, obj_extract('derive_dcat_bbox')
+    to_field GEOMG.FIELDS.CENTROID, obj_extract('derive_dcat_centroid')
 
     # - Relations
     to_field GEOMG.FIELDS.IS_REPLACED_BY, obj_extract(GEOMG.FIELDS.IS_REPLACED_BY)

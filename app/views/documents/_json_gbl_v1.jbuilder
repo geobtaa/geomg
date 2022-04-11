@@ -10,7 +10,7 @@ json.dc_rights_s        no_json_blanks document.send(GEOMG.FIELDS.ACCESS_RIGHTS)
 json.dc_title_s         no_json_blanks document.send(GEOMG.FIELDS.TITLE)
 json.dct_provenance_s   no_json_blanks document.send(GEOMG.FIELDS.PROVENANCE)
 json.layer_slug_s       no_json_blanks document.send(GEOMG.FIELDS.LAYER_SLUG)
-json.solr_geom          no_json_blanks document.solr_geom_mapping
+json.solr_geom          no_json_blanks document.derive_dcat_bbox
 
 # Recommended
 json.solr_year_i        no_json_blanks document.send(GEOMG.FIELDS.YEAR)&.first
