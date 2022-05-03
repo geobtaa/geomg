@@ -9,7 +9,13 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    query_params = { q: params['q'], f: params['f'], page: params['page'], rows: params['rows'] || 20 }
+    query_params = {
+      q: params['q'],
+      f: params['f'],
+      page: params['page'],
+      rows: params['rows'] || 20,
+      sort: params['sort'] || 'score desc'
+    }
 
     @documents = BlacklightApi.new(**query_params)
 
