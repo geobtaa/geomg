@@ -24,7 +24,7 @@ class DocumentHelperTest < ActionView::TestCase
 
     link = @documents.sorts.first
 
-    assert_equal '<a class="dropdown-item" href="/documents?page=1&amp;q=water&amp;rows=20&amp;sort=score+desc%2C+dct_title_sort+asc">relevance</a>', link_to(link['attributes']['label'], localize_link(link['links']['self']), { class: 'dropdown-item' })
+    assert_equal '<a class="dropdown-item" href="/documents?page=1&amp;q=water&amp;rows=20&amp;sort=score+desc%2C+dct_title_sort+asc">Relevance</a>', link_to(link['attributes']['label'], localize_link(link['links']['self']), { class: 'dropdown-item' })
   end
 
   # Render local link from API results
