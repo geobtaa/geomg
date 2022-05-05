@@ -14,9 +14,9 @@ class DocumentsController < ApplicationController
       f: params['f'],
       page: params['page'],
       rows: params['rows'] || 20,
-      sort: params['sort'] || 'score desc'
+      sort: params['sort'] || 'score desc',
+      daterange: params['daterange'] || nil
     }
-
     @documents = BlacklightApi.new(**query_params)
 
     respond_to do |format|
@@ -164,7 +164,7 @@ class DocumentsController < ApplicationController
   # This could be done in a form object or otherwise abstracted, but this is good
   # enough for now.
   def permittable_params
-    %i[title publication_state layer_geom_type_s dct_references_s q f page sort rows]
+    %i[title publication_state layer_geom_type_s dct_references_s q f page sort rows daterange]
   end
 
   def document_params
