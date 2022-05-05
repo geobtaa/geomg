@@ -5,7 +5,7 @@
         params
         .to_hash
         .with_indifferent_access
-        .except(:daterange)
+        .except(:daterange, :controller, :action, :commit)
       ) %>
     <div class="input-group-append">
       <%= form.submit 'Go', class: 'btn btn-outline-secondary' %>
