@@ -1,3 +1,18 @@
+<%= form_with url: '/documents', method: :get, local: true  do |form| %>
+  <div class="input-group mb-3" style="width:300px">
+    <%= form.text_field("daterange", { class: 'form-control', placeholder: 'Date range filter', size: 24, 'aria-label': "Date range filter", value: params['daterange']  }) %>
+    <%= params_as_hidden_fields(
+        params
+        .to_hash
+        .with_indifferent_access
+        .except(:daterange, :controller, :action, :commit)
+      ) %>
+    <div class="input-group-append">
+      <%= form.submit 'Go', class: 'btn btn-outline-secondary' %>
+    </div>
+  </div>
+<% end %>
+
 <% @documents.facets.each do |facet| %>
   <% if facet['type'] == 'facet' %>
     <%- next if ['b1g_code_s', 'dct_isPartOf_sm'].include?(facet['id']) %>

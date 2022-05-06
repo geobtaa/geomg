@@ -11,20 +11,22 @@
 
       <div id="facet-limits" class="col-md-12 mt-4">
         <h3>Limit Results By</h3>
-        <% @facet_options.each do |facet| %>
-          <div class="row">
-            <% if facet['type'] == 'facet' %>
-              <%= label_tag("f[#{facet['id']}]", { class: 'col-sm-4 control-label' }) do %>
-                <%= facet['attributes']['label'] %>
+        <% if @facet_options.present? %>
+          <% @facet_options.each do |facet| %>
+            <div class="row">
+              <% if facet['type'] == 'facet' %>
+                <%= label_tag("f[#{facet['id']}]", { class: 'col-sm-4 control-label' }) do %>
+                  <%= facet['attributes']['label'] %>
+                <% end %>
+                <%- options = facet['attributes']['items'].collect{ |item| item['attributes']['label'] } %>
+
+                <div class="col-sm-8">
+                  <%= select_tag "f[#{facet['id']}]", options_for_select(options), multiple: true, class: 'chosen-select', style: 'width:240px;' %>
+                </div>
+
               <% end %>
-              <%- options = facet['attributes']['items'].collect{ |item| item['attributes']['label'] } %>
-
-              <div class="col-sm-8">
-                <%= select_tag "f[#{facet['id']}]", options_for_select(options), multiple: true, class: 'chosen-select', style: 'width:240px;' %>
-              </div>
-
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         <% end %>
       </div>
 

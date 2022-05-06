@@ -8,7 +8,7 @@ module Report
   def query(params)
     Faraday.default_adapter = :net_http
     conn = Faraday.new(
-      url: (ENV['SOLR_URL']).to_s,
+      url: ENV.fetch('SOLR_URL', nil).to_s,
       headers: { 'Content-Type' => 'application/json' }
     )
 
@@ -110,11 +110,11 @@ module Report
 
       # apply_query!
       search_query[:query][:bool][:must] << apply_query!
-      Rails.logger.debug("Apply Query: #{search_query.inspect}")
+      Rails.logger.debug { "Apply Query: #{search_query.inspect}" }
 
       # apply_includes!
       apply_includes!(search_query, params)
-      Rails.logger.debug("Apply Includes: #{search_query.inspect}")
+      Rails.logger.debug { "Apply Includes: #{search_query.inspect}" }
 
       # @TODO - Facets
       # WARNING: requires schema change, to copy date created into a date range field
@@ -165,16 +165,16 @@ module Report
       if @run_compare
         ca = {}
         ca = params['created_at']['compare'] if params['created_at'] && params['created_at']['compare']
-        ca[:start] ||= Time.zone.now - 28.days - 28.days
-        ca[:end] ||= Time.zone.now - 28.days
+        ca[:start] ||= 28.days.ago - 28.days
+        ca[:end] ||= 28.days.ago
         @date_start = parse_date_if_needed(ca[:start])
         @date_end = parse_date_if_needed(ca[:end])
       end
 
       must_includes << "date_created_drsim:[#{@date_start} TO #{@date_end}]"
 
-      must_includes     = must_includes.reject(&:blank?)
-      should_includes   = should_includes.reject(&:blank?)
+      must_includes     = must_includes.compact_blank
+      should_includes   = should_includes.compact_blank
 
       search_query[:query][:bool][:must].concat(must_includes.concat(should_includes))
     end

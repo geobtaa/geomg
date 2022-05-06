@@ -59,4 +59,43 @@ module ApplicationHelper
     notifications_classes << 'badge-danger' if current_user.notifications.unread.size.positive?
     "<span class='#{notifications_classes.join(' ')}' id='notification-count'>#{current_user.notifications.unread.size}</span>"
   end
+
+  # From Blacklight::HiddenSearchStateComponent
+  def params_as_hidden_fields(params)
+    hidden_fields = []
+    flatten_hash(params).each do |name, value|
+      value = Array.wrap(value)
+      value.each do |v|
+        hidden_fields << hidden_field_tag(name, v.to_s, id: nil)
+      end
+    end
+
+    safe_join(hidden_fields, "\n")
+  end
+
+  def flatten_hash(hash, ancestor_names = [])
+    flat_hash = {}
+    hash.each do |k, v|
+      names = Array.new(ancestor_names)
+      names << k
+      if v.is_a?(Hash)
+        flat_hash.merge!(flatten_hash(v, names))
+      else
+        key = flat_hash_key(names)
+        key += '[]' if v.is_a?(Array)
+        flat_hash[key] = v
+      end
+    end
+
+    flat_hash
+  end
+
+  def flat_hash_key(names)
+    names = Array.new(names)
+    name = names.shift.to_s.dup
+    names.each do |n|
+      name << "[#{n}]"
+    end
+    name
+  end
 end
