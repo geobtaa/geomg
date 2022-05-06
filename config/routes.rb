@@ -45,12 +45,26 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :document_downloads, path: 'downloads' do
+      collection do
+        get 'import'
+        post 'import'
+      end
+    end
+
     collection do
       get 'fetch'
     end
   end
 
   resources :document_accesses, path: 'access' do
+    collection do
+      get 'import'
+      post 'import'
+    end
+  end
+
+  resources :document_downloads, path: 'downloads' do
     collection do
       get 'import'
       post 'import'

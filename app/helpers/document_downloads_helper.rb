@@ -1,0 +1,2 @@
+module DocumentDownloadsHelper
+end

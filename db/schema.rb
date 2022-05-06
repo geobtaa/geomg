@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_23_155234) do
+ActiveRecord::Schema.define(version: 2022_05_06_191641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -210,6 +210,15 @@ ActiveRecord::Schema.define(version: 2022_02_23_155234) do
     t.string "friendlier_id", null: false
     t.string "institution_code", null: false
     t.text "access_url", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "document_downloads", force: :cascade do |t|
+    t.string "friendlier_id"
+    t.string "label"
+    t.string "value"
+    t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
