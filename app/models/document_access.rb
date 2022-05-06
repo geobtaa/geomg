@@ -6,7 +6,7 @@ class DocumentAccess < ApplicationRecord
   after_save :reindex_document
 
   # Validations
-  validates :friendlier_id, :institution_code, :access_url, presence: true
+  validates :institution_code, :access_url, presence: true
 
   def self.import(file)
     logger.debug('CSV Import')

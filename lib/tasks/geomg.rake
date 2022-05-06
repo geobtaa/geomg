@@ -76,6 +76,7 @@ namespace :geomg do
         solr.with_collection(name: 'geoportal-core-test', dir: Rails.root.join('solr/conf').to_s) do
           puts 'Solr running at http://localhost:8985/solr/#/geoportal-core-test/, ^C to exit'
           begin
+            Rake::Task['db:fixtures:load'].invoke
             Rake::Task['geomg:solr:reindex'].invoke
             sleep
           rescue Interrupt

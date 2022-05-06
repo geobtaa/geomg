@@ -61,30 +61,31 @@ class BlacklightApi
   end
 
   def prep_daterange(daterange)
-    start_date, end_date = daterange.split(" - ")
+    start_date, end_date = daterange.split(' - ')
     start_date = Date
-      .strptime(start_date, '%m/%d/%Y')
-      .beginning_of_day
-      .to_time
-      .strftime('%Y-%m-%dT%H:%M:%S')
+                 .strptime(start_date, '%m/%d/%Y')
+                 .beginning_of_day
+                 .to_time
+                 .strftime('%Y-%m-%dT%H:%M:%S')
 
     end_date = Date
-      .strptime(end_date, '%m/%d/%Y')
-      .end_of_day
-      .to_time
-      .strftime('%Y-%m-%dT%H:%M:%S')
+               .strptime(end_date, '%m/%d/%Y')
+               .end_of_day
+               .to_time
+               .strftime('%Y-%m-%dT%H:%M:%S')
 
     [start_date, end_date]
   end
 
-  def append_daterange(daterange, options)
+  def append_daterange(_daterange, options)
     return if options[:daterange].nil?
+
     unless options[:daterange].empty?
       start_date, end_date = prep_daterange(options[:daterange])
       if options[:f].present?
-        options[:f].merge!({ date_created_drsim: "[#{start_date} TO #{end_date}]"})
+        options[:f].merge!({ date_created_drsim: "[#{start_date} TO #{end_date}]" })
       else
-        options.merge!({ f: { date_created_drsim: "[#{start_date} TO #{end_date}]" }})
+        options.merge!({ f: { date_created_drsim: "[#{start_date} TO #{end_date}]" } })
       end
     end
     options

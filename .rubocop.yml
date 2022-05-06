@@ -111,3 +111,6 @@ Rails/SkipsModelValidations:
     - 'app/models/import.rb'
     - 'app/models/import_transition.rb'
     - 'app/models/import_document_transition.rb'
+
+Rails/I18nLocaleTexts:
+  Enabled: false
