@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# DocumentDownload
 class DocumentDownload < ApplicationRecord
   belongs_to :document, foreign_key: :friendlier_id, primary_key: :friendlier_id
   after_save :reindex_document

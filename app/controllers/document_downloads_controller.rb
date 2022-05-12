@@ -3,7 +3,7 @@
 # DocumentDownloadsController
 class DocumentDownloadsController < ApplicationController
   before_action :set_document
-  before_action :set_document_download, only: %i[ show edit update destroy ]
+  before_action :set_document_download, only: %i[show edit update destroy]
 
   # GET /document_downloads or /document_downloads.json
   def index
@@ -16,8 +16,7 @@ class DocumentDownloadsController < ApplicationController
   end
 
   # GET /document_downloads/1 or /document_downloads/1.json
-  def show
-  end
+  def show; end
 
   # GET /document_downloads/new
   def new
@@ -25,8 +24,7 @@ class DocumentDownloadsController < ApplicationController
   end
 
   # GET /document_downloads/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /document_downloads or /document_downloads.json
   def create
@@ -37,7 +35,9 @@ class DocumentDownloadsController < ApplicationController
 
     respond_to do |format|
       if @document_download.save
-        format.html { redirect_to document_document_downloads_path(@document_download.document), notice: "Document download was successfully created." }
+        format.html do
+          redirect_to document_document_downloads_path(@document_download.document), notice: 'Document download was successfully created.'
+        end
         format.json { render :show, status: :created, location: @document_download }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -50,7 +50,9 @@ class DocumentDownloadsController < ApplicationController
   def update
     respond_to do |format|
       if @document_download.update(document_download_params)
-        format.html { redirect_to document_document_downloads_path(@document_download.document), notice: "Document download was successfully updated." }
+        format.html do
+          redirect_to document_document_downloads_path(@document_download.document), notice: 'Document download was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @document_download }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,7 +66,7 @@ class DocumentDownloadsController < ApplicationController
     @document_download.destroy
 
     respond_to do |format|
-      format.html { redirect_to document_downloads_url, notice: "Document download was successfully destroyed." }
+      format.html { redirect_to document_downloads_url, notice: 'Document download was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -87,19 +89,20 @@ class DocumentDownloadsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_document
-      return unless params[:document_id] # If not nested
 
-      @document = Document.includes(:leaf_representative).find_by!(friendlier_id: params[:document_id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_document
+    return unless params[:document_id] # If not nested
 
-    def set_document_download
-      @document_download = DocumentDownload.find(params[:id])
-    end
+    @document = Document.includes(:leaf_representative).find_by!(friendlier_id: params[:document_id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def document_download_params
-      params.require(:document_download).permit(:friendlier_id, :label, :value, :position)
-    end
+  def set_document_download
+    @document_download = DocumentDownload.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def document_download_params
+    params.require(:document_download).permit(:friendlier_id, :label, :value, :position)
+  end
 end

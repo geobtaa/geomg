@@ -5,8 +5,6 @@ class Document < Kithe::Work
   include AttrJson::Record::QueryScopes
   include ActiveModel::Validations
 
-
-
   attr_accessor :skip_callbacks
 
   has_paper_trail
@@ -16,10 +14,12 @@ class Document < Kithe::Work
   has_many :document_transitions, foreign_key: 'kithe_model_id', autosave: false, dependent: :destroy, inverse_of: :document
 
   # DocumentAccesses
-  has_many :document_accesses, primary_key: 'friendlier_id', foreign_key: 'friendlier_id', autosave: false, dependent: :destroy, inverse_of: :document
+  has_many :document_accesses, primary_key: 'friendlier_id', foreign_key: 'friendlier_id', autosave: false, dependent: :destroy,
+                               inverse_of: :document
 
   # DocumentDownloads
-  has_many :document_downloads, primary_key: 'friendlier_id', foreign_key: 'friendlier_id', autosave: false, dependent: :destroy, inverse_of: :document
+  has_many :document_downloads, primary_key: 'friendlier_id', foreign_key: 'friendlier_id', autosave: false, dependent: :destroy,
+                                inverse_of: :document
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: DocumentTransition,
@@ -146,14 +146,14 @@ class Document < Kithe::Work
     # Make sure downloads exist!
     if document_downloads.present?
       multiple_downloads = multiple_downloads_array
-      multiple_downloads << { label: download_text(self.send(GEOMG.FIELDS.FORMAT)), url: dct_downloads } if dct_downloads.present?
-      references.merge!({'http://schema.org/downloadUrl': multiple_downloads})
+      multiple_downloads << { label: download_text(send(GEOMG.FIELDS.FORMAT)), url: dct_downloads } if dct_downloads.present?
+      references.merge!({ 'http://schema.org/downloadUrl': multiple_downloads })
     end
     references
   end
 
   def multiple_downloads_array
-    document_downloads.collect{|d| { label: d.label, url: d.value }}
+    document_downloads.collect { |d| { label: d.label, url: d.value } }
   end
 
   ### From GBL
@@ -173,13 +173,13 @@ class Document < Kithe::Work
   #
   def download_text(format)
     download_format = proper_case_format(format)
-    prefix = "Original "
+    prefix = 'Original '
     begin
       format = download_format
-    rescue
+    rescue StandardError
       # Need to rescue if format doesn't exist
     end
-    value = prefix + "#{format}"
+    value = prefix + format.to_s
     value.html_safe
   end
   ### End / From GBL
