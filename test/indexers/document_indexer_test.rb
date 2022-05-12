@@ -77,7 +77,7 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     assert_nil output_hash[GEOMG.FIELDS.ACCRUAL_PERIODICITY]
     assert_equal output_hash[GEOMG.FIELDS.B1G_DATE_ACCESSIONED], ['2020-04-24']
     assert_nil output_hash[GEOMG.FIELDS.B1G_DATE_RETIRED]
-    assert_equal output_hash['b1g_publication_state_s'], ['draft']
+    assert_equal output_hash['b1g_publication_state_s'], ['published']
 
     # - Accessibility
     assert_equal output_hash[GEOMG.FIELDS.ACCESS_RIGHTS], ['Public']

@@ -9,6 +9,15 @@
 
     <div class="input-group">
       <input name="q" class="form-control" type="search" placeholder="Search documents" aria-label="Search" value="<%= params[:q] ? params[:q] : ''%>">
+      <%- if params[:f].present? %>
+        <%= params_as_hidden_fields(
+            params
+            .to_hash
+            .with_indifferent_access
+            .except(:q, :controller, :action, :commit)
+          ) %>
+      <% end %>
+
       <div class="input-group-append">
         <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
         <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

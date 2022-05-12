@@ -1,0 +1,15 @@
+
+<%= simple_form_for(@document_download) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :friendlier_id, input_html: { value: @document.friendlier_id, readonly: true } %>
+    <%= f.input :label, autofocus: true %>
+    <%= f.input :value, label: 'Download URL' %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, 'Create Download URL', {class: 'btn btn-primary'} %>
+  </div>
+<% end %>

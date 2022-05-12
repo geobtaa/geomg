@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Friendlier:</strong>
+  <%= @document_download.friendlier_id %>
+</p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @document_download.label %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @document_download.value %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @document_download.position %>
+</p>
+
+<%= link_to 'Edit', edit_document_download_path(@document_download) %> |
+<%= link_to 'Back', document_downloads_path %>
