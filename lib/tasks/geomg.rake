@@ -6,6 +6,7 @@ end
 
 desc 'Run test suite'
 task ci: :environment do
+  Rails.env = "test"
   shared_solr_opts = { managed: true, verbose: true, persist: false, download_dir: 'tmp' }
   shared_solr_opts[:version] = ENV['SOLR_VERSION'] if ENV['SOLR_VERSION']
 

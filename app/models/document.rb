@@ -13,6 +13,14 @@ class Document < Kithe::Work
   # Statesman
   has_many :document_transitions, foreign_key: 'kithe_model_id', autosave: false, dependent: :destroy, inverse_of: :document
 
+  # DocumentAccesses
+  has_many :document_accesses, primary_key: 'friendlier_id', foreign_key: 'friendlier_id', autosave: false, dependent: :destroy,
+                               inverse_of: :document
+
+  # DocumentDownloads
+  has_many :document_downloads, primary_key: 'friendlier_id', foreign_key: 'friendlier_id', autosave: false, dependent: :destroy,
+                                inverse_of: :document
+
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: DocumentTransition,
     initial_state: :draft
@@ -127,10 +135,54 @@ class Document < Kithe::Work
 
   # Index Transformations - *_json functions
   def references_json
-    references = {}
+    references = ActiveSupport::HashWithIndifferentAccess.new
     send(GEOMG.FIELDS.REFERENCES).each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
+    references = apply_downloads(references)
     references.to_json
   end
+
+  def apply_downloads(references)
+    dct_downloads = references['http://schema.org/downloadUrl']
+    # Make sure downloads exist!
+    if document_downloads.present?
+      multiple_downloads = multiple_downloads_array
+      multiple_downloads << { label: download_text(send(GEOMG.FIELDS.FORMAT)), url: dct_downloads } if dct_downloads.present?
+      references.merge!({ 'http://schema.org/downloadUrl': multiple_downloads })
+    end
+    references
+  end
+
+  def multiple_downloads_array
+    document_downloads.collect { |d| { label: d.label, url: d.value } }
+  end
+
+  ### From GBL
+  ##
+  # Looks up properly formatted names for formats
+  #
+  def proper_case_format(format)
+    if I18n.exists?("geoblacklight.formats.#{format.to_s.parameterize(separator: '_')}")
+      I18n.t("geoblacklight.formats.#{format.to_s.parameterize(separator: '_')}")
+    else
+      format
+    end
+  end
+
+  ##
+  # Wraps download text with proper_case_format
+  #
+  def download_text(format)
+    download_format = proper_case_format(format)
+    prefix = 'Original '
+    begin
+      format = download_format
+    rescue StandardError
+      # Need to rescue if format doesn't exist
+    end
+    value = prefix + format.to_s
+    value.html_safe
+  end
+  ### End / From GBL
 
   def access_json
     access = {}

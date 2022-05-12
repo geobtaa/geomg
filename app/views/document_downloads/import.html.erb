@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1 style="width:100%;">
+  Document &middot; Download Links
+  <% if params[:document_id] %>
+    <%= link_to '+ New Download Link', new_document_document_download_path(@document), { class: 'btn btn-primary float-right' } %>
+  <% end %>
+</h1>
+
+<% if params[:document_id] %>
+  <h2 class='h3'><%= @document.title %></h2>
+<% else %>
+  <h2 class='h3'>Import for Multiple Documents</h2>
+<% end %>
+
+<h3>Import a CSV File</h3>
+<%= simple_form_for DocumentDownload.new, url: import_document_downloads_path, method: :post, multipart: true do |f| %>
+  <div class="form-inputs">
+    <%= f.simple_fields_for :downloads do |download_fields| %>
+      <%= download_fields.input :file, as: :file, input_html: {} %>
+    <%- end %>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_tag "Import CSV", {class: 'btn btn-primary'} %>
+  </div>
+<% end %>
