@@ -112,7 +112,13 @@
 <h2 id="administrative">Administrative</h2>
 <div class="grouping">
   <h3 id="codes">Codes</h3>
-  <%= f.input GEOMG.FIELDS.LAYER_SLUG, required: true, label: "ID" %>
+
+  <% if @document.persisted? %>
+    <%= f.input GEOMG.FIELDS.LAYER_SLUG, required: true, label: "ID", input_html: { disabled: true } %>
+  <% else %>
+    <%= f.input GEOMG.FIELDS.LAYER_SLUG, required: true, label: "ID" %>
+  <% end %>
+  
   <%= f.repeatable_attr_input GEOMG.FIELDS.IDENTIFIER, build: :at_least_one %>
   <%= f.input GEOMG.FIELDS.B1G_CODE, label: "Code" %>
 </div>
