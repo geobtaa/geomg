@@ -17,10 +17,13 @@ class BlacklightApiIds
 
     @options = defaults.merge(**args)
     append_facets(@options[:f], @options)
+    append_daterange(@options[:f], @options)
     @options.compact!
   end
 
   def fetch
+    Rails.logger.debug("BlacklightApiIds > fetch > query: #{@options.inspect}")
+
     @fetch ||= self.class.get('/', query: @options)
   end
 
@@ -56,6 +59,46 @@ class BlacklightApiIds
 
   def append_facets(facets, options)
     options.merge!({ f: facets }) if facets.present?
+    options
+  end
+
+  def prep_daterange(daterange)
+    start_date, end_date = daterange.split(' - ')
+    start_date = Date
+                 .strptime(start_date, '%m/%d/%Y')
+                 .beginning_of_day
+                 .to_time
+                 .strftime('%Y-%m-%dT%H:%M:%S')
+
+    end_date = Date
+               .strptime(end_date, '%m/%d/%Y')
+               .end_of_day
+               .to_time
+               .strftime('%Y-%m-%dT%H:%M:%S')
+
+    [start_date, end_date]
+  end
+
+  def append_daterange(_daterange, options)
+
+    Rails.logger.debug("BlacklightApiIds > Append daterange (start): #{options.inspect}")
+
+    return if options[:daterange].nil?
+
+    unless options[:daterange].empty?
+      start_date, end_date = prep_daterange(options[:daterange])
+
+      Rails.logger.debug("BlacklightApiIds > Prep daterange: #{start_date.inspect} TO #{end_date.inspect}}")
+
+      if options[:f].present?
+        options[:f].merge!({ date_created_drsim: "[#{start_date} TO #{end_date}]" })
+      else
+        options.merge!({ f: { date_created_drsim: "[#{start_date} TO #{end_date}]" } })
+      end
+    end
+
+    Rails.logger.debug("BlacklightApiIds > Append daterange (end): #{options.inspect}")
+
     options
   end
 end
