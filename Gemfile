@@ -131,3 +131,6 @@ gem 'pagy', '~> 3.8'
 
 # Solr Backup/Restore
 gem 'faraday'
+
+# Version Diffs
+gem 'hashdiff'

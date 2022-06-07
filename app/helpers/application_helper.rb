@@ -98,4 +98,17 @@ module ApplicationHelper
     end
     name
   end
+
+  def diff_class(char)
+    case char
+    when '~'
+      'table-warning'
+    when '-'
+      'table-danger'
+    when '+'
+      'table-success'
+    else
+      ''
+    end
+  end
 end
