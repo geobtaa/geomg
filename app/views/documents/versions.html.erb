@@ -16,7 +16,9 @@
       <tbody>
         <%- @document.versions.reverse.each_with_index do |version, index| %>
           <tr>
-            <td><%= @document.versions.count - index %></td>
+            <td>
+              <%= @document.versions.count - index %>
+            </td>
             <td>
               <table>
                 <thead>
@@ -25,6 +27,7 @@
                   <th>Change</th>
                 </thead>
                 <tbody>
+                <%- # Current Document %>
                 <%- if index == 0 %>
                   <%- current = @document.json_attributes %>
                   <%- previous = version.previous.reify&.json_attributes %>
@@ -41,6 +44,7 @@
                       </td>
                     </tr>
                   <%- end %>
+                <%- # Previous Document with another previous one %>
                 <%- elsif version.previous && version.previous.reify %>
                   <%- current = version.reify&.json_attributes %>
                   <%- previous = version.previous.reify&.json_attributes %>
@@ -64,12 +68,13 @@
                       </td>
                     </tr>
                   <%- end %>
+                <%- # Very first Document %>
                 <% else %>
-                  <%- current = version.reify&.json_attributes %>
+                  <%- current = version.changeset %>
                   <%- previous = {} %>
                   <%- diff = Hashdiff.diff(previous,current) %>
                   <%- changeset = version.changeset.except(:json_attributes, :updated_at).collect{ |change| ["+", change[0], change[1][1]] }.flatten %>
-                  <%- diff << changeset %>
+
                   <%- diff.each do |d| %>
                     <%- next if d[0] == '~' %>
                     <%- next if d[2] == [""] %>
