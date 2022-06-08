@@ -4,7 +4,11 @@
       Document &middot; Versions
     </h1>
     <% if params[:document_id] %>
-      <h2 class='h3'><%= @document.title %> &middot; <%= @document.versions.count %> versions</h2>
+      <h2 class='h3'>
+        <%= link_to(@document.title, document_path(@document)) %>
+        &middot;
+        <%= @document.versions.count %> versions
+      </h2>
     <% end %>
     <table class='table table-responsive'>
       <thead>
@@ -32,7 +36,7 @@
                   <%- current = @document.json_attributes %>
                   <%- previous = version.previous.reify&.json_attributes %>
                   <%- diff = Hashdiff.diff(previous,current) %>
-                  <%- changeset = version.changeset.except(:json_attributes, :updated_at).collect{ |change| ["+", change[0], change[1][1]] }.flatten %>
+                  <%- changeset = version.changeset.except(:json_attributes).collect{ |change| ["+", change[0], change[1][1]] }.flatten %>
                   <%- diff << changeset %>
                   <%- diff.each do |d| %>
                     <%- next if d[0] == '~' %>
@@ -49,7 +53,7 @@
                   <%- current = version.reify&.json_attributes %>
                   <%- previous = version.previous.reify&.json_attributes %>
                   <%- diff = Hashdiff.diff(previous,current) %>
-                  <%- changeset = version.changeset.except(:json_attributes, :updated_at).collect{ |change| ["+", change[0], change[1][1]] }.flatten %>
+                  <%- changeset = version.changeset.except(:json_attributes).collect{ |change| ["+", change[0], change[1][1]] }.flatten %>
                   <%- diff << changeset %>
                   <%- diff.each do |d| %>
                     <%- next if d[0] == '~' %>
