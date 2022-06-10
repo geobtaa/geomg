@@ -4,7 +4,7 @@
 class DocumentsController < ApplicationController
   ActionController::Parameters.permit_all_parameters = true
   before_action :set_document,
-                only: %i[show edit update destroy]
+                only: %i[show edit update destroy versions]
 
   # GET /documents
   # GET /documents.json
@@ -93,6 +93,9 @@ class DocumentsController < ApplicationController
   # GET /documents/1/edit
   def edit; end
 
+  # GET /documents/1/versions
+  def versions; end
+
   # POST /documents
   # POST /documents.json
   def create
@@ -155,7 +158,7 @@ class DocumentsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_document
-    @document = Document.includes(:leaf_representative).find_by!(friendlier_id: params[:id])
+    @document = Document.includes(:leaf_representative).find_by!(friendlier_id: params[:id] || params[:document_id])
   end
 
   # only allow whitelisted params through (TODO, we're allowing all document params!)
