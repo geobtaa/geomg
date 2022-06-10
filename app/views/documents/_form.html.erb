@@ -9,10 +9,12 @@
             <% if @document.persisted? %>
               <%= render 'document_bookmark', document: @document %>
               <%= truncate(@document.title, length: 80) %>
+              <%= publication_state_badge(@document) %>
+              <p class='mb-0'>
+                <small>Last updated <%= time_ago_in_words(@document.updated_at) %> ago. <%= link_to 'Versions', document_versions_path(@document) %></small></p>
             <% else %>
               New document
             <% end %>
-            <%= publication_state_badge(@document) %>
           </h1>
         </div>
 

@@ -10,7 +10,11 @@
   <% end %>
 </h1>
 <% if params[:document_id] %>
-  <h2 class='h3'><%= @document.title %> &middot; <%= @document_downloads.count %> downloads</h2>
+  <h2 class='h3'>
+    <%= link_to(@document.title, document_path(@document)) %>
+    &middot;
+    <%= @document_downloads.count %> downloads
+  </h2>
 <% else %>
   <h2 class='h3'>Download Links</h2>
 <% end %>

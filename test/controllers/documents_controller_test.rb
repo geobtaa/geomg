@@ -80,4 +80,10 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
     get documents_url, params: { format: 'csv' }
     assert_response :success
   end
+
+
+  test 'should map documents/:id/versions to documents#versions' do
+    get '/documents/p16022coll282:4660/versions'
+    assert_response :success
+  end
 end
