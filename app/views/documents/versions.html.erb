@@ -15,7 +15,6 @@
         <th>Version</th>
         <th>Change</th>
         <th>Time Ago</th>
-        <th>Actions</th>
       </thead>
       <tbody>
         <%- @document.versions.reverse.each_with_index do |version, index| %>
@@ -103,13 +102,6 @@
               </table>
             </td>
             <td><%= time_ago_in_words(version.created_at) %>
-            <td>
-              <%- if index > 0 %>
-                Restore
-              <%- else %>
-                Current
-              <%- end %>
-            </td>
           </tr>
         <%- end %>
       </tbody>
