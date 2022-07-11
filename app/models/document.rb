@@ -50,6 +50,7 @@ class Document < Kithe::Work
 
   validates_with Document::DateRangeValidator
   validates_with Document::BboxValidator
+  validates_with Document::GeomValidator
 
   # Form
   # Identification
@@ -245,6 +246,16 @@ class Document < Kithe::Work
   # Institutional Access URLs
   def access_urls
     DocumentAccess.where(friendlier_id: friendlier_id).order(institution_code: :asc)
+  end
+
+  def derive_locn_geometry
+    if send(GEOMG.FIELDS.GEOM).present?
+      send(GEOMG.FIELDS.GEOM)
+    elsif send(GEOMG.FIELDS.BBOX).present?
+      derive_dcat_bbox
+    else
+      ''
+    end
   end
 
   # Convert GEOM for Solr Indexing
