@@ -134,3 +134,6 @@ gem 'faraday'
 
 # Version Diffs
 gem 'hashdiff'
+
+# Rgeo
+gem 'rgeo'
