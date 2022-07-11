@@ -22,7 +22,7 @@ class BlacklightApiIds
   end
 
   def fetch
-    Rails.logger.debug("BlacklightApiIds > fetch > query: #{@options.inspect}")
+    Rails.logger.debug { "BlacklightApiIds > fetch > query: #{@options.inspect}" }
 
     @fetch ||= self.class.get('/', query: @options)
   end
@@ -80,15 +80,14 @@ class BlacklightApiIds
   end
 
   def append_daterange(_daterange, options)
-
-    Rails.logger.debug("BlacklightApiIds > Append daterange (start): #{options.inspect}")
+    Rails.logger.debug { "BlacklightApiIds > Append daterange (start): #{options.inspect}" }
 
     return if options[:daterange].nil?
 
     unless options[:daterange].empty?
       start_date, end_date = prep_daterange(options[:daterange])
 
-      Rails.logger.debug("BlacklightApiIds > Prep daterange: #{start_date.inspect} TO #{end_date.inspect}}")
+      Rails.logger.debug { "BlacklightApiIds > Prep daterange: #{start_date.inspect} TO #{end_date.inspect}}" }
 
       if options[:f].present?
         options[:f].merge!({ date_created_drsim: "[#{start_date} TO #{end_date}]" })
@@ -97,7 +96,7 @@ class BlacklightApiIds
       end
     end
 
-    Rails.logger.debug("BlacklightApiIds > Append daterange (end): #{options.inspect}")
+    Rails.logger.debug { "BlacklightApiIds > Append daterange (end): #{options.inspect}" }
 
     options
   end
