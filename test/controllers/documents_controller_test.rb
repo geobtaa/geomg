@@ -83,7 +83,7 @@ class DocumentsControllerTest < ActionDispatch::IntegrationTest
 
 
   test 'should map documents/:id/versions to documents#versions' do
-    get '/documents/p16022coll282:4660/versions'
+    get '/documents/35c8a641589c4e13b7aa11e37f3f00a1_0/versions'
     assert_response :success
   end
 end
