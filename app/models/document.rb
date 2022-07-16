@@ -33,7 +33,7 @@ class Document < Kithe::Work
   delegate :current_state, to: :state_machine
 
   before_save :transition_publication_state, unless: :skip_callbacks
-  before_save :set_geometry, unless: :skip_callbacks
+  before_save :set_geometry
 
   # Indexer
   self.kithe_indexable_mapper = DocumentIndexer.new
@@ -271,7 +271,7 @@ class Document < Kithe::Work
   end
 
   def set_geometry
-    if self&.locn_geometry&.empty? && self&.dcat_bbox&.present?
+    if self.locn_geometry.blank? && self&.dcat_bbox&.present?
       self.locn_geometry = derive_polygon
     end
   end

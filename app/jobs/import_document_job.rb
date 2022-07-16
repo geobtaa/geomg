@@ -10,7 +10,10 @@ class ImportDocumentJob < ApplicationJob
       friendlier_id: import_document.friendlier_id
     ).first_or_create
 
-    if document.update!(import_document.to_hash)
+    # Set the geom
+    document.set_geometry
+
+    if document.update(import_document.to_hash)
       import_document.state_machine.transition_to!(:success)
     else
       import_document.state_machine.transition_to!(:failed, "Failed - #{document.errors.inspect}")
