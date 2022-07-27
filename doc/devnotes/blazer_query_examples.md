@@ -55,3 +55,14 @@ where
     and created_at > '2021-10-01'
     and created_at < '2021-11-01'
 ```
+
+### Find all documents where a json attribute is not null
+```sql
+select
+  title,
+  kithe_model_type,
+  json_attributes->>'locn_geometry'
+from kithe_models
+where
+  json_attributes->>'locn_geometry' IS NOT NULL
+```  
