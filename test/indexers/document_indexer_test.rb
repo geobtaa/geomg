@@ -44,7 +44,7 @@ class DocumentIndexerTest < ActiveSupport::TestCase
     # - Spatial
     assert_equal output_hash[GEOMG.FIELDS.SPATIAL], ['Iowa']
     assert_nil output_hash[GEOMG.FIELDS.B1G_GEONAMES]
-    assert_equal output_hash[GEOMG.FIELDS.GEOM], ['ENVELOPE(-96.6391,-90.1401,43.5012,40.3754)']
+    assert_equal output_hash[GEOMG.FIELDS.GEOM], ['POLYGON((-80 25, -65 18, -64 33, -80 25))']
     assert_equal output_hash[GEOMG.FIELDS.BBOX], ['ENVELOPE(-96.6391,-90.1401,43.5012,40.3754)']
     assert_equal output_hash[GEOMG.FIELDS.CENTROID], ['41.9383,-93.3896']
 

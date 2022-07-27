@@ -2,7 +2,7 @@
 
 # DocumentDownload
 class DocumentDownload < ApplicationRecord
-  belongs_to :document, foreign_key: :friendlier_id, primary_key: :friendlier_id
+  belongs_to :document, inverse_of: :document_downloads, foreign_key: :friendlier_id, primary_key: :friendlier_id
   after_save :reindex_document
 
   # Validations

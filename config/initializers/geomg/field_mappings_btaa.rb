@@ -93,6 +93,11 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
+      'Geometry': {
+        destination: GEOMG.FIELDS.GEOM,
+        delimited: false,
+        transformation_method: nil
+      },
       'GeoNames': {
         destination: GEOMG.FIELDS.B1G_GEONAMES,
         delimited: true,

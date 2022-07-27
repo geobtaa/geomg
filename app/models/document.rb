@@ -33,6 +33,7 @@ class Document < Kithe::Work
   delegate :current_state, to: :state_machine
 
   before_save :transition_publication_state, unless: :skip_callbacks
+  before_save :set_geometry
 
   # Indexer
   self.kithe_indexable_mapper = DocumentIndexer.new
@@ -50,6 +51,7 @@ class Document < Kithe::Work
 
   validates_with Document::DateRangeValidator
   validates_with Document::BboxValidator
+  validates_with Document::GeomValidator
 
   # Form
   # Identification
@@ -245,6 +247,33 @@ class Document < Kithe::Work
   # Institutional Access URLs
   def access_urls
     DocumentAccess.where(friendlier_id: friendlier_id).order(institution_code: :asc)
+  end
+
+  def derive_locn_geometry
+    if send(GEOMG.FIELDS.GEOM).present?
+      send(GEOMG.FIELDS.GEOM)
+    elsif send(GEOMG.FIELDS.BBOX).present?
+      derive_polygon
+    else
+      ''
+    end
+  end
+
+  # Convert BBOX to GEOM Polygon
+  def derive_polygon
+    if send(GEOMG.FIELDS.BBOX).present?
+      # "W,S,E,N" convert to "POLYGON((W N, E N, E S, W S, W N))"
+      w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
+      "POLYGON((#{w} #{n}, #{e} #{n}, #{e} #{s}, #{w} #{s}, #{w} #{n}))"
+    else
+     ''
+   end
+  end
+
+  def set_geometry
+    if self.locn_geometry.blank? && self&.dcat_bbox&.present?
+      self.locn_geometry = derive_polygon
+    end
   end
 
   # Convert GEOM for Solr Indexing
