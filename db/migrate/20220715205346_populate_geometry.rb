@@ -11,7 +11,7 @@ class PopulateGeometry < ActiveRecord::Migration[6.1]
           end
           doc.save
         rescue Exception => e
-          puts "Failed: #{doc.id} - #{e.inspectx}"
+          puts "Failed: #{doc.id} - #{e.inspect}"
         end
       end
 
