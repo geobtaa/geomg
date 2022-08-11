@@ -67,7 +67,7 @@ class DocumentTest < ActiveSupport::TestCase
     assert_respond_to @document, GEOMG.FIELDS.SPATIAL
     assert_respond_to @document, GEOMG.FIELDS.B1G_GEONAMES
     assert_respond_to @document, GEOMG.FIELDS.BBOX
-    assert_respond_to @document, GEOMG.FIELDS.B1G_CENTROID
+    assert_respond_to @document, GEOMG.FIELDS.CENTROID
 
     # Distribution
     # - Object
