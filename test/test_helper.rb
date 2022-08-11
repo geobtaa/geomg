@@ -10,6 +10,8 @@ end
 
 require_relative '../config/environment'
 require 'rails/test_help'
+Rails.application.load_seed
+
 require 'minitest/reporters'
 require 'active_storage_validations/matchers'
 

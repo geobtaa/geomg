@@ -15,7 +15,7 @@ Attributes
 * Repeatable? (T/F - repeatable)
 * Field Type (string | integer | boolean (checkboxes) | text | select | hidden/defaultValue)
 * Field Value (default value)
-* Field Origin (Aardvark / Custom)
+* Field Origin (Aardvark / Custom / )
 
 Form Markup
 * controlled_values - Controlled Values (name of list)

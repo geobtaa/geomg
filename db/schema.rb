@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_15_205346) do
+ActiveRecord::Schema.define(version: 2022_08_10_163121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -233,6 +233,29 @@ ActiveRecord::Schema.define(version: 2022_07_15_205346) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["kithe_model_id", "most_recent"], name: "index_document_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["kithe_model_id", "sort_key"], name: "index_document_transitions_parent_sort", unique: true
+  end
+
+  create_table "elements", force: :cascade do |t|
+    t.string "label", null: false
+    t.string "solr_schema_name", null: false
+    t.string "field_definition"
+    t.string "placeholder_text"
+    t.string "data_entry_hint"
+    t.string "test_fixture_example"
+    t.string "field_type", null: false
+    t.boolean "required", default: false, null: false
+    t.boolean "repeatable", default: false, null: false
+    t.string "controlled_vocabulary"
+    t.string "js_behaviors"
+    t.string "html_attributes"
+    t.boolean "display_only_on_persisted", default: false, null: false
+    t.boolean "import_deliminated", default: false, null: false
+    t.string "import_transformation_method"
+    t.string "export_transformation_method"
+    t.string "index_transformation_method"
+    t.string "validation_method"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "import_document_transitions", force: :cascade do |t|

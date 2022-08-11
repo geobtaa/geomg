@@ -53,87 +53,17 @@ class Document < Kithe::Work
   validates_with Document::BboxValidator
   validates_with Document::GeomValidator
 
-  # Form
-  # Identification
-  # - Descriptive
-  attr_json GEOMG.FIELDS.TITLE.to_sym, :string
-  attr_json GEOMG.FIELDS.ALT_TITLE.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.DESCRIPTION.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LANGUAGE.to_sym, :string, array: true, default: -> { [] }
+  Element.all.each do |attribute|
+    next if attribute.solr_schema_name == 'dct_references_s'
 
-  # - Credits
-  attr_json GEOMG.FIELDS.CREATOR.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.PUBLISHER.to_sym, :string, array: true, default: -> { [] }
+    if attribute.repeatable?
+      attr_json attribute.solr_schema_name.to_sym, attribute.field_type.to_sym, array: true, default: -> { [] }
+    else
+      attr_json attribute.solr_schema_name.to_sym, attribute.field_type.to_sym, default: ''
+    end
+  end
 
-  # - Categories
-  attr_json GEOMG.FIELDS.B1G_GENRE.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.SUBJECT.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.THEME.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_KEYWORD.to_sym, :string, array: true, default: -> { [] }
-
-  # - Temporal
-  attr_json GEOMG.FIELDS.ISSUED.to_sym, :string
-  attr_json GEOMG.FIELDS.TEMPORAL.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_DATE_RANGE.to_sym, :string, array: true, default: -> { [] }
-  # GEOMG.FIELDS.YEAR.to_sym is derived via self.solr_year_json
-
-  # - Spatial
-  attr_json GEOMG.FIELDS.SPATIAL.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_GEONAMES.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.GEOM.to_sym, :string
-  attr_json GEOMG.FIELDS.BBOX.to_sym, :string
-  attr_json GEOMG.FIELDS.B1G_CENTROID.to_sym, :string
-  attr_json GEOMG.FIELDS.CENTROID.to_sym, :string
-
-  # - Relations
-  attr_json GEOMG.FIELDS.RELATION.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.MEMBER_OF.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.IS_VERSION_OF.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.REPLACES.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.IS_REPLACED_BY.to_sym, :string, array: true, default: -> { [] }
-
-  # Distribution
-  # - Object
-  attr_json GEOMG.FIELDS.LAYER_GEOM_TYPE.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LAYER_ID.to_sym, :string
-  attr_json GEOMG.FIELDS.FORMAT.to_sym, :string
-  attr_json GEOMG.FIELDS.FILE_SIZE.to_sym, :string
-  attr_json GEOMG.FIELDS.GEOREFERENCED.to_sym, :boolean
-
-  # - Access Links
-  # - Geospatial Web Services
-  # - Images
-  # - Metadata
   attr_json GEOMG.FIELDS.REFERENCES.to_sym, Document::Reference.to_type, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_IMAGE.to_sym, :string
-
-  # Administrative
-  # - Codes
-  attr_json GEOMG.FIELDS.IDENTIFIER.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LAYER_SLUG.to_sym, :string
-  attr_json GEOMG.FIELDS.PROVENANCE.to_sym, :string
-  attr_json GEOMG.FIELDS.B1G_CODE.to_sym, :string
-  attr_json GEOMG.FIELDS.IS_PART_OF.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.SOURCE.to_sym, :string, array: true, default: -> { [] }
-
-  # - Rights
-  attr_json GEOMG.FIELDS.LICENSE.to_sym, :string, array: true, default: -> { [] }
-
-  # - Life Cycle
-  attr_json GEOMG.FIELDS.B1G_ACCRUAL_METHOD.to_sym, :string
-  attr_json GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY.to_sym, :string
-  attr_json GEOMG.FIELDS.B1G_DATE_ACCESSIONED.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_DATE_RETIRED.to_sym, :string
-  attr_json GEOMG.FIELDS.B1G_STATUS.to_sym, :string
-
-  # - Accessibility
-  attr_json GEOMG.FIELDS.ACCESS_RIGHTS.to_sym, :string
-  attr_json GEOMG.FIELDS.RIGHTS_HOLDER.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.RIGHTS.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_MEDIATOR.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_ACCESS.to_sym, :string
-  attr_json GEOMG.FIELDS.SUPPRESSED.to_sym, :boolean
-  attr_json GEOMG.FIELDS.B1G_CHILD_RECORD.to_sym, :boolean
 
   # Index Transformations - *_json functions
   def references_json
