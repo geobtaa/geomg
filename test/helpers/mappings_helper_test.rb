@@ -5,6 +5,7 @@ require 'test_helper'
 class MappingsHelperTest < ActionView::TestCase
 
   def setup
+    Rails.application.load_seed
     @import = ImportBtaa.new
   end
 
