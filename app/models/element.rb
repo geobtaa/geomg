@@ -14,4 +14,9 @@ class Element < ApplicationRecord
   def self.list
     Element.all.collect{ |c| c.solr_schema_name }
   end
+
+  # Indexable value
+  def index_value
+    self.index_transformation_method || self.solr_schema_name
+  end
 end

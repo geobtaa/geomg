@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2022_08_10_163121) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_function :kithe_models_friendlier_id_gen, sql_definition: <<-SQL
+  create_function :kithe_models_friendlier_id_gen, sql_definition: <<-'SQL'
       CREATE OR REPLACE FUNCTION public.kithe_models_friendlier_id_gen(min_value bigint, max_value bigint)
        RETURNS text
        LANGUAGE plpgsql

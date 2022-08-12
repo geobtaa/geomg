@@ -53,6 +53,7 @@ class Document < Kithe::Work
   validates_with Document::BboxValidator
   validates_with Document::GeomValidator
 
+  # Definte our AttrJSON attributes
   Element.all.each do |attribute|
     next if attribute.solr_schema_name == 'dct_references_s'
 
