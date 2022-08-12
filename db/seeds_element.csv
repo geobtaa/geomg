@@ -1,5 +1,5 @@
 label,solr_schema_name,field_definition,field_type,required,repeatable,placeholder_text,data_entry_hint,test_fixture_example,controlled_vocabulary,js_behaviors,html_attributes,display_only_on_persisted,import,import_deliminated,import_transformation_method,export,export_transformation_method,index,index_transformation_method,validation_method
-Title,dct_title_s,https://opengeometadata.org/docs/ogm-aardvark/title,string,TRUE,FALSE,,"Theme: city, state, temporal coverage",title,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,presence
+Title,dct_title_s,https://opengeometadata.org/docs/ogm-aardvark/title,string,TRUE,FALSE,,"Theme: city, state, temporal coverage",title,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,title,presence
 Alternative Title,dct_alternative_sm,https://opengeometadata.org/docs/ogm-aardvark/alternative-title,string,FALSE,TRUE,,,alternative-title1|alternative-title2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,
 Description,dct_description_sm,https://opengeometadata.org/docs/ogm-aardvark/description,text,FALSE,TRUE,,,description1|description2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,
 Language,dct_language_sm,https://opengeometadata.org/docs/ogm-aardvark/language,string,FALSE,TRUE,,,language1|language2,languages,autocomplete,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,
