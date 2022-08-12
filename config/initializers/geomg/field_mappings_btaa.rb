@@ -10,7 +10,7 @@ module Geomg
     @mappings = Hash.new
     Element.importable.each do |elm|
       @mappings[elm.label.to_sym] = {
-        destination: elm.solr_schema_name,
+        destination: elm.solr_field,
         delimited: elm.repeatable,
         transformation_method: elm.import_transformation_method
       }

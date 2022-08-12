@@ -55,12 +55,12 @@ class Document < Kithe::Work
 
   # Definte our AttrJSON attributes
   Element.all.each do |attribute|
-    next if attribute.solr_schema_name == 'dct_references_s'
+    next if attribute.solr_field == 'dct_references_s'
 
     if attribute.repeatable?
-      attr_json attribute.solr_schema_name.to_sym, attribute.field_type.to_sym, array: true, default: -> { [] }
+      attr_json attribute.solr_field.to_sym, attribute.field_type.to_sym, array: true, default: -> { [] }
     else
-      attr_json attribute.solr_schema_name.to_sym, attribute.field_type.to_sym, default: ''
+      attr_json attribute.solr_field.to_sym, attribute.field_type.to_sym, default: ''
     end
   end
 

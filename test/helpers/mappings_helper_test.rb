@@ -10,7 +10,7 @@ class MappingsHelperTest < ActionView::TestCase
   end
 
   test 'attribute_collection' do
-    attrs = Element.importable.map(&:solr_schema_name).sort
+    attrs = Element.importable.map(&:solr_field).sort
     attrs.prepend('')
     attrs.prepend('Discard')
     attrs.delete (:gbl_mdVersion_s)   # Assumed value

@@ -237,11 +237,12 @@ ActiveRecord::Schema.define(version: 2022_08_10_163121) do
 
   create_table "elements", force: :cascade do |t|
     t.string "label", null: false
-    t.string "solr_schema_name", null: false
+    t.string "solr_field", null: false
     t.string "field_definition"
     t.string "field_type", null: false
     t.boolean "required", default: false, null: false
     t.boolean "repeatable", default: false, null: false
+    t.boolean "formable", default: true, null: false
     t.string "placeholder_text"
     t.string "data_entry_hint"
     t.string "test_fixture_example"
@@ -249,12 +250,12 @@ ActiveRecord::Schema.define(version: 2022_08_10_163121) do
     t.string "js_behaviors"
     t.string "html_attributes"
     t.boolean "display_only_on_persisted", default: false, null: false
-    t.boolean "import", default: true, null: false
+    t.boolean "importable", default: true, null: false
     t.boolean "import_deliminated", default: false, null: false
     t.string "import_transformation_method"
-    t.boolean "export", default: true, null: false
+    t.boolean "exportable", default: true, null: false
     t.string "export_transformation_method"
-    t.boolean "index", default: true, null: false
+    t.boolean "indexable", default: true, null: false
     t.string "index_transformation_method"
     t.string "validation_method"
     t.datetime "created_at", precision: 6, null: false
