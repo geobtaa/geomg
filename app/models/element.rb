@@ -16,8 +16,13 @@ class Element < ApplicationRecord
     Element.all.map(&:solr_field)
   end
 
-  # Indexable value
+  # Index value
   def index_value
     self.index_transformation_method || self.solr_field
+  end
+
+  # Export value
+  def export_value
+    self.export_transformation_method || self.solr_field
   end
 end
