@@ -3,7 +3,7 @@
 # MappingsHelper
 module MappingsHelper
   def attribute_collection
-    attrs = Document.attr_json_registry.attribute_names.sort
+    attrs = Element.importable.map(&:solr_schema_name).sort
     attrs.prepend('')
     attrs.prepend('Discard')
     attrs

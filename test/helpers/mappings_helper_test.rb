@@ -9,7 +9,7 @@ class MappingsHelperTest < ActionView::TestCase
   end
 
   test 'attribute_collection' do
-    attrs = GEOMG.FIELDS.keys.collect{|c| GEOMG.FIELDS.send(c).to_sym}.sort
+    attrs = Element.importable.map(&:solr_schema_name).sort
     attrs.prepend('')
     attrs.prepend('Discard')
     attrs.delete (:gbl_mdVersion_s)   # Assumed value
