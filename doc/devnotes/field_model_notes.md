@@ -2,9 +2,10 @@ Attr Redundancy/Duplication
 * Config    - settings.yml (field name abstractions)
 * Model     - ~~document.rb (attr_json)~~
 * Importer  - ~~field_mappings_btaa.rb (csv headers to model attrs)~~
+* Indexer   - ~~document_indexer.rb (model to solr doc)~~
 * Exporter  - _json_btaa_aardvark.jbuilder
 * Form      - _document_fields.html.erb
-* Indexer   - document_indexer.rb (model to solr doc) @TODO / Not working
+
 
 Attributes
 * Label (CSV Header / Form Label - label)
