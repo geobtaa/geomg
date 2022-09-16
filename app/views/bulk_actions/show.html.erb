@@ -72,8 +72,9 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Rails ID</th>
-          <th>Identifier</th>
+          <th>Rails/Database ID</th>
+          <th>Aardvark ID</th>
+          <th>View in...</th>
           <th>Version</th>
           <th>State</th>
         </tr>
@@ -83,9 +84,11 @@
           <tr>
             <td><%= doc.document_id %></td>
             <td>
-            <%= link_to "http://localhost:3001/catalog/#{doc.friendlier_id}", target: "_blank" do %>
               <%= doc.friendlier_id %>
-            <% end %>
+            </td>
+            <td>
+              <%= link_to "GEOMG", document_url(doc.friendlier_id), { class: 'btn btn-primary' } %>
+              <%= link_to "BTAA Geoportal", blacklight_link(doc), { class: 'btn btn-primary', target: :_blank } %>
             </td>
             <td><%= doc.version %></td>
             <td><%= doc.state_machine.current_state %></td>
