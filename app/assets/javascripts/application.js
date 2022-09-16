@@ -21,7 +21,6 @@
 //= require shave/dist/jquery.shave.js
 //= require moment
 //= require i18n
-//= require i18n/translations
 
 // GEOMG
 //= require geomg/geomg
