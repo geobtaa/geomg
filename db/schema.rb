@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_15_205346) do
+ActiveRecord::Schema.define(version: 2022_09_18_203554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_function :kithe_models_friendlier_id_gen, sql_definition: <<-SQL
+  create_function :kithe_models_friendlier_id_gen, sql_definition: <<-'SQL'
       CREATE OR REPLACE FUNCTION public.kithe_models_friendlier_id_gen(min_value bigint, max_value bigint)
        RETURNS text
        LANGUAGE plpgsql
@@ -233,6 +233,33 @@ ActiveRecord::Schema.define(version: 2022_07_15_205346) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["kithe_model_id", "most_recent"], name: "index_document_transitions_parent_most_recent", unique: true, where: "most_recent"
     t.index ["kithe_model_id", "sort_key"], name: "index_document_transitions_parent_sort", unique: true
+  end
+
+  create_table "elements", force: :cascade do |t|
+    t.string "label", null: false
+    t.string "solr_field", null: false
+    t.string "field_definition"
+    t.string "field_type", null: false
+    t.boolean "required", default: false, null: false
+    t.boolean "repeatable", default: false, null: false
+    t.boolean "formable", default: true, null: false
+    t.string "placeholder_text"
+    t.string "data_entry_hint"
+    t.string "test_fixture_example"
+    t.string "controlled_vocabulary"
+    t.string "js_behaviors"
+    t.string "html_attributes"
+    t.boolean "display_only_on_persisted", default: false, null: false
+    t.boolean "importable", default: true, null: false
+    t.boolean "import_deliminated", default: false, null: false
+    t.string "import_transformation_method"
+    t.boolean "exportable", default: true, null: false
+    t.string "export_transformation_method"
+    t.boolean "indexable", default: true, null: false
+    t.string "index_transformation_method"
+    t.string "validation_method"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "import_document_transitions", force: :cascade do |t|
