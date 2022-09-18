@@ -30,7 +30,7 @@ class Document
     def proper_envelope(record, valid_geom)
       geom = record.send(GEOMG.FIELDS.GEOM)
       begin
-        valid_geom, error_message = valid_bbox?(geom.delete("ENVELOPE()"))
+        valid_geom, error_message = valid_envelope?(geom.delete("ENVELOPE()"))
       rescue StandardError => e
         valid_geom = false
         record.errors.add(GEOMG.FIELDS.GEOM, "Invalid envelope: #{e}")
@@ -66,42 +66,43 @@ class Document
       valid_geom
     end
 
-    def valid_bbox?(bbox)
+    def valid_envelope?(envelope)
       # Default to true
-      valid_bbox = true
+      valid_envelope = true
       error_message = ''
 
-      # Min/Max
-      min_max = [-180.0, -90.0, 180.0, 90.0]
-      bbox = bbox.split(',')
+      # Min/Max - W,E,N,S
+      # ENVELOPE(-180,180,90,-90)
+      min_max = [-180.0, 180.0, 90.0, -90.0]
+      envelope = envelope.split(',')
 
       # @TODO: Essentially duplicated logic from bbox_validator.rb, DRY it up
-      if bbox.size != 4
-        valid_bbox = false
-        error_message = 'invalid W,S,E,N syntax'
+      if envelope.size != 4
+        valid_envelope = false
+        error_message = 'invalid ENVELOPE(W,E,N,S) syntax'
       # W
-      elsif bbox[0].to_f < min_max[0]
-        valid_bbox = false
+      elsif envelope[0].to_f < min_max[0]
+        valid_envelope = false
         error_message = 'invalid minX present'
-      # S
-      elsif bbox[1].to_f < min_max[1]
-        valid_bbox = false
-        error_message = 'invalid minY present'
       # E
-      elsif bbox[2].to_f > min_max[2]
-        valid_bbox = false
+      elsif envelope[1].to_f > min_max[1]
+        valid_envelope = false
         error_message = 'invalid maX present'
       # N
-      elsif bbox[3].to_f > min_max[3]
-        valid_bbox = false
+      elsif envelope[2].to_f > min_max[2]
+        valid_envelope = false
         error_message = 'invalid maxY present'
+      # S
+      elsif envelope[3].to_f < min_max[3]
+        valid_envelope = false
+        error_message = 'invalid minY present'
       # Solr - maxY must be >= minY
-      elsif bbox[1].to_f >= bbox[3].to_f
-        valid_bbox = false
+      elsif envelope[3].to_f >= envelope[2].to_f
+        valid_envelope = false
         error_message = 'maxY must be >= minY'
       end
 
-      return valid_bbox, error_message
+      return valid_envelope, error_message
     end
   end
 end

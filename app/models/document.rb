@@ -265,7 +265,7 @@ class Document < Kithe::Work
     if send(GEOMG.FIELDS.BBOX).present?
       # Guard against a whole world polygons
       if send(GEOMG.FIELDS.BBOX) == '-180,-90,180,90'
-        "ENVELOPE(-180,-90,180,90)"
+        "ENVELOPE(-180,180,90,-90)"
       else
         # "W,S,E,N" convert to "POLYGON((W N, E N, E S, W S, W N))"
         w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')

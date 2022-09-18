@@ -48,7 +48,7 @@
   <h3 id="spatial">Spatial</h3>
   <%= f.repeatable_attr_input GEOMG.FIELDS.SPATIAL, build: :at_least_one %>
   <%= f.input GEOMG.FIELDS.BBOX, label: "Bounding Box", hint: "W,S,E,N - A centroid will be derived from this value." %>
-  <%= f.input GEOMG.FIELDS.GEOM, label: "Geometry", hint: "WKT - An ENVELOPE, POLYGON, or MULTIPOLYGON value. Use ENVELOPE(-180,-90,180,90) for a whole earth geometry." %>
+  <%= f.input GEOMG.FIELDS.GEOM, label: "Geometry", hint: "WKT - An ENVELOPE, POLYGON, or MULTIPOLYGON value. Use ENVELOPE(-180,180,90,-90) for a whole earth geometry." %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_GEONAMES, build: :at_least_one %>
 </div>
 
