@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 # Document
@@ -262,12 +263,17 @@ class Document < Kithe::Work
   # Convert BBOX to GEOM Polygon
   def derive_polygon
     if send(GEOMG.FIELDS.BBOX).present?
-      # "W,S,E,N" convert to "POLYGON((W N, E N, E S, W S, W N))"
-      w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
-      "POLYGON((#{w} #{n}, #{e} #{n}, #{e} #{s}, #{w} #{s}, #{w} #{n}))"
+      # Guard against a whole world polygons
+      if send(GEOMG.FIELDS.BBOX) == '-180,-90,180,90'
+        "ENVELOPE(-180,180,90,-90)"
+      else
+        # "W,S,E,N" convert to "POLYGON((W N, E N, E S, W S, W N))"
+        w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
+        "POLYGON((#{w} #{n}, #{e} #{n}, #{e} #{s}, #{w} #{s}, #{w} #{n}))"
+      end
     else
      ''
-   end
+    end
   end
 
   def set_geometry
