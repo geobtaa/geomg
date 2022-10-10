@@ -39,4 +39,13 @@ class ImportBtaaTest < ActiveSupport::TestCase
     assert_instance_of(String, @import.derive_dcat_centroid(solr_geom_hash))
     assert_equal('0.9350000000000023,16.849999999999998', @import.derive_dcat_centroid(solr_geom_hash))
   end
+
+  test 'derive_boolean' do
+    solr_geom_hash = {
+      data_hash: { gbl_suppressed_b: 'False' },
+      field: :gbl_suppressed_b
+    }
+
+    assert_equal(false, @import.derive_boolean(solr_geom_hash))
+  end
 end
