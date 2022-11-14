@@ -65,10 +65,9 @@ class ImportBtaa < Import
 
   # Required Values
   # Key / Default Value
+  # Example: { b1g_status_s: 'Active' }
   def required_mappings
-    [
-      { b1g_status_s: 'Active' }
-    ]
+    []
   end
 
   def derive_dcat_centroid(args)
