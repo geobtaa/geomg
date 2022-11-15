@@ -219,6 +219,24 @@ class DocumentTest < ActiveSupport::TestCase
     @document.save
     assert @document.invalid?
     assert @document.errors
+
+    # Solr - maxY must be >= minY - https://github.com/geobtaa/geomg/issues/173
+    @document.send("#{GEOMG.FIELDS.BBOX}=", "-97.25,-89.5,49.3833,433.0")
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
+
+    # Solr - invalid minY - https://github.com/geobtaa/geomg/issues/173
+    @document.send("#{GEOMG.FIELDS.BBOX}=", "-113.5667,-512.6667,78.5833,6.4333")
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
+
+    # Solr - invalid decimals - https://github.com/geobtaa/geomg/issues/173
+    @document.send("#{GEOMG.FIELDS.BBOX}=", "-118.00.0000,-88.00.0000,51.00.0000,42.00.0000")
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
   end
 
   # Test solr_year_json

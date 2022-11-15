@@ -76,6 +76,16 @@ class Document
       min_max = [-180.0, 180.0, 90.0, -90.0]
       envelope = envelope.split(',')
 
+      # Reject ENVELOPE(-118.00.0000,-88.00.0000,51.00.0000,42.00.0000)
+      # - Double period float-ish things?
+      envelope.each do |val|
+        byebug
+        if val.count('.') >= 2
+          valid_envelope = false
+          error_message = 'invalid ENVELOPE(W,E,N,S) syntax - found multiple periods in coordinate value(s).'
+        end
+      end
+
       # @TODO: Essentially duplicated logic from bbox_validator.rb, DRY it up
       if envelope.size != 4
         valid_envelope = false
