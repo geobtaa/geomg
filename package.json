@@ -10,7 +10,7 @@
     "bootstrap-datepicker": "^1.9.0",
     "devbridge-autocomplete": "^1.4.10",
     "highcharts": "^9.3.2",
-    "i18n": "^0.15.0",
+    "i18n": "^0.15.1",
     "inputmask": "^5.0.3",
     "node-forge": "^1.0.0",
     "popper.js": "^1.16.1",
