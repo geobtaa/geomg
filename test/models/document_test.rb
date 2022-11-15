@@ -139,14 +139,55 @@ class DocumentTest < ActiveSupport::TestCase
 
   # Test DateRanges
   test 'b1g_date_range validation' do
+    # YYYY-YYYY is valid
     @document = documents(:ag)
     @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=",["1977-2020"])
     assert_nothing_raised do
       @document.save
     end
 
+    # YYYY-* or *-YYYY is valid
+    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=",["YYYY-*"])
+    assert_nothing_raised do
+      @document.save
+    end
+    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=",["*-YYYY"])
+    assert_nothing_raised do
+      @document.save
+    end
+
+    # Start YYYY == End YYYY is valid
+    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=",["1851-1851"])
+    assert_nothing_raised do
+      @document.save
+    end
+
+    # No empty side allowed
+    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["1977-"])
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
+
     # No letters allowed
     @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["197X-2020"])
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
+
+    # No trailing punctuation allowed
+    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["1851-1851?"])
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
+
+    # Accepts only 1 wildcard
+    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["*-*"])
+    @document.save
+    assert @document.invalid?
+    assert @document.errors
+
+    # Start date must be lower than End date
+    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["1996-1977"])
     @document.save
     assert @document.invalid?
     assert @document.errors
