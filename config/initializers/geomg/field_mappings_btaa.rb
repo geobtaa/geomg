@@ -318,6 +318,11 @@ module Geomg
         delimited: false,
         transformation_method: nil
       },
+      'Publication State': {
+        destination: 'publication_state',
+        delimited: false,
+        transformation_method: nil
+      },
       'Suppressed': {
         destination: GEOMG.FIELDS.SUPPRESSED,
         delimited: false,
@@ -335,6 +340,16 @@ module Geomg
       },
       'Access': {
         destination: GEOMG.FIELDS.B1G_ACCESS,
+        delimited: false,
+        transformation_method: nil
+      },
+      'Created At': {
+        destination: 'created_at',
+        delimited: false,
+        transformation_method: nil
+      },
+      'Updated At': {
+        destination: 'updated_at',
         delimited: false,
         transformation_method: nil
       }
