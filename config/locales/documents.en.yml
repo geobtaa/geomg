@@ -16,6 +16,9 @@ en:
         dct_creator_sm:
           one: "Creator"
           other: "Creator"
+        b1g_creatorID_sm:
+          one: "Creator ID"
+          other: "Creator ID"
         dct_publisher_sm:
           one: "Publisher"
           other: "Publisher"

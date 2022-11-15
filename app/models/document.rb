@@ -65,6 +65,7 @@ class Document < Kithe::Work
   # - Credits
   attr_json GEOMG.FIELDS.CREATOR.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.PUBLISHER.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.B1G_CREATOR_ID.to_sym, :string, array: true, default: -> { [] }
 
   # - Categories
   attr_json GEOMG.FIELDS.B1G_GENRE.to_sym, :string, array: true, default: -> { [] }

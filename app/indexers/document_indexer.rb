@@ -21,6 +21,7 @@ class DocumentIndexer < Kithe::Indexer
     # - Credits
     to_field GEOMG.FIELDS.CREATOR, obj_extract(GEOMG.FIELDS.CREATOR), transform(->(v) { v.presence ? v : nil })
     to_field GEOMG.FIELDS.PUBLISHER, obj_extract(GEOMG.FIELDS.PUBLISHER), transform(->(v) { v.presence ? v : nil })
+    to_field GEOMG.FIELDS.B1G_CREATOR_ID, obj_extract(GEOMG.FIELDS.B1G_CREATOR_ID), transform(->(v) { v.presence ? v : nil })
 
     # - Categories
     to_field GEOMG.FIELDS.B1G_GENRE, obj_extract(GEOMG.FIELDS.B1G_GENRE)

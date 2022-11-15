@@ -33,6 +33,11 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
+      'Creator ID': {
+        destination: GEOMG.FIELDS.B1G_CREATOR_ID,
+        delimited: true,
+        transformation_method: nil
+      },
       'Publisher': {
         destination: GEOMG.FIELDS.PUBLISHER,
         delimited: true,

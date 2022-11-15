@@ -12,7 +12,9 @@
 <div class="grouping">
   <h3 id="credits">Credits</h3>
   <%= f.repeatable_attr_input GEOMG.FIELDS.CREATOR, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_CREATOR_ID, build: :at_least_one %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.PUBLISHER, build: :at_least_one %>
+
   <%= f.input GEOMG.FIELDS.PROVENANCE, label: "Provider" %>
 </div>
 
