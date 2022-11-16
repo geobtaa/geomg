@@ -17,6 +17,10 @@ class DocumentDownload < ApplicationRecord
     end
   end
 
+  def to_csv
+    self.attributes.values
+  end
+
   def reindex_document
     document.save
   end

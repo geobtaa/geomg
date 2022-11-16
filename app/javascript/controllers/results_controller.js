@@ -217,6 +217,16 @@ export default class extends Controller {
     }
   }
 
+  exportCsvDownloads() {
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      window.location = el.dataset.pageset + "&format=csv_downloads"
+    } else {
+      window.location = el.dataset.resultset + "&format=csv_downloads"
+    }
+  }
+
   bulkAction() {
     var scope = this.checkSelectionScope();
     var el = document.querySelector('#result-selected-options');

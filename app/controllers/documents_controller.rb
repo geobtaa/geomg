@@ -46,6 +46,12 @@ class DocumentsController < ApplicationController
         ExportJob.perform_later(current_user, query_params, ExportCsvService)
         head :no_content
       end
+
+      # CSV Document Downloads - B1G
+      format.csv_downloads do
+        ExportJob.perform_later(current_user, query_params, ExportCsvDownloadsService)
+        head :no_content
+      end
     end
   end
 
@@ -79,6 +85,12 @@ class DocumentsController < ApplicationController
       # CSV - B1G
       format.csv do
         ExportJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'csv' }, ExportCsvService)
+        head :no_content
+      end
+
+      # CSV Document Downloads - B1G
+      format.csv_downloads do
+        ExportJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'csv_downloads' }, ExportCsvDownloadsService)
         head :no_content
       end
     end
