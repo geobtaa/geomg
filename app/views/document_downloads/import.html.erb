@@ -19,7 +19,7 @@
       <strong>Note:</strong> New Download Links will be created. Existing Download Links will be updated per the CSV file.
     </p>
 
-    <h3 class="h4">Import a CSV File</h3>
+    <h3 class="h4">Upload a CSV File</h3>
     <%= simple_form_for DocumentDownload.new, url: import_document_downloads_path, method: :post, multipart: true do |f| %>
       <div class="form-inputs">
         <%= f.simple_fields_for :downloads do |download_fields| %>
