@@ -68,4 +68,9 @@ class DocumentAccessesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to document_document_accesses_url(@document)
   end
+
+  test "should get destroy_all" do
+    get destroy_all_document_accesses_url
+    assert_response :success
+  end
 end

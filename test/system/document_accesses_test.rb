@@ -9,7 +9,7 @@ class DocumentAccessesTest < ApplicationSystemTestCase
 
   test "visiting the document index" do
     visit document_document_accesses_url(@document)
-    assert_selector "h1", text: "Document · Access URLs"
+    assert_selector "h1", text: "Document · Access Links"
   end
 
   test "creating a Document access" do

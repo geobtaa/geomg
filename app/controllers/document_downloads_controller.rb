@@ -11,7 +11,7 @@ class DocumentDownloadsController < ApplicationController
     if params[:document_id]
       @document_downloads = DocumentDownload.where(friendlier_id: @document.friendlier_id).order(position: :asc)
     else
-      @pagy, @document_downloads = pagy(DocumentDownload.all.order('updated_at DESC'), items: 20)
+      @pagy, @document_downloads = pagy(DocumentDownload.all.order(friendlier_id: :asc, updated_at: :desc), items: 20)
     end
   end
 
@@ -68,6 +68,21 @@ class DocumentDownloadsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to document_downloads_url, notice: 'Document download was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def destroy_all
+    logger.debug('Destroy Downloads')
+    return unless params.dig(:document_download, :downloads, :file)
+
+    respond_to do |format|
+      if DocumentDownload.destroy_all(params.dig(:document_download, :downloads, :file))
+        format.html { redirect_to document_downloads_path, notice: 'Download Links were created destroyed.' }
+      else
+        format.html { redirect_to document_downloads_path, notice: 'Download Links could not be destroyed.' }
+      end
+    rescue StandardError => e
+      format.html { redirect_to document_downloads_path, notice: "Download Links could not be destroyed. #{e}" }
     end
   end
 

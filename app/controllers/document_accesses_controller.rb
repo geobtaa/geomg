@@ -11,7 +11,7 @@ class DocumentAccessesController < ApplicationController
     if params[:document_id]
       @document_accesses = DocumentAccess.where(friendlier_id: @document.friendlier_id).order(institution_code: :asc)
     else
-      @pagy, @document_accesses = pagy(DocumentAccess.all.order('updated_at DESC'), items: 20)
+      @pagy, @document_accesses = pagy(DocumentAccess.all.order(friendlier_id: :asc, updated_at: :desc), items: 20)
     end
   end
 
@@ -66,6 +66,21 @@ class DocumentAccessesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to document_document_accesses_path(@document), notice: 'Document access was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def destroy_all
+    logger.debug('Destroy Access Links')
+    return unless params.dig(:document_access, :assets, :file)
+
+    respond_to do |format|
+      if DocumentAccess.destroy_all(params.dig(:document_access, :assets, :file))
+        format.html { redirect_to document_accesses_path, notice: 'Document Access Links were created destroyed.' }
+      else
+        format.html { redirect_to document_accesses_path, notice: 'Document Access Links could not be destroyed.' }
+      end
+    rescue StandardError => e
+      format.html { redirect_to document_accesses_path, notice: "Document Access Links could not be destroyed. #{e}" }
     end
   end
 
