@@ -1,27 +1,69 @@
 <p id="notice"><%= notice %></p>
 
-<h1 style="width:100%;">
+<h1 style="width:100%; border-bottom:dotted;" class="mb-4">
   Document &middot; Download Links
   <% if params[:document_id] %>
     <%= link_to '+ New Download Link', new_document_document_download_path(@document), { class: 'btn btn-primary float-right' } %>
   <% end %>
 </h1>
 
-<% if params[:document_id] %>
-  <h2 class='h3'><%= @document.title %></h2>
-<% else %>
-  <h2 class='h3'>Import for Multiple Documents</h2>
-<% end %>
+<div class="row">
+  <div class="col-6">
+    <% if params[:document_id] %>
+      <h2 class='h3'><%= @document.title %></h2>
+    <% else %>
+      <h2 class='h3'>Import for Multiple Documents</h2>
+    <% end %>
 
-<h3>Import a CSV File</h3>
-<%= simple_form_for DocumentDownload.new, url: import_document_downloads_path, method: :post, multipart: true do |f| %>
-  <div class="form-inputs">
-    <%= f.simple_fields_for :downloads do |download_fields| %>
-      <%= download_fields.input :file, as: :file, input_html: {} %>
-    <%- end %>
-  </div>
+    <h3 class="h4">Import a CSV File</h3>
+    <%= simple_form_for DocumentDownload.new, url: import_document_downloads_path, method: :post, multipart: true do |f| %>
+      <div class="form-inputs">
+        <%= f.simple_fields_for :downloads do |download_fields| %>
+          <%= download_fields.input :file, as: :file, input_html: {} %>
+        <%- end %>
+      </div>
 
-  <div class="form-actions">
-    <%= submit_tag "Import CSV", {class: 'btn btn-primary'} %>
+      <div class="form-actions">
+        <%= submit_tag "+ Import CSV", {class: 'btn btn-primary'} %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  <div class="col-6">
+    <h4>Example CSV File</h4>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>friendlier_id</th>
+          <th>label</th>
+          <th>value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>00add5b8-a7b1-42d4-b4de-ca99716a5096</td>
+          <td>GeoTIFF</td>
+          <td>https://s3.amazonaws.com/holc/tiles/WI/Madison/1937/rectified.zip</td>
+        </tr>
+        <tr>
+          <td>00add5b8-a7b1-42d4-b4de-ca99716a5096</td>
+          <td>JPEG</td>
+          <td>https://s3.amazonaws.com/holc/tiles/WI/Madison/1937/holc-scan.jpg</td>
+        </tr>
+        <tr>
+          <td>...</td>
+          <td>...</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h5>CSV File Column Definitions</h5>
+    <dl>
+      <dt>friendlier_id</dt>
+      <dd>The associated GEOMG document's friendlier id</dd>
+      <dt>label</dt>
+      <dd>The label for the Download link</dd>
+      <dt>value</dt>
+      <dd>The URL for the Download link</dd>
+    </dl>
+  </div>
+</div>

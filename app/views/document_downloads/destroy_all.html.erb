@@ -8,7 +8,7 @@
 </h1>
 
 <div class="row">
-  <div class="col-7">
+  <div class="col-6">
     <% if params[:document_id] %>
       <h2 class='h3'><%= @document.title %></h2>
     <% else %>
@@ -29,12 +29,12 @@
         </div>
 
         <div class="form-actions">
-          <%= submit_tag "Destroy All via CSV", {class: 'btn btn-danger'} %>
+          <%= submit_tag "- Destroy All", {class: 'btn btn-danger'} %>
         </div>
       </div>
     <% end %>
   </div>
-  <div class="col-5">
+  <div class="col-6">
     <h4>Example CSV File</h4>
     <table class="table table-bordered">
       <thead>
