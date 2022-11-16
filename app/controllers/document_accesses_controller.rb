@@ -11,7 +11,7 @@ class DocumentAccessesController < ApplicationController
     if params[:document_id]
       @document_accesses = DocumentAccess.where(friendlier_id: @document.friendlier_id).order(institution_code: :asc)
     else
-      @pagy, @document_accesses = pagy(DocumentAccess.all.order('updated_at DESC'), items: 20)
+      @pagy, @document_accesses = pagy(DocumentAccess.all.order(friendlier_id: :asc, updated_at: :desc), items: 20)
     end
   end
 

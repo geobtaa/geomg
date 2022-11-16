@@ -11,7 +11,7 @@ class DocumentDownloadsController < ApplicationController
     if params[:document_id]
       @document_downloads = DocumentDownload.where(friendlier_id: @document.friendlier_id).order(position: :asc)
     else
-      @pagy, @document_downloads = pagy(DocumentDownload.all.order('updated_at DESC'), items: 20)
+      @pagy, @document_downloads = pagy(DocumentDownload.all.order(friendlier_id: :asc, updated_at: :desc), items: 20)
     end
   end
 
