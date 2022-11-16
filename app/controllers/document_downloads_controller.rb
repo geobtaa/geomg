@@ -71,6 +71,21 @@ class DocumentDownloadsController < ApplicationController
     end
   end
 
+  def destroy_all
+    logger.debug('Destroy Downloads')
+    return unless params.dig(:document_download, :downloads, :file)
+
+    respond_to do |format|
+      if DocumentDownload.destroy_all(params.dig(:document_download, :downloads, :file))
+        format.html { redirect_to document_downloads_path, notice: 'Download Links were created destroyed.' }
+      else
+        format.html { redirect_to document_downloads_path, notice: 'Download Links could not be destroyed.' }
+      end
+    rescue StandardError => e
+      format.html { redirect_to document_downloads_path, notice: "Download Links could not be destroyed. #{e}" }
+    end
+  end
+
   # GET   /documents/#id/downloads/import
   # POST  /documents/#id/downloads/import
   def import
