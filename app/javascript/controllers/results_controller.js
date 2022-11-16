@@ -217,13 +217,23 @@ export default class extends Controller {
     }
   }
 
-  exportCsvDownloads() {
+  exportCsvDocumentDownloads() {
     var scope = this.checkSelectionScope();
     var el = document.querySelector('#result-selected-options');
     if(scope === 'pageset') {
-      window.location = el.dataset.pageset + "&format=csv_downloads"
+      window.location = el.dataset.pageset + "&format=csv_document_downloads"
     } else {
-      window.location = el.dataset.resultset + "&format=csv_downloads"
+      window.location = el.dataset.resultset + "&format=csv_document_downloads"
+    }
+  }
+
+  exportCsvDocumentAccessLinks() {
+    var scope = this.checkSelectionScope();
+    var el = document.querySelector('#result-selected-options');
+    if(scope === 'pageset') {
+      window.location = el.dataset.pageset + "&format=csv_document_access_links"
+    } else {
+      window.location = el.dataset.resultset + "&format=csv_document_access_links"
     }
   }
 

@@ -2,11 +2,11 @@
 
 require 'csv'
 
-# ExportCsvDownloadsService
-class ExportCsvDownloadsService
+# ExportCsvDocumentAccessLinksService
+class ExportCsvDocumentAccessLinksService
 
   def self.short_name
-    "Document Downloads"
+    "Document Access Links"
   end
 
   def self.call(document_ids)
@@ -18,10 +18,10 @@ class ExportCsvDownloadsService
     slice_count = 100
     csv_file = []
 
-    Rails.logger.debug { "\n\nExportDownloadsService: #{document_ids.inspect}\n\n" }
+    Rails.logger.debug { "\n\nExportCsvDocumentAccessLinksService: #{document_ids.inspect}\n\n" }
 
     CSV.generate(headers: true) do |_csv|
-      csv_file << DocumentDownload.column_names
+      csv_file << DocumentAccess.column_names
       document_ids.each_slice(slice_count) do |slice|
         # Broadcast progress percentage
         count += slice_count
@@ -32,10 +32,10 @@ class ExportCsvDownloadsService
         slice.each do |doc_id|
           doc = Document.find_by(friendlier_id: doc_id)
 
-          Rails.logger.debug { "\n\nDocDownloads: #{doc.document_downloads.size}\n\n" }
+          Rails.logger.debug { "\n\nDocAccessLinks: #{doc.document_accesses.size}\n\n" }
 
-          doc.document_downloads.each do |download|
-            csv_file << download.to_csv
+          doc.document_accesses.each do |access|
+            csv_file << access.to_csv
           end
         rescue NoMethodError
           Rails.logger.debug { "\n\nExport Failed: #{doc_id.inspect}\n\n" }
