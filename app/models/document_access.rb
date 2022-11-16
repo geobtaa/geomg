@@ -17,6 +17,14 @@ class DocumentAccess < ApplicationRecord
     end
   end
 
+  def self.destroy_all(file)
+    logger.debug('CSV Destroy')
+    CSV.foreach(file.path, headers: true) do |row|
+      logger.debug("CSV Row: #{row.to_hash}")
+      document_download = DocumentAccess.destroy_by(id: row[0], friendlier_id: row[1])
+    end
+  end
+
   def to_csv
     self.attributes.values
   end

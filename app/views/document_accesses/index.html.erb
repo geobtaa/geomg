@@ -6,7 +6,8 @@
 
     <%= link_to '+ New Access URL', new_document_document_access_path(@document), { class: 'btn btn-primary float-right mr-2' } %>
   <% else %>
-    <%= link_to '+ Import CSV', import_document_accesses_path(), { class: 'btn btn-primary float-right' } %>
+    <%= link_to '- Delete CSV', destroy_all_document_accesses_path(), { class: 'btn btn-danger float-right' } %>
+    <%= link_to '+ Import CSV', import_document_accesses_path(), { class: 'btn btn-primary float-right mr-4' } %>
   <% end %>
 </h1>
 <% if params[:document_id] %>

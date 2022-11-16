@@ -69,6 +69,21 @@ class DocumentAccessesController < ApplicationController
     end
   end
 
+  def destroy_all
+    logger.debug('Destroy Access Links')
+    return unless params.dig(:document_access, :assets, :file)
+
+    respond_to do |format|
+      if DocumentAccess.destroy_all(params.dig(:document_access, :assets, :file))
+        format.html { redirect_to document_accesses_path, notice: 'Document Access Links were created destroyed.' }
+      else
+        format.html { redirect_to document_accesses_path, notice: 'Document Access Links could not be destroyed.' }
+      end
+    rescue StandardError => e
+      format.html { redirect_to document_accesses_path, notice: "Document Access Links could not be destroyed. #{e}" }
+    end
+  end
+
   # GET   /documents/#id/access/import
   # POST  /documents/#id/access/import
   def import

@@ -44,6 +44,9 @@ Rails.application.routes.draw do
       collection do
         get 'import'
         post 'import'
+
+        get 'destroy_all'
+        post 'destroy_all'
       end
     end
 
@@ -66,6 +69,9 @@ Rails.application.routes.draw do
     collection do
       get 'import'
       post 'import'
+
+      get 'destroy_all'
+      post 'destroy_all'
     end
   end
 
