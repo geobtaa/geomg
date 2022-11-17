@@ -79,7 +79,6 @@ class Document
       # Reject ENVELOPE(-118.00.0000,-88.00.0000,51.00.0000,42.00.0000)
       # - Double period float-ish things?
       envelope.each do |val|
-        byebug
         if val.count('.') >= 2
           valid_envelope = false
           error_message = 'invalid ENVELOPE(W,E,N,S) syntax - found multiple periods in coordinate value(s).'
