@@ -205,11 +205,13 @@ class Document < Kithe::Work
 
   def date_range_json
     date_ranges = []
-    send(GEOMG.FIELDS.B1G_DATE_RANGE).each do |date_range|
-      start_d, end_d = date_range.split('-')
-      start_d = '*' if start_d == 'YYYY' || start_d.nil?
-      end_d   = '*' if end_d == 'YYYY' || end_d.nil?
-      date_ranges << "[#{start_d} TO #{end_d}]" if start_d.present?
+    unless send(GEOMG.FIELDS.B1G_DATE_RANGE).all?(&:blank?)
+      send(GEOMG.FIELDS.B1G_DATE_RANGE).each do |date_range|
+        start_d, end_d = date_range.split('-')
+        start_d = '*' if start_d == 'YYYY' || start_d.nil?
+        end_d   = '*' if end_d == 'YYYY' || end_d.nil?
+        date_ranges << "[#{start_d} TO #{end_d}]" if start_d.present?
+      end
     end
     date_ranges
   end
