@@ -10,6 +10,7 @@ FIELDS:
   :B1G_CENTROID: 'dcat_centroid_ss' # @TODO: Rename to CENTROID, dcat_centroid
   :B1G_CHILD_RECORD: 'b1g_child_record_b'
   :B1G_CODE: 'b1g_code_s'
+  :B1G_CREATOR_ID: 'b1g_creatorID_sm'
   :B1G_DATE_ACCESSIONED: 'b1g_dateAccessioned_sm'
   :B1G_DATE_RANGE: 'gbl_dateRange_drsim' # @TODO: Rename to DATE_RANGE
   :B1G_DATE_RETIRED: 'b1g_dateRetired_s'

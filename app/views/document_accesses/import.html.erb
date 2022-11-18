@@ -1,27 +1,70 @@
 <p id="notice"><%= notice %></p>
 
-<h1 style="width:100%;">
+<h1 style="width:100%; border-bottom:dotted;" class="mb-4">
   Document &middot; Institutional Access
   <% if params[:document_id] %>
     <%= link_to '+ New Access URL', new_document_document_access_path(@document), { class: 'btn btn-primary float-right' } %>
   <% end %>
 </h1>
 
-<% if params[:document_id] %>
-  <h2 class='h3'><%= @document.title %></h2>
-<% else %>
-  <h2 class='h3'>Import for Multiple Documents</h2>
-<% end %>
+<div class="row">
+  <div class="col-6">
+    <% if params[:document_id] %>
+      <h2 class='h3'><%= @document.title %></h2>
+    <% else %>
+      <h2 class='h3'>Import for Multiple Documents</h2>
+    <% end %>
 
-<h3>Import a CSV File</h3>
-<%= simple_form_for DocumentAccess.new, url: import_document_accesses_path, method: :post, multipart: true do |f| %>
-  <div class="form-inputs">
-    <%= f.simple_fields_for :assets do |asset_fields| %>
-      <%= asset_fields.input :file, as: :file, input_html: {} %>
-    <%- end %>
-  </div>
+    <h3 class='h4'>Import a CSV File</h3>
+    <%= simple_form_for DocumentAccess.new, url: import_document_accesses_path, method: :post, multipart: true do |f| %>
+      <div class="form-inputs">
+        <%= f.simple_fields_for :assets do |asset_fields| %>
+          <%= asset_fields.input :file, as: :file, input_html: {} %>
+        <%- end %>
+      </div>
 
-  <div class="form-actions">
-    <%= submit_tag "Import CSV", {class: 'btn btn-primary'} %>
+      <div class="form-actions">
+        <%= submit_tag "Import CSV", {class: 'btn btn-primary'} %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  <div class="col-6">
+    <h4>Example CSV File</h4>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>friendlier_id</th>
+          <th>institution_code</th>
+          <th>access_url</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>999-0010</td>
+          <td>12</td>
+          <td>http://pi.lib.uchicago.edu/1001/cat/bib/11538549</td>
+        </tr>
+        <tr>
+          <td>999-0010-alabama</td>
+          <td>12</td>
+          <td>http://pi.lib.uchicago.edu/1001/cat/bib/11538549</td>
+        </tr>
+        <tr>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h5>CSV File Column Definitions</h5>
+    <dl>
+      <dt>friendlier_id</dt>
+      <dd>The associated GEOMG document's friendlier id</dd>
+      <dt>institution_code</dt>
+      <dd>The <a target="_blank" href="https://github.com/geobtaa/geomg/blob/be1b6ac6628bd8f537ab10ecb88e5f4804540e2b/app/helpers/application_helper.rb#L28-L44">code</a> for the institution</dd>
+      <dt>access_url</dt>
+      <dd>The URL for the Access link</dd>
+    </dl>
+  </div>
+</div>

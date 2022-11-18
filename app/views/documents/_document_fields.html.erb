@@ -4,7 +4,13 @@
   <h3 id="descriptive">Descriptive</h3>
   <%= f.input :title, hint: "Theme: city, state, temporal coverage" %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.ALT_TITLE, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.DESCRIPTION, build: :at_least_one %>
+
+  <%= f.repeatable_attr_input(GEOMG.FIELDS.DESCRIPTION, build: :at_least_one) do |input_name, value| %>
+     <div class="form-group">
+       <%= f.input_field GEOMG.FIELDS.DESCRIPTION, name: input_name, value: value, as: :text, class: "form-control", rows: 4 %>
+     </div>
+   <% end %>
+
   <%= f.repeatable_attr_input GEOMG.FIELDS.LANGUAGE, build: :at_least_one,
   html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "languages")} %>
 </div>
@@ -12,7 +18,9 @@
 <div class="grouping">
   <h3 id="credits">Credits</h3>
   <%= f.repeatable_attr_input GEOMG.FIELDS.CREATOR, build: :at_least_one %>
+  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_CREATOR_ID, build: :at_least_one %>
   <%= f.repeatable_attr_input GEOMG.FIELDS.PUBLISHER, build: :at_least_one %>
+
   <%= f.input GEOMG.FIELDS.PROVENANCE, label: "Provider" %>
 </div>
 

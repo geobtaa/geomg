@@ -9,6 +9,7 @@ json.dct_alternative_sm   no_json_blanks document.send(GEOMG.FIELDS.ALT_TITLE)
 json.dct_description_sm   no_json_blanks document.send(GEOMG.FIELDS.DESCRIPTION)
 json.dct_language_sm      no_json_blanks document.send(GEOMG.FIELDS.LANGUAGE)
 json.dct_creator_sm       no_json_blanks document.send(GEOMG.FIELDS.CREATOR)
+json.b1g_creatorID_sm       no_json_blanks document.send(GEOMG.FIELDS.B1G_CREATOR_ID)
 json.dct_publisher_sm     no_json_blanks document.send(GEOMG.FIELDS.PUBLISHER)
 json.schema_provider_s    no_json_blanks document.send(GEOMG.FIELDS.PROVENANCE)
 json.gbl_resourceClass_sm no_json_blanks document.send(GEOMG.FIELDS.B1G_GENRE)
@@ -49,9 +50,12 @@ json.b1g_dct_accrualPeriodicity_s no_json_blanks document.send(GEOMG.FIELDS.B1G_
 json.b1g_dateAccessioned_sm no_json_blanks document.send(GEOMG.FIELDS.B1G_DATE_ACCESSIONED)
 json.b1g_dateRetired_s      no_json_blanks document.send(GEOMG.FIELDS.B1G_DATE_RETIRED)
 json.b1g_status_s           no_json_blanks document.send(GEOMG.FIELDS.B1G_STATUS)
+json.b1g_publication_state_s           no_json_blanks document.publication_state
 json.gbl_suppressed_b       no_json_blanks document.send(GEOMG.FIELDS.SUPPRESSED)
 json.b1g_child_record_b     no_json_blanks document.send(GEOMG.FIELDS.B1G_CHILD_RECORD)
 json.b1g_dct_mediator_sm    no_json_blanks document.send(GEOMG.FIELDS.B1G_MEDIATOR)
 json.b1g_access_s           no_json_blanks document.send(GEOMG.FIELDS.B1G_ACCESS)
 json.gbl_indexYear_im       no_json_blanks document.send(GEOMG.FIELDS.YEAR)
 json.gbl_mdModified_dt      no_json_blanks document.send(GEOMG.FIELDS.LAYER_MODIFIED)
+json.geomg_created_at      no_json_blanks document.created_at.as_json
+json.geomg_updated_at      no_json_blanks document.updated_at.as_json

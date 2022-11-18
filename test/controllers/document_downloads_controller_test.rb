@@ -53,4 +53,14 @@ class DocumentDownloadsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to document_downloads_url
   end
+
+  test "should get import" do
+    get import_document_downloads_url
+    assert_response :success
+  end
+
+  test "should get destroy_all" do
+    get destroy_all_document_downloads_url
+    assert_response :success
+  end
 end
