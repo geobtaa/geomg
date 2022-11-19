@@ -84,7 +84,7 @@ class ImportBtaa < Import
     data_hash = args[:data_hash]
     field = args[:field]
 
-    return null if data_hash[field].blank?
+    return false if data_hash[field].blank?
 
     ActiveModel::Type::Boolean.new.cast(data_hash[field].downcase)
   end
