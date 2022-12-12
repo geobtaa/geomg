@@ -1,3 +1,4 @@
+
 # frozen_string_literal: true
 
 # Document
@@ -134,11 +135,13 @@ class Document < Kithe::Work
 
   def date_range_json
     date_ranges = []
-    send(GEOMG.FIELDS.B1G_DATE_RANGE).each do |date_range|
-      start_d, end_d = date_range.split('-')
-      start_d = '*' if start_d == 'YYYY' || start_d.nil?
-      end_d   = '*' if end_d == 'YYYY' || end_d.nil?
-      date_ranges << "[#{start_d} TO #{end_d}]" if start_d.present?
+    unless send(GEOMG.FIELDS.B1G_DATE_RANGE).all?(&:blank?)
+      send(GEOMG.FIELDS.B1G_DATE_RANGE).each do |date_range|
+        start_d, end_d = date_range.split('-')
+        start_d = '*' if start_d == 'YYYY' || start_d.nil?
+        end_d   = '*' if end_d == 'YYYY' || end_d.nil?
+        date_ranges << "[#{start_d} TO #{end_d}]" if start_d.present?
+      end
     end
     date_ranges
   end
@@ -193,12 +196,17 @@ class Document < Kithe::Work
   # Convert BBOX to GEOM Polygon
   def derive_polygon
     if send(GEOMG.FIELDS.BBOX).present?
-      # "W,S,E,N" convert to "POLYGON((W N, E N, E S, W S, W N))"
-      w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
-      "POLYGON((#{w} #{n}, #{e} #{n}, #{e} #{s}, #{w} #{s}, #{w} #{n}))"
+      # Guard against a whole world polygons
+      if send(GEOMG.FIELDS.BBOX) == '-180,-90,180,90'
+        "ENVELOPE(-180,180,90,-90)"
+      else
+        # "W,S,E,N" convert to "POLYGON((W N, E N, E S, W S, W N))"
+        w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
+        "POLYGON((#{w} #{n}, #{e} #{n}, #{e} #{s}, #{w} #{s}, #{w} #{n}))"
+      end
     else
      ''
-   end
+    end
   end
 
   def set_geometry

@@ -26,6 +26,7 @@ class Document
       # "W,S,E,N" to [W,S,E,N]
       unless record.send(GEOMG.FIELDS.BBOX).split(',').nil?
         geom = record.send(GEOMG.FIELDS.BBOX).split(',')
+
         if geom.empty?
           valid_geom = true
         elsif geom.size != 4
@@ -52,8 +53,18 @@ class Document
           valid_geom = false
           record.errors.add(GEOMG.FIELDS.BBOX, 'maxY must be >= minY')
         end
+
+        # Reject ENVELOPE(-118.00.0000,-88.00.0000,51.00.0000,42.00.0000
+        # - Double period float-ish things?
+        geom.each do |val|
+          if val.count('.') >= 2
+            valid_geom = false
+            record.errors.add(GEOMG.FIELDS.BBOX, 'invalid ENVELOPE(W,E,N,S) syntax - found multiple periods in a coordinate value.')
+          end
+        end
       end
-      valid_geom
+
+      return valid_geom
     end
   end
 end

@@ -39,11 +39,14 @@ Rails.application.routes.draw do
   # public-facing routes
   resources :documents do
     get 'versions'
-    
+
     resources :document_accesses, path: 'access' do
       collection do
         get 'import'
         post 'import'
+
+        get 'destroy_all'
+        post 'destroy_all'
       end
     end
 
@@ -51,6 +54,9 @@ Rails.application.routes.draw do
       collection do
         get 'import'
         post 'import'
+
+        get 'destroy_all'
+        post 'destroy_all'
       end
     end
 
@@ -63,6 +69,9 @@ Rails.application.routes.draw do
     collection do
       get 'import'
       post 'import'
+
+      get 'destroy_all'
+      post 'destroy_all'
     end
   end
 
@@ -70,6 +79,9 @@ Rails.application.routes.draw do
     collection do
       get 'import'
       post 'import'
+
+      get 'destroy_all'
+      post 'destroy_all'
     end
   end
 

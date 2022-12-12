@@ -38,16 +38,36 @@ class ImportBtaa < Import
             field: 'dcat_bbox',
             method: 'derive_dcat_centroid'
           }
+      },
+      {
+        b1g_child_record_b:
+          {
+            field: 'b1g_child_record_b',
+            method: 'derive_boolean'
+          }
+      },
+      {
+        gbl_georeferenced_b:
+          {
+            field: 'gbl_georeferenced_b',
+            method: 'derive_boolean'
+          }
+      },
+      {
+        gbl_suppressed_b:
+          {
+            field: 'gbl_suppressed_b',
+            method: 'derive_boolean'
+          }
       }
     ]
   end
 
   # Required Values
   # Key / Default Value
+  # Example: { b1g_status_s: 'Active' }
   def required_mappings
-    [
-      { b1g_status_s: 'Active' }
-    ]
+    []
   end
 
   def derive_dcat_centroid(args)
@@ -58,5 +78,14 @@ class ImportBtaa < Import
 
     w, s, e, n = data_hash[field].split(',')
     "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
+  end
+
+  def derive_boolean(args)
+    data_hash = args[:data_hash]
+    field = args[:field]
+
+    return false if data_hash[field].blank?
+
+    ActiveModel::Type::Boolean.new.cast(data_hash[field].downcase)
   end
 end

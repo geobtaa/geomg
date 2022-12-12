@@ -84,7 +84,7 @@ gem 'noticed', '~> 1.4'
 # Reporting
 gem 'blazer'
 gem 'chronic'
-gem 'i18n-js'
+gem 'i18n-js', '~> 3.0'
 gem 'momentjs-rails'
 gem 'rsolr'
 
