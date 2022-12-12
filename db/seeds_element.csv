@@ -5,6 +5,7 @@ Description,dct_description_sm,https://opengeometadata.org/docs/ogm-aardvark/des
 Language,dct_language_sm,https://opengeometadata.org/docs/ogm-aardvark/language,string,FALSE,TRUE,TRUE,,,language1|language2,languages,autocomplete,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,
 B1G Language,b1g_language_sm,https://geobtaa.github.io/metadata/b1g-custom-elements.html#language-string,string,FALSE,TRUE,TRUE,,,b1g_language1|b1g_language2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,iso_language_mapping,
 Creator,dct_creator_sm,https://opengeometadata.org/docs/ogm-aardvark/creator,string,FALSE,TRUE,TRUE,,,creator1|creator2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,
+Creator ID,b1g_creatorID_sm,https://geobtaa.github.io/metadata/b1g-custom-elements/#creatorID,string,FALSE,TRUE,TRUE,,,creatorID1|creatorID2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,
 Publisher,dct_publisher_sm,https://opengeometadata.org/docs/ogm-aardvark/publisher,string,FALSE,TRUE,TRUE,,,publisher1|publisher2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,
 Provider,schema_provider_s,https://opengeometadata.org/docs/ogm-aardvark/provider,string,FALSE,FALSE,TRUE,,,Provider,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,
 Resource Class,gbl_resourceClass_sm,https://opengeometadata.org/docs/ogm-aardvark/resource-class,string,TRUE,TRUE,TRUE,,,Geospatial data|Maps,resource_classes,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,presence

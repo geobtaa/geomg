@@ -80,3 +80,6 @@ Roadmap
 2. Populate table
 3. Extract Settings.FIELDS use (settings.yml, document.rb, document_indexer.rb, field_mappings_btaa.rb, _json_btaa_aardvark.jbuilder)
 4. Extract webform (last step)
+
+TODO - Migration
+The codebase has a BAD chicken vs. egg issue, where the Elements table needs to exist and be populated with data for the migrations to run. When we push this code out to dev or prod we'll need to handle this issue... likely need to run the elements migration manually.
