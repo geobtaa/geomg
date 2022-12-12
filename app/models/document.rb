@@ -124,6 +124,10 @@ class Document < Kithe::Work
     access.to_json
   end
 
+  def created_at_dt
+    created_at&.utc&.iso8601
+  end
+
   def gbl_mdModified_dt
     updated_at&.utc&.iso8601
   end
@@ -156,12 +160,14 @@ class Document < Kithe::Work
 
   # Export Transformations - to_*
   def to_csv
-    attributes = Geomg.field_mappings_btaa
+    attributes = Geomg.exportable_field_mappings
     attributes.map do |key, value|
       if value[:delimited]
         send(value[:destination]).join('|')
       elsif value[:destination] == 'dct_references_s'
         dct_references_s_to_csv(key, value[:destination])
+      elsif value[:destination] == 'b1g_publication_state_s'
+        send('current_state')
       else
         send(value[:destination])
       end

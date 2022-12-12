@@ -6,7 +6,7 @@
 module Geomg
   module_function
 
-  def field_mappings_btaa
+  def importable_field_mappings
     @mappings = Hash.new
     Element.importable.each do |elm|
       @mappings[elm.label.to_sym] = {
@@ -16,7 +16,40 @@ module Geomg
       }
     end
 
-    references = {
+    @mappings = @mappings.merge(dct_references_import_mappings)
+    @mappings
+  end
+
+  def exportable_field_mappings
+    @mappings = Hash.new
+    Element.exportable.each do |elm|
+      @mappings[elm.label.to_sym] = {
+        destination: elm.solr_field,
+        delimited: elm.repeatable,
+        transformation_method: elm.export_transformation_method
+      }
+    end
+
+    object_metadata = {
+      'Created At': {
+        destination: 'created_at',
+        delimited: false,
+        transformation_method: nil
+      },
+      'Updated At': {
+        destination: 'updated_at',
+        delimited: false,
+        transformation_method: nil
+      }
+    }
+
+    @mappings = @mappings.merge(dct_references_import_mappings)
+    @mappings = @mappings.merge(object_metadata)
+    @mappings
+  end
+
+  def dct_references_import_mappings
+    {
       'Documentation': {
         'destination': GEOMG.FIELDS.REFERENCES,
         'delimited': false,
@@ -113,8 +146,6 @@ module Geomg
          'transformation_method': 'build_dct_references'
       }
     }
-
-    @mappings.merge(references)
   end
 
   def dct_references_mappings
@@ -143,3 +174,5 @@ module Geomg
     }
   end
 end
+
+Geomg.singleton_class.send(:alias_method, :field_mappings, :importable_field_mappings)

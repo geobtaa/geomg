@@ -200,7 +200,7 @@ class DocumentsController < ApplicationController
 
   def collect_csv(documents)
     CSV.generate(headers: true) do |csv|
-      csv << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
+      csv << Geomg.exportable_field_mappings.map { |k, _v| k.to_s }
       if documents.instance_of?(BlacklightApi)
         documents.load_all.map do |doc|
           csv << doc.to_csv if doc.present?

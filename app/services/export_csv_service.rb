@@ -21,7 +21,7 @@ class ExportCsvService
     Rails.logger.debug { "\n\nExportCsvService: #{document_ids.inspect}\n\n" }
 
     CSV.generate(headers: true) do |_csv|
-      csv_file << Geomg.field_mappings_btaa.map { |k, _v| k.to_s }
+      csv_file << Geomg.exportable_field_mappings.map { |k, _v| k.to_s }
       document_ids.each_slice(slice_count) do |slice|
         # Broadcast progress percentage
         count += slice_count
