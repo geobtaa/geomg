@@ -85,7 +85,7 @@ GEM
       chartkick (>= 3.2)
       railties (>= 5)
       safely_block (>= 0.1.1)
-    bootsnap (1.13.0)
+    bootsnap (1.15.0)
       msgpack (~> 1.2)
     bootstrap (4.6.2)
       autoprefixer-rails (>= 9.1.0)
@@ -615,4 +615,4 @@ DEPENDENCIES
   webpacker (~> 5.0)
 
 BUNDLED WITH
-   2.2.32
+   2.3.26
