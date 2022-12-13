@@ -11,9 +11,9 @@ class Element < ApplicationRecord
     Element.find_by_solr_field(field)
   end
 
-  # Solr Schema List
+  # Element Field List (Labels as Symbols)
   def self.list
-    Element.all.map(&:solr_field)
+    @list ||= Element.all.map{ |e| e.label.parameterize(separator: '_').to_sym }
   end
 
   # Index value
@@ -25,4 +25,27 @@ class Element < ApplicationRecord
   def export_value
     self.export_transformation_method || self.solr_field
   end
+
+  def self.label_nocase(label)
+    Element.where("LOWER(label) = ?", label.to_s.tr('_', ' ').downcase).first
+  end
+
+  # Class Level - Method Missing
+  # ex. :title => "Title"
+  def self.method_missing(m, *args, &block)
+    if list.include?(m)
+      self.label_nocase(m)
+    else
+      super
+    end
+  end
+
+  # @TODO - override respond_to?
+  # def self.respond_to?(m, include_private = false)
+  # if list.include?(m)
+  #    true
+  #  else
+  #    super
+  #  end
+  # end
 end
