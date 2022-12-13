@@ -51,97 +51,97 @@ module Geomg
   def dct_references_import_mappings
     {
       'Documentation': {
-        'destination': GEOMG.FIELDS.REFERENCES,
+        'destination': GEOMG_SOLR_FIELDS[:reference],
         'delimited': false,
         'transformation_method': 'build_dct_references'
       },
       'Download': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'FeatureServer': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'FGDC': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'Harvard Download': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'HTML': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'IIIF': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'ImageServer': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'Information': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'ISO19139': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'Manifest': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'MapServer': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'MODS': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'oEmbed': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'Index Map': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'TileServer': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'WCS': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'WFS': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       },
       'WMS': {
-         'destination': GEOMG.FIELDS.REFERENCES,
+         'destination': GEOMG_SOLR_FIELDS[:reference],
          'delimited': false,
          'transformation_method': 'build_dct_references'
       }

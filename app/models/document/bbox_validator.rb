@@ -14,7 +14,7 @@ class Document
       valid_geom = true
 
       # Sane for W,S,E,N?
-      proper_bounding_box(record, valid_geom) unless record.send(GEOMG.FIELDS.BBOX).nil?
+      proper_bounding_box(record, valid_geom) unless record.send(GEOMG_SOLR_FIELDS[:bounding_box]).nil?
 
       valid_geom
     end
@@ -24,34 +24,34 @@ class Document
       min_max = [-180.0, -90.0, 180.0, 90.0]
 
       # "W,S,E,N" to [W,S,E,N]
-      unless record.send(GEOMG.FIELDS.BBOX).split(',').nil?
-        geom = record.send(GEOMG.FIELDS.BBOX).split(',')
+      unless record.send(GEOMG_SOLR_FIELDS[:bounding_box]).split(',').nil?
+        geom = record.send(GEOMG_SOLR_FIELDS[:bounding_box]).split(',')
 
         if geom.empty?
           valid_geom = true
         elsif geom.size != 4
           valid_geom = false
-          record.errors.add(GEOMG.FIELDS.BBOX, 'invalid W,S,E,N syntax')
+          record.errors.add(GEOMG_SOLR_FIELDS[:bounding_box], 'invalid W,S,E,N syntax')
         # W
         elsif geom[0].to_f < min_max[0]
           valid_geom = false
-          record.errors.add(GEOMG.FIELDS.BBOX, 'invalid minX present')
+          record.errors.add(GEOMG_SOLR_FIELDS[:bounding_box], 'invalid minX present')
         # S
         elsif geom[1].to_f < min_max[1]
           valid_geom = false
-          record.errors.add(GEOMG.FIELDS.BBOX, 'invalid minY present')
+          record.errors.add(GEOMG_SOLR_FIELDS[:bounding_box], 'invalid minY present')
         # E
         elsif geom[2].to_f > min_max[2]
           valid_geom = false
-          record.errors.add(GEOMG.FIELDS.BBOX, 'invalid maX present')
+          record.errors.add(GEOMG_SOLR_FIELDS[:bounding_box], 'invalid maX present')
         # N
         elsif geom[3].to_f > min_max[3]
           valid_geom = false
-          record.errors.add(GEOMG.FIELDS.BBOX, 'invalid maxY present')
+          record.errors.add(GEOMG_SOLR_FIELDS[:bounding_box], 'invalid maxY present')
         # Solr - maxY must be >= minY
         elsif geom[1].to_f >= geom[3].to_f
           valid_geom = false
-          record.errors.add(GEOMG.FIELDS.BBOX, 'maxY must be >= minY')
+          record.errors.add(GEOMG_SOLR_FIELDS[:bounding_box], 'maxY must be >= minY')
         end
 
         # Reject ENVELOPE(-118.00.0000,-88.00.0000,51.00.0000,42.00.0000
@@ -59,7 +59,7 @@ class Document
         geom.each do |val|
           if val.count('.') >= 2
             valid_geom = false
-            record.errors.add(GEOMG.FIELDS.BBOX, 'invalid ENVELOPE(W,E,N,S) syntax - found multiple periods in a coordinate value.')
+            record.errors.add(GEOMG_SOLR_FIELDS[:bounding_box], 'invalid ENVELOPE(W,E,N,S) syntax - found multiple periods in a coordinate value.')
           end
         end
       end

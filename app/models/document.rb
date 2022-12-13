@@ -65,12 +65,12 @@ class Document < Kithe::Work
     end
   end
 
-  attr_json GEOMG.FIELDS.REFERENCES.to_sym, Document::Reference.to_type, array: true, default: -> { [] }
+  attr_json :dct_references_s, Document::Reference.to_type, array: true, default: -> { [] }
 
   # Index Transformations - *_json functions
   def references_json
     references = ActiveSupport::HashWithIndifferentAccess.new
-    send(GEOMG.FIELDS.REFERENCES).each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
+    send(GEOMG_SOLR_FIELDS[:reference]).each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
     references = apply_downloads(references)
     references.to_json
   end
@@ -80,7 +80,7 @@ class Document < Kithe::Work
     # Make sure downloads exist!
     if document_downloads.present?
       multiple_downloads = multiple_downloads_array
-      multiple_downloads << { label: download_text(send(GEOMG.FIELDS.FORMAT)), url: dct_downloads } if dct_downloads.present?
+      multiple_downloads << { label: download_text(send(GEOMG_SOLR_FIELDS[:format])), url: dct_downloads } if dct_downloads.present?
       references.merge!({ 'http://schema.org/downloadUrl': multiple_downloads })
     end
     references
@@ -139,8 +139,8 @@ class Document < Kithe::Work
 
   def date_range_json
     date_ranges = []
-    unless send(GEOMG.FIELDS.B1G_DATE_RANGE).all?(&:blank?)
-      send(GEOMG.FIELDS.B1G_DATE_RANGE).each do |date_range|
+    unless send(GEOMG_SOLR_FIELDS[:date_range]).all?(&:blank?)
+      send(GEOMG_SOLR_FIELDS[:date_range]).each do |date_range|
         start_d, end_d = date_range.split('-')
         start_d = '*' if start_d == 'YYYY' || start_d.nil?
         end_d   = '*' if end_d == 'YYYY' || end_d.nil?
@@ -151,9 +151,9 @@ class Document < Kithe::Work
   end
 
   def solr_year_json
-    return [] if send(GEOMG.FIELDS.B1G_DATE_RANGE).blank?
+    return [] if send(GEOMG_SOLR_FIELDS[:date_range]).blank?
 
-    start_d, _end_d = send(GEOMG.FIELDS.B1G_DATE_RANGE).first.split('-')
+    start_d, _end_d = send(GEOMG_SOLR_FIELDS[:date_range]).first.split('-')
     [start_d] if start_d.presence
   end
   alias gbl_indexYear_im solr_year_json
@@ -190,9 +190,9 @@ class Document < Kithe::Work
   end
 
   def derive_locn_geometry
-    if send(GEOMG.FIELDS.GEOM).present?
-      send(GEOMG.FIELDS.GEOM)
-    elsif send(GEOMG.FIELDS.BBOX).present?
+    if send(GEOMG_SOLR_FIELDS[:geometry]).present?
+      send(GEOMG_SOLR_FIELDS[:geometry])
+    elsif send(GEOMG_SOLR_FIELDS[:bounding_box]).present?
       derive_polygon
     else
       ''
@@ -201,13 +201,13 @@ class Document < Kithe::Work
 
   # Convert BBOX to GEOM Polygon
   def derive_polygon
-    if send(GEOMG.FIELDS.BBOX).present?
+    if send(GEOMG_SOLR_FIELDS[:bounding_box]).present?
       # Guard against a whole world polygons
-      if send(GEOMG.FIELDS.BBOX) == '-180,-90,180,90'
+      if send(GEOMG_SOLR_FIELDS[:bounding_box]) == '-180,-90,180,90'
         "ENVELOPE(-180,180,90,-90)"
       else
         # "W,S,E,N" convert to "POLYGON((W N, E N, E S, W S, W N))"
-        w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
+        w, s, e, n = send(GEOMG_SOLR_FIELDS[:bounding_box]).split(',')
         "POLYGON((#{w} #{n}, #{e} #{n}, #{e} #{s}, #{w} #{s}, #{w} #{n}))"
       end
     else
@@ -223,9 +223,9 @@ class Document < Kithe::Work
 
   # Convert GEOM for Solr Indexing
   def derive_dcat_bbox
-    if send(GEOMG.FIELDS.BBOX).present?
+    if send(GEOMG_SOLR_FIELDS[:bounding_box]).present?
       # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
-      w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
+      w, s, e, n = send(GEOMG_SOLR_FIELDS[:bounding_box]).split(',')
       "ENVELOPE(#{w},#{e},#{n},#{s})"
     else
       ''
@@ -233,8 +233,8 @@ class Document < Kithe::Work
   end
 
   def derive_dcat_centroid
-    if send(GEOMG.FIELDS.BBOX).present?
-      w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
+    if send(GEOMG_SOLR_FIELDS[:bounding_box]).present?
+      w, s, e, n = send(GEOMG_SOLR_FIELDS[:bounding_box]).split(',')
       "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
     else
       ''
@@ -244,8 +244,9 @@ class Document < Kithe::Work
   # Convert three char language code to proper string
   def iso_language_mapping
     mapping = []
-    if send(GEOMG.FIELDS.LANGUAGE).present?
-      send(GEOMG.FIELDS.LANGUAGE).each do |lang|
+
+    if send(GEOMG_SOLR_FIELDS[:language]).present?
+      send(GEOMG_SOLR_FIELDS[:language]).each do |lang|
         mapping << Geomg.iso_language_codes[lang]
       end
     end

@@ -13,8 +13,8 @@ class Document
       # Assume true for empty values
       valid_geom = true
 
-      if record.send(GEOMG.FIELDS.GEOM).present?
-        if record.send(GEOMG.FIELDS.GEOM).start_with?("ENVELOPE")
+      if record.send(GEOMG_SOLR_FIELDS[:geometry]).present?
+        if record.send(GEOMG_SOLR_FIELDS[:geometry]).start_with?("ENVELOPE")
           # Sane ENVELOPE?
           valid_geom = proper_envelope(record, valid_geom)
         else
@@ -28,16 +28,16 @@ class Document
 
     # Validates ENVELOPE
     def proper_envelope(record, valid_geom)
-      geom = record.send(GEOMG.FIELDS.GEOM)
+      geom = record.send(GEOMG_SOLR_FIELDS[:geometry])
       begin
         valid_geom, error_message = valid_envelope?(geom.delete("ENVELOPE()"))
       rescue StandardError => e
         valid_geom = false
-        record.errors.add(GEOMG.FIELDS.GEOM, "Invalid envelope: #{e}")
+        record.errors.add(GEOMG_SOLR_FIELDS[:geometry], "Invalid envelope: #{e}")
       end
 
       if !valid_geom
-        record.errors.add(GEOMG.FIELDS.GEOM, "Invalid envelope: #{error_message}")
+        record.errors.add(GEOMG_SOLR_FIELDS[:geometry], "Invalid envelope: #{error_message}")
       end
 
       valid_geom
@@ -45,7 +45,7 @@ class Document
 
     # Validates POLYGON and MULTIPOLYGON
     def proper_geom(record, valid_geom)
-      geom = record.send(GEOMG.FIELDS.GEOM)
+      geom = record.send(GEOMG_SOLR_FIELDS[:geometry])
       begin
         valid_geom = if RGeo::Cartesian::Factory.new.parse_wkt(geom)
                        true
@@ -54,13 +54,13 @@ class Document
                      end
       rescue StandardError => e
         valid_geom = false
-        record.errors.add(GEOMG.FIELDS.GEOM, "Invalid geometry: #{e}")
+        record.errors.add(GEOMG_SOLR_FIELDS[:geometry], "Invalid geometry: #{e}")
       end
 
       # Guard against a whole world polygons
       if geom == 'POLYGON((-180 90, 180 90, 180 -90, -180 -90, -180 90))'
         valid_geom = false
-        record.errors.add(GEOMG.FIELDS.GEOM, "Invalid polygon: all points are coplanar input, Solr will not index")
+        record.errors.add(GEOMG_SOLR_FIELDS[:geometry], "Invalid polygon: all points are coplanar input, Solr will not index")
       end
 
       valid_geom

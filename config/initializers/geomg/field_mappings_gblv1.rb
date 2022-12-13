@@ -9,197 +9,197 @@ module Geomg
   def field_mappings_gblv1
     {
       'dc_title_s': {
-        destination: GEOMG.FIELDS.TITLE,
+        destination: GEOMG_SOLR_FIELDS[:title],
         delimited: false,
         transformation_method: nil
       },
       'alternativeTitle_sm': {
-        destination: GEOMG.FIELDS.ALT_TITLE,
+        destination: GEOMG_SOLR_FIELDS[:alternative_title],
         delimited: true,
         transformation_method: nil
       },
       'dct_alternativeTitle_sm': {
-        destination: GEOMG.FIELDS.ALT_TITLE,
+        destination: GEOMG_SOLR_FIELDS[:alternative_title],
         delimited: true,
         transformation_method: nil
       },
       'dc_description_s': {
-        destination: GEOMG.FIELDS.DESCRIPTION,
+        destination: GEOMG_SOLR_FIELDS[:description],
         delimited: false,
         transformation_method: nil
       },
       'dc_language_s': {
-        destination: GEOMG.FIELDS.LANGUAGE,
+        destination: GEOMG_SOLR_FIELDS[:language],
         delimited: true,
         transformation_method: nil
       },
       'dc_language_sm': {
-        destination: GEOMG.FIELDS.LANGUAGE,
+        destination: GEOMG_SOLR_FIELDS[:language],
         delimited: true,
         transformation_method: nil
       },
       'dc_publisher_s': {
-        destination: GEOMG.FIELDS.PUBLISHER,
+        destination: GEOMG_SOLR_FIELDS[:publisher],
         delimited: true,
         transformation_method: nil
       },
       'dc_publisher_sm': {
-        destination: GEOMG.FIELDS.PUBLISHER,
+        destination: GEOMG_SOLR_FIELDS[:publisher],
         delimited: true,
         transformation_method: nil
       },
       'dc_creator_sm': {
-        destination: GEOMG.FIELDS.CREATOR,
+        destination: GEOMG_SOLR_FIELDS[:creator],
         delimited: true,
         transformation_method: nil
       },
       'b1g_genre_sm': {
-        destination: GEOMG.FIELDS.B1G_GENRE,
+        destination: GEOMG_SOLR_FIELDS[:resource_class],
         delimited: true,
         transformation_method: nil
       },
       'dc_subject_sm': {
-        destination: GEOMG.FIELDS.SUBJECT,
+        destination: GEOMG_SOLR_FIELDS[:subject],
         delimited: true,
         transformation_method: nil
       },
       'b1g_keyword_sm': {
-        destination: GEOMG.FIELDS.B1G_KEYWORD,
+        destination: GEOMG_SOLR_FIELDS[:keyword],
         delimited: true,
         transformation_method: nil
       },
       'dct_issued_s': {
-        destination: GEOMG.FIELDS.ISSUED,
+        destination: GEOMG_SOLR_FIELDS[:date_issued],
         delimited: false,
         transformation_method: nil
       },
       'dct_temporal_sm': {
-        destination: GEOMG.FIELDS.TEMPORAL,
+        destination: GEOMG_SOLR_FIELDS[:temporal_coverage],
         delimited: true,
         transformation_method: nil
       },
       'b1g_date_range_drsim': {
-        destination: GEOMG.FIELDS.B1G_DATE_RANGE,
+        destination: GEOMG_SOLR_FIELDS[:date_range],
         delimited: true,
         transformation_method: nil
       },
       'dct_spatial_sm': {
-        destination: GEOMG.FIELDS.SPATIAL,
+        destination: GEOMG_SOLR_FIELDS[:spatial_coverage],
         delimited: true,
         transformation_method: nil
       },
       'b1g_geonames_sm': {
-        destination: GEOMG.FIELDS.B1G_GEONAMES,
+        destination: GEOMG_SOLR_FIELDS[:geonames],
         delimited: true,
         transformation_method: nil
       },
       'solr_geom': {
-        destination: GEOMG.FIELDS.GEOM,
+        destination: GEOMG_SOLR_FIELDS[:geometry],
         delimited: false,
         transformation_method: nil
       },
       'dc_format_s': {
-        destination: GEOMG.FIELDS.FORMAT,
+        destination: GEOMG_SOLR_FIELDS[:format],
         delimited: false,
         transformation_method: nil
       },
       'layer_geom_type_s': {
-        destination: GEOMG.FIELDS.LAYER_GEOM_TYPE,
+        destination: GEOMG_SOLR_FIELDS[:resource_type],
         delimited: false,
         transformation_method: nil
       },
       'layer_id_s': {
-        destination: GEOMG.FIELDS.LAYER_ID,
+        destination: GEOMG_SOLR_FIELDS[:wxs_identifier],
         delimited: false,
         transformation_method: nil
       },
       'dct_references_s': {
-        'destination': GEOMG.FIELDS.REFERENCES,
+        'destination': GEOMG_SOLR_FIELDS[:reference],
         'delimited': false,
         'transformation_method': 'build_dct_references'
       },
       'b1g_image_ss': {
-        destination: GEOMG.FIELDS.B1G_IMAGE,
+        destination: GEOMG_SOLR_FIELDS[:b1g_image_url],
         delimited: false,
         transformation_method: nil
       },
       'dc_identifier_s': {
-        destination: GEOMG.FIELDS.IDENTIFIER,
+        destination: GEOMG_SOLR_FIELDS[:identifier],
         delimited: false,
         transformation_method: nil
       },
       'layer_slug_s': {
-        destination: GEOMG.FIELDS.LAYER_SLUG,
+        destination: GEOMG_SOLR_FIELDS[:id],
         delimited: false,
         transformation_method: nil
       },
       'dct_provenance_s': {
-        destination: GEOMG.FIELDS.PROVENANCE,
+        destination: GEOMG_SOLR_FIELDS[:provider],
         delimited: false,
         transformation_method: nil
       },
       'b1g_code_s': {
-        destination: GEOMG.FIELDS.B1G_CODE,
+        destination: GEOMG_SOLR_FIELDS[:code],
         delimited: false,
         transformation_method: nil
       },
       'dct_isPartOf_sm': {
-        destination: GEOMG.FIELDS.IS_PART_OF,
+        destination: GEOMG_SOLR_FIELDS[:is_part_of],
         delimited: true,
         transformation_method: nil
       },
       'dc_source_sm': {
-        destination: GEOMG.FIELDS.SOURCE,
+        destination: GEOMG_SOLR_FIELDS[:source],
         delimited: true,
         transformation_method: nil
       },
       'b1g_status_s': {
-        destination: GEOMG.FIELDS.B1G_STATUS,
+        destination: GEOMG_SOLR_FIELDS[:status],
         delimited: false,
         transformation_method: nil
       },
       'dct_accrualMethod_s': {
-        destination: GEOMG.FIELDS.B1G_ACCRUAL_METHOD,
+        destination: GEOMG_SOLR_FIELDS[:accrual_method],
         delimited: false,
         transformation_method: nil
       },
       'Accrual Periodicity': {
-        destination: GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY,
+        destination: GEOMG_SOLR_FIELDS[:accrual_periodicity],
         delimited: false,
         transformation_method: nil
       },
       'b1g_dateAccessioned_s': {
-        destination: GEOMG.FIELDS.B1G_DATE_ACCESSIONED,
+        destination: GEOMG_SOLR_FIELDS[:date_accessioned],
         delimited: false,
         transformation_method: nil
       },
       'b1g_dateRetired_s': {
-        destination: GEOMG.FIELDS.B1G_DATE_RETIRED,
+        destination: GEOMG_SOLR_FIELDS[:date_retired],
         delimited: false,
         transformation_method: nil
       },
       'dc_rights_s': {
-        destination: GEOMG.FIELDS.RIGHTS,
+        destination: GEOMG_SOLR_FIELDS[:rights],
         delimited: false,
         transformation_method: nil
       },
       'dct_accessRights_sm': {
-        destination: GEOMG.FIELDS.ACCESS_RIGHTS,
+        destination: GEOMG_SOLR_FIELDS[:access_rights],
         delimited: true,
         transformation_method: nil
       },
       'suppressed_b': {
-        destination: GEOMG.FIELDS.SUPPRESSED,
+        destination: GEOMG_SOLR_FIELDS[:suppressed_record],
         delimited: false,
         transformation_method: nil
       },
       'b1g_child_record_b': {
-        destination: GEOMG.FIELDS.B1G_CHILD_RECORD,
+        destination: GEOMG_SOLR_FIELDS[:child_record],
         delimited: false,
         transformation_method: nil
       },
       'solr_year_i': {
-        destination: GEOMG.FIELDS.YEAR,
+        destination: GEOMG_SOLR_FIELDS[:index_year],
         delimited: false,
         transformation_method: nil
       },
@@ -209,7 +209,7 @@ module Geomg
         transformation_method: nil
       },
       'dct_mediator_sm': {
-        destination: 'dct_mediator_sm',
+        destination: GEOMG_SOLR_FIELDS[:mediator],
         delimited: false,
         transformation_method: nil
       },
@@ -229,7 +229,7 @@ module Geomg
         transformation_method: nil
       },
       'b1g_access_s': {
-        destination: 'b1g_access_s',
+        destination: GEOMG_SOLR_FIELDS[:access],
         delimited: false,
         transformation_method: nil
       },

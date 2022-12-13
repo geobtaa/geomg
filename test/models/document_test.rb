@@ -43,64 +43,65 @@ class DocumentTest < ActiveSupport::TestCase
     # Form
     # Identification
     # - Descriptive
-    assert_respond_to @document, GEOMG.FIELDS.TITLE
-    assert_respond_to @document, GEOMG.FIELDS.ALT_TITLE
-    assert_respond_to @document, GEOMG.FIELDS.DESCRIPTION
-    assert_respond_to @document, GEOMG.FIELDS.LANGUAGE
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:title]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:alternative_title]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:description]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:language]
 
     # - Credits
-    assert_respond_to @document, GEOMG.FIELDS.CREATOR
-    assert_respond_to @document, GEOMG.FIELDS.PUBLISHER
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:creator]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:creator_id]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:publisher]
 
     # - Categories
-    assert_respond_to @document, GEOMG.FIELDS.B1G_GENRE
-    assert_respond_to @document, GEOMG.FIELDS.SUBJECT
-    assert_respond_to @document, GEOMG.FIELDS.B1G_KEYWORD
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:resource_class]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:subject]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:keyword]
 
     # - Temporal
-    assert_respond_to @document, GEOMG.FIELDS.ISSUED
-    assert_respond_to @document, GEOMG.FIELDS.TEMPORAL
-    assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_RANGE
-    assert_respond_to @document, GEOMG.FIELDS.YEAR
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:date_issued]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:temporal_coverage]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:date_range]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:index_year]
 
     # - Spatial
-    assert_respond_to @document, GEOMG.FIELDS.SPATIAL
-    assert_respond_to @document, GEOMG.FIELDS.B1G_GEONAMES
-    assert_respond_to @document, GEOMG.FIELDS.BBOX
-    assert_respond_to @document, GEOMG.FIELDS.CENTROID
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:spatial_coverage]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:geonames]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:bounding_box]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:centroid]
 
     # Distribution
     # - Object
-    assert_respond_to @document, GEOMG.FIELDS.LAYER_GEOM_TYPE
-    assert_respond_to @document, GEOMG.FIELDS.FORMAT
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:resource_type]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:format]
 
     # - Access Links
     # - Geospatial Web Services
     # - Images
     # - Metadata
-    assert_respond_to @document, GEOMG.FIELDS.REFERENCES
-    assert_respond_to @document, GEOMG.FIELDS.B1G_IMAGE
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:reference]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:b1g_image_url]
 
     # Administrative
     # - Codes
-    assert_respond_to @document, GEOMG.FIELDS.IDENTIFIER
-    assert_respond_to @document, GEOMG.FIELDS.LAYER_SLUG
-    assert_respond_to @document, GEOMG.FIELDS.PROVENANCE
-    assert_respond_to @document, GEOMG.FIELDS.B1G_CODE
-    assert_respond_to @document, GEOMG.FIELDS.IS_PART_OF
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:identifier]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:id]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:provider]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:code]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:is_part_of]
 
     # - Status
-    assert_respond_to @document, GEOMG.FIELDS.B1G_STATUS
-    assert_respond_to @document, GEOMG.FIELDS.B1G_ACCRUAL_METHOD
-    assert_respond_to @document, GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY
-    assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_ACCESSIONED
-    assert_respond_to @document, GEOMG.FIELDS.B1G_DATE_RETIRED
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:status]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:accrual_method]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:accrual_periodicity]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:date_accessioned]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:date_retired]
 
     # - Accessibility
-    assert_respond_to @document, GEOMG.FIELDS.RIGHTS
-    assert_respond_to @document, GEOMG.FIELDS.ACCESS_RIGHTS
-    assert_respond_to @document, GEOMG.FIELDS.SUPPRESSED
-    assert_respond_to @document, GEOMG.FIELDS.B1G_CHILD_RECORD
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:rights]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:access_rights]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:suppressed_record]
+    assert_respond_to @document, GEOMG_SOLR_FIELDS[:child_record]
   end
 
   test 'responds to type' do
@@ -141,53 +142,53 @@ class DocumentTest < ActiveSupport::TestCase
   test 'b1g_date_range validation' do
     # YYYY-YYYY is valid
     @document = documents(:ag)
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=",["1977-2020"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=",["1977-2020"])
     assert_nothing_raised do
       @document.save
     end
 
     # YYYY-* or *-YYYY is valid
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=",["YYYY-*"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=",["YYYY-*"])
     assert_nothing_raised do
       @document.save
     end
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=",["*-YYYY"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=",["*-YYYY"])
     assert_nothing_raised do
       @document.save
     end
 
     # Start YYYY == End YYYY is valid
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=",["1851-1851"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=",["1851-1851"])
     assert_nothing_raised do
       @document.save
     end
 
     # No empty side allowed
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["1977-"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=", ["1977-"])
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # No letters allowed
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["197X-2020"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=", ["197X-2020"])
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # No trailing punctuation allowed
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["1851-1851?"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=", ["1851-1851?"])
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Accepts only 1 wildcard
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["*-*"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=", ["*-*"])
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Start date must be lower than End date
-    @document.send("#{GEOMG.FIELDS.B1G_DATE_RANGE}=", ["1996-1977"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=", ["1996-1977"])
     @document.save
     assert @document.invalid?
     assert @document.errors
@@ -198,42 +199,42 @@ class DocumentTest < ActiveSupport::TestCase
     @document = documents(:ag)
 
     # Bad minY
-    @document.send("#{GEOMG.FIELDS.BBOX}=", "-16.7909,-90.0574,43.9474,39.9655")
+    @document.send("#{GEOMG_SOLR_FIELDS[:bounding_box]}=", "-16.7909,-90.0574,43.9474,39.9655")
     assert @document.invalid?
     assert @document.errors
 
     # No ENVELOPE() wrapper allowed
-    @document.send("#{GEOMG.FIELDS.BBOX}=", "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)")
+    @document.send("#{GEOMG_SOLR_FIELDS[:bounding_box]}=", "ENVELOPE(-16.7909,-90.0574,43.9474,39.9655)")
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Bad minX
-    @document.send("#{GEOMG.FIELDS.BBOX}=", "-16000.7909,-90.0574,43.9474,39.9655")
+    @document.send("#{GEOMG_SOLR_FIELDS[:bounding_box]}=", "-16000.7909,-90.0574,43.9474,39.9655")
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Solr - maxY must be >= minY
-    @document.send("#{GEOMG.FIELDS.BBOX}=", "92.1893,28.5432,101.1768,9.6004")
+    @document.send("#{GEOMG_SOLR_FIELDS[:bounding_box]}=", "92.1893,28.5432,101.1768,9.6004")
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Solr - maxY must be >= minY - https://github.com/geobtaa/geomg/issues/173
-    @document.send("#{GEOMG.FIELDS.BBOX}=", "-97.25,-89.5,49.3833,433.0")
+    @document.send("#{GEOMG_SOLR_FIELDS[:bounding_box]}=", "-97.25,-89.5,49.3833,433.0")
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Solr - invalid minY - https://github.com/geobtaa/geomg/issues/173
-    @document.send("#{GEOMG.FIELDS.BBOX}=", "-113.5667,-512.6667,78.5833,6.4333")
+    @document.send("#{GEOMG_SOLR_FIELDS[:bounding_box]}=", "-113.5667,-512.6667,78.5833,6.4333")
     @document.save
     assert @document.invalid?
     assert @document.errors
 
     # Solr - invalid decimals - https://github.com/geobtaa/geomg/issues/173
-    @document.send("#{GEOMG.FIELDS.BBOX}=", "-118.00.0000,-88.00.0000,51.00.0000,42.00.0000")
+    @document.send("#{GEOMG_SOLR_FIELDS[:bounding_box]}=", "-118.00.0000,-88.00.0000,51.00.0000,42.00.0000")
     @document.save
     assert @document.invalid?
     assert @document.errors
