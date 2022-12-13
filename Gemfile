@@ -111,6 +111,7 @@ end
 group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
+  gem 'database_cleaner-active_record'
   gem 'm', '~> 1.5.0'
   gem 'minitest'
   gem 'minitest-ci', '~> 3.4.0'

@@ -10,6 +10,10 @@ end
 
 require_relative '../config/environment'
 require 'rails/test_help'
+
+require 'database_cleaner/active_record'
+DatabaseCleaner.strategy = :truncation
+
 Rails.application.load_seed
 
 require 'minitest/reporters'

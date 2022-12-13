@@ -127,6 +127,10 @@ GEM
     connection_pool (2.3.0)
     content_disposition (1.0.0)
     crass (1.0.6)
+    database_cleaner-active_record (2.0.1)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     deep_merge (1.2.2)
     deprecation (1.1.0)
       activesupport
@@ -558,6 +562,7 @@ DEPENDENCIES
   chronic
   cocoon (~> 1.2)
   config
+  database_cleaner-active_record
   devise (~> 4.7.0)
   devise-bootstrap-views (~> 1.0)
   devise_invitable (~> 2.0.0)
