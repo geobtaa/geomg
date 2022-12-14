@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-ENV['RAILS_ENV'] ||= 'test'
+ENV['RAILS_ENV'] = 'test'
 require 'simplecov'
 SimpleCov.start do
   add_filter '/bin/'
@@ -22,7 +22,7 @@ Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
 module ActiveSupport
   class TestCase
     extend ActiveStorageValidations::Matchers
-    fixtures :all
+    fixtures :all, :except => 'elements'
 
     include Devise::Test::IntegrationHelpers
     include Warden::Test::Helpers

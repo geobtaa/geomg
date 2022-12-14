@@ -4,8 +4,35 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-# one: {}
-# column: value
-#
-# two: {}
-# column: value
+one:
+  label: Title
+  solr_field: dct_title_s
+  field_definition: https://opengeometadata.org/docs/ogm-aardvark/title
+  field_type: string
+  required: true
+  repeatable: false
+  formable: true
+  placeholder_text:
+  data_entry_hint: "Theme: city, state, temporal coverage"
+  test_fixture_example: title
+  controlled_vocabulary:
+  js_behaviors:
+  html_attributes:
+  display_only_on_persisted: false
+  importable: true
+  import_deliminated: false
+  import_transformation_method:
+  exportable: true
+  export_transformation_method:
+  indexable: true
+  index_transformation_method: title
+  validation_method: presence
+  created_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &1 2020-08-03 19:25:53.006901000 Z
+    zone: &2 !ruby/object:ActiveSupport::TimeZone
+      name: Etc/UTC
+    time: *1
+  updated_at: !ruby/object:ActiveSupport::TimeWithZone
+    utc: &3 2020-08-03 19:25:53.006901000 Z
+    zone: *2
+    time: *3
