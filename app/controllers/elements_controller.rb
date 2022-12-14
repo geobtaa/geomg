@@ -3,7 +3,7 @@ class ElementsController < ApplicationController
 
   # GET /elements or /elements.json
   def index
-    @pagy, @elements = pagy(Element.all, items: 100)
+    @pagy, @elements = pagy(Element.all.order(position: :asc), items: 100)
   end
 
   # GET /elements/1 or /elements/1.json
@@ -57,6 +57,11 @@ class ElementsController < ApplicationController
     end
   end
 
+  def sort
+    Element.sort_elements(params[:id_list])
+    render body: nil
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_element
@@ -65,6 +70,6 @@ class ElementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def element_params
-      params.require(:element).permit(:label, :solr_field, :field_definition, :field_type, :required, :repeatable, :formable, :placeholder_text, :data_entry_hint, :test_fixture_example, :controlled_vocabulary, :js_behaviors, :html_attributes, :display_only_on_persisted, :importable, :import_deliminated, :import_transformation_method, :exportable, :export_transformation_method, :indexable, :index_transformation_method, :validation_method)
+      params.require(:element).permit(:label, :solr_field, :field_definition, :field_type, :required, :repeatable, :formable, :placeholder_text, :data_entry_hint, :test_fixture_example, :controlled_vocabulary, :js_behaviors, :html_attributes, :display_only_on_persisted, :importable, :import_deliminated, :import_transformation_method, :exportable, :export_transformation_method, :indexable, :index_transformation_method, :validation_method, :position)
     end
 end

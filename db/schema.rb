@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_18_203554) do
+ActiveRecord::Schema.define(version: 2022_12_14_201516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -260,6 +260,7 @@ ActiveRecord::Schema.define(version: 2022_09_18_203554) do
     t.string "validation_method"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "position"
   end
 
   create_table "import_document_transitions", force: :cascade do |t|

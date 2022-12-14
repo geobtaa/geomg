@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  resources :elements
   get 'reports/index'
   get 'reports/overview', as: :reports
   get '/search' => 'search#index'
@@ -15,6 +14,10 @@ Rails.application.routes.draw do
     resources :mappings
     resources :import_documents, only: [:show]
     patch :run, on: :member
+  end
+
+  resources :elements do
+    post :sort, :on => :collection
   end
 
   resources :bookmarks

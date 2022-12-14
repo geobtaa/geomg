@@ -45,6 +45,15 @@ class Element < ApplicationRecord
     end
   end
 
+  def self.sort_elements(id_array)
+    transaction do
+      logger.debug { id_array.inspect }
+      id_array.each_with_index do |elm_id, i|
+        Element.update(elm_id, position: i)
+      end
+    end
+  end
+
   # @TODO - override respond_to?
   # def self.respond_to?(m, include_private = false)
   # if list.include?(m)

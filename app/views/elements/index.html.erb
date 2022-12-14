@@ -14,7 +14,7 @@
   </span>
 </h6>
 
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered sortable">
   <thead>
     <tr>
       <th>Label</th>
@@ -23,19 +23,21 @@
       <th>Field type</th>
       <th>Required</th>
       <th>Repeatable</th>
+      <th>Reorder</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @elements.each do |element| %>
-      <tr>
+      <tr data-id="<%=element.id%>">
         <td><%= link_to element.label, element %></td>
         <td><%= element.solr_field %></td>
         <td><%= element.field_definition.present? ? link_to( element.field_definition, element.field_definition) : '' %></td>
         <td><%= element.field_type %></td>
         <td><%= element.required %></td>
         <td><%= element.repeatable %></td>
+        <td class="handle" style="text-align:center">&varr;</td>
         <td><%= link_to 'Show', element %></td>
         <td><%= link_to 'Edit', edit_element_path(element) %></td>
         <td><%= link_to 'Destroy', element, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -55,3 +57,10 @@
 </h6>
 
 <br/>
+
+<script>
+  GEOMG.SortElements(
+    $("tbody"),
+    "<%= sort_elements_path %>"
+  );
+</script>
