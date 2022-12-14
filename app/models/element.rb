@@ -6,6 +6,11 @@ class Element < ApplicationRecord
   scope :exportable, -> { where(exportable: true) }
   scope :indexable, -> { where(indexable: true) }
 
+  # Validations
+  # @TODO
+  # - validate for presence required fields (title, field_type, etc.)
+  # - validate field_type (string, boolean, text)
+
   # Find by solr_field shortcut
   def self.at(field)
     Element.find_by_solr_field(field)

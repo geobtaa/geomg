@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :elements
   get 'reports/index'
   get 'reports/overview', as: :reports
   get '/search' => 'search#index'
