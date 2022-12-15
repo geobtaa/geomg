@@ -1,0 +1,15 @@
+<%- element = Element.find(form_element.element_id) %>
+
+<%- options = Hash.new %>
+<%- options[:hint] = element.data_entry_hint if element.data_entry_hint.present? %>
+<%- options[:as] = "boolean" if element.field_type == "boolean" %>
+
+<% if element.solr_field == 'dct_references_s' %>
+  <%= f.repeatable_attr_input(element.solr_field.to_sym, build: :at_least_one) do |sub_form| %>
+    <%= category_and_value(sub_form, category_list: Document::Reference::REFERENCE_VALUES.keys) %>
+  <% end %>
+<% elsif element.repeatable? %>
+  <%= f.repeatable_attr_input element.solr_field.to_sym, build: :at_least_one %>
+<% else %>
+  <%= f.input element.solr_field.to_sym, options %>
+<% end %>

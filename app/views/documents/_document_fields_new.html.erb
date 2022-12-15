@@ -1,0 +1,15 @@
+<%- form_elements = FormElement.all.order(position: :asc) %>
+
+<%- form_elements.each do |form_element| %>
+  <% if form_element.kind_of? FormHeader %>
+    <%= render partial: 'form_header', locals: { form_element: form_element } %>
+  <% end %>
+
+  <% if form_element.kind_of? FormGroup %>
+    <%= render partial: 'form_group', locals: { form_element: form_element } %>
+  <% end %>
+
+  <% if form_element.kind_of? FormControl %>
+    <%= render partial: 'form_control', locals: { form_element: form_element, f: f } %>
+  <% end %>
+<%- end %>

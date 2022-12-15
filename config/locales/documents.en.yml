@@ -4,6 +4,9 @@ en:
   activerecord:
     attributes:
       document:
+        dct_title_s:
+          one: "Title"
+          other: "Title"
         dct_alternative_sm:
           one: "Alternative Title"
           other: "Alternative Title"
