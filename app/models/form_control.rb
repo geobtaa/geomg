@@ -1,0 +1,2 @@
+class FormControl < FormElement
+end

@@ -1,6 +1,14 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :form_elements do
+    post :sort, :on => :collection
+  end
+  resources :form_header, path: :form_elements, controller: :form_elements
+  resources :form_group, path: :form_elements, controller: :form_elements
+  resources :form_control, path: :form_elements, controller: :form_elements
+  resources :form_feature, path: :form_elements, controller: :form_elements
+
   get 'reports/index'
   get 'reports/overview', as: :reports
   get '/search' => 'search#index'

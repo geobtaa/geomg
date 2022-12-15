@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+header:
+  type: FormHeader
+  label: Identification
+
+group:
+  type: FormGroup
+  label: Descriptive
+
+feature:
+  type: FormFeature
+  label: Descriptive

@@ -1,0 +1,2 @@
+class FormHeader < FormElement
+end

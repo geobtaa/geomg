@@ -23,12 +23,20 @@ class Element < ApplicationRecord
 
   # Index value
   def index_value
-    self.index_transformation_method || self.solr_field
+    if self.index_transformation_method.present?
+      self.index_transformation_method
+    else
+      self.solr_field
+    end
   end
 
   # Export value
   def export_value
-    self.export_transformation_method || self.solr_field
+    if self.export_transformation_method.present?
+      self.export_transformation_method
+    else
+      self.solr_field
+    end
   end
 
   def self.label_nocase(label)

@@ -1,0 +1,21 @@
+
+<%= simple_form_for(@form_element.becomes(FormElement)) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :choose_type do %>
+      <%= f.select :type, [["Control", "FormControl"], ["Header", "FormHeader"], ["Group", "FormGroup"], ["Feature", "FormFeature"]], {}, { class: "form-control", autofocus: true } %>
+    <% end %>
+
+    <%= f.input :element do %>
+      <%= f.select :element_id, Element.all.order(:position => :asc).map{ |e| [e.label, e.id] }, { include_blank: true }, { class: "form-control" } %>
+    <% end %>
+
+    <%= f.input :label %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-primary" %>
+  </div>
+<% end %>

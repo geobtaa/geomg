@@ -9,6 +9,8 @@ class DocumentIndexer < Kithe::Indexer
     # GeoBlacklight
     to_field 'gbl_mdVersion_s', literal('Aardvark')
 
+    # to_field 'geomg_id_s', obj_extract('friendlier_id') # the actual db pk, a UUID
+
     # Define `to_field`(s) via Element
     Element.indexable.each do |elm|
       to_field elm.solr_field, obj_extract(elm.index_value)
