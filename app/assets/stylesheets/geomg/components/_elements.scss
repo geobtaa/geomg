@@ -1,3 +1,8 @@
 .ui-sortable-helper {
   display: table;
 }
+
+th.header{
+  position: sticky;
+  top: 55px;
+}
