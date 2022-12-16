@@ -5,6 +5,8 @@
   <%= link_to '+ New Element', new_element_path, { class: 'btn btn-primary float-right' } %>
 </h1>
 
+<p class="alert alert-warning"><strong>Notice</strong> - This table defines the application's metadata schema fields. To add a new field to your <%= link_to 'Document', new_document_path %> form, edit your <%=link_to 'Form Elements', form_elements_path %>.</p>
+
 <h6>
   <span class='float-left mt-3'>
     <%== pagy_info(@pagy, 'elements'.pluralize(@pagy.count)) %>
