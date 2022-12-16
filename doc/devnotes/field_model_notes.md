@@ -64,12 +64,28 @@ Headings, Groups, and Features automatically become form nav links and page anch
 ----
 
 Roadmap
-1. ~Write Element Model~
-2. ~Populate table (db/seeds_element.csv)~
-3. Extract field configurations (settings.yml, document.rb, document_indexer.rb, field_mappings_btaa.rb, _json_btaa_aardvark.jbuilder)
-4. Extract webform (last step)
+1. ~~Write Element Model~~
+2. ~~Populate table (db/seeds_element.csv)~~
+3. ~~Extract field configurations (settings.yml, document.rb, document_indexer.rb, field_mappings_btaa.rb, _json_btaa_aardvark.jbuilder)~~
+4. ~~Extract webform (last step)~~
+5. Additional abstraction/cleanup: locals/documents.en.yml
 
-TODO
+TODOs
 
-Migration
-The codebase has a BAD chicken vs. egg issue, where the Elements table needs to exist and be populated with data for the migrations to run. When we push this code out to dev or prod we'll need to handle this issue... likely need to run the elements migration manually.
+SanityCheck Input/Output
+Does this Element/FormElement branch produce the same Solr records, the same JSON output, the same CSV output (and input) as the primary GEOMG develop branch?
+
+* Todo: Test develop versus attribute-model SOLR records
+* Todo: Test develop versus attribute-model JSON exports
+* Todo: Test develop versus attribute-model CSV exports
+* Todo: Test develop versus attribute-model CSV imports
+
+TestRunner
+With Elements table and seed file, having trouble keeping the database in a "happy state" when running tests. Need DB Cleaner to do better here.
+
+* Todo: Wrap test suite with DatabaseCleaner
+
+Database Migration
+The codebase has a BAD chicken vs. egg issue, where the Elements table needs to exist and be populated with data for the database migrations to run. When we push this code out to dev or prod we'll need to handle this issue... likely need to run the elements migration manually.
+
+* Todo: Test migrate geomgdev/geomgprod locally
