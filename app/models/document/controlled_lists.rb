@@ -31,7 +31,7 @@ class Document
 
     B1G_STATUS = %w[Active Inactive Unknown].freeze
 
-    B1G_ACCRUAL_PERIODICITY = [
+    ACCRUAL_PERIODICITY = [
       'Annual',
       'Semiannual',
       'Quarterly',
@@ -42,7 +42,7 @@ class Document
       'Never'
     ].freeze
 
-    GENRE = [
+    RESOURCE_CLASS = [
       'Maps',
       'Datasets',
       'Imagery',

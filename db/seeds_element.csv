@@ -43,9 +43,9 @@ Rights Holder,dct_rightsHolder_sm,https://opengeometadata.org/docs/ogm-aardvark/
 License,dct_license_sm,https://opengeometadata.org/docs/ogm-aardvark/license,string,FALSE,TRUE,TRUE,,,license1|license2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,42
 Rights,dct_rights_sm,https://opengeometadata.org/docs/ogm-aardvark/rights,string,FALSE,TRUE,TRUE,,,rights,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,43
 Accrual Method,b1g_dct_accrualMethod_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#accrual-method,string,FALSE,FALSE,TRUE,,,accrual-method,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,44
-Accrual Periodicity,b1g_dct_accrualPeriodicity_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#accrual-periodicity,string,FALSE,FALSE,TRUE,,,Annually,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,45
+Accrual Periodicity,b1g_dct_accrualPeriodicity_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#accrual-periodicity,string,FALSE,FALSE,TRUE,,,Annually,accrual_periodicity,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,45
 Date Accessioned,b1g_dateAccessioned_sm,https://geobtaa.github.io/metadata/b1g-custom-elements.html#date-accessioned,string,FALSE,TRUE,TRUE,,,date-accessioned1|date-accessioned2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,46
-Date Retired,b1g_dateRetired_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#date-retired,string,FALSE,FALSE,TRUE,,,date-retired,,datepicker,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,47
+Date Retired,b1g_dateRetired_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#date-retired,string,FALSE,FALSE,TRUE,,YYYY-MM-DD,date-retired,,datepicker,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,47
 Status,b1g_status_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#status,string,FALSE,FALSE,TRUE,,,Active,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,48
 Publication State,b1g_publication_state_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#publication-state,string,TRUE,FALSE,TRUE,,,published,publication_states,,,TRUE,FALSE,FALSE,,TRUE,current_state,TRUE,current_state,,49
 Suppressed Record,gbl_suppressed_b,https://opengeometadata.org/docs/ogm-aardvark/suppressed,boolean,FALSE,FALSE,TRUE,,,FALSE,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,50

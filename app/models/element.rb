@@ -21,6 +21,10 @@ class Element < ApplicationRecord
     @list ||= Element.all.map{ |e| e.label.parameterize(separator: '_').to_sym }
   end
 
+  def constantized_label
+    self.label.parameterize(separator: '_').upcase
+  end
+
   # Index value
   def index_value
     if self.index_transformation_method.present?

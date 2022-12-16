@@ -1,15 +1,59 @@
-<%- element = Element.find(form_element.element_id) %>
-
+<% # Input Options hash %>
 <%- options = Hash.new %>
 <%- options[:hint] = element.data_entry_hint if element.data_entry_hint.present? %>
 <%- options[:as] = "boolean" if element.field_type == "boolean" %>
+<%- options[:required] = "true" if element.required? %>
+<%- options[:input_html] = { data: { js: element.js_behaviors }} if element.js_behaviors.present? %>
+<%- options[:html_attributes] = { placeholder: element.placeholder_text } if element.placeholder_text.present? %>
 
+<% # @TODO: mask %>
+
+<% # References are a special, special case %>
 <% if element.solr_field == 'dct_references_s' %>
   <%= f.repeatable_attr_input(element.solr_field.to_sym, build: :at_least_one) do |sub_form| %>
     <%= category_and_value(sub_form, category_list: Document::Reference::REFERENCE_VALUES.keys) %>
   <% end %>
+
 <% elsif element.repeatable? %>
-  <%= f.repeatable_attr_input element.solr_field.to_sym, build: :at_least_one %>
+
+  <% # Text Fields %>
+  <% if element.field_type == 'text' %>
+    <%= f.repeatable_attr_input(element.solr_field.to_sym, build: :at_least_one) do |input_name, value| %>
+       <div class="form-group">
+         <%= f.input_field element.solr_field.to_sym, name: input_name, value: value, as: :text, class: "form-control", rows: 4 %>
+       </div>
+     <% end %>
+
+  <% # Autocomplete - Language  %>
+  <% elsif element.solr_field == 'dct_language_sm' %>
+    <%= f.repeatable_attr_input element.solr_field.to_sym, build: :at_least_one, html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "languages")} %>
+
+  <% # Autocomplete - Resource Type  %>
+  <% elsif element.solr_field == 'gbl_resourceType_sm' %>
+    <%= f.repeatable_attr_input element.solr_field.to_sym, build: :at_least_one, html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "resource_type")} %>
+
+  <% # Local Controlled Vocabularies %>
+  <% elsif element.controlled_vocabulary.present? %>
+    <%= f.repeatable_attr_input element.solr_field.to_sym, build: :at_least_one do |input_name, value| %>
+      <%= f.input_field element.solr_field.to_sym, selected: value, include_blank: true, id: nil,
+          collection: "Document::ControlledLists::#{element.constantized_label}".constantize,
+          name: input_name,
+          class: "form-control input-primitive" %>
+    <% end %>
+
+  <% # Simple Repeatable Elements %>
+  <% else %>
+    <%= f.repeatable_attr_input element.solr_field.to_sym, build: :at_least_one, html_attributes: options[:html_attributes] %>
+  <% end %>
+
 <% else %>
-  <%= f.input element.solr_field.to_sym, options %>
+  <% # Local %>
+  <% if element.controlled_vocabulary? && element.js_behaviors != 'autocomplete' %>
+    <%= f.input element.solr_field.to_sym, collection: "Document::ControlledLists::#{element.constantized_label}".constantize %>
+  <% elsif element.controlled_vocabulary? && element.js_behaviors == 'autocomplete' %>
+    <%= f.input element.solr_field.to_sym, :input_html => { :data => { "scihist-qa-autocomplete" => qa_search_vocab_path("local", element.controlled_vocabulary)}}, label: element.label %>
+  <% else %>
+    <% # Simple String Fields %>
+    <%= f.input element.solr_field.to_sym, options %>
+  <% end %>
 <% end %>

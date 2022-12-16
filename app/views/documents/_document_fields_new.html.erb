@@ -1,6 +1,7 @@
 <%- form_elements = FormElement.all.order(position: :asc) %>
 
 <%- form_elements.each do |form_element| %>
+
   <% if form_element.kind_of? FormHeader %>
     <%= render partial: 'form_header', locals: { form_element: form_element } %>
   <% end %>
@@ -10,6 +11,10 @@
   <% end %>
 
   <% if form_element.kind_of? FormControl %>
-    <%= render partial: 'form_control', locals: { form_element: form_element, f: f } %>
+    <%- element = Element.find(form_element.element_id) %>
+    <%- next if element.display_only_on_persisted? && !@document.persisted? %>
+
+    <%= render partial: 'form_control', locals: { form_element: form_element, f: f, element: element } %>
   <% end %>
+
 <%- end %>

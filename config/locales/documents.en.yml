@@ -4,6 +4,48 @@ en:
   activerecord:
     attributes:
       document:
+        schema_provider_s:
+          one: "Provider"
+          other: "Providers"
+        dct_issued_s:
+          one: "Date Issued"
+          other: "Date Issued"
+        dcat_bbox:
+          one: "Bounding Box"
+          other: "Bounding Box"
+        locn_geometry:
+          one: "Geometry"
+          other: "Geometry"
+        dct_format_s:
+          one: "Format"
+          other: "Format"
+        b1g_image_ss:
+          one: "B1G Image URL"
+          other: "B1G Image URL"
+        geomg_id_s:
+          one: "ID"
+          other: "ID"
+        b1g_code_s:
+          one: "Code"
+          other: "Code"
+        b1g_dct_accrualMethod_s:
+          one: "Accrual Method"
+          other: "Accrual Method"
+        b1g_dct_accrualPeriodicity_s:
+          one: "Accrual Periodicity"
+          other: "Accrual Periodicity"
+        b1g_dateRetired_s:
+          one: "Date Retired"
+          other: "Date Retired"
+        b1g_status_s:
+          one: "Status"
+          other: "Status"
+        b1g_publication_state_s:
+          one: Publication State
+          other: Publication State
+        gbl_suppressed_b:
+          one: Suppressed
+          other: Suppressed
         dct_title_s:
           one: "Title"
           other: "Title"
