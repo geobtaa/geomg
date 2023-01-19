@@ -204,7 +204,7 @@ GEM
       activerecord (>= 4.0.0)
       railties (>= 4.0.0)
     geocoder (1.8.1)
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     haml (5.2.2)
       temple (>= 0.8.0)
