@@ -15,9 +15,13 @@ BLACKLIGHT_JSON_API = ENV['BLACKLIGHT_JSON_API']
 BLACKLIGHT_JSON_API_IDS = ENV['BLACKLIGHT_JSON_API_IDS']
 BLACKLIGHT_JSON_API_FACETS = ENV['BLACKLIGHT_JSON_API_FACETS']
 
-GEOMG_SOLR_FIELDS = Element.all.map { |elm|
-    [
-      elm.label.parameterize(separator: '_').to_sym,
-      elm.solr_field
-    ]
-  }.to_h
+if Element.table_exists?
+  GEOMG_SOLR_FIELDS = Element.all.map { |elm|
+      [
+        elm.label.parameterize(separator: '_').to_sym,
+        elm.solr_field
+      ]
+    }.to_h
+else
+  GEOMG_SOLR_FIELDS = {}
+end
