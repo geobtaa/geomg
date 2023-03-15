@@ -2,7 +2,7 @@ require "test_helper"
 
 class FormElementsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @form_element = form_elements(:header)
+    @form_element = FormElement.first
 
     get '/users/sign_in'
     sign_in_as users(:user_001)
@@ -24,7 +24,7 @@ class FormElementsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create form_element" do
     assert_difference('FormElement.count') do
-      post form_elements_url, params: { form_element: { element_id: @form_element.element_id, label: @form_element.label, type: @form_element.type } }
+      post form_elements_url, params: { form_element: { element_solr_field: @form_element.element_solr_field, label: @form_element.label, type: @form_element.type } }
     end
 
     assert_redirected_to form_elements_url
@@ -41,7 +41,7 @@ class FormElementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update form_element" do
-    patch form_element_url(@form_element), params: { form_element: { element_id: @form_element.element_id, label: @form_element.label, type: @form_element.type } }
+    patch form_element_url(@form_element), params: { form_element: { element_solr_field: @form_element.element_solr_field, label: @form_element.label, type: @form_element.type } }
     assert_redirected_to form_element_url(@form_element)
   end
 

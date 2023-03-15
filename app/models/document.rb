@@ -174,6 +174,10 @@ class Document < Kithe::Work
     end
   end
 
+  def to_traject
+    Kithe::Model.find_by_friendlier_id(self.friendlier_id).update_index(writer: Traject::DebugWriter.new({}))
+  end
+
   def dct_references_s_to_csv(key, destination)
     send(destination).detect { |ref| ref.category == Geomg.dct_references_mappings[key] }.value
   rescue NoMethodError

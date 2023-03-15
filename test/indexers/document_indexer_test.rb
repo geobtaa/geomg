@@ -4,7 +4,6 @@ require 'test_helper'
 
 class DocumentIndexerTest < ActiveSupport::TestCase
   setup do
-    Rails.application.load_seed
     @document = documents(:ag)
   end
 

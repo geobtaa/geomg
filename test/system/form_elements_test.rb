@@ -3,7 +3,6 @@ require "application_system_test_case"
 class FormElementsTest < ApplicationSystemTestCase
   setup do
     sign_in_as users(:user_001)
-    @form_element = form_elements(:header)
   end
 
   test "visiting the index" do

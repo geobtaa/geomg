@@ -10,14 +10,15 @@
 
     <%= link_to document.title, edit_document_path(document.friendlier_id) %>
     &middot; <%= publication_state_badge(document) %>
-    <% if document.send(GEOMG_SOLR_FIELDS[:provider]) %>
-      &middot; <%= document.send(GEOMG_SOLR_FIELDS[:provider]) %>
+
+    <% if document.send("schema_provider_s") %>
+      &middot; <%= document.send("schema_provider_s") %>
     <% end %>
-    <% if document.send(GEOMG_SOLR_FIELDS[:temporal_coverage]) %>
-      &middot; <%= document.send(GEOMG_SOLR_FIELDS[:temporal_coverage]).join("-") %>
+    <% if document.send("dct_temporal_sm") %>
+      &middot; <%= document.send("dct_temporal_sm").join("-") %>
     <% end %>
-    <% if document.send(GEOMG_SOLR_FIELDS[:description]).present? %>
-      <p class="js-truncate"><%= document.send(GEOMG_SOLR_FIELDS[:description]).join %></p>
+    <% if document.send("dct_description_sm").present? %>
+      <p class="js-truncate"><%= document.send("dct_description_sm").join %></p>
     <% end %>
 
   <% end %>

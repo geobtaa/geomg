@@ -70,6 +70,6 @@ class FormElementsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def form_element_params
-      params.require(:form_element).permit(:type, :label, :element_id)
+      params.require(:form_element).permit(:type, :label, :element_solr_field)
     end
 end

@@ -10,7 +10,7 @@
         <% end %>
 
         <%= f.input :element do %>
-          <%= f.select :element_id, Element.all.order(:position => :asc).map{ |e| [e.label, e.id] }, { include_blank: true }, { class: "form-control" } %>
+          <%= f.select :element_solr_field, Element.all.order(:position => :asc).map{ |e| [e.label, e.solr_field] }, { include_blank: true }, { class: "form-control" } %>
         <% end %>
 
         <%= f.input :label %>

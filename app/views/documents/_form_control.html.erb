@@ -7,9 +7,22 @@
 <%- options[:html_attributes] = { placeholder: element.placeholder_text } if element.placeholder_text.present? %>
 
 <% # @TODO: mask %>
+<% # Title is a special case - saved in the database outside of JSON Attributes %>
+<% if element.solr_field == "dct_title_s" %>
+  <%= f.input :title, hint: "Theme: city, state, temporal coverage" %>
+
+<% # Created At and Updated At are a special case - saved in the database outside of JSON Attributes %>
+<% elsif element.solr_field == "date_created_dtsi" %>
+  <% if @document.persisted? %>
+    <%= f.input :created_at, as: 'string', label: "Created At", input_html: { disabled: true } %>
+  <% end %>
+<% elsif element.solr_field == "date_modified_dtsi" %>
+<% if @document.persisted? %>
+  <%= f.input :updated_at, as: 'string', label: "Last Updated", input_html: { disabled: true } %>
+<% end %>
 
 <% # References are a special, special case %>
-<% if element.solr_field == 'dct_references_s' %>
+<% elsif element.solr_field == 'dct_references_s' %>
   <%= f.repeatable_attr_input(element.solr_field.to_sym, build: :at_least_one) do |sub_form| %>
     <%= category_and_value(sub_form, category_list: Document::Reference::REFERENCE_VALUES.keys) %>
   <% end %>

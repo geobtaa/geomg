@@ -3,7 +3,7 @@ require "application_system_test_case"
 class ElementsTest < ApplicationSystemTestCase
   setup do
     sign_in_as users(:user_001)
-    @element = elements(:one)
+    @element = Element.find_by(solr_field: 'dct_title_s')
   end
 
   test "visiting the index" do

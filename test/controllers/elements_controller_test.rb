@@ -4,8 +4,8 @@ class ElementsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   
   setup do
-    @element = elements(:one)
-
+    Rails.application.load_seed
+    @element = Element.find_by(solr_field: "dct_title_s")
     get '/users/sign_in'
     sign_in_as users(:user_001)
     post user_session_url

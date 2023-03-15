@@ -12,6 +12,7 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 require 'database_cleaner/active_record'
+DatabaseCleaner.strategy = :truncation
 
 require "minitest/rails"
 require 'minitest/reporters'
@@ -19,10 +20,14 @@ require 'active_storage_validations/matchers'
 
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
 
+# DB needs to be clean and seeded
+DatabaseCleaner.clean
+Rails.application.load_seed
+
 module ActiveSupport
   class TestCase
     extend ActiveStorageValidations::Matchers
-    fixtures :all, :except => 'elements'
+    fixtures :all
 
     include Devise::Test::IntegrationHelpers
     include Warden::Test::Helpers
@@ -39,6 +44,12 @@ module ActiveSupport
       sign_out u
     end
 
-    # Add more helper methods to be used by all tests here...
+    def setup
+      DatabaseCleaner.start
+    end
+  
+    def teardown
+      DatabaseCleaner.clean
+    end
   end
 end

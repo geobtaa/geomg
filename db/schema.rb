@@ -266,7 +266,7 @@ ActiveRecord::Schema.define(version: 2022_12_15_155636) do
   create_table "form_elements", force: :cascade do |t|
     t.string "type", null: false
     t.string "label"
-    t.integer "element_id"
+    t.string "element_solr_field"
     t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

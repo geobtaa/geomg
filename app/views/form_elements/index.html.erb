@@ -24,8 +24,8 @@
         <td><%= form_element.type %></td>
         <td><%= form_element.label %></td>
         <td>
-          <%- if form_element.element_id.present? %>
-            <%= Element.find(form_element.element_id).label %>
+          <%- if form_element.element_solr_field.present? %>
+            <%= Element.find_by(solr_field: form_element.element_solr_field).label %>
           <%- end %>
         </td>
         <td class="handle" style="text-align:center">&varr;</td>

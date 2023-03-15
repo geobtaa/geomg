@@ -7,13 +7,12 @@ end
 desc 'Run test suite'
 task ci: :environment do
   Rails.env = "test"
-  Rails.application.load_seed
   shared_solr_opts = { managed: true, verbose: true, persist: false, download_dir: 'tmp' }
   shared_solr_opts[:version] = ENV['SOLR_VERSION'] if ENV['SOLR_VERSION']
 
   success = true
-  SolrWrapper.wrap(shared_solr_opts.merge(port: 8985, instance_dir: 'tmp/geoportal-core-test')) do |solr|
-    solr.with_collection(name: 'geoportal-core-test', dir: Rails.root.join('solr/conf').to_s) do
+  SolrWrapper.wrap(shared_solr_opts.merge(port: 8983, instance_dir: 'tmp/blacklight-core')) do |solr|
+    solr.with_collection(name: 'blacklight-core', dir: Rails.root.join('solr/conf').to_s) do
       system('RAILS_ENV=test TESTOPTS="-v" bundle exec rails test:system test') || success = false
     end
   end
@@ -53,9 +52,9 @@ namespace :geomg do
     shared_solr_opts = { managed: true, verbose: true, persist: false, download_dir: 'tmp' }
     shared_solr_opts[:version] = ENV['SOLR_VERSION'] if ENV['SOLR_VERSION']
 
-    SolrWrapper.wrap(shared_solr_opts.merge(port: 8983, instance_dir: 'tmp/geoportal-core-development')) do |solr|
-      solr.with_collection(name: 'geoportal-core-development', dir: Rails.root.join('solr/conf').to_s) do
-        puts 'Solr running at http://localhost:8983/solr/geoportal-core-development/, ^C to exit'
+    SolrWrapper.wrap(shared_solr_opts.merge(port: 8983, instance_dir: 'tmp/blacklight-core')) do |solr|
+      solr.with_collection(name: 'blacklight-core', dir: Rails.root.join('solr/conf').to_s) do
+        puts 'Solr running at http://localhost:8983/solr/blacklight-core/, ^C to exit'
         puts ' '
         begin
           # Rake::Task['geomg:solr:restore'].invoke
@@ -74,9 +73,9 @@ namespace :geomg do
       shared_solr_opts = { managed: true, verbose: true, persist: false, download_dir: 'tmp' }
       shared_solr_opts[:version] = ENV['SOLR_VERSION'] if ENV['SOLR_VERSION']
 
-      SolrWrapper.wrap(shared_solr_opts.merge(port: 8985, instance_dir: 'tmp/geoportal-core-test')) do |solr|
-        solr.with_collection(name: 'geoportal-core-test', dir: Rails.root.join('solr/conf').to_s) do
-          puts 'Solr running at http://localhost:8985/solr/#/geoportal-core-test/, ^C to exit'
+      SolrWrapper.wrap(shared_solr_opts.merge(port: 8983, instance_dir: 'tmp/blacklight-core')) do |solr|
+        solr.with_collection(name: 'blacklight-core', dir: Rails.root.join('solr/conf').to_s) do
+          puts 'Solr running at http://localhost:8983/solr/#/blacklight-core/, ^C to exit'
           begin
             Rake::Task['db:fixtures:load'].invoke
             Rake::Task['geomg:solr:reindex'].invoke
@@ -96,9 +95,9 @@ namespace :geomg do
     shared_solr_opts = { managed: true, verbose: true, persist: false, download_dir: 'tmp' }
     shared_solr_opts[:version] = ENV['SOLR_VERSION'] if ENV['SOLR_VERSION']
 
-    SolrWrapper.wrap(shared_solr_opts.merge(port: 8983, instance_dir: 'tmp/geoportal-core-development')) do |solr|
-      solr.with_collection(name: "geoportal-core-development", dir: Rails.root.join("solr", "conf").to_s) do
-        puts "Solr running at http://localhost:8983/solr/#/geoportal-core-development/, ^C to exit"
+    SolrWrapper.wrap(shared_solr_opts.merge(port: 8983, instance_dir: 'tmp/blacklight-core')) do |solr|
+      solr.with_collection(name: "blacklight-core", dir: Rails.root.join("solr", "conf").to_s) do
+        puts "Solr running at http://localhost:8983/solr/#/blacklight-core/, ^C to exit"
         begin
           # Rake::Task['geoblacklight:solr:seed'].invoke
           sleep
