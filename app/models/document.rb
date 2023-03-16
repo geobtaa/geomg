@@ -163,7 +163,7 @@ class Document < Kithe::Work
     attributes = Geomg.exportable_field_mappings
     attributes.map do |key, value|
       if value[:delimited]
-        send(value[:destination]).join('|')
+        send(value[:destination])&.join('|')
       elsif value[:destination] == 'dct_references_s'
         dct_references_s_to_csv(key, value[:destination])
       elsif value[:destination] == 'b1g_publication_state_s'
