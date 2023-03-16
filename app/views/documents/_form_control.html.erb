@@ -7,6 +7,7 @@
 <%- options[:html_attributes] = { placeholder: element.placeholder_text } if element.placeholder_text.present? %>
 
 <% # @TODO: mask %>
+
 <% # Title is a special case - saved in the database outside of JSON Attributes %>
 <% if element.solr_field == "dct_title_s" %>
   <%= f.input :title, hint: "Theme: city, state, temporal coverage" %>
@@ -17,9 +18,17 @@
     <%= f.input :created_at, as: 'string', label: "Created At", input_html: { disabled: true } %>
   <% end %>
 <% elsif element.solr_field == "date_modified_dtsi" %>
-<% if @document.persisted? %>
-  <%= f.input :updated_at, as: 'string', label: "Last Updated", input_html: { disabled: true } %>
-<% end %>
+  <% if @document.persisted? %>
+    <%= f.input :updated_at, as: 'string', label: "Last Updated", input_html: { disabled: true } %>
+  <% end %>
+
+<% # Publication State is a special case  - saved in the database outside of JSON Attributes %>
+<% elsif element.solr_field == "b1g_publication_state_s" %>
+  <% if @document.persisted? %>
+    <%= f.input :publication_state, label: 'Publication State', required: true, collection: Document::ControlledLists::PUBLICATION_STATE %>
+  <% else %>
+    <%= f.hidden_field :publication_state %>
+  <% end %>
 
 <% # References are a special, special case %>
 <% elsif element.solr_field == 'dct_references_s' %>
