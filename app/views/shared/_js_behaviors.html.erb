@@ -40,4 +40,8 @@
   $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
       $(this).val('');
   });
+
+  $(document).on('ready turbolinks:load', function() {
+    GEOMG.DisableIfPersisted();
+  });
 </script>
