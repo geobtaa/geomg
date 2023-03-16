@@ -8,7 +8,7 @@ class KitheModelsFriendlierId < ActiveRecord::Migration[5.2]
         # Create a function to generate random non-conflicting (with db check) friendlier ids, that
         # look kind of like noids -- 7 chars, 0-9a-z. Min and Max are bigint equivalents that
         # we'll base-36 encode as chars.
-        execute <<~'EOSQL'
+        execute <<~EOSQL
           CREATE OR REPLACE FUNCTION kithe_models_friendlier_id_gen(min_value bigint, max_value bigint) RETURNS text AS $$
             DECLARE
               new_id_int bigint;

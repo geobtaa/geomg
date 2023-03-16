@@ -100,7 +100,7 @@ group :development do
   gem "foreman"
   gem "letter_opener"
   gem "listen", ">= 3.0.5", "< 3.2"
-  gem "rubocop", "~> 0.86", require: false
+  gem "rubocop", "~> 1.0", require: false
   gem "rubocop-minitest", require: false
   gem "rubocop-rails", require: false
   gem "spring"

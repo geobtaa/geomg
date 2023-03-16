@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Required
-json.set! "gbl_mdVersion_s".to_sym, "BTAA Aardvark"
+json.set! :gbl_mdVersion_s, "BTAA Aardvark"
 
 Element.exportable.each do |elm|
   if document.send(elm.export_value).is_a?(Array)

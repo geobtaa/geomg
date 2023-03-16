@@ -42,7 +42,7 @@ module DocumentHelper
     if links["prev"]
       link_to "Previous", localize_link(links["prev"]), {class: "btn btn-outline-primary btn-sm"}
     else
-      link_to "Previous", "javascript:;", {class: "btn btn-outline-primary btn-sm disabled", 'aria-disabled': true}
+      link_to "Previous", "javascript:;", {class: "btn btn-outline-primary btn-sm disabled", "aria-disabled": true}
     end
   end
 
@@ -50,7 +50,7 @@ module DocumentHelper
     if links["next"]
       link_to "Next", localize_link(links["next"]), {class: "btn btn-outline-primary btn-sm"}
     else
-      link_to "Next", "javascript:;", {class: "btn btn-outline-primary btn-sm disabled", 'aria-disabled': true}
+      link_to "Next", "javascript:;", {class: "btn btn-outline-primary btn-sm disabled", "aria-disabled": true}
     end
   end
 

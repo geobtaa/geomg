@@ -55,7 +55,7 @@ class ImportGblv1 < Import
 
   def solr_geom_mapping(geom)
     # Example: "ENVELOPE(-87\\, -85.76\\, 39.78\\, 37.96)"
-    geom&.delete('\\')
+    geom&.delete("\\")
   end
 
   def geomg_b1g_date_range_drsim(args)

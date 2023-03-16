@@ -33,7 +33,7 @@ class ZipFileGenerator
   # A helper method to make the recursion work.
   def write_entries(entries, path, zipfile)
     entries.each do |e|
-      zipfile_path = path == "" ? e : File.join(path, e)
+      zipfile_path = (path == "") ? e : File.join(path, e)
       disk_file_path = File.join(@input_dir, zipfile_path)
 
       if File.directory? disk_file_path

@@ -27,9 +27,9 @@ class ReportsController < ApplicationController
     params[:created_at] ||= {}
     @date_range = params[:created_at][:range] ||= "last4weeks"
 
-    @date_start = params[:created_at][:start] ||= (28.days.ago).strftime(I18n.t("date.formats.default"))
+    @date_start = params[:created_at][:start] ||= 28.days.ago.strftime(I18n.t("date.formats.default"))
 
-    @date_end = params[:created_at][:end] ||= (Time.zone.now).strftime(I18n.t("date.formats.default"))
+    @date_end = params[:created_at][:end] ||= Time.zone.now.strftime(I18n.t("date.formats.default"))
 
     # Comparison query
     return unless params[:compare] == "true"

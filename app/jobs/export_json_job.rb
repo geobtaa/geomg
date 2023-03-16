@@ -87,7 +87,7 @@ class ExportJsonJob < ApplicationJob
 
     # Attach CSV file (can only attach after persisted)
     notification.record.file.attach(io: File.open(@zip_file), filename: "geomg-export-#{Time.zone.today}.zip",
-                                    content_type: "application/zip")
+      content_type: "application/zip")
 
     Rails.logger.debug "Notification File attached!"
 

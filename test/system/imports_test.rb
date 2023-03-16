@@ -86,8 +86,8 @@ class ImportsTest < ApplicationSystemTestCase
     visit "/documents/slug.csv"
 
     # Assert Import CSV file and Export CSV file match
-    import_csv = File.open(Rails.root.join("test/fixtures/files/schema_support.csv")).read
-    export_csv = File.open(Rails.root.join("tmp/downloads/documents-#{Time.zone.today}.csv")).read
+    import_csv = File.read(Rails.root.join("test/fixtures/files/schema_support.csv"))
+    export_csv = File.read(Rails.root.join("tmp/downloads/documents-#{Time.zone.today}.csv"))
     assert_equal(import_csv, export_csv)
   end
 end

@@ -15,11 +15,11 @@ class Document < Kithe::Work
 
   # DocumentAccesses
   has_many :document_accesses, primary_key: "friendlier_id", foreign_key: "friendlier_id", autosave: false, dependent: :destroy,
-                               inverse_of: :document
+    inverse_of: :document
 
   # DocumentDownloads
   has_many :document_downloads, primary_key: "friendlier_id", foreign_key: "friendlier_id", autosave: false, dependent: :destroy,
-                                inverse_of: :document
+    inverse_of: :document
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: DocumentTransition,
@@ -80,7 +80,7 @@ class Document < Kithe::Work
     if document_downloads.present?
       multiple_downloads = multiple_downloads_array
       multiple_downloads << {label: download_text(send(GEOMG_SOLR_FIELDS[:format])), url: dct_downloads} if dct_downloads.present?
-      references[:'http://schema.org/downloadUrl'] = multiple_downloads
+      references[:"http://schema.org/downloadUrl"] = multiple_downloads
     end
     references
   end
@@ -166,7 +166,7 @@ class Document < Kithe::Work
       elsif value[:destination] == "dct_references_s"
         dct_references_s_to_csv(key, value[:destination])
       elsif value[:destination] == "b1g_publication_state_s"
-        send("current_state")
+        send(:current_state)
       else
         send(value[:destination])
       end
