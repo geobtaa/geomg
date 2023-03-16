@@ -8,5 +8,7 @@ class CreateFormElements < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+
+    Rails.application.load_seed
   end
 end
