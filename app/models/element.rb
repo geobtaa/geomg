@@ -1,4 +1,5 @@
 class Element < ApplicationRecord
+  serialize :html_attributes
 
   # Scopes
   scope :formable, -> { where(formable: true) }

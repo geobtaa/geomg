@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_15_155636) do
+ActiveRecord::Schema.define(version: 2023_03_16_183001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -248,7 +248,7 @@ ActiveRecord::Schema.define(version: 2022_12_15_155636) do
     t.string "test_fixture_example"
     t.string "controlled_vocabulary"
     t.string "js_behaviors"
-    t.string "html_attributes"
+    t.text "html_attributes"
     t.boolean "display_only_on_persisted", default: false, null: false
     t.boolean "importable", default: true, null: false
     t.boolean "import_deliminated", default: false, null: false

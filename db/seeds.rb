@@ -11,7 +11,10 @@ require 'csv'
 
 # Elements
 CSV.foreach(File.expand_path('seeds_elements.csv', File.dirname(__FILE__)), headers: true) do |row|
-  Element.create!(row.to_hash)
+  hash = row.to_hash
+  hash["html_attributes"] = eval(hash["html_attributes"]) if hash["html_attributes"].present?
+  puts hash.inspect
+  Element.create!(hash)
 end
 
 # FormElements
