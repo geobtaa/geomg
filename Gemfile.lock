@@ -433,6 +433,9 @@ GEM
       parser (>= 3.2.1.0)
     rubocop-minitest (0.27.0)
       rubocop (>= 0.90, < 2.0)
+    rubocop-performance (1.8.1)
+      rubocop (>= 0.87.0)
+      rubocop-ast (>= 0.4.0)
     rubocop-rails (2.9.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
@@ -498,6 +501,11 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    standard (0.6.1)
+      rubocop (~> 0.90)
+      rubocop-performance (~> 1.8.0)
+    standardrb (1.0.1)
+      standard
     statesman (7.1.0)
     temple (0.10.0)
     thor (1.2.1)
@@ -621,6 +629,7 @@ DEPENDENCIES
   solr_wrapper (~> 3.1)
   spring
   spring-watcher-listen (~> 2.0.0)
+  standardrb
   statesman (~> 7.1.0)
   turbolinks (~> 5)
   tzinfo-data
