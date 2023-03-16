@@ -1,4 +1,6 @@
-// JS Behavior: Disable Fields
+// Fields - JS Behaviors
+
+// Disable Field if Persisted
 GEOMG.DisableIfPersisted = function() {
   elms = $('[data-js="disable_if_persisted"]');
 
