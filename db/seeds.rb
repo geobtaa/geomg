@@ -12,8 +12,8 @@ require 'csv'
 # Elements
 CSV.foreach(File.expand_path('seeds_elements.csv', File.dirname(__FILE__)), headers: true) do |row|
   hash = row.to_hash
+  # YES, I'm calling eval - It's hard to seed a serialized field via a CSV file
   hash["html_attributes"] = eval(hash["html_attributes"]) if hash["html_attributes"].present?
-  puts hash.inspect
   Element.create!(hash)
 end
 
