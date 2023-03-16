@@ -10,6 +10,10 @@
     <%= render partial: 'form_group', locals: { form_element: form_element } %>
   <% end %>
 
+  <% if form_element.kind_of? FormFeature %>
+    <%= render partial: "documents/features/#{form_element.label.parameterize(separator: "_")}", locals: { form_element: form_element } %>
+  <% end %>
+
   <% if form_element.kind_of? FormControl %>
     <%- element = Element.find_by(solr_field: form_element.element_solr_field) %>
     <%- next if element.display_only_on_persisted? && !@document.persisted? %>
