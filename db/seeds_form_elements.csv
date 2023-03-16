@@ -1,5 +1,5 @@
 type,label,element_solr_field,position
-FormHeader,Identifications,,1
+FormHeader,Identification,,1
 FormGroup,Descriptive,,2
 FormControl,,dct_title_s,3
 FormControl,NULL,dct_alternative_sm,4

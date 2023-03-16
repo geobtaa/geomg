@@ -340,7 +340,7 @@ ActiveRecord::Schema.define(version: 2022_12_15_155636) do
     t.index ["container_id"], name: "index_kithe_model_contains_on_container_id"
   end
 
-  create_table "kithe_models", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "kithe_models", id: :uuid, default: -> { "public.gen_random_uuid()" }, force: :cascade do |t|
     t.string "title", null: false
     t.string "type", null: false
     t.integer "position"
