@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class DocumentTest < ActiveSupport::TestCase
   def setup
@@ -8,7 +8,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   # Create / db-stored title should also be dct_title_s
-  test 'creates a document' do
+  test "creates a document" do
     @document.title = "Test"
     @document.dct_accessRights_s = "Public"
     @document.gbl_resourceClass_sm = "Collections"
@@ -22,24 +22,24 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   # Attrs
-  test 'responds to title' do
+  test "responds to title" do
     assert_respond_to @document, :title
   end
 
-  test 'responds to publication_state' do
+  test "responds to publication_state" do
     assert_respond_to @document, :publication_state
     assert_respond_to @document, :current_state
   end
 
-  test 'responds to import' do
+  test "responds to import" do
     assert_respond_to @document, :import
   end
 
-  test 'kithe_indexable_mapper' do
+  test "kithe_indexable_mapper" do
     assert_respond_to @document, :kithe_indexable_mapper
   end
 
-  test 'responds to B1G attributes' do
+  test "responds to B1G attributes" do
     # Form
     # Identification
     # - Descriptive
@@ -104,61 +104,61 @@ class DocumentTest < ActiveSupport::TestCase
     assert_respond_to @document, GEOMG_SOLR_FIELDS[:child_record]
   end
 
-  test 'responds to type' do
+  test "responds to type" do
     assert_respond_to @document, :type
-    assert_equal @document.type, 'Document'
+    assert_equal @document.type, "Document"
   end
 
-  test 'responds to json_attributes' do
+  test "responds to json_attributes" do
     assert_respond_to @document, :json_attributes
   end
 
-  test 'responds to timestamps' do
+  test "responds to timestamps" do
     assert_respond_to @document, :created_at
     assert_respond_to @document, :updated_at
   end
 
-  test 'responds to friendlier_id' do
+  test "responds to friendlier_id" do
     assert_respond_to @document, :friendlier_id
   end
 
-  test 'responds to iso_language_mapping' do
+  test "responds to iso_language_mapping" do
     assert_respond_to @document, :iso_language_mapping
     @document = documents(:ag)
     assert_equal(@document.iso_language_mapping, ["English"])
   end
 
   # Paper Trail
-  test 'responds to versions' do
+  test "responds to versions" do
     assert_respond_to @document, :versions
   end
 
   # To CSV
-  test 'responds to to_csv' do
+  test "responds to to_csv" do
     assert_respond_to @document, :to_csv
   end
 
   # Test DateRanges
-  test 'b1g_date_range validation' do
+  test "b1g_date_range validation" do
     # YYYY-YYYY is valid
     @document = documents(:ag)
-    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=",["1977-2020"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=", ["1977-2020"])
     assert_nothing_raised do
       @document.save
     end
 
     # YYYY-* or *-YYYY is valid
-    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=",["YYYY-*"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=", ["YYYY-*"])
     assert_nothing_raised do
       @document.save
     end
-    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=",["*-YYYY"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=", ["*-YYYY"])
     assert_nothing_raised do
       @document.save
     end
 
     # Start YYYY == End YYYY is valid
-    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=",["1851-1851"])
+    @document.send("#{GEOMG_SOLR_FIELDS[:date_range]}=", ["1851-1851"])
     assert_nothing_raised do
       @document.save
     end
@@ -195,7 +195,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   # Test Bbox
-  test 'bbox validation' do
+  test "bbox validation" do
     @document = documents(:ag)
 
     # Bad minY
@@ -241,7 +241,7 @@ class DocumentTest < ActiveSupport::TestCase
   end
 
   # Test solr_year_json
-  test 'derive gbl_indexYear_im via gbl_dateRange_drsim' do
+  test "derive gbl_indexYear_im via gbl_dateRange_drsim" do
     @document = documents(:ag)
     # Input date range
     # "gbl_dateRange_drsim": ["2015-2015"]

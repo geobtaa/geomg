@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 # Document
@@ -12,14 +11,14 @@ class Document < Kithe::Work
   belongs_to :import, optional: true
 
   # Statesman
-  has_many :document_transitions, foreign_key: 'kithe_model_id', autosave: false, dependent: :destroy, inverse_of: :document
+  has_many :document_transitions, foreign_key: "kithe_model_id", autosave: false, dependent: :destroy, inverse_of: :document
 
   # DocumentAccesses
-  has_many :document_accesses, primary_key: 'friendlier_id', foreign_key: 'friendlier_id', autosave: false, dependent: :destroy,
+  has_many :document_accesses, primary_key: "friendlier_id", foreign_key: "friendlier_id", autosave: false, dependent: :destroy,
                                inverse_of: :document
 
   # DocumentDownloads
-  has_many :document_downloads, primary_key: 'friendlier_id', foreign_key: 'friendlier_id', autosave: false, dependent: :destroy,
+  has_many :document_downloads, primary_key: "friendlier_id", foreign_key: "friendlier_id", autosave: false, dependent: :destroy,
                                 inverse_of: :document
 
   include Statesman::Adapters::ActiveRecordQueries[
@@ -47,7 +46,7 @@ class Document < Kithe::Work
 
   # Downloadable Resouce
   def a_downloadable_resource?
-    references_json.include?('downloadUrl')
+    references_json.include?("downloadUrl")
   end
 
   validates_with Document::DateRangeValidator
@@ -56,12 +55,12 @@ class Document < Kithe::Work
 
   # Definte our AttrJSON attributes
   Element.all.each do |attribute|
-    next if attribute.solr_field == 'dct_references_s'
+    next if attribute.solr_field == "dct_references_s"
 
     if attribute.repeatable?
       attr_json attribute.solr_field.to_sym, attribute.field_type.to_sym, array: true, default: -> { [] }
     else
-      attr_json attribute.solr_field.to_sym, attribute.field_type.to_sym, default: ''
+      attr_json attribute.solr_field.to_sym, attribute.field_type.to_sym, default: ""
     end
   end
 
@@ -76,18 +75,18 @@ class Document < Kithe::Work
   end
 
   def apply_downloads(references)
-    dct_downloads = references['http://schema.org/downloadUrl']
+    dct_downloads = references["http://schema.org/downloadUrl"]
     # Make sure downloads exist!
     if document_downloads.present?
       multiple_downloads = multiple_downloads_array
-      multiple_downloads << { label: download_text(send(GEOMG_SOLR_FIELDS[:format])), url: dct_downloads } if dct_downloads.present?
-      references.merge!({ 'http://schema.org/downloadUrl': multiple_downloads })
+      multiple_downloads << {label: download_text(send(GEOMG_SOLR_FIELDS[:format])), url: dct_downloads} if dct_downloads.present?
+      references[:'http://schema.org/downloadUrl'] = multiple_downloads
     end
     references
   end
 
   def multiple_downloads_array
-    document_downloads.collect { |d| { label: d.label, url: d.value } }
+    document_downloads.collect { |d| {label: d.label, url: d.value} }
   end
 
   ### From GBL
@@ -95,8 +94,8 @@ class Document < Kithe::Work
   # Looks up properly formatted names for formats
   #
   def proper_case_format(format)
-    if I18n.exists?("geoblacklight.formats.#{format.to_s.parameterize(separator: '_')}")
-      I18n.t("geoblacklight.formats.#{format.to_s.parameterize(separator: '_')}")
+    if I18n.exists?("geoblacklight.formats.#{format.to_s.parameterize(separator: "_")}")
+      I18n.t("geoblacklight.formats.#{format.to_s.parameterize(separator: "_")}")
     else
       format
     end
@@ -107,10 +106,10 @@ class Document < Kithe::Work
   #
   def download_text(format)
     download_format = proper_case_format(format)
-    prefix = 'Original '
+    prefix = "Original "
     begin
       format = download_format
-    rescue StandardError
+    rescue
       # Need to rescue if format doesn't exist
     end
     value = prefix + format.to_s
@@ -141,9 +140,9 @@ class Document < Kithe::Work
     date_ranges = []
     unless send(GEOMG_SOLR_FIELDS[:date_range]).all?(&:blank?)
       send(GEOMG_SOLR_FIELDS[:date_range]).each do |date_range|
-        start_d, end_d = date_range.split('-')
-        start_d = '*' if start_d == 'YYYY' || start_d.nil?
-        end_d   = '*' if end_d == 'YYYY' || end_d.nil?
+        start_d, end_d = date_range.split("-")
+        start_d = "*" if start_d == "YYYY" || start_d.nil?
+        end_d = "*" if end_d == "YYYY" || end_d.nil?
         date_ranges << "[#{start_d} TO #{end_d}]" if start_d.present?
       end
     end
@@ -153,21 +152,21 @@ class Document < Kithe::Work
   def solr_year_json
     return [] if send(GEOMG_SOLR_FIELDS[:date_range]).blank?
 
-    start_d, _end_d = send(GEOMG_SOLR_FIELDS[:date_range]).first.split('-')
+    start_d, _end_d = send(GEOMG_SOLR_FIELDS[:date_range]).first.split("-")
     [start_d] if start_d.presence
   end
-  alias gbl_indexYear_im solr_year_json
+  alias_method :gbl_indexYear_im, :solr_year_json
 
   # Export Transformations - to_*
   def to_csv
     attributes = Geomg.exportable_field_mappings
     attributes.map do |key, value|
       if value[:delimited]
-        send(value[:destination])&.join('|')
-      elsif value[:destination] == 'dct_references_s'
+        send(value[:destination])&.join("|")
+      elsif value[:destination] == "dct_references_s"
         dct_references_s_to_csv(key, value[:destination])
-      elsif value[:destination] == 'b1g_publication_state_s'
-        send('current_state')
+      elsif value[:destination] == "b1g_publication_state_s"
+        send("current_state")
       else
         send(value[:destination])
       end
@@ -175,7 +174,7 @@ class Document < Kithe::Work
   end
 
   def to_traject
-    Kithe::Model.find_by_friendlier_id(self.friendlier_id).update_index(writer: Traject::DebugWriter.new({}))
+    Kithe::Model.find_by_friendlier_id(friendlier_id).update_index(writer: Traject::DebugWriter.new({}))
   end
 
   def dct_references_s_to_csv(key, destination)
@@ -199,7 +198,7 @@ class Document < Kithe::Work
     elsif send(GEOMG_SOLR_FIELDS[:bounding_box]).present?
       derive_polygon
     else
-      ''
+      ""
     end
   end
 
@@ -207,20 +206,20 @@ class Document < Kithe::Work
   def derive_polygon
     if send(GEOMG_SOLR_FIELDS[:bounding_box]).present?
       # Guard against a whole world polygons
-      if send(GEOMG_SOLR_FIELDS[:bounding_box]) == '-180,-90,180,90'
+      if send(GEOMG_SOLR_FIELDS[:bounding_box]) == "-180,-90,180,90"
         "ENVELOPE(-180,180,90,-90)"
       else
         # "W,S,E,N" convert to "POLYGON((W N, E N, E S, W S, W N))"
-        w, s, e, n = send(GEOMG_SOLR_FIELDS[:bounding_box]).split(',')
+        w, s, e, n = send(GEOMG_SOLR_FIELDS[:bounding_box]).split(",")
         "POLYGON((#{w} #{n}, #{e} #{n}, #{e} #{s}, #{w} #{s}, #{w} #{n}))"
       end
     else
-     ''
+      ""
     end
   end
 
   def set_geometry
-    if self.locn_geometry.blank? && self&.dcat_bbox&.present?
+    if locn_geometry.blank? && self&.dcat_bbox&.present?
       self.locn_geometry = derive_polygon
     end
   end
@@ -229,19 +228,19 @@ class Document < Kithe::Work
   def derive_dcat_bbox
     if send(GEOMG_SOLR_FIELDS[:bounding_box]).present?
       # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
-      w, s, e, n = send(GEOMG_SOLR_FIELDS[:bounding_box]).split(',')
+      w, s, e, n = send(GEOMG_SOLR_FIELDS[:bounding_box]).split(",")
       "ENVELOPE(#{w},#{e},#{n},#{s})"
     else
-      ''
+      ""
     end
   end
 
   def derive_dcat_centroid
     if send(GEOMG_SOLR_FIELDS[:bounding_box]).present?
-      w, s, e, n = send(GEOMG_SOLR_FIELDS[:bounding_box]).split(',')
+      w, s, e, n = send(GEOMG_SOLR_FIELDS[:bounding_box]).split(",")
       "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
     else
-      ''
+      ""
     end
   end
 

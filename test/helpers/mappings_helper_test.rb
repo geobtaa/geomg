@@ -1,22 +1,21 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class MappingsHelperTest < ActionView::TestCase
-
   def setup
     Rails.application.load_seed
     @import = ImportBtaa.new
   end
 
-  test 'attribute_collection' do
+  test "attribute_collection" do
     attrs = Element.importable.map(&:solr_field).sort
-    attrs.prepend('')
-    attrs.prepend('Discard')
-    attrs.delete (:gbl_mdVersion_s)   # Assumed value
-    attrs.delete (:b1g_language_sm)   # Derived value
-    attrs.delete (:gbl_indexYear_im)  # Derived value
-    attrs.delete (:gbl_mdModified_dt) # DB value
+    attrs.prepend("")
+    attrs.prepend("Discard")
+    attrs.delete(:gbl_mdVersion_s) # Assumed value
+    attrs.delete(:b1g_language_sm) # Derived value
+    attrs.delete(:gbl_indexYear_im) # Derived value
+    attrs.delete(:gbl_mdModified_dt) # DB value
 
     assert_equal(
       attribute_collection,
@@ -24,30 +23,30 @@ class MappingsHelperTest < ActionView::TestCase
     )
   end
 
-  test 'mapping_suggestion - exists' do
+  test "mapping_suggestion - exists" do
     assert_equal(
-      mapping_suggestion(@import, 'Language'),
+      mapping_suggestion(@import, "Language"),
       GEOMG_SOLR_FIELDS[:language]
     )
   end
 
-  test 'mapping_suggestion - does not exist' do
+  test "mapping_suggestion - does not exist" do
     assert_equal(
-      mapping_suggestion(@import, 'Does Not Exist'),
+      mapping_suggestion(@import, "Does Not Exist"),
       false
     )
   end
 
-  test 'delimiter_suggestion - exists' do
+  test "delimiter_suggestion - exists" do
     assert_equal(
-      delimiter_suggestion(@import, 'Language'),
+      delimiter_suggestion(@import, "Language"),
       true
     )
   end
 
-  test 'delimiter_suggestion - does not exist' do
+  test "delimiter_suggestion - does not exist" do
     assert_equal(
-      delimiter_suggestion(@import, 'Does Not Exist'),
+      delimiter_suggestion(@import, "Does Not Exist"),
       false
     )
   end

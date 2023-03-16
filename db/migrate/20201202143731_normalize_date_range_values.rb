@@ -4,8 +4,8 @@ class NormalizeDateRangeValues < ActiveRecord::Migration[6.0]
     docs.each do |doc|
       date_ranges = []
       doc.b1g_date_range_drsim.each do |date_range|
-        if date_range.include?('TO')
-          fixed_range = date_range.scan(/\d+/).join('-')
+        if date_range.include?("TO")
+          fixed_range = date_range.scan(/\d+/).join("-")
           date_ranges << fixed_range
         else
           date_ranges << date_range

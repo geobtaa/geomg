@@ -9,13 +9,13 @@ class ImportBtaaAardvark < Import
   end
 
   def klass_delimiter
-    '|'
+    "|"
   end
 
   # Solr Field => Hard Value
   def default_mappings
     [
-      { gbl_mdVersion_s: 'Aardvark' }
+      {gbl_mdVersion_s: "Aardvark"}
     ]
   end
 
@@ -32,21 +32,21 @@ class ImportBtaaAardvark < Import
   # Derived Values
   def derived_mappings
     [
-      { dct_references_s:
+      {dct_references_s:
         {
-          field: 'dct_references_s',
-          method: 'geomg_dct_references_s'
-        } },
-      { gbl_dateRange_drsim:
+          field: "dct_references_s",
+          method: "geomg_dct_references_s"
+        }},
+      {gbl_dateRange_drsim:
         {
-          field: 'gbl_dateRange_drsim',
-          method: 'geomg_b1g_date_range_drsim'
-        } },
-      { locn_geometry:
+          field: "gbl_dateRange_drsim",
+          method: "geomg_b1g_date_range_drsim"
+        }},
+      {locn_geometry:
         {
-          field: 'locn_geometry',
-          method: 'solr_geom_mapping'
-        } }
+          field: "locn_geometry",
+          method: "solr_geom_mapping"
+        }}
     ]
   end
 
@@ -54,7 +54,7 @@ class ImportBtaaAardvark < Import
   # Key / Default Value
   def required_mappings
     [
-      { b1g_status_s: 'Active' }
+      {b1g_status_s: "Active"}
     ]
   end
 
@@ -65,13 +65,13 @@ class ImportBtaaAardvark < Import
     # Example: "ENVELOPE(-87\\, -85.76\\, 39.78\\, 37.96)"
     geom = data_hash[field]
     if geom.present?
-      geom = geom&.delete('ENVELOPE(')
-      geom = geom&.delete(')')
+      geom = geom&.delete("ENVELOPE(")
+      geom = geom&.delete(")")
       geom = geom&.delete('\\')
-      w, e, n, s = geom.split(',')
+      w, e, n, s = geom.split(",")
       "#{w},#{s},#{e},#{n}"
     else
-      ''
+      ""
     end
   end
 
@@ -82,7 +82,7 @@ class ImportBtaaAardvark < Import
     # Ex. [2020 TO 2020], [* TO 2020], [2020 TO *]
     date_range = nil
     date_range = data_hash[field][0] unless data_hash[field].empty?
-    date_range = date_range[1..12]&.gsub(' TO ', '-') unless date_range.nil?
+    date_range = date_range[1..12]&.gsub(" TO ", "-") unless date_range.nil?
     date_range
   end
 

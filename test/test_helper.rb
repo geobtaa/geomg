@@ -1,22 +1,22 @@
 # frozen_string_literal: true
 
-ENV['RAILS_ENV'] = 'test'
-require 'simplecov'
+ENV["RAILS_ENV"] = "test"
+require "simplecov"
 SimpleCov.start do
-  add_filter '/bin/'
-  add_filter '/db/'
-  add_filter '/test/' # for minitest
+  add_filter "/bin/"
+  add_filter "/db/"
+  add_filter "/test/" # for minitest
 end
 
-require_relative '../config/environment'
-require 'rails/test_help'
+require_relative "../config/environment"
+require "rails/test_help"
 
-require 'database_cleaner/active_record'
+require "database_cleaner/active_record"
 DatabaseCleaner.strategy = :truncation
 
 require "minitest/rails"
-require 'minitest/reporters'
-require 'active_storage_validations/matchers'
+require "minitest/reporters"
+require "active_storage_validations/matchers"
 
 Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
 
@@ -47,7 +47,7 @@ module ActiveSupport
     def setup
       DatabaseCleaner.start
     end
-  
+
     def teardown
       DatabaseCleaner.clean
     end

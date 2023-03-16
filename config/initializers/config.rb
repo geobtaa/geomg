@@ -1,6 +1,6 @@
 Config.setup do |config|
   # Name of the constant exposing loaded settings
-  config.const_name = 'GEOMG'
+  config.const_name = "GEOMG"
 
   # Ability to remove elements of the array set in earlier loaded settings file. For example value: '--'.
   #
@@ -26,7 +26,7 @@ Config.setup do |config|
   #
   # When not set it defaults to `config.const_name`.
   #
-  config.env_prefix = 'GEOMG'
+  config.env_prefix = "GEOMG"
 
   # What string to use as level separator for settings loaded from ENV variables. Default value of '.' works well
   # with Heroku, but you might want to change it for example for '__' to easy override settings from command line, where
@@ -51,5 +51,4 @@ Config.setup do |config|
   #   required(:age).maybe(:int?)
   #   required(:email).filled(format?: EMAIL_REGEX)
   # end
-
 end

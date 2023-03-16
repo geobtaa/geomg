@@ -17,13 +17,13 @@ class CreateBulkActionDocumentTransitions < ActiveRecord::Migration[6.0]
     add_foreign_key :bulk_action_document_transitions, :bulk_action_documents
 
     add_index(:bulk_action_document_transitions,
-              %i(bulk_action_document_id sort_key),
-              unique: true,
-              name: "index_bulk_action_document_transitions_parent_sort")
+      %i[bulk_action_document_id sort_key],
+      unique: true,
+      name: "index_bulk_action_document_transitions_parent_sort")
     add_index(:bulk_action_document_transitions,
-              %i(bulk_action_document_id most_recent),
-              unique: true,
-              where: "most_recent",
-              name: "index_bulk_action_document_transitions_parent_most_recent")
+      %i[bulk_action_document_id most_recent],
+      unique: true,
+      where: "most_recent",
+      name: "index_bulk_action_document_transitions_parent_most_recent")
   end
 end

@@ -18,7 +18,7 @@ class ImportDocumentJob < ApplicationJob
     else
       import_document.state_machine.transition_to!(:failed, "Failed - #{document.errors.inspect}")
     end
-  rescue StandardError => e
+  rescue => e
     logger.debug("Error: #{e}")
     import_document.state_machine.transition_to!(:failed, "Error - #{e.inspect}")
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 # CSV Duplicates Validator
 #
@@ -26,7 +26,7 @@ class Import
       duplicate_id = nil
       csv = CSV.parse(csv_file.download, headers: true)
 
-      csv['ID'].each do |id|
+      csv["ID"].each do |id|
         duplicate_id = id unless ids.add?(id)
       end
 

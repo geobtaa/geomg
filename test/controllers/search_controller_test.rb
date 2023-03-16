@@ -1,8 +1,8 @@
-require 'test_helper'
+require "test_helper"
 
 class SearchControllerTest < ActionDispatch::IntegrationTest
   setup do
-    get '/users/sign_in'
+    get "/users/sign_in"
     sign_in_as users(:user_001)
     post user_session_url
 
@@ -12,7 +12,7 @@ class SearchControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index" do
     skip("@TODO: Decouple from GBL")
-    get '/search'
+    get "/search"
     assert_response :success
   end
 end

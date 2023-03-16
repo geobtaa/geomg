@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 # ExportCsvService
 class ExportCsvService
-
   def self.short_name
     "Documents"
   end
 
   def self.call(document_ids)
-    ActionCable.server.broadcast('export_channel', { progress: 0 })
+    ActionCable.server.broadcast("export_channel", {progress: 0})
 
     document_ids = document_ids.flatten
     total = document_ids.size
@@ -28,7 +27,7 @@ class ExportCsvService
         progress = ((count.to_f / total) * 100).round
         progress = 100 if progress > 100
 
-        ActionCable.server.broadcast('export_channel', { progress: progress })
+        ActionCable.server.broadcast("export_channel", {progress: progress})
         slice.each do |doc_id|
           doc = Document.find_by(friendlier_id: doc_id)
           csv_file << doc.to_csv

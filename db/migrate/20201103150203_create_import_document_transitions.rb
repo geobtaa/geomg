@@ -17,13 +17,13 @@ class CreateImportDocumentTransitions < ActiveRecord::Migration[6.0]
     add_foreign_key :import_document_transitions, :import_documents
 
     add_index(:import_document_transitions,
-              %i(import_document_id sort_key),
-              unique: true,
-              name: "index_import_document_transitions_parent_sort")
+      %i[import_document_id sort_key],
+      unique: true,
+      name: "index_import_document_transitions_parent_sort")
     add_index(:import_document_transitions,
-              %i(import_document_id most_recent),
-              unique: true,
-              where: "most_recent",
-              name: "index_import_document_transitions_parent_most_recent")
+      %i[import_document_id most_recent],
+      unique: true,
+      where: "most_recent",
+      name: "index_import_document_transitions_parent_most_recent")
   end
 end

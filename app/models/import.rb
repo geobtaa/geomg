@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 # Import class
 class Import < ApplicationRecord
@@ -20,7 +20,7 @@ class Import < ApplicationRecord
 
   # Validations
   validates :name, :type, presence: true
-  validates :csv_file, attached: true, content_type: { in: 'text/csv', message: 'is not a CSV file' }
+  validates :csv_file, attached: true, content_type: {in: "text/csv", message: "is not a CSV file"}
 
   validates_with Import::CsvHeaderValidator
   validates_with Import::CsvDuplicatesValidator
@@ -80,13 +80,12 @@ class Import < ApplicationRecord
     converted_data = append_default_mappings(converted_data)
     converted_data = append_assumed_mappings(converted_data)
     converted_data = append_derived_mappings(converted_data)
-    converted_data = append_required_mappings(converted_data)
+    append_required_mappings(converted_data)
   end
 
   private
 
   def create_import_document(kithe_document)
-
   end
 
   def transform_extract(extract_hash)
@@ -95,12 +94,12 @@ class Import < ApplicationRecord
       # logger.debug("Mapping: #{mapping.source_header} to #{mapping.destination_field}")
 
       # Handle discards
-      if mapping.destination_field == 'Discard'
+      if mapping.destination_field == "Discard"
         next
       end
 
       # Handle repeatable dct_references_s entries
-      if mapping.destination_field == 'dct_references_s'
+      if mapping.destination_field == "dct_references_s"
         transformed_data[mapping.destination_field] ||= []
         unless extract_hash[mapping.source_header].nil?
           transformed_data[mapping.destination_field] << {
@@ -110,7 +109,7 @@ class Import < ApplicationRecord
         end
 
       # Handle solr_geom transformation
-      elsif mapping.destination_field == 'solr_geom'
+      elsif mapping.destination_field == "solr_geom"
         transformed_data[mapping.destination_field] = solr_geom_mapping(extract_hash[mapping.source_header])
 
       # Lastly, set existing values
@@ -120,7 +119,7 @@ class Import < ApplicationRecord
 
       # Split delimited field values, if field has a value present
       if mapping.delimited?
-        transformed_data[mapping.destination_field] = transformed_data[mapping.destination_field].present? ? transformed_data[mapping.destination_field].split(klass_delimiter) : ''
+        transformed_data[mapping.destination_field] = transformed_data[mapping.destination_field].present? ? transformed_data[mapping.destination_field].split(klass_delimiter) : ""
       end
     end
 
@@ -158,7 +157,7 @@ class Import < ApplicationRecord
       mapping.each do |key, value|
         derived_mapping = {}
 
-        args = { data_hash: data_hash.dup, field: value[:field] }
+        args = {data_hash: data_hash.dup, field: value[:field]}
         derived_mapping[key] = send(value[:method], args)
 
         data_hash.merge!(derived_mapping.stringify_keys)

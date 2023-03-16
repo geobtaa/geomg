@@ -3,7 +3,7 @@
 # BookmarksController
 class BookmarksController < ApplicationController
   before_action :set_document,
-                only: %i[create destroy]
+    only: %i[create destroy]
 
   # GET /bookmarks
   # GET /bookmarks.json
@@ -13,7 +13,7 @@ class BookmarksController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       # B1G CSV
-      format.csv  { send_data collect_csv(current_user.bookmarks), filename: "documents-#{Time.zone.today}.csv" }
+      format.csv { send_data collect_csv(current_user.bookmarks), filename: "documents-#{Time.zone.today}.csv" }
     end
   end
 
@@ -24,7 +24,7 @@ class BookmarksController < ApplicationController
 
     respond_to do |format|
       if @bookmark.save
-        format.html { redirect_to @bookmark, notice: 'Bookmark was successfully created.' }
+        format.html { redirect_to @bookmark, notice: "Bookmark was successfully created." }
         format.js
       else
         format.html { render :new }
@@ -39,7 +39,7 @@ class BookmarksController < ApplicationController
     Bookmark.destroy_by(user: current_user, document: @document)
 
     respond_to do |format|
-      format.html { redirect_to bookmarks_url, notice: 'Bookmark was successfully destroyed.' }
+      format.html { redirect_to bookmarks_url, notice: "Bookmark was successfully destroyed." }
       format.js
     end
   end
@@ -47,7 +47,7 @@ class BookmarksController < ApplicationController
   private
 
   def set_document
-    @document = Document.find_by(friendlier_id: params['document'])
+    @document = Document.find_by(friendlier_id: params["document"])
   end
 
   # Only allow a list of trusted parameters through.

@@ -1,11 +1,11 @@
-require 'test_helper'
+require "test_helper"
 
 class DocumentAccessesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @document = documents(:ag)
     @document_access = document_accesses(:one)
 
-    get '/users/sign_in'
+    get "/users/sign_in"
     sign_in_as users(:user_001)
     post user_session_url
 
@@ -39,8 +39,8 @@ class DocumentAccessesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create document_access" do
-    assert_difference('DocumentAccess.count') do
-      post document_document_accesses_url(@document), params: { document_access: { access_url: @document_access.access_url, institution_code: @document_access.institution_code, friendlier_id: @document_access.friendlier_id } }
+    assert_difference("DocumentAccess.count") do
+      post document_document_accesses_url(@document), params: {document_access: {access_url: @document_access.access_url, institution_code: @document_access.institution_code, friendlier_id: @document_access.friendlier_id}}
     end
 
     assert_redirected_to document_document_accesses_url(@document)
@@ -57,12 +57,12 @@ class DocumentAccessesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update document_access" do
-    patch document_document_access_url(@document, @document_access), params: { document_access: { access_url: @document_access.access_url, institution_code: @document_access.institution_code, friendlier_id: @document_access.friendlier_id } }
+    patch document_document_access_url(@document, @document_access), params: {document_access: {access_url: @document_access.access_url, institution_code: @document_access.institution_code, friendlier_id: @document_access.friendlier_id}}
     assert_redirected_to document_document_accesses_url(@document)
   end
 
   test "should destroy document_access" do
-    assert_difference('DocumentAccess.count', -1) do
+    assert_difference("DocumentAccess.count", -1) do
       delete document_document_access_url(@document, @document_access)
     end
 

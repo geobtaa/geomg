@@ -14,7 +14,7 @@ class FormElementsTest < ApplicationSystemTestCase
     visit form_elements_url
     click_on "New Form Element", match: :first
 
-    fill_in "Label", with: 'Header Label 1'
+    fill_in "Label", with: "Header Label 1"
     click_on "Create Form element"
 
     assert_text "Form element was successfully created"
@@ -24,7 +24,7 @@ class FormElementsTest < ApplicationSystemTestCase
     visit form_elements_url
     click_on "Edit", match: :first
 
-    fill_in "Label", with: 'Header Label 2'
+    fill_in "Label", with: "Header Label 2"
     click_on "Update Form element"
 
     assert_text "Form element was successfully updated"

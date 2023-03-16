@@ -1,5 +1,5 @@
 class FormElementsController < ApplicationController
-  before_action :set_form_element, only: %i[ show edit update destroy ]
+  before_action :set_form_element, only: %i[show edit update destroy]
 
   # GET /form_elements or /form_elements.json
   def index
@@ -63,13 +63,14 @@ class FormElementsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_form_element
-      @form_element = FormElement.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def form_element_params
-      params.require(:form_element).permit(:type, :label, :element_solr_field)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_form_element
+    @form_element = FormElement.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def form_element_params
+    params.require(:form_element).permit(:type, :label, :element_solr_field)
+  end
 end

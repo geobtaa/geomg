@@ -4,18 +4,18 @@
 class DocumentsController < ApplicationController
   ActionController::Parameters.permit_all_parameters = true
   before_action :set_document,
-                only: %i[show edit update destroy versions]
+    only: %i[show edit update destroy versions]
 
   # GET /documents
   # GET /documents.json
   def index
     query_params = {
-      q: params['q'],
-      f: params['f'],
-      page: params['page'],
-      rows: params['rows'] || 20,
-      sort: params['sort'] || 'score desc',
-      daterange: params['daterange'] || nil
+      q: params["q"],
+      f: params["f"],
+      page: params["page"],
+      rows: params["rows"] || 20,
+      sort: params["sort"] || "score desc",
+      daterange: params["daterange"] || nil
     }
     @documents = BlacklightApi.new(**query_params)
 
@@ -25,19 +25,19 @@ class DocumentsController < ApplicationController
 
       # JSON - BTAA Aardvark
       format.json_btaa_aardvark do
-        ExportJsonJob.perform_later(current_user, query_params.merge!({ format: 'json_btaa_aardvark' }), ExportJsonService)
+        ExportJsonJob.perform_later(current_user, query_params.merge!({format: "json_btaa_aardvark"}), ExportJsonService)
         head :no_content
       end
 
       # JSON - GBL Aardvark
       format.json_aardvark do
-        ExportJsonJob.perform_later(current_user, query_params.merge!({ format: 'json_aardvark' }), ExportJsonService)
+        ExportJsonJob.perform_later(current_user, query_params.merge!({format: "json_aardvark"}), ExportJsonService)
         head :no_content
       end
 
       # JSON - GBL v1
       format.json_gbl_v1 do
-        ExportJsonJob.perform_later(current_user, query_params.merge!({ format: 'json_gbl_v1' }), ExportJsonService)
+        ExportJsonJob.perform_later(current_user, query_params.merge!({format: "json_gbl_v1"}), ExportJsonService)
         head :no_content
       end
 
@@ -63,7 +63,7 @@ class DocumentsController < ApplicationController
 
   # Fetch documents from array of friendlier_ids
   def fetch
-    @documents = Document.where(friendlier_id: params['ids'])
+    @documents = Document.where(friendlier_id: params["ids"])
 
     respond_to do |format|
       format.html { render :index }
@@ -71,38 +71,38 @@ class DocumentsController < ApplicationController
 
       # JSON - BTAA Aardvark
       format.json_btaa_aardvark do
-        ExportJsonJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'json_btaa_aardvark' },
-                                    ExportJsonService)
+        ExportJsonJob.perform_later(current_user, {ids: @documents.pluck(:friendlier_id), format: "json_btaa_aardvark"},
+          ExportJsonService)
         head :no_content
       end
 
       # JSON - GBL Aardvark
       format.json_aardvark do
-        ExportJsonJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'json_aardvark' }, ExportJsonService)
+        ExportJsonJob.perform_later(current_user, {ids: @documents.pluck(:friendlier_id), format: "json_aardvark"}, ExportJsonService)
         head :no_content
       end
 
       # JSON - GBL v1
       format.json_gbl_v1 do
-        ExportJsonJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'json_gbl_v1' }, ExportJsonService)
+        ExportJsonJob.perform_later(current_user, {ids: @documents.pluck(:friendlier_id), format: "json_gbl_v1"}, ExportJsonService)
         head :no_content
       end
 
       # CSV - B1G
       format.csv do
-        ExportJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'csv' }, ExportCsvService)
+        ExportJob.perform_later(current_user, {ids: @documents.pluck(:friendlier_id), format: "csv"}, ExportCsvService)
         head :no_content
       end
 
       # CSV Document Downloads - B1G
       format.csv_document_downloads do
-        ExportJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'csv_document_downloads' }, ExportCsvDocumentDownloadsService)
+        ExportJob.perform_later(current_user, {ids: @documents.pluck(:friendlier_id), format: "csv_document_downloads"}, ExportCsvDocumentDownloadsService)
         head :no_content
       end
 
       # CSV Document Downloads - B1G
       format.csv_document_access_links do
-        ExportJob.perform_later(current_user, { ids: @documents.pluck(:friendlier_id), format: 'csv_document_access_links' }, ExportCsvDocumentAccessLinksService)
+        ExportJob.perform_later(current_user, {ids: @documents.pluck(:friendlier_id), format: "csv_document_access_links"}, ExportCsvDocumentAccessLinksService)
         head :no_content
       end
     end
@@ -115,10 +115,12 @@ class DocumentsController < ApplicationController
   end
 
   # GET /documents/1/edit
-  def edit; end
+  def edit
+  end
 
   # GET /documents/1/versions
-  def versions; end
+  def versions
+  end
 
   # POST /documents
   # POST /documents.json
@@ -127,7 +129,7 @@ class DocumentsController < ApplicationController
     @document.friendlier_id = @document.send(GEOMG_SOLR_FIELDS[:id])
     respond_to do |format|
       if @document.save
-        format.html { redirect_to documents_path, notice: 'Document was successfully created.' }
+        format.html { redirect_to documents_path, notice: "Document was successfully created." }
         format.json { render :show, status: :created, location: @document }
       else
         format.html { render :edit }
@@ -141,7 +143,7 @@ class DocumentsController < ApplicationController
   def update
     respond_to do |format|
       if @document.update(document_params)
-        format.html { redirect_to edit_document_path(@document), notice: 'Document was successfully updated.' }
+        format.html { redirect_to edit_document_path(@document), notice: "Document was successfully updated." }
         format.json { render :show, status: :ok, location: @document }
       else
         format.html { render :edit }

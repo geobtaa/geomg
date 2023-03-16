@@ -37,10 +37,9 @@ module FormInputHelper
   #   human_attribute_name as a guide, and make our own human_value_name or something
   #   that is more powerful.
   def category_and_value(builder,
-                         category_key: :category,
-                         value_key: :value,
-                         category_list:,
-                         input_data_attributes: {})
+    category_list:, category_key: :category,
+    value_key: :value,
+    input_data_attributes: {})
     model_class = builder.object.class
 
     # If existing value (which may be nil) is not in category list, add it to front.
@@ -48,27 +47,27 @@ module FormInputHelper
     category_list = [existing_category_value] + category_list unless category_list.include?(existing_category_value)
 
     # Turn category list into values and human labels, using i18n or rails humanizing.
-    category_list = category_list.collect do |key|
+    category_list = category_list.collect { |key|
       value = if key.nil?
-                key
-              elsif model_class.respond_to?(:model_name) && key.present?
-                I18n.t(key,
-                       scope: "activemodel.enum_values.#{model_class.model_name.i18n_key}.#{category_key}",
-                       default: key)
-              else
-                key
-              end
+        key
+      elsif model_class.respond_to?(:model_name) && key.present?
+        I18n.t(key,
+          scope: "activemodel.enum_values.#{model_class.model_name.i18n_key}.#{category_key}",
+          default: key)
+      else
+        key
+      end
 
       [value, key]
-    end.to_h
+    }.to_h
 
-    tag.div(class: 'form-row category-and-value') do
-      tag.div(class: 'col-left category') do
+    tag.div(class: "form-row category-and-value") do
+      tag.div(class: "col-left category") {
         builder.input category_key, collection: category_list, label: false, include_blank: false
-      end +
-        tag.div(class: 'col-sm value') do
-          builder.input value_key, label: false, input_html: { data: input_data_attributes }
-        end
+      } +
+        tag.div(class: "col-sm value") {
+          builder.input value_key, label: false, input_html: {data: input_data_attributes}
+        }
     end
   end
 end

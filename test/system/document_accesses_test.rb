@@ -17,7 +17,7 @@ class DocumentAccessesTest < ApplicationSystemTestCase
     click_on "+ New Access URL"
 
     fill_in "Access url", with: @document_access.access_url
-    find('#document_access_institution_code').find(:xpath, 'option[2]').select_option
+    find("#document_access_institution_code").find(:xpath, "option[2]").select_option
     click_on "Create Access URL"
 
     assert_text "Document access was successfully created"
@@ -28,7 +28,7 @@ class DocumentAccessesTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Access url", with: @document_access.access_url
-    find('#document_access_institution_code').find(:xpath, 'option[2]').select_option
+    find("#document_access_institution_code").find(:xpath, "option[2]").select_option
     click_on "Create Access URL"
 
     assert_text "Document access was successfully updated"

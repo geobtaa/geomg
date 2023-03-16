@@ -4,16 +4,16 @@
 module ReportsHelper
   def date_range_opts
     [
-      { value: 'custom', display: 'Custom', selected: false },
-      { value: 'today', display: 'Today', selected: false },
-      { value: 'yesterday', display: 'Yesterday', selected: false },
-      { value: 'lastweek', display: 'Last Week', selected: false },
-      { value: 'lastmonth', display: 'Last Month', selected: false },
-      { value: 'lastyear', display: 'Last Year', selected: false },
-      { value: 'last7days', display: 'Last 7 Days', selected: false },
-      { value: 'last4weeks', display: 'Last 4 Weeks', selected: true },
-      { value: 'last30days', display: 'Last 30 Days', selected: false },
-      { value: 'last365days', display: 'Last 365 Days', selected: false }
+      {value: "custom", display: "Custom", selected: false},
+      {value: "today", display: "Today", selected: false},
+      {value: "yesterday", display: "Yesterday", selected: false},
+      {value: "lastweek", display: "Last Week", selected: false},
+      {value: "lastmonth", display: "Last Month", selected: false},
+      {value: "lastyear", display: "Last Year", selected: false},
+      {value: "last7days", display: "Last 7 Days", selected: false},
+      {value: "last4weeks", display: "Last 4 Weeks", selected: true},
+      {value: "last30days", display: "Last 30 Days", selected: false},
+      {value: "last365days", display: "Last 365 Days", selected: false}
     ]
   end
 
@@ -30,8 +30,8 @@ module ReportsHelper
       facet_table[facet] ||= {}
       values.each_slice(2) do |name, count|
         facet_table[facet][name] ||= {}
-        facet_table[facet][name]['q1'] = count
-        facet_table[facet][name]['q2'] = 0
+        facet_table[facet][name]["q1"] = count
+        facet_table[facet][name]["q2"] = 0
       end
     end
 
@@ -39,14 +39,14 @@ module ReportsHelper
     comparison&.facets&.each do |facet, values|
       facet_table[facet] ||= {}
       values.each_slice(2) do |name, count|
-        facet_table[facet][name]['q2'] = count if facet_table[facet][name]
+        facet_table[facet][name]["q2"] = count if facet_table[facet][name]
       end
     end
 
     # Delta
     facet_table.each do |key, _value|
       facet_table[key].each do |k, v|
-        facet_table[key][k]['delta'] = delta_calc(v)
+        facet_table[key][k]["delta"] = delta_calc(v)
       end
     end
 
@@ -54,14 +54,14 @@ module ReportsHelper
   end
 
   def delta_calc(value)
-    q1 = value['q1'] || 0
-    q2 = value['q2'] || 0
+    q1 = value["q1"] || 0
+    q2 = value["q2"] || 0
     percent_change(q1, q2)
   end
 
   def percent_change(now, orig)
     if orig.zero?
-      pct_increase = 'N/A'
+      pct_increase = "N/A"
     else
       increase = now.to_f - orig.to_f
       pct_increase = ((increase / orig.to_f) * 100).round(0)
@@ -78,20 +78,20 @@ module ReportsHelper
     link[:count] = total
     link[:action] = add_or_remove_facet(facet, name, params)
 
-    link[:url] = if link[:action] == 'add'
-                   reports_url(facet_add_url(params, link))
-                 else
-                   reports_url(facet_remove_url(params, link))
-                 end
+    link[:url] = if link[:action] == "add"
+      reports_url(facet_add_url(params, link))
+    else
+      reports_url(facet_remove_url(params, link))
+    end
 
     link
   end
 
   def add_or_remove_facet(facet, name, params)
     if params[:f] && params[:f][facet] && params[:f][facet].include?(name)
-      'remove'
+      "remove"
     else
-      'add'
+      "add"
     end
   end
 
@@ -110,12 +110,12 @@ module ReportsHelper
   end
 
   def overview_cell_color(facet_hash)
-    if facet_hash['q1'] > facet_hash['q2']
-      'table-success'
-    elsif facet_hash['q1'] < facet_hash['q2']
-      'table-danger'
+    if facet_hash["q1"] > facet_hash["q2"]
+      "table-success"
+    elsif facet_hash["q1"] < facet_hash["q2"]
+      "table-danger"
     else
-      ''
+      ""
     end
   end
 end

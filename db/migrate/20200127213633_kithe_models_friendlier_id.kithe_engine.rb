@@ -49,14 +49,14 @@ class KitheModelsFriendlierId < ActiveRecord::Migration[5.2]
         # min 2821109907456 ('100000000') to max 101559956668415 ('zzzzzzzzz') with our 36 char encoding alphabet.
         # So with 9-char IDs, we have 98 trillion possible values will should be enough to not run into collisions,
         # if it is not, increase number of chars and/or alphabet to increase keyspace.
-        add_column :kithe_models, :friendlier_id, :string, null: false, unique: true, default: -> { 'kithe_models_friendlier_id_gen(2821109907456, 101559956668415)' }
+        add_column :kithe_models, :friendlier_id, :string, null: false, unique: true, default: -> { "kithe_models_friendlier_id_gen(2821109907456, 101559956668415)" }
         add_index :kithe_models, :friendlier_id, unique: true
       end
 
       dir.down do
         remove_index :kithe_models, :friendlier_id
         remove_column :kithe_models, :friendlier_id
-        execute 'DROP FUNCTION IF EXISTS kithe_models_friendlier_id_gen(bigint, bigint);'
+        execute "DROP FUNCTION IF EXISTS kithe_models_friendlier_id_gen(bigint, bigint);"
       end
     end
   end

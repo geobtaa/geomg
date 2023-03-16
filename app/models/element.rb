@@ -19,40 +19,40 @@ class Element < ApplicationRecord
 
   # Element Field List (Labels as Symbols)
   def self.list
-    @list ||= Element.all.map{ |e| e.label.parameterize(separator: '_').to_sym }
+    @list ||= Element.all.map { |e| e.label.parameterize(separator: "_").to_sym }
   end
 
   def constantized_label
-    self.label.parameterize(separator: '_').upcase
+    label.parameterize(separator: "_").upcase
   end
 
   # Index value
   def index_value
-    if self.index_transformation_method.present?
-      self.index_transformation_method
+    if index_transformation_method.present?
+      index_transformation_method
     else
-      self.solr_field
+      solr_field
     end
   end
 
   # Export value
   def export_value
-    if self.export_transformation_method.present?
-      self.export_transformation_method
+    if export_transformation_method.present?
+      export_transformation_method
     else
-      self.solr_field
+      solr_field
     end
   end
 
   def self.label_nocase(label)
-    Element.where("LOWER(label) = ?", label.to_s.tr('_', ' ').downcase).first
+    Element.where("LOWER(label) = ?", label.to_s.tr("_", " ").downcase).first
   end
 
   # Class Level - Method Missing
   # ex. :title => "Title"
   def self.method_missing(m, *args, &block)
     if list.include?(m)
-      self.label_nocase(m)
+      label_nocase(m)
     else
       super
     end

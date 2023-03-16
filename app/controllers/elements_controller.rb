@@ -1,5 +1,5 @@
 class ElementsController < ApplicationController
-  before_action :set_element, only: %i[ show edit update destroy ]
+  before_action :set_element, only: %i[show edit update destroy]
 
   # GET /elements or /elements.json
   def index
@@ -63,13 +63,14 @@ class ElementsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_element
-      @element = Element.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def element_params
-      params.require(:element).permit(:label, :solr_field, :field_definition, :field_type, :required, :repeatable, :formable, :placeholder_text, :data_entry_hint, :test_fixture_example, :controlled_vocabulary, :js_behaviors, :html_attributes, :display_only_on_persisted, :importable, :import_deliminated, :import_transformation_method, :exportable, :export_transformation_method, :indexable, :index_transformation_method, :validation_method, :position)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_element
+    @element = Element.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def element_params
+    params.require(:element).permit(:label, :solr_field, :field_definition, :field_type, :required, :repeatable, :formable, :placeholder_text, :data_entry_hint, :test_fixture_example, :controlled_vocabulary, :js_behaviors, :html_attributes, :display_only_on_persisted, :importable, :import_deliminated, :import_transformation_method, :exportable, :export_transformation_method, :indexable, :index_transformation_method, :validation_method, :position)
+  end
 end

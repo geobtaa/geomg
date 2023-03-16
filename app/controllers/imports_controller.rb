@@ -7,7 +7,7 @@ class ImportsController < ApplicationController
   # GET /imports
   # GET /imports.json
   def index
-    @pagy, @imports = pagy(Import.all.order('created_at DESC'), items: 10)
+    @pagy, @imports = pagy(Import.all.order("created_at DESC"), items: 10)
   end
 
   # GET /imports/1
@@ -23,7 +23,8 @@ class ImportsController < ApplicationController
   end
 
   # GET /imports/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /imports
   # POST /imports.json
@@ -32,7 +33,7 @@ class ImportsController < ApplicationController
 
     respond_to do |format|
       if @import.save
-        format.html { redirect_to import_mappings_path(@import), notice: 'Import was successful. Please set your import mapping rules.' }
+        format.html { redirect_to import_mappings_path(@import), notice: "Import was successful. Please set your import mapping rules." }
         format.json { render :show, status: :created, location: @import }
       else
         format.html { render :new }
@@ -46,7 +47,7 @@ class ImportsController < ApplicationController
   def update
     respond_to do |format|
       if @import.update(import_params)
-        format.html { redirect_to import_path(@import), notice: 'Import was successfully updated.' }
+        format.html { redirect_to import_path(@import), notice: "Import was successfully updated." }
         format.json { render :show, status: :ok, location: @import }
       else
         format.html { render :edit }
@@ -60,14 +61,14 @@ class ImportsController < ApplicationController
   def destroy
     @import.destroy
     respond_to do |format|
-      format.html { redirect_to imports_url, notice: 'Import was successfully destroyed.' }
+      format.html { redirect_to imports_url, notice: "Import was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   def run
     @import.run!
-    redirect_to import_url(@import), notice: 'Import is running. Check back soon for results.'
+    redirect_to import_url(@import), notice: "Import is running. Check back soon for results."
   end
 
   private

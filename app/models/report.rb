@@ -1,22 +1,23 @@
 # frozen_string_literal: true
 
-require 'faraday'
-require 'faraday/net_http'
+require "faraday"
+require "faraday/net_http"
 
 # Report
 module Report
   def query(params)
     Faraday.default_adapter = :net_http
     conn = Faraday.new(
-      url: ENV.fetch('SOLR_URL', nil).to_s,
-      headers: { 'Content-Type' => 'application/json' }
+      url: ENV.fetch("SOLR_URL", nil).to_s,
+      headers: {"Content-Type" => "application/json"}
     )
 
     Rails.logger.debug { "Query: #{params}" }
-    conn.post 'select', params.to_json
+    conn.post "select", params.to_json
   end
 
-  def num_found; end
+  def num_found
+  end
 end
 
 # Report::Overview
@@ -28,9 +29,9 @@ module Report
     attr_accessor :q, :date_start, :date_end, :sort, :page, :search_field
 
     DEFAULTS = {
-      q: '',
-      page: '1',
-      sort: 'relevance',
+      q: "",
+      page: "1",
+      sort: "relevance",
       compare: false
     }.with_indifferent_access.freeze
 
@@ -52,43 +53,43 @@ module Report
     def data(params = {})
       return @data if @data
 
-      Rails.logger.debug { 'Querying Solr' }
+      Rails.logger.debug { "Querying Solr" }
       search_query = build_search_query(params)
       Rails.logger.debug { JSON.pretty_generate(search_query) }
       @data = JSON.parse(query(search_query).body)
     end
 
     def num_found
-      @data['response']['numFound']
+      @data["response"]["numFound"]
     end
 
     def first_date
-      if @data['facets'] && @data['facets']['doc_counts']
-        @data['facets']['doc_counts']['buckets'].first['val']
+      if @data["facets"] && @data["facets"]["doc_counts"]
+        @data["facets"]["doc_counts"]["buckets"].first["val"]
       else
-        Chronic.parse('One year ago')
+        Chronic.parse("One year ago")
       end
     end
 
     def data_series
-      if @data['facets'] && @data['facets']['doc_counts']
-        @data['facets']['doc_counts']['buckets'].map { |k, _v| k['count'] }
+      if @data["facets"] && @data["facets"]["doc_counts"]
+        @data["facets"]["doc_counts"]["buckets"].map { |k, _v| k["count"] }
       else
         []
       end
     end
 
     def date_str_series
-      if @data['facets'] && @data['facets']['doc_counts']
-        @data['facets']['doc_counts']['buckets'].map { |k, _v| Date.parse(k['val']).strftime('%F') }
+      if @data["facets"] && @data["facets"]["doc_counts"]
+        @data["facets"]["doc_counts"]["buckets"].map { |k, _v| Date.parse(k["val"]).strftime("%F") }
       else
         []
       end
     end
 
     def facets
-      if @data['facet_counts'] && @data['facet_counts']['facet_fields']
-        @data['facet_counts']['facet_fields']
+      if @data["facet_counts"] && @data["facet_counts"]["facet_fields"]
+        @data["facet_counts"]["facet_fields"]
       else
         []
       end
@@ -134,7 +135,7 @@ module Report
 
     def apply_query!
       if @q.blank?
-        'text:*'
+        "text:*"
       else
         "text:#{q}"
       end
@@ -164,7 +165,7 @@ module Report
       Rails.logger.debug { "COMPARE: #{@run_compare}" }
       if @run_compare
         ca = {}
-        ca = params['created_at']['compare'] if params['created_at'] && params['created_at']['compare']
+        ca = params["created_at"]["compare"] if params["created_at"] && params["created_at"]["compare"]
         ca[:start] ||= 28.days.ago - 28.days
         ca[:end] ||= 28.days.ago
         @date_start = parse_date_if_needed(ca[:start])
@@ -173,8 +174,8 @@ module Report
 
       must_includes << "date_created_drsim:[#{@date_start} TO #{@date_end}]"
 
-      must_includes     = must_includes.compact_blank
-      should_includes   = should_includes.compact_blank
+      must_includes = must_includes.compact_blank
+      should_includes = should_includes.compact_blank
 
       search_query[:query][:bool][:must].concat(must_includes.concat(should_includes))
     end
@@ -197,8 +198,8 @@ module Report
 
     def date_params(params)
       ca = params[:created_at] || {}
-      ca[:start] = ca[:start].presence || 'one year ago'
-      ca[:end] = ca[:end].presence || 'today'
+      ca[:start] = ca[:start].presence || "one year ago"
+      ca[:end] = ca[:end].presence || "today"
 
       @date_start = parse_date_if_needed(ca[:start])
       @date_end = parse_date_if_needed(ca[:end])

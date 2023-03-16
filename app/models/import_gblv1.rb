@@ -9,13 +9,13 @@ class ImportGblv1 < Import
   end
 
   def klass_delimiter
-    '|'
+    "|"
   end
 
   # Solr Field => Hard Value
   def default_mappings
     [
-      { geoblacklight_version: '1.0' }
+      {geoblacklight_version: "1.0"}
     ]
   end
 
@@ -32,16 +32,16 @@ class ImportGblv1 < Import
   # Derived Values
   def derived_mappings
     [
-      { dct_references_s:
+      {dct_references_s:
         {
-          field: 'dct_references_s',
-          method: 'geomg_dct_references_s'
-        } },
-      { b1g_date_range_drsim:
+          field: "dct_references_s",
+          method: "geomg_dct_references_s"
+        }},
+      {b1g_date_range_drsim:
         {
-          field: 'b1g_date_range_drsim',
-          method: 'geomg_b1g_date_range_drsim'
-        } }
+          field: "b1g_date_range_drsim",
+          method: "geomg_b1g_date_range_drsim"
+        }}
     ]
   end
 
@@ -49,7 +49,7 @@ class ImportGblv1 < Import
   # Key / Default Value
   def required_mappings
     [
-      { b1g_status_s: 'Active' }
+      {b1g_status_s: "Active"}
     ]
   end
 
@@ -65,7 +65,7 @@ class ImportGblv1 < Import
     # Ex. [2020 TO 2020], [* TO 2020], [2020 TO *]
     date_range = nil
     date_range = data_hash[field][0] unless data_hash[field].empty?
-    date_range = date_range[1..12]&.gsub(' TO ', '-') unless date_range.nil?
+    date_range = date_range[1..12]&.gsub(" TO ", "-") unless date_range.nil?
     date_range
   end
 

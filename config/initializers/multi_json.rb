@@ -1,3 +1,3 @@
-require 'multi_json'
+require "multi_json"
 MultiJson.use :oj
-MultiJson.dump_options = {:pretty=>true}
+MultiJson.dump_options = {pretty: true}

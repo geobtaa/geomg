@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'uri'
-require 'cgi'
+require "uri"
+require "cgi"
 
 # BulkAction
 class BulkAction < ApplicationRecord
@@ -9,7 +9,7 @@ class BulkAction < ApplicationRecord
   after_create_commit :collect_documents
 
   # Associations
-  has_many :documents, class_name: 'BulkActionDocument', autosave: false, dependent: :destroy
+  has_many :documents, class_name: "BulkActionDocument", autosave: false, dependent: :destroy
 
   has_many :bulk_action_transitions, autosave: false, dependent: :destroy
 
@@ -38,7 +38,7 @@ class BulkAction < ApplicationRecord
   end
 
   def check_run_state
-    return if state_machine.current_state == 'complete'
+    return if state_machine.current_state == "complete"
 
     state_machine.transition_to!(:complete) if documents.in_state(:queued).blank?
   end
@@ -53,7 +53,7 @@ class BulkAction < ApplicationRecord
   def collect_documents
     cgi = CGI.unescape(scope)
     uri = URI.parse(cgi)
-    if uri.path.include?('fetch')
+    if uri.path.include?("fetch")
       fetch_documents(uri)
     else
       api_documents(uri)
@@ -62,13 +62,13 @@ class BulkAction < ApplicationRecord
 
   def fetch_documents(uri)
     qargs = Rack::Utils.parse_nested_query(uri.query)
-    fetch_documents = Document.where(friendlier_id: qargs['ids'])
+    fetch_documents = Document.where(friendlier_id: qargs["ids"])
     create_documents(fetch_documents)
   end
 
   def api_documents(uri)
     qargs = Rack::Utils.parse_nested_query(uri.query)
-    query_params = { q: qargs['q'], f: qargs['f'], page: qargs['page'], rows: 1_000_000 }
+    query_params = {q: qargs["q"], f: qargs["f"], page: qargs["page"], rows: 1_000_000}
     api_documents = BlacklightApiIds.new(**query_params)
     create_documents(api_documents.load_all)
   end
@@ -81,7 +81,7 @@ class BulkAction < ApplicationRecord
         version: doc.current_version,
         bulk_action_id: id
       )
-    rescue StandardError
+    rescue
       logger.debug("BULK ACTION BAD DOC: #{doc.inspect}")
     end
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'json'
-require 'pathname'
+require "json"
+require "pathname"
 
 # ExportJob
 class ExportJsonJob < ApplicationJob
@@ -15,7 +15,7 @@ class ExportJsonJob < ApplicationJob
     Rails.logger.debug("\n\n")
 
     # Test broadcast
-    ActionCable.server.broadcast('export_channel', { data: 'Hello from Export JSON Job!' })
+    ActionCable.server.broadcast("export_channel", {data: "Hello from Export JSON Job!"})
 
     # Query params into Doc ids
     document_ids = query_params[:ids] || crawl_query(query_params)
@@ -26,7 +26,7 @@ class ExportJsonJob < ApplicationJob
     documents = export_service.call(document_ids)
 
     # Write files into tempdir, zip together
-    FileUtils.mkdir_p('ogm')
+    FileUtils.mkdir_p("ogm")
 
     Dir.mktmpdir do |dir|
       documents.each do |doc|
@@ -41,14 +41,14 @@ class ExportJsonJob < ApplicationJob
 
         begin
           # File Path
-          code = doc.b1g_code_s.presence || '_b1g_code_s_missing'
-          resource_class = doc.gbl_resourceClass_sm.present? ? doc.gbl_resourceClass_sm.first : '_gbl_resourceClass_sm_missing'
+          code = doc.b1g_code_s.presence || "_b1g_code_s_missing"
+          resource_class = doc.gbl_resourceClass_sm.present? ? doc.gbl_resourceClass_sm.first : "_gbl_resourceClass_sm_missing"
           tree = Pathname("#{dir}/#{resource_class}/#{code}/#{doc.friendlier_id}.json")
           tree.dirname.mkpath
           Rails.logger.debug tree.inspect
 
           json_output = DocumentsController.render("_#{query_params[:format]}",
-                                                   locals: { document: doc })
+            locals: {document: doc})
 
           json_obj = JSON.parse(json_output)
           Rails.logger.debug json_obj
@@ -71,7 +71,7 @@ class ExportJsonJob < ApplicationJob
       # Rails.logger.debug '==== Dir GLOB - END ===='
 
       # Zip dir and attach
-      @zip_file = Rails.root.join('tmp', "export-json-#{Time.zone.today}-#{SecureRandom.hex(8)}.zip")
+      @zip_file = Rails.root.join("tmp", "export-json-#{Time.zone.today}-#{SecureRandom.hex(8)}.zip")
       zf = ZipFileGenerator.new(dir, @zip_file)
       zf.write
 
@@ -87,20 +87,20 @@ class ExportJsonJob < ApplicationJob
 
     # Attach CSV file (can only attach after persisted)
     notification.record.file.attach(io: File.open(@zip_file), filename: "geomg-export-#{Time.zone.today}.zip",
-                                    content_type: 'application/zip')
+                                    content_type: "application/zip")
 
-    Rails.logger.debug 'Notification File attached!'
+    Rails.logger.debug "Notification File attached!"
 
     # Update UI
-    ActionCable.server.broadcast('export_channel', {
-                                   data: 'Notification ready!',
-                                   actions: [
-                                     {
-                                       method: 'RefreshNotifications',
-                                       payload: current_user.notifications.unread.count
-                                     }
-                                   ]
-                                 })
+    ActionCable.server.broadcast("export_channel", {
+      data: "Notification ready!",
+      actions: [
+        {
+          method: "RefreshNotifications",
+          payload: current_user.notifications.unread.count
+        }
+      ]
+    })
   end
 
   def crawl_query(query_params, doc_ids = [])
@@ -108,11 +108,11 @@ class ExportJsonJob < ApplicationJob
     api_results = BlacklightApiIds.new(query_params)
     logger.debug("API Results: #{api_results.results.inspect}")
 
-    doc_ids << api_results.results.pluck('id')
+    doc_ids << api_results.results.pluck("id")
 
-    unless api_results.meta['pages']['next_page'].nil?
-      crawl_query(query_params.merge!({ page: api_results.meta['pages']['next_page'] }),
-                  doc_ids)
+    unless api_results.meta["pages"]["next_page"].nil?
+      crawl_query(query_params.merge!({page: api_results.meta["pages"]["next_page"]}),
+        doc_ids)
     end
 
     doc_ids
