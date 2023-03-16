@@ -67,12 +67,11 @@ class Element < ApplicationRecord
     end
   end
 
-  # @TODO - override respond_to?
-  # def self.respond_to?(m, include_private = false)
-  # if list.include?(m)
-  #    true
-  #  else
-  #    super
-  #  end
-  # end
+  def self.respond_to?(m, include_private = false)
+    list.include?(m)
+  end
+
+  def self.respond_to_missing? *args
+    true
+  end
 end
