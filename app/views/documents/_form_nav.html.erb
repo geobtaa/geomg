@@ -1,42 +1,19 @@
-<div class="make-me-sticky">
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <%= link_to "View in Geoportal", blacklight_link(@document), { class: 'btn btn-outline-primary', target: :_blank } %>
-    </li>
-    <li class="nav-item">
-      <a data-controller="scroll-to" class="nav-link" href="#identification">Identification</a>
-      <ul>
-        <li><a data-controller="scroll-to" href="#descriptive">Descriptive</a></li>
-        <li><a data-controller="scroll-to" href="#credits">Credits</a></li>
-        <li><a data-controller="scroll-to" href="#categories">Categories</a></li>
-        <li><a data-controller="scroll-to" href="#temporal">Temporal</a></li>
-        <li><a data-controller="scroll-to" href="#spatial">Spatial</a></li>
-        <li><a data-controller="scroll-to" href="#relations">Relations</a></li>
-      </ul>
-    </li>
-    <li class="nav-item">
-      <a data-controller="scroll-to" class="nav-link" href="#distribution">Distribution</a>
-      <ul>
-        <li><a data-controller="scroll-to" href="#object">Object</a></li>
-        <li><a data-controller="scroll-to" href="#links">Links</a></li>
-      </ul>
-    </li>
-    <li class="nav-item">
-      <a data-controller="scroll-to" class="nav-link" href="#administrative">Administrative</a>
-      <ul>
-        <li><a data-controller="scroll-to" href="#codes">Codes</a></li>
-        <li><a data-controller="scroll-to" href="#rights">Rights</a></li>
-        <li><a data-controller="scroll-to" href="#life-cycle">Life Cycle</a></li>
-        <li><a data-controller="scroll-to" href="#accessibility">Accessibility</a></li>
-      </ul>
-    </li>
-    <% if @document.persisted? %>
-      <li class="nav-item">
-        <a data-controller="scroll-to" class="nav-link" href="#distribution">Relations</a>
-        <ul>
-          <li><%= link_to "Institutional Access Links", document_document_accesses_url(@document) %></li>
-        </ul>
-      </li>
+<div class="make-me-sticky mt-4 ml-4">
+  <nav class="nav flex-column ml-4 mt-6">
+    <strong class="mt-4"><%= link_to "View in Geoportal", blacklight_link(@document), { class: 'mt-6', target: :_blank } %></strong>
+
+    <%- form_elements = FormElement.all.order(position: :asc) %>
+    <%- form_elements.each do |form_element| %>
+      <% if form_element.kind_of? FormHeader %>
+        <strong class="mt-2"><a data-controller="scroll-to" class="mt-4" href="#<%= form_element.label.downcase %>"><%= form_element.label %></a></strong>
+      <% end %>
+      <% if form_element.kind_of? FormGroup %>
+        <a data-controller="scroll-to" class="ml-2" href="#<%= form_element.label.parameterize %>"><%= form_element.label %></a>
+      <% end %>
     <% end %>
-  </ul>
+
+    <% if @document.persisted? %>
+      <%= link_to "Institutional Access Links", document_document_accesses_url(@document) %>
+    <% end %>
+  </nav>
 </div>
