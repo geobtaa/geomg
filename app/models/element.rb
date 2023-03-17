@@ -67,11 +67,7 @@ class Element < ApplicationRecord
     end
   end
 
-  def self.respond_to?(m, include_private = false)
-    list.include?(m)
-  end
-
-  def self.respond_to_missing? *args
-    true
+  def self.respond_to_missing?(method_name, include_private = false)
+    label_nocase(method_name).present? || super
   end
 end
