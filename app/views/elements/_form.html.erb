@@ -9,7 +9,7 @@
       <%= f.input :label %>
       <%= f.input :solr_field %>
       <%= f.input :field_definition %>
-      <%= f.input :field_type %>
+      <%= f.input :field_type, as: :select, collection: Element::FIELD_TYPES.map { |ft| [ft, ft] }, input_html: { class: "form-control" } %>
       <%= f.input :required %>
       <%= f.input :repeatable %>
       <%= f.input :validation_method %>

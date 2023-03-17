@@ -7,10 +7,23 @@ class Element < ApplicationRecord
   scope :exportable, -> { where(exportable: true) }
   scope :indexable, -> { where(indexable: true) }
 
+  # Callbacks
+  def after_save
+    reload!
+  end
+
   # Validations
   # @TODO
-  # - validate for presence required fields (title, field_type, etc.)
+  validates :label, :solr_field, :field_type, presence: true
   # - validate field_type (string, boolean, text)
+
+  FIELD_TYPES = [
+    "string",
+    "text",
+    "integer",
+    "boolean",
+    "datetime"
+  ]
 
   # Find by solr_field shortcut
   def self.at(field)
