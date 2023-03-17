@@ -16,10 +16,10 @@ class Document
       if record.send(GEOMG_SOLR_FIELDS[:geometry]).present?
         valid_geom = if record.send(GEOMG_SOLR_FIELDS[:geometry]).start_with?("ENVELOPE")
           # Sane ENVELOPE?
-          proper_envelope(record, valid_geom)
+          proper_envelope(record)
         else
           # Sane GEOM?
-          proper_geom(record, valid_geom)
+          proper_geom(record)
         end
       end
 
@@ -27,7 +27,7 @@ class Document
     end
 
     # Validates ENVELOPE
-    def proper_envelope(record, valid_geom)
+    def proper_envelope(record)
       geom = record.send(GEOMG_SOLR_FIELDS[:geometry])
       begin
         valid_geom, error_message = valid_envelope?(geom.delete("ENVELOPE()"))
@@ -44,7 +44,7 @@ class Document
     end
 
     # Validates POLYGON and MULTIPOLYGON
-    def proper_geom(record, valid_geom)
+    def proper_geom(record)
       geom = record.send(GEOMG_SOLR_FIELDS[:geometry])
       begin
         valid_geom = if RGeo::Cartesian::Factory.new.parse_wkt(geom)

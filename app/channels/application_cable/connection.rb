@@ -13,11 +13,9 @@ module ApplicationCable
 
     # check for authenticated user via devise
     def find_verified_user
-      if verified_user = env["warden"].user
-        verified_user
-      else
-        reject_unauthorized_connection
-      end
+      verified_user = env["warden"].user
+
+      verified_user || reject_unauthorized_connection
     end
   end
 end
