@@ -9,6 +9,9 @@
 <%- element.html_attributes.each{ |key,value| html_attributes[key] = value } if element.html_attributes.present? %>
 <%- options[:html_attributes] = html_attributes %>
 
+<% # @TODO: Check the local application file system for a named partial, %>
+<% # if we find one there render it, if not render via the logic below... %>
+
 <% # Title is a special case - saved in the database outside of JSON Attributes %>
 <% if element.solr_field == "dct_title_s" %>
   <%= f.input :title, hint: "Theme: city, state, temporal coverage" %>
