@@ -2,9 +2,10 @@
 
 // Disable Field if Persisted
 GEOMG.DisableIfPersisted = function() {
-  elms = $('[data-js="disable_if_persisted"]');
-
-  elms.each(function(i) {
-    $(this).prop( "disabled", true );
-  });
+  if($('[data-persisted="true"]').length > 0) {
+    elms = $('[data-js="disable_if_persisted"]');
+    elms.each(function(i) {
+      $(this).prop( "disabled", true );
+    });
+  }
 }

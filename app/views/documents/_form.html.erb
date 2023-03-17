@@ -1,4 +1,4 @@
-<%= kithe_form_for(document, :html=> { novalidate: true, class: 'edit-document edit', id: dom_id(document)}) do |f| %>
+<%= kithe_form_for(document, :html=> { novalidate: true, class: 'edit-document edit', id: dom_id(document), data: { persisted: document.persisted? }}) do |f| %>
 
   <div class="row">
     <div class="col-md-12">
