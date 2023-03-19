@@ -22,7 +22,7 @@ module Geomg
 
   def exportable_field_mappings
     @mappings = {}
-    Element.exportable.each do |elm|
+    Element.exportable.order(:position).each do |elm|
       @mappings[elm.label.to_sym] = {
         destination: elm.solr_field,
         delimited: elm.repeatable,
