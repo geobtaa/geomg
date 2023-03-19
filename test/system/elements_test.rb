@@ -21,7 +21,7 @@ class ElementsTest < ApplicationSystemTestCase
     fill_in "Export transformation method", with: @element.export_transformation_method
     check "Exportable" if @element.exportable
     fill_in "Field definition", with: @element.field_definition
-    fill_in "Field type", with: @element.field_type
+    select @element.field_type, from: "Field type"
     check "Formable" if @element.formable
     fill_in "Html attributes", with: @element.html_attributes
     check "Import deliminated" if @element.import_deliminated
@@ -53,7 +53,7 @@ class ElementsTest < ApplicationSystemTestCase
     fill_in "Export transformation method", with: @element.export_transformation_method
     check "Exportable" if @element.exportable
     fill_in "Field definition", with: @element.field_definition
-    fill_in "Field type", with: @element.field_type
+    select @element.field_type, from: "Field type"
     check "Formable" if @element.formable
     fill_in "Html attributes", with: @element.html_attributes
     check "Import deliminated" if @element.import_deliminated
