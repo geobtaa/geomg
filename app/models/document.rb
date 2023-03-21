@@ -5,6 +5,7 @@ class Document < Kithe::Work
   include AttrJson::Record::QueryScopes
   include ActiveModel::Validations
 
+  serialize :elements
   attr_accessor :skip_callbacks
 
   has_paper_trail
@@ -26,6 +27,10 @@ class Document < Kithe::Work
     initial_state: :draft
   ]
 
+  def schema
+    Geomg::Schema.instance
+  end
+
   def state_machine
     @state_machine ||= DocumentStateMachine.new(self, transition_class: DocumentTransition)
   end
@@ -34,6 +39,7 @@ class Document < Kithe::Work
 
   before_save :transition_publication_state, unless: :skip_callbacks
   before_save :set_geometry
+  before_save :set_elements
 
   # Indexer
   self.kithe_indexable_mapper = DocumentIndexer.new
@@ -43,6 +49,16 @@ class Document < Kithe::Work
 
   # Test for collection and restricted
   validates :dct_format_s, presence: true, if: :a_downloadable_resource?
+
+  def set_elements
+    elm_values = {}
+    schema.elements.each do |elm|
+      next if elm.solr_field == 'dct_references_s'
+      elm_values[elm.solr_field] = self.send(elm.solr_field)
+    end
+
+    self.elements = elm_values
+  end
 
   # Downloadable Resouce
   def a_downloadable_resource?
@@ -79,7 +95,7 @@ class Document < Kithe::Work
     # Make sure downloads exist!
     if document_downloads.present?
       multiple_downloads = multiple_downloads_array
-      multiple_downloads << {label: download_text(send(GEOMG_SOLR_FIELDS[:format])), url: dct_downloads} if dct_downloads.present?
+      multiple_downloads << {label: download_text(send(to_csv[:format])), url: dct_downloads} if dct_downloads.present?
       references[:"http://schema.org/downloadUrl"] = multiple_downloads
     end
     references

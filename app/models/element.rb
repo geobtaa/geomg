@@ -10,7 +10,6 @@ class Element < ApplicationRecord
   # Callbacks
   # @TODO: watch schema timestamp file and restart systemd services if it changes?
   # - Necessary for JSON Attr and Sidekiq to pick up new fields or changes
-  # - fswatch?
   # - https://unix.stackexchange.com/questions/708286/automatically-restart-a-systemd-service-when-a-file-is-modified-on-disk
   after_save do
     File.write(Rails.root.join("tmp/schema_timestamp.txt").to_s, Time.now.to_s)
@@ -18,6 +17,7 @@ class Element < ApplicationRecord
 
   # Validations
   validates :label, :solr_field, :field_type, presence: true
+
 
   FIELD_TYPES = [
     "string",

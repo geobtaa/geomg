@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_03_16_183001) do
+ActiveRecord::Schema.define(version: 2023_03_20_215735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -355,6 +355,7 @@ ActiveRecord::Schema.define(version: 2023_03_16_183001) do
     t.integer "kithe_model_type", null: false
     t.bigint "import_id"
     t.string "publication_state", default: "draft"
+    t.text "elements"
     t.index ["friendlier_id"], name: "index_kithe_models_on_friendlier_id", unique: true
     t.index ["import_id"], name: "index_kithe_models_on_import_id"
     t.index ["leaf_representative_id"], name: "index_kithe_models_on_leaf_representative_id"

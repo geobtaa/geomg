@@ -8,7 +8,7 @@ module Geomg
 
   def importable_field_mappings
     @mappings = {}
-    Element.importable.each do |elm|
+    Element.importable.order(:position).each do |elm|
       @mappings[elm.label.to_sym] = {
         destination: elm.solr_field,
         delimited: elm.repeatable,

@@ -47,7 +47,7 @@
   <% if element.field_type == 'text' %>
     <%= f.repeatable_attr_input(element.solr_field.to_sym, build: :at_least_one, html_attributes: options[:html_attributes], simple_form_input_args: { label: element.label }) do |input_name, value| %>
        <div class="form-group">
-         <%= f.input_field element.solr_field.to_sym, name: input_name, value: value, as: :text, class: "form-control", rows: 4 %>
+         <%= f.input_field element.solr_field.to_sym, name: elements[input_name], value: value, as: :text, class: "form-control", rows: 4 %>
        </div>
      <% end %>
 
@@ -70,7 +70,9 @@
 
   <% # Simple Repeatable Elements %>
   <% else %>
-    <%= f.repeatable_attr_input element.solr_field.to_sym, build: :at_least_one, html_attributes: options[:html_attributes], simple_form_input_args: { label: element.label } %>
+    <%= f.simple_fields_for :elements, OpenStruct.new(@document.elements) do |ff| %>
+      <%= ff.repeatable_attr_input element.solr_field.to_sym, build: :at_least_one, html_attributes: options[:html_attributes], simple_form_input_args: { label: element.label } %>
+    <% end %>
   <% end %>
 
 <% else %>
