@@ -72,6 +72,16 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :document_assets, path: "assets" do
+      collection do
+        get "display_attach_form"
+        post "attach_files"
+  
+        get "destroy_all"
+        post "destroy_all"
+      end
+    end
+
     collection do
       get "fetch"
     end
@@ -94,6 +104,30 @@ Rails.application.routes.draw do
 
       get "destroy_all"
       post "destroy_all"
+    end
+  end
+
+  resources :document_assets, path: "assets" do
+    collection do
+      get "display_attach_form"
+      post "attach_files"
+
+      get "destroy_all"
+      post "destroy_all"
+    end
+  end
+
+  get "/documents/:id/ingest", to: "document_assets#display_attach_form", as: "asset_ingest"
+  post "/documents/:id/ingest", to: "document_assets#attach_files"
+  mount Kithe::AssetUploader.upload_endpoint(:cache) => "/direct_upload", as: :direct_app_upload
+
+  resources :collections, except: [:show]
+
+  # Note "assets" is Rails reserved word for routing, oops. So we use
+  # asset_files.
+  resources :assets, path: "asset_files", except: [:new, :create] do
+    member do
+      put "convert_to_child_work"
     end
   end
 
