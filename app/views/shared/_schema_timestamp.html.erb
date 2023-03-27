@@ -1,6 +1,6 @@
 <%- 
   schema_warning = false
-  if File.exists?(Rails.root.join("tmp/schema_timestamp.txt").to_s)
+  if File.exist?(Rails.root.join("tmp/schema_timestamp.txt").to_s)
     current_timestamp = File.read(Rails.root.join("tmp/schema_timestamp.txt").to_s)
     if current_timestamp != GEOMG_SCHEMA_TIMESTAMP
       schema_warning = true

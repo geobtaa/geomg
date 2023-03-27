@@ -5,15 +5,15 @@ require "test_helper"
 class GeomgTest < ActiveSupport::TestCase
   def setup
     Rails.application.load_seed
-    @geomg_csv = Geomg.field_mappings
+    @geomg_csv = Geomg::Schema.instance.importable_fields
   end
 
   test "methods" do
-    assert_respond_to(Geomg, :field_mappings)
-    assert_respond_to(Geomg, :importable_field_mappings)
-    assert_respond_to(Geomg, :exportable_field_mappings)
-    assert_respond_to(Geomg, :dct_references_mappings)
-    assert_respond_to(Geomg, :iso_language_codes)
+    assert_respond_to(Geomg::Schema.instance, :field_mappings)
+    assert_respond_to(Geomg::Schema.instance, :importable_fields)
+    assert_respond_to(Geomg::Schema.instance, :exportable_fields)
+    assert_respond_to(Geomg::Schema.instance, :dct_references_mappings)
+    assert_respond_to(Geomg::IsoLanguageCodes, :call)
   end
 
   test "BTAA - CSV Import - header/solr field mapping keys" do
@@ -26,14 +26,14 @@ class GeomgTest < ActiveSupport::TestCase
 
   # @TODO: move to Geomg config test
   test "dct_references_mappings" do
-    assert_instance_of(Hash, Geomg.dct_references_mappings)
+    assert_instance_of(Hash, Geomg::Schema.instance.dct_references_mappings)
     %w[Download FeatureServer ImageServer Information MapServer].each do |mapping|
-      assert(Geomg.dct_references_mappings.key?(mapping.to_sym))
+      assert(Geomg::Schema.instance.dct_references_mappings.key?(mapping.to_sym))
     end
   end
 
   test "iso_language_codes" do
-    assert_instance_of(ActiveSupport::HashWithIndifferentAccess, Geomg.iso_language_codes)
-    assert_equal(Geomg.iso_language_codes["fre"], "French")
+    assert_instance_of(ActiveSupport::HashWithIndifferentAccess, Geomg::IsoLanguageCodes.call)
+    assert_equal(Geomg::IsoLanguageCodes.call["fre"], "French")
   end
 end
