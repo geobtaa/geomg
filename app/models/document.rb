@@ -178,7 +178,7 @@ class Document < Kithe::Work
   end
 
   def dct_references_s_to_csv(key, destination)
-    send(destination).detect { |ref| ref.category == Geomg.dct_references_mappings[key] }.value
+    send(destination).detect { |ref| ref.category == Geomg::Schema.instance.dct_references_mappings[key] }.value
   rescue NoMethodError
     nil
   end

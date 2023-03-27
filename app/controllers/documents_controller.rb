@@ -126,7 +126,7 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new(document_params)
-    @document.friendlier_id = @document.send(GEOMG_SOLR_FIELDS[:id])
+    @document.friendlier_id = @document.send(Geomg::Schema.instance.solr_fields[:id])
     respond_to do |format|
       if @document.save
         format.html { redirect_to documents_path, notice: "Document was successfully created." }

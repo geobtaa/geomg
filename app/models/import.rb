@@ -101,13 +101,12 @@ class Import < ApplicationRecord
       # Handle repeatable dct_references_s entries
       if mapping.destination_field == "dct_references_s"
         transformed_data[mapping.destination_field] ||= []
-        unless extract_hash[mapping.source_header].nil?
+        if extract_hash[mapping.source_header].present?
           transformed_data[mapping.destination_field] << {
-            category: Geomg.dct_references_mappings[mapping.source_header.to_sym],
+            category: Geomg::Schema.instance.dct_references_mappings[mapping.source_header.to_sym],
             value: extract_hash[mapping.source_header]
           }
         end
-
       # Handle solr_geom transformation
       elsif mapping.destination_field == "solr_geom"
         transformed_data[mapping.destination_field] = solr_geom_mapping(extract_hash[mapping.source_header])

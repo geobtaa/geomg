@@ -9,11 +9,11 @@ module Geomg
     attr_reader :elements
 
     def elements
-      @elements = Element.all
+      @elements ||= Element.all
     end
 
     def solr_fields
-      Element.all.map { |elm|
+      elements.map { |elm|
         [
           elm.label.parameterize(separator: "_").to_sym,
           elm.solr_field
@@ -40,6 +40,8 @@ module Geomg
     def exportable_fields
       @fields = {}
       Element.exportable.order(:position).each do |elm|
+        # Skip References
+        next if elm.solr_field == "dct_references_s"
         @fields[elm.label.to_sym] = {
           destination: elm.solr_field,
           delimited: elm.repeatable,
