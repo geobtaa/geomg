@@ -26,7 +26,7 @@ class MappingsHelperTest < ActionView::TestCase
   test "mapping_suggestion - exists" do
     assert_equal(
       mapping_suggestion(@import, "Language"),
-      GEOMG_SOLR_FIELDS[:language]
+      Geomg::Schema.instance.solr_fields[:language]
     )
   end
 

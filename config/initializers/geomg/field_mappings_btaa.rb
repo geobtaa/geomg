@@ -51,97 +51,97 @@ module Geomg
   def dct_references_import_mappings
     {
       Documentation: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       Download: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       FeatureServer: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       FGDC: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       "Harvard Download": {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       HTML: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       IIIF: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       ImageServer: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       Information: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       ISO19139: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       Manifest: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       MapServer: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       MODS: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       oEmbed: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       "Index Map": {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       TileServer: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       WCS: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       WFS: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       },
       WMS: {
-        destination: GEOMG_SOLR_FIELDS[:reference],
+        destination: Geomg::Schema.instance.solr_fields[:reference],
         delimited: false,
         transformation_method: "build_dct_references"
       }

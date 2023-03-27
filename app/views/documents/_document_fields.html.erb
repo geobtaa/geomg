@@ -11,7 +11,7 @@
   <% end %>
 
   <% if form_element.kind_of? FormFeature %>
-    <%= render partial: "documents/features/#{form_element.label.parameterize(separator: "_")}", locals: { form_element: form_element } %>
+    <%= render partial: "documents/features/#{form_element.label.parameterize(separator: "_")}", locals: { form_element: form_element } rescue nil %>
   <% end %>
 
   <% if form_element.kind_of? FormControl %>
