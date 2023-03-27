@@ -23,6 +23,8 @@ module Geomg
   def exportable_field_mappings
     @mappings = {}
     Element.exportable.order(:position).each do |elm|
+      # Skip References
+      next if elm.solr_field == "dct_references_s"
       @mappings[elm.label.to_sym] = {
         destination: elm.solr_field,
         delimited: elm.repeatable,
