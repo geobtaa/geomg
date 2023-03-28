@@ -104,4 +104,4 @@ $ RAILS_ENV=test bundle exec rails db:migrate
 
 ## Release Version
 
-B1G Geoportal Version v4.10.0 / GEOMG v0.16.1 / GeoBlacklight v4.0.0
+B1G Geoportal Version v4.10.0 / GEOMG v0.16.2 / GeoBlacklight v4.0.0
