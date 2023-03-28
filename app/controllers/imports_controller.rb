@@ -7,7 +7,7 @@ class ImportsController < ApplicationController
   # GET /imports
   # GET /imports.json
   def index
-    @pagy, @imports = pagy(Import.all.order("created_at DESC"), items: 10)
+    @pagy, @imports = pagy(Import.all.order("created_at DESC"), items: 20)
   end
 
   # GET /imports/1

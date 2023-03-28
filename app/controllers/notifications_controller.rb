@@ -5,7 +5,7 @@ class NotificationsController < ApplicationController
   before_action :set_notification, only: %i[update destroy]
 
   def index
-    @pagy, @notifications = pagy(current_user.notifications.order(created_at: :desc))
+    @pagy, @notifications = pagy(current_user.notifications.order(created_at: :desc), items: 20)
   end
 
   def update
