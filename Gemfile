@@ -82,7 +82,7 @@ gem "config"
 gem "noticed", "~> 1.4"
 
 # Reporting
-gem "blazer"
+gem "blazer", git: "https://github.com/ewlarson/blazer.git", branch: "feature/bootstrap-4"
 gem "chronic"
 gem "i18n-js", "~> 3.0"
 gem "momentjs-rails"

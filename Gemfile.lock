@@ -1,3 +1,14 @@
+GIT
+  remote: https://github.com/ewlarson/blazer.git
+  revision: ea9b2016f1409d1ed7b5142313ebe126d71b7298
+  branch: feature/bootstrap-4
+  specs:
+    blazer (2.6.5)
+      activerecord (>= 6)
+      chartkick (>= 3.2)
+      railties (>= 6)
+      safely_block (>= 0.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -80,11 +91,6 @@ GEM
       execjs (~> 2)
     bcrypt (3.1.18)
     bindex (0.8.1)
-    blazer (2.6.5)
-      activerecord (>= 5)
-      chartkick (>= 3.2)
-      railties (>= 5)
-      safely_block (>= 0.1.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     bootstrap (4.6.2)
@@ -572,7 +578,7 @@ PLATFORMS
 DEPENDENCIES
   active_storage_validations
   amazing_print
-  blazer
+  blazer!
   bootsnap (>= 1.4.2)
   bootstrap (~> 4.0)
   byebug
