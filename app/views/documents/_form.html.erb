@@ -7,6 +7,7 @@
         <div class="mr-2">
           <h1 class="h5">
             <% if @document.persisted? %>
+              <span id="<%=@document.friendlier_id %>">
               <%= render 'document_bookmark', document: @document %>
               <%= truncate(@document.title, length: 80) %>
               <%= publication_state_badge(@document) %>
