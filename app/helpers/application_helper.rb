@@ -37,20 +37,20 @@ module ApplicationHelper
 
   def b1g_institution_codes
     {
-      '01' => 'Indiana University',
-      '02' => 'University of Illinois Urbana-Champaign',
-      '03' => 'University of Iowa',
-      '04' => 'University of Maryland',
-      '05' => 'University of Minnesota',
-      '06' => 'Michigan State University',
-      '07' => 'University of Michigan',
-      '08' => 'Purdue University',
-      '09' => 'Pennsylvania State University',
-      '10' => 'University of Wisconsin-Madison',
-      '11' => 'The Ohio State University',
-      '12' => 'University of Chicago',
-      '13' => 'University of Nebraska-Lincoln',
-      '14'=> 'Rutgers University-New Brunswick'
+      "01" => "Indiana University",
+      "02" => "University of Illinois Urbana-Champaign",
+      "03" => "University of Iowa",
+      "04" => "University of Maryland",
+      "05" => "University of Minnesota",
+      "06" => "Michigan State University",
+      "07" => "University of Michigan",
+      "08" => "Purdue University",
+      "09" => "Pennsylvania State University",
+      "10" => "University of Wisconsin-Madison",
+      "11" => "The Ohio State University",
+      "12" => "University of Chicago",
+      "13" => "University of Nebraska-Lincoln",
+      "14" => "Rutgers University-New Brunswick"
     }
   end
 

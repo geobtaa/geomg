@@ -1,12 +1,10 @@
-require 'singleton'
+require "singleton"
 
 module Geomg
   class Schema
     def self.instance
       @instance ||= new
     end
-
-    attr_reader :elements
 
     def elements
       @elements ||= Element.all
@@ -30,7 +28,7 @@ module Geomg
           transformation_method: elm.import_transformation_method
         }
       end
-  
+
       @fields = @fields.merge(dct_references_import_mappings)
       @fields
     end
@@ -61,7 +59,7 @@ module Geomg
           transformation_method: nil
         }
       }
-  
+
       @fields = @fields.merge(dct_references_import_mappings)
       @fields = @fields.merge(object_metadata)
       @fields

@@ -21,8 +21,8 @@ class DocumentAssetsController < ApplicationController
     authorize! :read, @asset
 
     if @asset.stored?
-      @checks = @asset.fixity_checks.order('created_at asc')
-      @latest_check   = @checks.last
+      @checks = @asset.fixity_checks.order("created_at asc")
+      @latest_check = @checks.last
       @earliest_check = @checks.first
     end
   end
@@ -40,7 +40,7 @@ class DocumentAssetsController < ApplicationController
 
     respond_to do |format|
       if @asset.update(asset_params)
-        format.html { redirect_to admin_asset_url(@asset), notice: 'Asset was successfully updated.' }
+        format.html { redirect_to admin_asset_url(@asset), notice: "Asset was successfully updated." }
         format.json { render :show, status: :ok, location: @asset }
       else
         format.html { render :edit }
@@ -62,11 +62,11 @@ class DocumentAssetsController < ApplicationController
   def check_fixity
     @asset = Kithe::Asset.find_by_friendlier_id!(params[:asset_id])
     SingleAssetCheckerJob.perform_later(@asset)
-    redirect_to admin_asset_url(@asset), notice: 'This file will be checked shortly.'
+    redirect_to admin_asset_url(@asset), notice: "This file will be checked shortly."
   end
 
   def fixity_report
-    @fixity_report = FixityReport.new()
+    @fixity_report = FixityReport.new
   end
 
   def display_attach_form
@@ -83,12 +83,12 @@ class DocumentAssetsController < ApplicationController
 
     current_position = @parent.members.maximum(:position) || 0
 
-    files_params = (params[:cached_files] || []).
-      collect { |s| JSON.parse(s) }.
-      sort_by { |h| h && h.dig("metadata", "filename")}
+    files_params = (params[:cached_files] || [])
+      .collect { |s| JSON.parse(s) }
+      .sort_by { |h| h&.dig("metadata", "filename") }
 
     files_params.each do |file_data|
-      asset = Kithe::Asset.new()
+      asset = Kithe::Asset.new
 
       # if derivative_storage_type = params.dig(:storage_type_for, file_data["id"])
       #  asset.derivative_storage_type = derivative_storage_type
@@ -101,7 +101,7 @@ class DocumentAssetsController < ApplicationController
       asset.save!
     end
 
-    if @parent.representative_id == nil
+    if @parent.representative_id.nil?
       @parent.update(representative: @parent.members.order(:position).first)
     end
 
@@ -155,7 +155,7 @@ class DocumentAssetsController < ApplicationController
   end
 
   def work_is_oral_history?
-    (@asset.parent.is_a? Work) && @asset.parent.genre && @asset.parent.genre.include?('Oral histories')
+    (@asset.parent.is_a? Work) && @asset.parent.genre && @asset.parent.genre.include?("Oral histories")
   end
   helper_method :work_is_oral_history?
 
@@ -165,18 +165,18 @@ class DocumentAssetsController < ApplicationController
   helper_method :asset_is_collection_thumbnail?
 
   def edit_path(asset)
-    (asset.parent.is_a? Collection) ? edit_admin_collection_path(asset.parent) : edit_admin_asset_path(asset)
+    asset.parent.is_a? Collection ? edit_admin_collection_path(asset.parent) : edit_admin_asset_path(asset)
   end
   helper_method :edit_path
 
   def parent_path(asset)
     return nil if asset.parent.nil?
-    (asset.parent.is_a? Collection) ? collection_path(asset.parent) : admin_work_path(asset.parent)
+    asset.parent.is_a? Collection ? collection_path(asset.parent) : admin_work_path(asset.parent)
   end
   helper_method :parent_path
 
-
   private
+
   def set_document
     return unless params[:document_id] # If not nested
 
@@ -188,7 +188,6 @@ class DocumentAssetsController < ApplicationController
       :transcription, :english_translation,
       :role, {admin_note_attributes: []}]
     allowed_params << :published if can?(:publish, @asset)
-    asset_params = params.require(:asset).permit(*allowed_params)
+    params.require(:asset).permit(*allowed_params)
   end
-
 end
