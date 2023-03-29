@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   resources :form_control, path: :form_elements, controller: :form_elements
   resources :form_feature, path: :form_elements, controller: :form_elements
 
-  get "reports/index"
-  get "reports/overview", as: :reports
   get "/search" => "search#index"
 
   resources :bulk_actions do
