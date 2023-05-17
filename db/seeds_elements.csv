@@ -1,0 +1,56 @@
+label,solr_field,field_definition,field_type,required,repeatable,formable,placeholder_text,data_entry_hint,test_fixture_example,controlled_vocabulary,js_behaviors,html_attributes,display_only_on_persisted,importable,import_deliminated,import_transformation_method,exportable,export_transformation_method,indexable,index_transformation_method,validation_method,position
+Title,dct_title_s,https://opengeometadata.org/docs/ogm-aardvark/title,string,TRUE,FALSE,TRUE,,"Theme: city, state, temporal coverage",title,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,title,presence,1
+Alternative Title,dct_alternative_sm,https://opengeometadata.org/docs/ogm-aardvark/alternative-title,string,FALSE,TRUE,TRUE,,,alternative-title1|alternative-title2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,2
+Description,dct_description_sm,https://opengeometadata.org/docs/ogm-aardvark/description,text,FALSE,TRUE,TRUE,,,description1|description2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,3
+Language,dct_language_sm,https://opengeometadata.org/docs/ogm-aardvark/language,string,FALSE,TRUE,TRUE,,,language1|language2,languages,autocomplete,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,4
+B1G Language,b1g_language_sm,https://geobtaa.github.io/metadata/b1g-custom-elements.html#language-string,string,FALSE,TRUE,TRUE,,,b1g_language1|b1g_language2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,iso_language_mapping,,5
+Creator,dct_creator_sm,https://opengeometadata.org/docs/ogm-aardvark/creator,string,FALSE,TRUE,TRUE,,,creator1|creator2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,6
+Creator ID,b1g_creatorID_sm,https://geobtaa.github.io/metadata/b1g-custom-elements/#creatorID,string,FALSE,TRUE,TRUE,,,creatorID1|creatorID2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,7
+Publisher,dct_publisher_sm,https://opengeometadata.org/docs/ogm-aardvark/publisher,string,FALSE,TRUE,TRUE,,,publisher1|publisher2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,8
+Provider,schema_provider_s,https://opengeometadata.org/docs/ogm-aardvark/provider,string,FALSE,FALSE,TRUE,,,Provider,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,9
+Resource Class,gbl_resourceClass_sm,https://opengeometadata.org/docs/ogm-aardvark/resource-class,string,TRUE,TRUE,TRUE,,,Geospatial data|Maps,resource_classes,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,presence,10
+Resource Type,gbl_resourceType_sm,https://opengeometadata.org/docs/ogm-aardvark/resource-type,string,FALSE,TRUE,TRUE,,,resource-type1|resource-type2,resource_types,autocomplete,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,11
+Subject,dct_subject_sm,https://opengeometadata.org/docs/ogm-aardvark/subject,string,FALSE,TRUE,TRUE,,,subject1|subject2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,12
+Theme,dcat_theme_sm,https://opengeometadata.org/docs/ogm-aardvark/theme,string,FALSE,TRUE,TRUE,,,Farming|Biota,themes,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,13
+Keyword,dcat_keyword_sm,https://opengeometadata.org/docs/ogm-aardvark/keyword,string,FALSE,TRUE,TRUE,,,keyword1|keyword2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,14
+Temporal Coverage,dct_temporal_sm,https://opengeometadata.org/docs/ogm-aardvark/temporal-coverage,string,FALSE,TRUE,TRUE,,,2019|2020,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,15
+Date Issued,dct_issued_s,https://opengeometadata.org/docs/ogm-aardvark/date-issued,string,FALSE,FALSE,TRUE,,YYYY,1/1/20,,datepicker-years,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,16
+Index Year,gbl_indexYear_im,https://opengeometadata.org/docs/ogm-aardvark/index-year,integer,FALSE,TRUE,TRUE,,YYYY,2020|2021,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,17
+Date Range,gbl_dateRange_drsim,https://opengeometadata.org/docs/ogm-aardvark/date-range,string,FALSE,TRUE,TRUE,YYYY-YYYY,,2020-2020,,mask,"{:""data-inputmask""=>""'mask': '9999-9999'""}",FALSE,TRUE,TRUE,,TRUE,date_range_json,TRUE,date_range_json,Document::DateRangeValidator,18
+Spatial Coverage,dct_spatial_sm,https://opengeometadata.org/docs/ogm-aardvark/spatial-coverage,string,FALSE,TRUE,TRUE,,,spatial-coverage1|spatial-coverage2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,19
+Bounding Box,dcat_bbox,https://opengeometadata.org/docs/ogm-aardvark/bounding-box,string,FALSE,FALSE,TRUE,,"W,S,E,N - A centroid will be derived from this value.","-95.0379,40.6333,-91.198,43.1373",,,,FALSE,TRUE,FALSE,,TRUE,derive_dcat_bbox,TRUE,derive_dcat_bbox,Document::BboxValidator,20
+Geometry,locn_geometry,https://opengeometadata.org/docs/ogm-aardvark/geometry,string,FALSE,FALSE,TRUE,,"WKT - An ENVELOPE, POLYGON, or MULTIPOLYGON value. Use ENVELOPE(-180,180,90,-90) for a whole earth geometry.","POLYGON((-88.11 41.75, -84.75 41.75, -84.75 37.86, -88.11 37.86, -88.11 41.75))",,,,FALSE,TRUE,FALSE,,TRUE,derive_locn_geometry,TRUE,derive_locn_geometry,Document::GeomValidator,21
+Centroid,dcat_centroid,https://opengeometadata.org/docs/ogm-aardvark/centroid,string,FALSE,FALSE,TRUE,,,"39.805,-86.43",,,,FALSE,TRUE,FALSE,,TRUE,derive_dcat_centroid,TRUE,derive_dcat_centroid,,22
+GeoNames,b1g_geonames_sm,https://geobtaa.github.io/metadata/b1g-custom-elements.html#geonames,string,FALSE,TRUE,TRUE,,,geonames1|geonames2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,23
+Relation,dct_relation_sm,https://opengeometadata.org/docs/ogm-aardvark/relation,string,FALSE,TRUE,TRUE,,,relation1|relation2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,24
+Member Of,pcdm_memberOf_sm,https://opengeometadata.org/docs/ogm-aardvark/member-of,string,FALSE,TRUE,TRUE,,,member-of1|member-of2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,25
+Is Part Of,dct_isPartOf_sm,https://opengeometadata.org/docs/ogm-aardvark/is-part-of,string,FALSE,TRUE,TRUE,,,is-part-of1|is-part-of2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,26
+Source,dct_source_sm,https://opengeometadata.org/docs/ogm-aardvark/source,string,FALSE,TRUE,TRUE,,,source1|source2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,27
+Is Version Of,dct_isVersionOf_sm,https://opengeometadata.org/docs/ogm-aardvark/is-version-of,string,FALSE,TRUE,TRUE,,,version1|version2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,28
+Replaces,dct_replaces_sm,https://opengeometadata.org/docs/ogm-aardvark/replaces,string,FALSE,TRUE,TRUE,,,replaces1|replaces2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,29
+Is Replaced By,dct_isReplacedBy_sm,https://opengeometadata.org/docs/ogm-aardvark/is-replaced-by,string,FALSE,TRUE,TRUE,,,is-replaced-by1|is-replaced-by2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,30
+Format,dct_format_s,https://opengeometadata.org/docs/ogm-aardvark/format,string,FALSE,FALSE,TRUE,,,format,formats,autocomplete,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,31
+File Size,gbl_fileSize_s,https://opengeometadata.org/docs/ogm-aardvark/file-size,string,FALSE,FALSE,TRUE,,,60mb,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,32
+WxS Identifier,gbl_wxsIdentifier_s,https://opengeometadata.org/docs/ogm-aardvark/wxs-identifier,string,FALSE,FALSE,TRUE,,,wxs-identifier,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,33
+Georeferenced,gbl_georeferenced_b,https://opengeometadata.org/docs/ogm-aardvark/georeferenced,boolean,FALSE,FALSE,TRUE,,,FALSE,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,34
+Reference,dct_references_s,https://opengeometadata.org/docs/ogm-aardvark/references,text,FALSE,TRUE,TRUE,,URIs and Values,,reference_values,,,FALSE,TRUE,FALSE,build_dct_references,TRUE,references_json,TRUE,references_json,,35
+B1G Image URL,b1g_image_ss,https://geobtaa.github.io/metadata/b1g-custom-elements.html#image,string,FALSE,FALSE,TRUE,,,image,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,36
+ID,geomg_id_s,https://opengeometadata.org/docs/ogm-aardvark/id,string,TRUE,FALSE,TRUE,,,slug,,disable_if_persisted,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,presence,37
+Identifier,dct_identifier_sm,https://opengeometadata.org/docs/ogm-aardvark/identifier,string,FALSE,TRUE,TRUE,,,identifier1|identifier2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,38
+Code,b1g_code_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#code,string,FALSE,FALSE,TRUE,,,code,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,39
+Access Rights,dct_accessRights_s,https://opengeometadata.org/docs/ogm-aardvark/access-rights,string,TRUE,FALSE,TRUE,,,access-rights1|access-rights2,access_rights,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,presence,40
+Rights Holder,dct_rightsHolder_sm,https://opengeometadata.org/docs/ogm-aardvark/rights-holder,string,FALSE,TRUE,TRUE,,,rights-holder1|rights-holder2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,41
+License,dct_license_sm,https://opengeometadata.org/docs/ogm-aardvark/license,string,FALSE,TRUE,TRUE,,,license1|license2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,42
+Rights,dct_rights_sm,https://opengeometadata.org/docs/ogm-aardvark/rights,string,FALSE,TRUE,TRUE,,,rights,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,43
+Accrual Method,b1g_dct_accrualMethod_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#accrual-method,string,FALSE,FALSE,TRUE,,,accrual-method,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,44
+Accrual Periodicity,b1g_dct_accrualPeriodicity_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#accrual-periodicity,string,FALSE,FALSE,TRUE,,,Annually,accrual_periodicity,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,45
+Date Accessioned,b1g_dateAccessioned_sm,https://geobtaa.github.io/metadata/b1g-custom-elements.html#date-accessioned,string,FALSE,TRUE,TRUE,,,date-accessioned1|date-accessioned2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,46
+Date Retired,b1g_dateRetired_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#date-retired,string,FALSE,FALSE,TRUE,,YYYY-MM-DD,date-retired,,datepicker,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,47
+Status,b1g_status_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#status,string,FALSE,FALSE,TRUE,,,Active,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,48
+Publication State,b1g_publication_state_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#publication-state,string,TRUE,FALSE,TRUE,,,published,publication_states,,,TRUE,FALSE,FALSE,,TRUE,current_state,TRUE,current_state,,49
+Suppressed Record,gbl_suppressed_b,https://opengeometadata.org/docs/ogm-aardvark/suppressed,boolean,FALSE,FALSE,TRUE,,,FALSE,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,50
+Child Record,b1g_child_record_b,https://geobtaa.github.io/metadata/b1g-custom-elements.html#child-record,boolean,FALSE,FALSE,TRUE,,,FALSE,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,,,51
+Mediator,b1g_dct_mediator_sm,https://geobtaa.github.io/metadata/b1g-custom-elements.html#mediator,string,FALSE,TRUE,TRUE,,,mediator1|mediator2,,,,FALSE,TRUE,TRUE,,TRUE,,TRUE,,,52
+Access,b1g_access_s,https://geobtaa.github.io/metadata/b1g-custom-elements.html#access,string,FALSE,FALSE,TRUE,,,access,,,,FALSE,TRUE,FALSE,,TRUE,,TRUE,access_json,,53
+Created At,date_created_dtsi,,datetime,FALSE,FALSE,FALSE,,,2021-12-09 15:50:49.803415,,,,TRUE,FALSE,FALSE,,TRUE,created_at_dt,TRUE,created_at_dt,,54
+Updated At,date_modified_dtsi,,datetime,FALSE,FALSE,FALSE,,,2022-12-12 17:02:03.422663,,,,TRUE,FALSE,FALSE,,TRUE,gbl_mdModified_dt,TRUE,gbl_mdModified_dt,,55

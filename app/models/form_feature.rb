@@ -1,0 +1,2 @@
+class FormFeature < FormElement
+end

@@ -5,17 +5,17 @@ class ImportBtaa < Import
   # validations, constants and methods
 
   def mapping_configuration
-    Geomg.field_mappings_btaa
+    Geomg::Schema.instance.importable_fields
   end
 
   def klass_delimiter
-    '|'
+    "|"
   end
 
   # Solr Field => Hard Value
   def default_mappings
     [
-      { gbl_mdVersion_s: 'Aardvark' }
+      {gbl_mdVersion_s: "Aardvark"}
     ]
   end
 
@@ -35,29 +35,29 @@ class ImportBtaa < Import
       {
         dcat_centroid:
           {
-            field: 'dcat_bbox',
-            method: 'derive_dcat_centroid'
+            field: "dcat_bbox",
+            method: "derive_dcat_centroid"
           }
       },
       {
         b1g_child_record_b:
           {
-            field: 'b1g_child_record_b',
-            method: 'derive_boolean'
+            field: "b1g_child_record_b",
+            method: "derive_boolean"
           }
       },
       {
         gbl_georeferenced_b:
           {
-            field: 'gbl_georeferenced_b',
-            method: 'derive_boolean'
+            field: "gbl_georeferenced_b",
+            method: "derive_boolean"
           }
       },
       {
         gbl_suppressed_b:
           {
-            field: 'gbl_suppressed_b',
-            method: 'derive_boolean'
+            field: "gbl_suppressed_b",
+            method: "derive_boolean"
           }
       }
     ]
@@ -76,7 +76,7 @@ class ImportBtaa < Import
 
     return if data_hash[field].blank?
 
-    w, s, e, n = data_hash[field].split(',')
+    w, s, e, n = data_hash[field].split(",")
     "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
   end
 

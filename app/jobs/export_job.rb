@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'csv'
+require "csv"
 
 # ExportJob
 class ExportJob < ApplicationJob
@@ -14,7 +14,7 @@ class ExportJob < ApplicationJob
     logger.debug("\n\n")
 
     # Test broadcast
-    ActionCable.server.broadcast('export_channel', { data: 'Hello from Export Job!' })
+    ActionCable.server.broadcast("export_channel", {data: "Hello from Export Job!"})
 
     # Query params into Doc ids
     document_ids = query_params[:ids] || crawl_query(query_params)
@@ -25,8 +25,8 @@ class ExportJob < ApplicationJob
     file_content = export_service.call(document_ids)
 
     # Write into tempfile
-    @tempfile = Tempfile.new(["export-#{Time.zone.today}", '.csv']).tap do |file|
-      CSV.open(file, 'wb') do |csv|
+    @tempfile = Tempfile.new(["export-#{Time.zone.today}", ".csv"]).tap do |file|
+      CSV.open(file, "wb") do |csv|
         file_content.each do |row|
           csv << row
         end
@@ -41,18 +41,18 @@ class ExportJob < ApplicationJob
     notification.deliver(current_user)
 
     # Attach CSV file (can only attach after persisted)
-    notification.record.file.attach(io: @tempfile, filename: "geomg-export-#{Time.zone.today}.csv", content_type: 'text/csv')
+    notification.record.file.attach(io: @tempfile, filename: "geomg-export-#{Time.zone.today}.csv", content_type: "text/csv")
 
     # Update UI
-    ActionCable.server.broadcast('export_channel', {
-                                   data: 'Notification ready!',
-                                   actions: [
-                                     {
-                                       method: 'RefreshNotifications',
-                                       payload: current_user.notifications.unread.count
-                                     }
-                                   ]
-                                 })
+    ActionCable.server.broadcast("export_channel", {
+      data: "Notification ready!",
+      actions: [
+        {
+          method: "RefreshNotifications",
+          payload: current_user.notifications.unread.count
+        }
+      ]
+    })
   end
 
   def crawl_query(query_params, doc_ids = [])
@@ -60,11 +60,11 @@ class ExportJob < ApplicationJob
     api_results = BlacklightApiIds.new(query_params)
     logger.debug("API Results: #{api_results.results.inspect}")
 
-    doc_ids << api_results.results.pluck('id')
+    doc_ids << api_results.results.pluck("id")
 
-    unless api_results.meta['pages']['next_page'].nil?
-      crawl_query(query_params.merge!({ page: api_results.meta['pages']['next_page'] }),
-                  doc_ids)
+    unless api_results.meta["pages"]["next_page"].nil?
+      crawl_query(query_params.merge!({page: api_results.meta["pages"]["next_page"]}),
+        doc_ids)
     end
 
     doc_ids

@@ -27,38 +27,38 @@ module ApplicationHelper
 
   def flash_class(level)
     alerts = {
-      'notice' => 'alert alert-info',
-      'success' => 'alert alert-success',
-      'error' => 'alert alert-error',
-      'alert' => 'alert alert-error'
+      "notice" => "alert alert-info",
+      "success" => "alert alert-success",
+      "error" => "alert alert-error",
+      "alert" => "alert alert-error"
     }
     alerts[level]
   end
 
   def b1g_institution_codes
     {
-      '01' => 'Indiana University',
-      '02' => 'University of Illinois Urbana-Champaign',
-      '03' => 'University of Iowa',
-      '04' => 'University of Maryland',
-      '05' => 'University of Minnesota',
-      '06' => 'Michigan State University',
-      '07' => 'University of Michigan',
-      '08' => 'Purdue University',
-      '09' => 'Pennsylvania State University',
-      '10' => 'University of Wisconsin-Madison',
-      '11' => 'The Ohio State University',
-      '12' => 'University of Chicago',
-      '13' => 'University of Nebraska-Lincoln',
-      '14'=> 'Rutgers University-New Brunswick'
+      "01" => "Indiana University",
+      "02" => "University of Illinois Urbana-Champaign",
+      "03" => "University of Iowa",
+      "04" => "University of Maryland",
+      "05" => "University of Minnesota",
+      "06" => "Michigan State University",
+      "07" => "University of Michigan",
+      "08" => "Purdue University",
+      "09" => "Pennsylvania State University",
+      "10" => "University of Wisconsin-Madison",
+      "11" => "The Ohio State University",
+      "12" => "University of Chicago",
+      "13" => "University of Nebraska-Lincoln",
+      "14" => "Rutgers University-New Brunswick"
     }
   end
 
   def notifications_badge
-    notifications_classes = ['badge']
-    notifications_classes << 'badge-dark' if current_user.notifications.unread.empty?
-    notifications_classes << 'badge-danger' if current_user.notifications.unread.size.positive?
-    "<span class='#{notifications_classes.join(' ')}' id='notification-count'>#{current_user.notifications.unread.size}</span>"
+    notifications_classes = ["badge"]
+    notifications_classes << "badge-dark" if current_user.notifications.unread.empty?
+    notifications_classes << "badge-danger" if current_user.notifications.unread.size.positive?
+    "<span class='#{notifications_classes.join(" ")}' id='notification-count'>#{current_user.notifications.unread.size}</span>"
   end
 
   # From Blacklight::HiddenSearchStateComponent
@@ -83,7 +83,7 @@ module ApplicationHelper
         flat_hash.merge!(flatten_hash(v, names))
       else
         key = flat_hash_key(names)
-        key += '[]' if v.is_a?(Array)
+        key += "[]" if v.is_a?(Array)
         flat_hash[key] = v
       end
     end
@@ -102,14 +102,14 @@ module ApplicationHelper
 
   def diff_class(char)
     case char
-    when '~'
-      'table-warning'
-    when '-'
-      'table-danger'
-    when '+'
-      'table-success'
+    when "~"
+      "table-warning"
+    when "-"
+      "table-danger"
+    when "+"
+      "table-success"
     else
-      ''
+      ""
     end
   end
 end

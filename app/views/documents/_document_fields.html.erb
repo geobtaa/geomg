@@ -1,171 +1,24 @@
-<h2 id="identification">Identification</h2>
+<%- form_elements = FormElement.all.order(position: :asc) %>
 
-<div class="grouping">
-  <h3 id="descriptive">Descriptive</h3>
-  <%= f.input :title, hint: "Theme: city, state, temporal coverage" %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.ALT_TITLE, build: :at_least_one %>
+<%- form_elements.each do |form_element| %>
 
-  <%= f.repeatable_attr_input(GEOMG.FIELDS.DESCRIPTION, build: :at_least_one) do |input_name, value| %>
-     <div class="form-group">
-       <%= f.input_field GEOMG.FIELDS.DESCRIPTION, name: input_name, value: value, as: :text, class: "form-control", rows: 4 %>
-     </div>
-   <% end %>
-
-  <%= f.repeatable_attr_input GEOMG.FIELDS.LANGUAGE, build: :at_least_one,
-  html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "languages")} %>
-</div>
-
-<div class="grouping">
-  <h3 id="credits">Credits</h3>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.CREATOR, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_CREATOR_ID, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.PUBLISHER, build: :at_least_one %>
-
-  <%= f.input GEOMG.FIELDS.PROVENANCE, label: "Provider" %>
-</div>
-
-<div class="grouping">
-  <h3 id="categories">Categories</h3>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_GENRE, build: :at_least_one do |input_name, value| %>
-    <%= f.input_field GEOMG.FIELDS.B1G_GENRE, selected: value, include_blank: true, id: nil,
-        collection: Document::ControlledLists::GENRE,
-        name: input_name,
-        class: "form-control input-primitive" %>
-  <% end %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.LAYER_GEOM_TYPE, build: :at_least_one,
-  html_attributes: { "data-scihist-qa-autocomplete" => qa_search_vocab_path("local", "resource_type")} %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.SUBJECT, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.THEME, build: :at_least_one do |input_name, value| %>
-    <%= f.input_field GEOMG.FIELDS.THEME, selected: value, include_blank: true, id: nil,
-        collection: Document::ControlledLists::THEME,
-        name: input_name,
-        class: "form-control input-primitive" %>
-  <% end %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_KEYWORD, build: :at_least_one %>
-</div>
-
-<div class="grouping">
-  <h3 id="temporal">Temporal</h3>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.TEMPORAL, build: :at_least_one %>
-  <%= f.input GEOMG.FIELDS.ISSUED, label: "Date Issued", hint: "YYYY", input_html: { data: {js: 'datepicker-years'} } %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_DATE_RANGE, build: :at_least_one,
-  html_attributes: { "data-inputmask-regex" => "'mask': '/\d{4}|\*-\d{4}|\*/'", 'placeholder': 'YYYY-YYYY'} %>
-</div>
-
-<div class="grouping">
-  <h3 id="spatial">Spatial</h3>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.SPATIAL, build: :at_least_one %>
-  <%= f.input GEOMG.FIELDS.BBOX, label: "Bounding Box", hint: "W,S,E,N - A centroid will be derived from this value." %>
-  <%= f.input GEOMG.FIELDS.GEOM, label: "Geometry", hint: "WKT - An ENVELOPE, POLYGON, or MULTIPOLYGON value. Use ENVELOPE(-180,180,90,-90) for a whole earth geometry." %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_GEONAMES, build: :at_least_one %>
-</div>
-
-<div class="grouping">
-  <h3 id="relations">Relations</h3>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.RELATION, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.MEMBER_OF, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.IS_PART_OF, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.SOURCE, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.IS_VERSION_OF, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.REPLACES, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.IS_REPLACED_BY, build: :at_least_one %>
-</div>
-
-<h2 id="distribution">Distribution</h2>
-
-<div class="grouping">
-  <h3 id="object">Object</h3>
-  <%= f.input GEOMG.FIELDS.FORMAT, :input_html => { :data => { "scihist-qa-autocomplete" => qa_search_vocab_path("local", "formats")}}, label: "Format" %>
-  <%= f.input GEOMG.FIELDS.FILE_SIZE %>
-  <%= f.input GEOMG.FIELDS.LAYER_ID %>
-  <%= f.input GEOMG.FIELDS.GEOREFERENCED, as: :boolean, inline_label: 'Georeferenced' %>
-</div>
-
-<div class="grouping">
-  <h3 id="links">Links</h3>
-  <%= f.repeatable_attr_input(GEOMG.FIELDS.REFERENCES, build: :at_least_one) do |sub_form| %>
-    <%= category_and_value(sub_form, category_list: Document::Reference::REFERENCE_VALUES.keys) %>
-  <% end %>
-  <%= f.input GEOMG.FIELDS.B1G_IMAGE, label: "B1G Image URL" %>
-
-  <%- if @document.persisted? %>
-    <h3 id="multiple-download-links"><%= link_to "Multiple Download Links", document_document_downloads_url(@document) %></h3>
-    <div class="table-responsive">
-      <table class="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <th colspan="2">Actions</th>
-            <th>Layer Slug</th>
-            <th>Download Label</th>
-            <th>Download URL</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @document.document_downloads.each do |document_download| %>
-            <tr>
-              <td><%= link_to 'Edit', edit_document_document_download_path(document_download.document, document_download) %></td>
-              <td><%= link_to 'Destroy', document_document_download_path(document_download.document, document_download), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-              <td><%= link_to document_download.friendlier_id, document_path(document_download.document) %></td>
-              <td><%= document_download.label %></td>
-              <td><%= link_to document_download.value %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+  <% if form_element.kind_of? FormHeader %>
+    <%= render partial: 'form_header', locals: { form_element: form_element } %>
   <% end %>
 
-</div>
-
-<h2 id="administrative">Administrative</h2>
-<div class="grouping">
-  <h3 id="codes">Codes</h3>
-
-  <% if @document.persisted? %>
-    <%= f.input GEOMG.FIELDS.LAYER_SLUG, required: true, label: "ID", input_html: { disabled: true } %>
-  <% else %>
-    <%= f.input GEOMG.FIELDS.LAYER_SLUG, required: true, label: "ID" %>
+  <% if form_element.kind_of? FormGroup %>
+    <%= render partial: 'form_group', locals: { form_element: form_element } %>
   <% end %>
 
-  <%= f.repeatable_attr_input GEOMG.FIELDS.IDENTIFIER, build: :at_least_one %>
-  <%= f.input GEOMG.FIELDS.B1G_CODE, label: "Code" %>
-</div>
-
-<div class="grouping">
-  <h3 id="rights">Rights</h3>
-  <%= f.input GEOMG.FIELDS.ACCESS_RIGHTS, collection: Document::ControlledLists::ACCESS_RIGHTS, required: true %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.RIGHTS_HOLDER, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.LICENSE, build: :at_least_one %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.RIGHTS, build: :at_least_one %>
-</div>
-
-<div class="grouping">
-  <h3 id="life-cycle">Life Cycle</h3>
-
-  <% if @document.persisted? %>
-    <%= f.input :created_at, as: 'string', label: "Created At", input_html: { disabled: true } %>
-    <%= f.input :updated_at, as: 'string', label: "Last Updated", input_html: { disabled: true } %>
+  <% if form_element.kind_of? FormFeature %>
+    <%= render partial: "documents/features/#{form_element.label.parameterize(separator: "_")}", locals: { form_element: form_element } %>
   <% end %>
 
-  <%= f.input GEOMG.FIELDS.B1G_ACCRUAL_METHOD, label: "Accrual Method" %>
-  <%= f.input GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY, collection: Document::ControlledLists::B1G_ACCRUAL_PERIODICITY, label: "Accrual Periodicity" %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_DATE_ACCESSIONED, build: :at_least_one %>
-  <%= f.input GEOMG.FIELDS.B1G_DATE_RETIRED, label: 'Date Retired', hint: 'YYYY-MM-DD', input_html: { data: {js: :datepicker} } %>
-  <%= f.input GEOMG.FIELDS.B1G_STATUS, label: 'Status' %>
+  <% if form_element.kind_of? FormControl %>
+    <%- element = Element.find_by(solr_field: form_element.element_solr_field) %>
+    <%- next if element.display_only_on_persisted? && !@document.persisted? %>
 
-  <% if @document.persisted? %>
-    <%= f.input :publication_state, label: 'Publication State', required: true, collection: Document::ControlledLists::PUBLICATION_STATE %>
-  <% else %>
-    <%= f.hidden_field :publication_state %>
+    <%= render partial: 'form_control', locals: { form_element: form_element, f: f, element: element } %>
   <% end %>
-</div>
 
-<div class="grouping">
-  <h3 id="accessibility">Accessibility</h3>
-  <%= f.input GEOMG.FIELDS.SUPPRESSED, as: :boolean, inline_label: 'Suppressed' %>
-  <%= f.input GEOMG.FIELDS.B1G_CHILD_RECORD, as: :boolean, inline_label: 'Child' %>
-  <%= f.repeatable_attr_input GEOMG.FIELDS.B1G_MEDIATOR, build: :at_least_one %>
-  <%= f.input GEOMG.FIELDS.B1G_ACCESS %>
-</div>
-<hr/>
+<%- end %>

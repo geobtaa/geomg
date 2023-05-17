@@ -10,14 +10,15 @@
 
     <%= link_to document.title, edit_document_path(document.friendlier_id) %>
     &middot; <%= publication_state_badge(document) %>
-    <% if document.send(GEOMG.FIELDS.PROVENANCE) %>
-      &middot; <%= document.send(GEOMG.FIELDS.PROVENANCE) %>
+
+    <% if document.send("schema_provider_s") %>
+      &middot; <%= document.send("schema_provider_s") %>
     <% end %>
-    <% if document.send(GEOMG.FIELDS.TEMPORAL) %>
-      &middot; <%= document.send(GEOMG.FIELDS.TEMPORAL).join("-") %>
+    <% if document.send("dct_temporal_sm") %>
+      &middot; <%= document.send("dct_temporal_sm").join("-") %>
     <% end %>
-    <% if document.send(GEOMG.FIELDS.DESCRIPTION).present? %>
-      <p class="js-truncate"><%= document.send(GEOMG.FIELDS.DESCRIPTION).join %></p>
+    <% if document.send("dct_description_sm").present? %>
+      <p class="js-truncate"><%= document.send("dct_description_sm").join %></p>
     <% end %>
 
   <% end %>

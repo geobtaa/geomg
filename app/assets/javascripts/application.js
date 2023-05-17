@@ -28,7 +28,10 @@
 //= require geomg/datepicker
 //= require geomg/date_range_picker
 //= require geomg/exports
+//= require geomg/fields
 //= require geomg/inputmask
+//= require geomg/locale
+//= require geomg/sortable
 //= require geomg/tooltips
 //= require geomg/truncate
 

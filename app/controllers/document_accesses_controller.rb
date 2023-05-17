@@ -17,7 +17,8 @@ class DocumentAccessesController < ApplicationController
 
   # GET /document_accesses/1
   # GET /document_accesses/1.json
-  def show; end
+  def show
+  end
 
   # GET /document_accesses/new
   def new
@@ -25,7 +26,8 @@ class DocumentAccessesController < ApplicationController
   end
 
   # GET /document_accesses/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /document_accesses
   # POST /document_accesses.json
@@ -36,7 +38,7 @@ class DocumentAccessesController < ApplicationController
 
     respond_to do |format|
       if @document_access.save
-        format.html { redirect_to document_document_accesses_path(@document), notice: 'Document access was successfully created.' }
+        format.html { redirect_to document_document_accesses_path(@document), notice: "Document access was successfully created." }
         format.json { render :show, status: :created, location: @document_access }
       else
         format.html { render :new }
@@ -50,7 +52,7 @@ class DocumentAccessesController < ApplicationController
   def update
     respond_to do |format|
       if @document_access.update(document_access_params)
-        format.html { redirect_to document_document_accesses_path(@document), notice: 'Document access was successfully updated.' }
+        format.html { redirect_to document_document_accesses_path(@document), notice: "Document access was successfully updated." }
         format.json { render :show, status: :ok, location: @document_access }
       else
         format.html { render :edit }
@@ -64,22 +66,22 @@ class DocumentAccessesController < ApplicationController
   def destroy
     @document_access.destroy
     respond_to do |format|
-      format.html { redirect_to document_document_accesses_path(@document), notice: 'Document access was successfully destroyed.' }
+      format.html { redirect_to document_document_accesses_path(@document), notice: "Document access was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   def destroy_all
-    logger.debug('Destroy Access Links')
+    logger.debug("Destroy Access Links")
     return unless params.dig(:document_access, :assets, :file)
 
     respond_to do |format|
       if DocumentAccess.destroy_all(params.dig(:document_access, :assets, :file))
-        format.html { redirect_to document_accesses_path, notice: 'Document Access Links were created destroyed.' }
+        format.html { redirect_to document_accesses_path, notice: "Document Access Links were created destroyed." }
       else
-        format.html { redirect_to document_accesses_path, notice: 'Document Access Links could not be destroyed.' }
+        format.html { redirect_to document_accesses_path, notice: "Document Access Links could not be destroyed." }
       end
-    rescue StandardError => e
+    rescue => e
       format.html { redirect_to document_accesses_path, notice: "Document Access Links could not be destroyed. #{e}" }
     end
   end
@@ -87,16 +89,16 @@ class DocumentAccessesController < ApplicationController
   # GET   /documents/#id/access/import
   # POST  /documents/#id/access/import
   def import
-    logger.debug('Import Action')
+    logger.debug("Import Action")
     return unless params.dig(:document_access, :assets, :file)
 
     respond_to do |format|
       if DocumentAccess.import(params.dig(:document_access, :assets, :file))
-        format.html { redirect_to document_accesses_path, notice: 'Document access links were created successfully.' }
+        format.html { redirect_to document_accesses_path, notice: "Document access links were created successfully." }
       else
-        format.html { redirect_to document_accesses_path, notice: 'Access URLs could not be created.' }
+        format.html { redirect_to document_accesses_path, notice: "Access URLs could not be created." }
       end
-    rescue StandardError => e
+    rescue => e
       format.html { redirect_to document_accesses_path, notice: "Access URLs could not be created. #{e}" }
     end
   end

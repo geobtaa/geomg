@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 # Document
@@ -12,15 +11,15 @@ class Document < Kithe::Work
   belongs_to :import, optional: true
 
   # Statesman
-  has_many :document_transitions, foreign_key: 'kithe_model_id', autosave: false, dependent: :destroy, inverse_of: :document
+  has_many :document_transitions, foreign_key: "kithe_model_id", autosave: false, dependent: :destroy, inverse_of: :document
 
   # DocumentAccesses
-  has_many :document_accesses, primary_key: 'friendlier_id', foreign_key: 'friendlier_id', autosave: false, dependent: :destroy,
-                               inverse_of: :document
+  has_many :document_accesses, primary_key: "friendlier_id", foreign_key: "friendlier_id", autosave: false, dependent: :destroy,
+    inverse_of: :document
 
   # DocumentDownloads
-  has_many :document_downloads, primary_key: 'friendlier_id', foreign_key: 'friendlier_id', autosave: false, dependent: :destroy,
-                                inverse_of: :document
+  has_many :document_downloads, primary_key: "friendlier_id", foreign_key: "friendlier_id", autosave: false, dependent: :destroy,
+    inverse_of: :document
 
   include Statesman::Adapters::ActiveRecordQueries[
     transition_class: DocumentTransition,
@@ -47,117 +46,47 @@ class Document < Kithe::Work
 
   # Downloadable Resouce
   def a_downloadable_resource?
-    references_json.include?('downloadUrl')
+    references_json.include?("downloadUrl")
   end
 
   validates_with Document::DateRangeValidator
   validates_with Document::BboxValidator
   validates_with Document::GeomValidator
 
-  # Form
-  # Identification
-  # - Descriptive
-  attr_json GEOMG.FIELDS.TITLE.to_sym, :string
-  attr_json GEOMG.FIELDS.ALT_TITLE.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.DESCRIPTION.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LANGUAGE.to_sym, :string, array: true, default: -> { [] }
+  # Definte our AttrJSON attributes
+  Element.all.each do |attribute|
+    next if attribute.solr_field == "dct_references_s"
 
-  # - Credits
-  attr_json GEOMG.FIELDS.CREATOR.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.PUBLISHER.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_CREATOR_ID.to_sym, :string, array: true, default: -> { [] }
+    if attribute.repeatable?
+      attr_json attribute.solr_field.to_sym, attribute.field_type.to_sym, array: true, default: -> { [] }
+    else
+      attr_json attribute.solr_field.to_sym, attribute.field_type.to_sym, default: ""
+    end
+  end
 
-  # - Categories
-  attr_json GEOMG.FIELDS.B1G_GENRE.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.SUBJECT.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.THEME.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_KEYWORD.to_sym, :string, array: true, default: -> { [] }
-
-  # - Temporal
-  attr_json GEOMG.FIELDS.ISSUED.to_sym, :string
-  attr_json GEOMG.FIELDS.TEMPORAL.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_DATE_RANGE.to_sym, :string, array: true, default: -> { [] }
-  # GEOMG.FIELDS.YEAR.to_sym is derived via self.solr_year_json
-
-  # - Spatial
-  attr_json GEOMG.FIELDS.SPATIAL.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_GEONAMES.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.GEOM.to_sym, :string
-  attr_json GEOMG.FIELDS.BBOX.to_sym, :string
-  attr_json GEOMG.FIELDS.B1G_CENTROID.to_sym, :string
-  attr_json GEOMG.FIELDS.CENTROID.to_sym, :string
-
-  # - Relations
-  attr_json GEOMG.FIELDS.RELATION.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.MEMBER_OF.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.IS_VERSION_OF.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.REPLACES.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.IS_REPLACED_BY.to_sym, :string, array: true, default: -> { [] }
-
-  # Distribution
-  # - Object
-  attr_json GEOMG.FIELDS.LAYER_GEOM_TYPE.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LAYER_ID.to_sym, :string
-  attr_json GEOMG.FIELDS.FORMAT.to_sym, :string
-  attr_json GEOMG.FIELDS.FILE_SIZE.to_sym, :string
-  attr_json GEOMG.FIELDS.GEOREFERENCED.to_sym, :boolean
-
-  # - Access Links
-  # - Geospatial Web Services
-  # - Images
-  # - Metadata
-  attr_json GEOMG.FIELDS.REFERENCES.to_sym, Document::Reference.to_type, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_IMAGE.to_sym, :string
-
-  # Administrative
-  # - Codes
-  attr_json GEOMG.FIELDS.IDENTIFIER.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.LAYER_SLUG.to_sym, :string
-  attr_json GEOMG.FIELDS.PROVENANCE.to_sym, :string
-  attr_json GEOMG.FIELDS.B1G_CODE.to_sym, :string
-  attr_json GEOMG.FIELDS.IS_PART_OF.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.SOURCE.to_sym, :string, array: true, default: -> { [] }
-
-  # - Rights
-  attr_json GEOMG.FIELDS.LICENSE.to_sym, :string, array: true, default: -> { [] }
-
-  # - Life Cycle
-  attr_json GEOMG.FIELDS.B1G_ACCRUAL_METHOD.to_sym, :string
-  attr_json GEOMG.FIELDS.B1G_ACCRUAL_PERIODICITY.to_sym, :string
-  attr_json GEOMG.FIELDS.B1G_DATE_ACCESSIONED.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_DATE_RETIRED.to_sym, :string
-  attr_json GEOMG.FIELDS.B1G_STATUS.to_sym, :string
-
-  # - Accessibility
-  attr_json GEOMG.FIELDS.ACCESS_RIGHTS.to_sym, :string
-  attr_json GEOMG.FIELDS.RIGHTS_HOLDER.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.RIGHTS.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_MEDIATOR.to_sym, :string, array: true, default: -> { [] }
-  attr_json GEOMG.FIELDS.B1G_ACCESS.to_sym, :string
-  attr_json GEOMG.FIELDS.SUPPRESSED.to_sym, :boolean
-  attr_json GEOMG.FIELDS.B1G_CHILD_RECORD.to_sym, :boolean
+  attr_json :dct_references_s, Document::Reference.to_type, array: true, default: -> { [] }
 
   # Index Transformations - *_json functions
   def references_json
     references = ActiveSupport::HashWithIndifferentAccess.new
-    send(GEOMG.FIELDS.REFERENCES).each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
+    send(Geomg::Schema.instance.solr_fields[:reference]).each { |ref| references[Document::Reference::REFERENCE_VALUES[ref.category.to_sym][:uri]] = ref.value }
     references = apply_downloads(references)
     references.to_json
   end
 
   def apply_downloads(references)
-    dct_downloads = references['http://schema.org/downloadUrl']
+    dct_downloads = references["http://schema.org/downloadUrl"]
     # Make sure downloads exist!
     if document_downloads.present?
       multiple_downloads = multiple_downloads_array
-      multiple_downloads << { label: download_text(send(GEOMG.FIELDS.FORMAT)), url: dct_downloads } if dct_downloads.present?
-      references.merge!({ 'http://schema.org/downloadUrl': multiple_downloads })
+      multiple_downloads << {label: download_text(send(Geomg::Schema.instance.solr_fields[:format])), url: dct_downloads} if dct_downloads.present?
+      references[:"http://schema.org/downloadUrl"] = multiple_downloads
     end
     references
   end
 
   def multiple_downloads_array
-    document_downloads.collect { |d| { label: d.label, url: d.value } }
+    document_downloads.collect { |d| {label: d.label, url: d.value} }
   end
 
   ### From GBL
@@ -165,8 +94,8 @@ class Document < Kithe::Work
   # Looks up properly formatted names for formats
   #
   def proper_case_format(format)
-    if I18n.exists?("geoblacklight.formats.#{format.to_s.parameterize(separator: '_')}")
-      I18n.t("geoblacklight.formats.#{format.to_s.parameterize(separator: '_')}")
+    if I18n.exists?("geoblacklight.formats.#{format.to_s.parameterize(separator: "_")}")
+      I18n.t("geoblacklight.formats.#{format.to_s.parameterize(separator: "_")}")
     else
       format
     end
@@ -177,10 +106,10 @@ class Document < Kithe::Work
   #
   def download_text(format)
     download_format = proper_case_format(format)
-    prefix = 'Original '
+    prefix = "Original "
     begin
       format = download_format
-    rescue StandardError
+    rescue
       # Need to rescue if format doesn't exist
     end
     value = prefix + format.to_s
@@ -194,6 +123,10 @@ class Document < Kithe::Work
     access.to_json
   end
 
+  def created_at_dt
+    created_at&.utc&.iso8601
+  end
+
   def gbl_mdModified_dt
     updated_at&.utc&.iso8601
   end
@@ -205,11 +138,11 @@ class Document < Kithe::Work
 
   def date_range_json
     date_ranges = []
-    unless send(GEOMG.FIELDS.B1G_DATE_RANGE).all?(&:blank?)
-      send(GEOMG.FIELDS.B1G_DATE_RANGE).each do |date_range|
-        start_d, end_d = date_range.split('-')
-        start_d = '*' if start_d == 'YYYY' || start_d.nil?
-        end_d   = '*' if end_d == 'YYYY' || end_d.nil?
+    unless send(Geomg::Schema.instance.solr_fields[:date_range]).all?(&:blank?)
+      send(Geomg::Schema.instance.solr_fields[:date_range]).each do |date_range|
+        start_d, end_d = date_range.split("-")
+        start_d = "*" if start_d == "YYYY" || start_d.nil?
+        end_d = "*" if end_d == "YYYY" || end_d.nil?
         date_ranges << "[#{start_d} TO #{end_d}]" if start_d.present?
       end
     end
@@ -217,29 +150,35 @@ class Document < Kithe::Work
   end
 
   def solr_year_json
-    return [] if send(GEOMG.FIELDS.B1G_DATE_RANGE).blank?
+    return [] if send(Geomg::Schema.instance.solr_fields[:date_range]).blank?
 
-    start_d, _end_d = send(GEOMG.FIELDS.B1G_DATE_RANGE).first.split('-')
+    start_d, _end_d = send(Geomg::Schema.instance.solr_fields[:date_range]).first.split("-")
     [start_d] if start_d.presence
   end
-  alias gbl_indexYear_im solr_year_json
+  alias_method :gbl_indexYear_im, :solr_year_json
 
   # Export Transformations - to_*
   def to_csv
-    attributes = Geomg.field_mappings_btaa
+    attributes = Geomg::Schema.instance.exportable_fields
     attributes.map do |key, value|
       if value[:delimited]
-        send(value[:destination]).join('|')
-      elsif value[:destination] == 'dct_references_s'
+        send(value[:destination])&.join("|")
+      elsif value[:destination] == "dct_references_s"
         dct_references_s_to_csv(key, value[:destination])
+      elsif value[:destination] == "b1g_publication_state_s"
+        send(:current_state)
       else
         send(value[:destination])
       end
     end
   end
 
+  def to_traject
+    Kithe::Model.find_by_friendlier_id(friendlier_id).update_index(writer: Traject::DebugWriter.new({}))
+  end
+
   def dct_references_s_to_csv(key, destination)
-    send(destination).detect { |ref| ref.category == Geomg.dct_references_mappings[key] }.value
+    send(destination).detect { |ref| ref.category == Geomg::Schema.instance.dct_references_mappings[key] }.value
   rescue NoMethodError
     nil
   end
@@ -254,63 +193,64 @@ class Document < Kithe::Work
   end
 
   def derive_locn_geometry
-    if send(GEOMG.FIELDS.GEOM).present?
-      send(GEOMG.FIELDS.GEOM)
-    elsif send(GEOMG.FIELDS.BBOX).present?
+    if send(Geomg::Schema.instance.solr_fields[:geometry]).present?
+      send(Geomg::Schema.instance.solr_fields[:geometry])
+    elsif send(Geomg::Schema.instance.solr_fields[:bounding_box]).present?
       derive_polygon
     else
-      ''
+      ""
     end
   end
 
   # Convert BBOX to GEOM Polygon
   def derive_polygon
-    if send(GEOMG.FIELDS.BBOX).present?
+    if send(Geomg::Schema.instance.solr_fields[:bounding_box]).present?
       # Guard against a whole world polygons
-      if send(GEOMG.FIELDS.BBOX) == '-180,-90,180,90'
+      if send(Geomg::Schema.instance.solr_fields[:bounding_box]) == "-180,-90,180,90"
         "ENVELOPE(-180,180,90,-90)"
       else
         # "W,S,E,N" convert to "POLYGON((W N, E N, E S, W S, W N))"
-        w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
+        w, s, e, n = send(Geomg::Schema.instance.solr_fields[:bounding_box]).split(",")
         "POLYGON((#{w} #{n}, #{e} #{n}, #{e} #{s}, #{w} #{s}, #{w} #{n}))"
       end
     else
-     ''
+      ""
     end
   end
 
   def set_geometry
-    if self.locn_geometry.blank? && self&.dcat_bbox&.present?
+    if locn_geometry.blank? && self&.dcat_bbox&.present?
       self.locn_geometry = derive_polygon
     end
   end
 
   # Convert GEOM for Solr Indexing
   def derive_dcat_bbox
-    if send(GEOMG.FIELDS.BBOX).present?
+    if send(Geomg::Schema.instance.solr_fields[:bounding_box]).present?
       # "W,S,E,N" convert to "ENVELOPE(W,E,N,S)"
-      w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
+      w, s, e, n = send(Geomg::Schema.instance.solr_fields[:bounding_box]).split(",")
       "ENVELOPE(#{w},#{e},#{n},#{s})"
     else
-      ''
+      ""
     end
   end
 
   def derive_dcat_centroid
-    if send(GEOMG.FIELDS.BBOX).present?
-      w, s, e, n = send(GEOMG.FIELDS.BBOX).split(',')
+    if send(Geomg::Schema.instance.solr_fields[:bounding_box]).present?
+      w, s, e, n = send(Geomg::Schema.instance.solr_fields[:bounding_box]).split(",")
       "#{(n.to_f + s.to_f) / 2},#{(e.to_f + w.to_f) / 2}"
     else
-      ''
+      ""
     end
   end
 
   # Convert three char language code to proper string
   def iso_language_mapping
     mapping = []
-    if send(GEOMG.FIELDS.LANGUAGE).present?
-      send(GEOMG.FIELDS.LANGUAGE).each do |lang|
-        mapping << Geomg.iso_language_codes[lang]
+
+    if send(Geomg::Schema.instance.solr_fields[:language]).present?
+      send(Geomg::Schema.instance.solr_fields[:language]).each do |lang|
+        mapping << Geomg::IsoLanguageCodes.call[lang]
       end
     end
     mapping

@@ -3,19 +3,17 @@ class PopulateGeometry < ActiveRecord::Migration[6.1]
     @steps = 0
     Document.in_batches(of: 1000).each do |relation|
       relation.each do |doc|
-        begin
-          if doc.dcat_bbox.present?
-            doc.locn_geometry = doc.derive_polygon
-          else
-            doc.locn_geometry = ''
-          end
-          doc.save
-        rescue Exception => e
-          puts "Failed: #{doc.id} - #{e.inspect}"
+        doc.locn_geometry = if doc.dcat_bbox.present?
+          doc.derive_polygon
+        else
+          ""
         end
+        doc.save
+      rescue Exception => e
+        puts "Failed: #{doc.id} - #{e.inspect}"
       end
 
-      @steps = @steps + relation.count
+      @steps += relation.count
       puts "Docs Migrated: #{@steps}"
     end
   end

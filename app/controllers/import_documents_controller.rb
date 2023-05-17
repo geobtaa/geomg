@@ -4,7 +4,8 @@
 class ImportDocumentsController < ApplicationController
   before_action :set_import_document, only: %i[show]
 
-  def show; end
+  def show
+  end
 
   private
 

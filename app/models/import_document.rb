@@ -17,8 +17,18 @@ class ImportDocument < ApplicationRecord
     {
       friendlier_id: friendlier_id,
       title: title,
-      json_attributes: json_attributes,
+      json_attributes: nullify_empty_json_attributes,
       import_id: import_id
     }
+  end
+
+  def nullify_empty_json_attributes
+    clean_hash = {}
+
+    json_attributes.each do |key, value|
+      clean_hash[key] = value.present? ? value : nil
+    end
+
+    clean_hash
   end
 end

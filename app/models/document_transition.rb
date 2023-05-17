@@ -11,7 +11,7 @@ class DocumentTransition < ApplicationRecord
   # self.updated_timestamp_column = :updated_on
   # self.updated_timestamp_column = nil
 
-  belongs_to :document, inverse_of: :document_transitions, foreign_key: 'kithe_model_id'
+  belongs_to :document, inverse_of: :document_transitions, foreign_key: "kithe_model_id"
 
   after_destroy :update_most_recent, if: :most_recent?
 

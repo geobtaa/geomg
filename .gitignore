@@ -89,6 +89,7 @@ config/settings/*.local.yml
 config/environments/*.local.yml
 .env.production
 
+/public/uploads/**
 /public/packs
 /public/packs-test
 /node_modules

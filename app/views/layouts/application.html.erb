@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GEOMG</title>
+    <title><%= @page_title || 'GEOMG' %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -15,12 +15,13 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-    
+    <link rel="stylesheet" type="text/css" href="https://releases.transloadit.com/uppy/v3.6.1/uppy.min.css">
   </head>
 
   <body data-locale="en">
     <%= render "shared/navbar" %>
     <div class="container-fluid">
+      <%= render "shared/schema_timestamp" %>
       <%= render "shared/flash_messages" %>
       <div id="toast-wrapper" aria-live="polite" aria-atomic="true"></div>
       <%= yield %>

@@ -10,7 +10,7 @@ class ImportStateMachine
   state :success
   state :failed
 
-  transition from: :created,  to: [:mapped]
-  transition from: :mapped,   to: [:imported]
+  transition from: :created, to: [:mapped]
+  transition from: :mapped, to: [:imported]
   transition from: :imported, to: %i[success failed]
 end

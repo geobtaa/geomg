@@ -9,7 +9,7 @@ class DocumentAccess < ApplicationRecord
   validates :institution_code, :access_url, presence: true
 
   def self.import(file)
-    logger.debug('CSV Import')
+    logger.debug("CSV Import")
     CSV.foreach(file.path, headers: true) do |row|
       logger.debug("CSV Row: #{row.to_hash}")
       document_access = DocumentAccess.find_or_initialize_by(friendlier_id: row[0], institution_code: row[1])
@@ -18,15 +18,15 @@ class DocumentAccess < ApplicationRecord
   end
 
   def self.destroy_all(file)
-    logger.debug('CSV Destroy')
+    logger.debug("CSV Destroy")
     CSV.foreach(file.path, headers: true) do |row|
       logger.debug("CSV Row: #{row.to_hash}")
-      document_download = DocumentAccess.destroy_by(id: row[0], friendlier_id: row[1])
+      DocumentAccess.destroy_by(id: row[0], friendlier_id: row[1])
     end
   end
 
   def to_csv
-    self.attributes.values
+    attributes.values
   end
 
   def reindex_document

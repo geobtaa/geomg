@@ -1,0 +1,4 @@
+format: progress
+ignore:
+  - 'db/seeds.rb'
+  - 'db/migrate/**'

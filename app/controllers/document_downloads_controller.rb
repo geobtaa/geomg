@@ -16,7 +16,8 @@ class DocumentDownloadsController < ApplicationController
   end
 
   # GET /document_downloads/1 or /document_downloads/1.json
-  def show; end
+  def show
+  end
 
   # GET /document_downloads/new
   def new
@@ -24,7 +25,8 @@ class DocumentDownloadsController < ApplicationController
   end
 
   # GET /document_downloads/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /document_downloads or /document_downloads.json
   def create
@@ -36,7 +38,7 @@ class DocumentDownloadsController < ApplicationController
     respond_to do |format|
       if @document_download.save
         format.html do
-          redirect_to document_document_downloads_path(@document_download.document), notice: 'Document download was successfully created.'
+          redirect_to document_document_downloads_path(@document_download.document), notice: "Document download was successfully created."
         end
         format.json { render :show, status: :created, location: @document_download }
       else
@@ -51,7 +53,7 @@ class DocumentDownloadsController < ApplicationController
     respond_to do |format|
       if @document_download.update(document_download_params)
         format.html do
-          redirect_to document_document_downloads_path(@document_download.document), notice: 'Document download was successfully updated.'
+          redirect_to document_document_downloads_path(@document_download.document), notice: "Document download was successfully updated."
         end
         format.json { render :show, status: :ok, location: @document_download }
       else
@@ -66,22 +68,22 @@ class DocumentDownloadsController < ApplicationController
     @document_download.destroy
 
     respond_to do |format|
-      format.html { redirect_to document_downloads_url, notice: 'Document download was successfully destroyed.' }
+      format.html { redirect_to document_downloads_url, notice: "Document download was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   def destroy_all
-    logger.debug('Destroy Downloads')
+    logger.debug("Destroy Downloads")
     return unless params.dig(:document_download, :downloads, :file)
 
     respond_to do |format|
       if DocumentDownload.destroy_all(params.dig(:document_download, :downloads, :file))
-        format.html { redirect_to document_downloads_path, notice: 'Download Links were created destroyed.' }
+        format.html { redirect_to document_downloads_path, notice: "Download Links were created destroyed." }
       else
-        format.html { redirect_to document_downloads_path, notice: 'Download Links could not be destroyed.' }
+        format.html { redirect_to document_downloads_path, notice: "Download Links could not be destroyed." }
       end
-    rescue StandardError => e
+    rescue => e
       format.html { redirect_to document_downloads_path, notice: "Download Links could not be destroyed. #{e}" }
     end
   end
@@ -89,16 +91,16 @@ class DocumentDownloadsController < ApplicationController
   # GET   /documents/#id/downloads/import
   # POST  /documents/#id/downloads/import
   def import
-    logger.debug('Import Downloads')
+    logger.debug("Import Downloads")
     return unless params.dig(:document_download, :downloads, :file)
 
     respond_to do |format|
       if DocumentDownload.import(params.dig(:document_download, :downloads, :file))
-        format.html { redirect_to document_downloads_path, notice: 'Download Links were created successfully.' }
+        format.html { redirect_to document_downloads_path, notice: "Download Links were created successfully." }
       else
-        format.html { redirect_to document_downloads_path, notice: 'Download Links could not be created.' }
+        format.html { redirect_to document_downloads_path, notice: "Download Links could not be created." }
       end
-    rescue StandardError => e
+    rescue => e
       format.html { redirect_to document_downloads_path, notice: "Download Links could not be created. #{e}" }
     end
   end

@@ -31,74 +31,74 @@ class Document
 
     B1G_STATUS = %w[Active Inactive Unknown].freeze
 
-    B1G_ACCRUAL_PERIODICITY = [
-      'Annual',
-      'Semiannual',
-      'Quarterly',
-      'Monthly',
-      'Irregular',
-      'As Needed',
-      'Once',
-      'Never'
+    ACCRUAL_PERIODICITY = [
+      "Annual",
+      "Semiannual",
+      "Quarterly",
+      "Monthly",
+      "Irregular",
+      "As Needed",
+      "Once",
+      "Never"
     ].freeze
 
-    GENRE = [
-      'Maps',
-      'Datasets',
-      'Imagery',
-      'Collections',
-      'Websites',
-      'Web services',
-      'Other'
+    RESOURCE_CLASS = [
+      "Maps",
+      "Datasets",
+      "Imagery",
+      "Collections",
+      "Websites",
+      "Web services",
+      "Other"
     ].freeze
 
     SCHEMA_PROVIDER = [
-      'Indiana University',
-      'University of Illinois Urbana-Champaign',
-      'University of Iowa',
-      'University of Maryland',
-      'University of Minnesota',
-      'Michigan State University',
-      'University of Michigan',
-      'Pennsylvania State University',
-      'Purdue University',
-      'University of Wisconsin - Madison',
-      'The Ohio State University',
-      'University of Chicago',
-      'University of Nebraska-Lincoln'
+      "Indiana University",
+      "University of Illinois Urbana-Champaign",
+      "University of Iowa",
+      "University of Maryland",
+      "University of Minnesota",
+      "Michigan State University",
+      "University of Michigan",
+      "Pennsylvania State University",
+      "Purdue University",
+      "University of Wisconsin - Madison",
+      "The Ohio State University",
+      "University of Chicago",
+      "University of Nebraska-Lincoln"
     ].freeze
 
     THEME = [
-      'Agriculture',
-      'Biology',
-      'Boundaries',
-      'Climate',
-      'Economy',
-      'Elevation',
-      'Environment',
-      'Events',
-      'Geology',
-      'Health',
-      'Imagery',
-      'Inland waters',
-      'Land cover',
-      'Location',
-      'Military',
-      'Oceans',
-      'Property',
-      'Society',
-      'Structure',
-      'Transportation',
-      'Utilities'
+      "Agriculture",
+      "Biology",
+      "Boundaries",
+      "Climate",
+      "Economy",
+      "Elevation",
+      "Environment",
+      "Events",
+      "Geology",
+      "Health",
+      "Imagery",
+      "Inland waters",
+      "Land cover",
+      "Location",
+      "Military",
+      "Oceans",
+      "Property",
+      "Society",
+      "Structure",
+      "Transportation",
+      "Utilities"
     ].freeze
 
     TYPE = [
-      'Image',
-      'Dataset',
-      'Service',
-      'Interactive Resource',
-      'Physical Object',
-      'Collection'
+      "Image",
+      "Dataset",
+      "Service",
+      "Interactive Resource",
+      "Physical Object",
+      "Collection"
     ].freeze
   end
 end

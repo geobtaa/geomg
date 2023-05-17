@@ -7,7 +7,7 @@ class BulkActionsController < ApplicationController
   # GET /bulk_actions
   # GET /bulk_actions.json
   def index
-    @pagy, @bulk_actions = pagy(BulkAction.all.order(created_at: :desc), items: 10)
+    @pagy, @bulk_actions = pagy(BulkAction.all.order(created_at: :desc), items: 20)
   end
 
   # GET /bulk_actions/1
@@ -23,7 +23,8 @@ class BulkActionsController < ApplicationController
   end
 
   # GET /bulk_actions/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /bulk_actions
   # POST /bulk_actions.json
@@ -32,7 +33,7 @@ class BulkActionsController < ApplicationController
 
     respond_to do |format|
       if @bulk_action.save
-        format.html { redirect_to @bulk_action, notice: 'Bulk action was successfully created.' }
+        format.html { redirect_to @bulk_action, notice: "Bulk action was successfully created." }
         format.json { render :show, status: :created, location: @bulk_action }
       else
         format.html { render :new }
@@ -46,7 +47,7 @@ class BulkActionsController < ApplicationController
   def update
     respond_to do |format|
       if @bulk_action.update(bulk_action_params)
-        format.html { redirect_to @bulk_action, notice: 'Bulk action was successfully updated.' }
+        format.html { redirect_to @bulk_action, notice: "Bulk action was successfully updated." }
         format.json { render :show, status: :ok, location: @bulk_action }
       else
         format.html { render :edit }
@@ -60,7 +61,7 @@ class BulkActionsController < ApplicationController
   def destroy
     @bulk_action.destroy
     respond_to do |format|
-      format.html { redirect_to bulk_actions_url, notice: 'Bulk action was successfully destroyed.' }
+      format.html { redirect_to bulk_actions_url, notice: "Bulk action was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -68,13 +69,13 @@ class BulkActionsController < ApplicationController
   def run
     @bulk_action.run!
     @bulk_action.state_machine.transition_to!(:queued)
-    redirect_to bulk_action_url(@bulk_action), notice: 'Bulk action is running. Check back soon for results.'
+    redirect_to bulk_action_url(@bulk_action), notice: "Bulk action is running. Check back soon for results."
   end
 
   def revert
     @bulk_action.revert!
     @bulk_action.state_machine.transition_to!(:queued)
-    redirect_to bulk_action_url(@bulk_action), notice: 'Revert bulk action is running. Check back soon for results.'
+    redirect_to bulk_action_url(@bulk_action), notice: "Revert bulk action is running. Check back soon for results."
   end
 
   private

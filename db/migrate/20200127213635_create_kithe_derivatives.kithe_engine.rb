@@ -6,7 +6,7 @@ class CreateKitheDerivatives < ActiveRecord::Migration[5.2]
     create_table :kithe_derivatives do |t|
       t.string :key, null: false
       t.jsonb :file_data
-      t.references :asset, foreign_key: { to_table: :kithe_models }, type: :uuid, index: true, null: false
+      t.references :asset, foreign_key: {to_table: :kithe_models}, type: :uuid, index: true, null: false
 
       t.timestamps
     end

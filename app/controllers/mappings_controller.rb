@@ -26,7 +26,8 @@ class MappingsController < ApplicationController
   end
 
   # GET /mappings/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /mappings
   # POST /mappings.json
@@ -35,7 +36,7 @@ class MappingsController < ApplicationController
 
     respond_to do |format|
       if @mapping.save
-        format.html { redirect_to import_mapping_path(@import, @mapping), notice: 'Mapping was successfully created.' }
+        format.html { redirect_to import_mapping_path(@import, @mapping), notice: "Mapping was successfully created." }
         format.json { render :show, status: :created, location: @mapping }
       else
         format.html { render :new }
@@ -49,7 +50,7 @@ class MappingsController < ApplicationController
   def update
     respond_to do |format|
       if @mapping.update(mapping_params)
-        format.html { redirect_to import_mappings_path(@mapping.import), notice: 'Mapping was successfully updated.' }
+        format.html { redirect_to import_mappings_path(@mapping.import), notice: "Mapping was successfully updated." }
         format.json { render :show, status: :ok, location: @mapping }
       else
         format.html { render :edit }
@@ -63,7 +64,7 @@ class MappingsController < ApplicationController
   def destroy
     @mapping.destroy
     respond_to do |format|
-      format.html { redirect_to import_mappings_url(@import), notice: 'Mapping was successfully destroyed.' }
+      format.html { redirect_to import_mappings_url(@import), notice: "Mapping was successfully destroyed." }
       format.json { head :no_content }
     end
   end

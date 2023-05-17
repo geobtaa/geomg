@@ -1,0 +1,2 @@
+class FormGroup < FormElement
+end

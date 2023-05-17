@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class BookmarksControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    get '/users/sign_in'
+    get "/users/sign_in"
     sign_in_as users(:user_001)
     post user_session_url
 
@@ -14,13 +14,13 @@ class BookmarksControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test 'should render bookmarks index view' do
+  test "should render bookmarks index view" do
     get bookmarks_url
     assert_response :success
   end
 
-  test 'should render bookmarks#index as csv' do
-    get bookmarks_url, params: { format: 'csv' }
+  test "should render bookmarks#index as csv" do
+    get bookmarks_url, params: {format: "csv"}
     assert_response :success
   end
 end

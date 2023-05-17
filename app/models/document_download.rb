@@ -9,7 +9,7 @@ class DocumentDownload < ApplicationRecord
   validates :label, :value, presence: true
 
   def self.import(file)
-    logger.debug('CSV Import')
+    logger.debug("CSV Import")
     CSV.foreach(file.path, headers: true) do |row|
       logger.debug("CSV Row: #{row.to_hash}")
       document_download = DocumentDownload.find_or_initialize_by(friendlier_id: row[0], label: row[1], value: row[2])
@@ -18,15 +18,15 @@ class DocumentDownload < ApplicationRecord
   end
 
   def self.destroy_all(file)
-    logger.debug('CSV Destroy')
+    logger.debug("CSV Destroy")
     CSV.foreach(file.path, headers: true) do |row|
       logger.debug("CSV Row: #{row.to_hash}")
-      document_download = DocumentDownload.destroy_by(id: row[0], friendlier_id: row[1])
+      DocumentDownload.destroy_by(id: row[0], friendlier_id: row[1])
     end
   end
 
   def to_csv
-    self.attributes.values
+    attributes.values
   end
 
   def reindex_document
