@@ -23,6 +23,11 @@ module Geomg
         delimited: true,
         transformation_method: nil
       },
+      'Display Note': {
+        destination: GEOMG.FIELDS.DISPLAY_NOTE,
+        delimited: true,
+        transformation_method: nil
+      },
       'Language': {
         destination: GEOMG.FIELDS.LANGUAGE,
         delimited: true,

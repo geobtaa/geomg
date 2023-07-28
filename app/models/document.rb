@@ -60,6 +60,7 @@ class Document < Kithe::Work
   attr_json GEOMG.FIELDS.TITLE.to_sym, :string
   attr_json GEOMG.FIELDS.ALT_TITLE.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.DESCRIPTION.to_sym, :string, array: true, default: -> { [] }
+  attr_json GEOMG.FIELDS.DISPLAY_NOTE.to_sym, :string, array: true, default: -> { [] }
   attr_json GEOMG.FIELDS.LANGUAGE.to_sym, :string, array: true, default: -> { [] }
 
   # - Credits

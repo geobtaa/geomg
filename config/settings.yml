@@ -25,6 +25,7 @@ FIELDS:
   :CENTROID: 'dcat_centroid'
   :CREATOR: 'dct_creator_sm'
   :DESCRIPTION: 'dct_description_sm'
+  :DISPLAY_NOTE: 'gbl_displayNote_sm'
   :FILE_SIZE: 'gbl_fileSize_s' # @TODO: New field
   :FORMAT: 'dct_format_s'
   :GEOM: 'locn_geometry' # @TODO: New Solr field name

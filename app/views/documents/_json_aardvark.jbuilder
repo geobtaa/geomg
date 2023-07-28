@@ -7,6 +7,7 @@
 json.dct_title_s          no_json_blanks document.send(GEOMG.FIELDS.TITLE)
 json.dct_alternative_sm   no_json_blanks document.send(GEOMG.FIELDS.ALT_TITLE)
 json.dct_description_sm   no_json_blanks document.send(GEOMG.FIELDS.DESCRIPTION)
+json.gbl_displayNote_sm   no_json_blanks document.send(GEOMG.FIELDS.DISPLAY_NOTE)
 json.dct_language_sm      no_json_blanks document.send(GEOMG.FIELDS.LANGUAGE)
 json.dct_creator_sm       no_json_blanks document.send(GEOMG.FIELDS.CREATOR)
 json.dct_publisher_sm     no_json_blanks document.send(GEOMG.FIELDS.PUBLISHER)
