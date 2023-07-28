@@ -10,6 +10,9 @@ en:
         dct_description_sm:
           one: "Description"
           other: "Description"
+        gbl_displayNote_sm:
+          one: "Display Note"
+          other: "Display Note"
         dct_language_sm:
           one: "Language"
           other: "Languages"

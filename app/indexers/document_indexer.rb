@@ -15,6 +15,7 @@ class DocumentIndexer < Kithe::Indexer
     to_field GEOMG.FIELDS.TITLE, obj_extract('title')
     to_field GEOMG.FIELDS.ALT_TITLE, obj_extract(GEOMG.FIELDS.ALT_TITLE)
     to_field GEOMG.FIELDS.DESCRIPTION, obj_extract(GEOMG.FIELDS.DESCRIPTION)
+    to_field GEOMG.FIELDS.DISPLAY_NOTE, obj_extract(GEOMG.FIELDS.DISPLAY_NOTE)
     to_field GEOMG.FIELDS.LANGUAGE, obj_extract(GEOMG.FIELDS.LANGUAGE)
     to_field GEOMG.FIELDS.B1G_LANGUAGE, obj_extract('iso_language_mapping')
 
