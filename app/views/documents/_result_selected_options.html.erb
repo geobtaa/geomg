@@ -1,4 +1,4 @@
-<span id="result-selected-options" class="hidden" data-scope="pageset" data-controller="results" data-resultset="<%= documents_path( params.to_unsafe_h.merge({rows: '1000000'})) %>" data-pageset="/fetch?">
+<span id="result-selected-options" class="hidden" data-scope="pageset" data-controller="results" data-resultset="<%= documents_path( params.to_unsafe_h.merge({rows: '10000'})) %>" data-pageset="/fetch?">
 
   <%= form_with(model: BulkAction.new, html: { id: 'result-action-form', data: { type: "html", action: "submit->results#setPubState" }, style: 'display:inline'}) do |form| -%>
     <%= form.hidden_field :scope, value: "-" %>
