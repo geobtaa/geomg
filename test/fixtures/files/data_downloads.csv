@@ -1,0 +1,3 @@
+friendlier_id,label,value
+999-0001,GeoTIFF,https://s3.amazonaws.com/holc/tiles/WI/Madison/1937/rectified.zip
+999-0001,JPEG,https://s3.amazonaws.com/holc/tiles/WI/Madison/1937/holc-scan.jpg
